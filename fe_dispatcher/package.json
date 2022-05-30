@@ -1,0 +1,13 @@
+{
+    "name": "fe_dispatcher",
+    "version": "0.0.1",
+    "description": "Frontend dispatcher microservice",
+    "author": "rquevedo",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "express": "^4.16.1"
+    }
+  }
