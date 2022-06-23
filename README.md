@@ -15,4 +15,13 @@ Open terminal
 docker-compose up 
 ```
 
+**Phpmyadmin**
+http://localhost:8081/
+
+User: service_users
+Pw: userspw
+
+**Frontend**
+http://localhost:8080/
+
 **Let's code!**
