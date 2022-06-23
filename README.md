@@ -1,6 +1,8 @@
 # AppArCar
 CAECE University Final Proyect - Node-based mobile application
 
+**How I started?**
+
 Clone repository 
 
 Open terminal 
@@ -8,9 +10,9 @@ Open terminal
 git clone https://github.com/raquevedo/AppArCar.git 
 ```
 
-How I started? 
-
 Open terminal 
 ```sh
 docker-compose up 
 ```
+
+**Let's code!**
