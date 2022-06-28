@@ -40,3 +40,13 @@ services:
       - users_db
     ports :
       - 8080:8080
+
+  be_user_service:
+    build:
+      context: ./user_service/user_service
+      dockerfile: Dockerfile
+    container_name : ms_user_service
+    links :
+      - users_db
+    ports :
+      - 8080:8080
