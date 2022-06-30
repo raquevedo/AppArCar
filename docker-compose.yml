@@ -42,14 +42,3 @@ services:
       - users_db
     ports :
       - 8080:8080
-
-  be_user_service:
-    depends_on:
-      - users_db
-    restart: always
-    build:
-      context: ./user_service/user_service
-      dockerfile: Dockerfile
-    container_name : ms_user_service
-    ports :
-      - 3000:3000
