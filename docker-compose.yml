@@ -9,12 +9,14 @@ services:
       - "./sql/init_users_db.sql:/docker-entrypoint-initdb.d/init_users_db.sql"
       - "./.mysql-data/db:/var/lib/mysql"
     restart: always
+    expose:
+      - 3306
     ports:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: rootpw
       MYSQL_DATABASE: users
-      MYSQL_USER: service_users
+      MYSQL_USER: ms_users_app
       MYSQL_PASSWORD: userspw
 
   phpmyadmin:
@@ -36,16 +38,6 @@ services:
       context: ./fe_dispatcher
       dockerfile: Dockerfile
     container_name : fe
-    links :
-      - users_db
-    ports :
-      - 8080:8080
-
-  be_user_service:
-    build:
-      context: ./user_service/user_service
-      dockerfile: Dockerfile
-    container_name : ms_user_service
     links :
       - users_db
     ports :
