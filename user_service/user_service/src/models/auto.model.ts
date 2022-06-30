@@ -7,15 +7,6 @@ export class Auto extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'ANIO', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
-  })
-  anio: number;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
     id: 1,
     mysql: {columnName: 'ID', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
@@ -29,6 +20,14 @@ export class Auto extends Entity {
     mysql: {columnName: 'ID_CONDUCTOR', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
   idConductor: number;
+
+  @property({
+    type: 'string',
+    required: true,
+    length: 10,
+    mysql: {columnName: 'PATENTE', dataType: 'varchar', dataLength: 10, dataPrecision: null, dataScale: null, nullable: 'N'},
+  })
+  patente: string;
 
   @property({
     type: 'string',
@@ -47,12 +46,13 @@ export class Auto extends Entity {
   modelo: string;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
-    length: 10,
-    mysql: {columnName: 'PATENTE', dataType: 'varchar', dataLength: 10, dataPrecision: null, dataScale: null, nullable: 'N'},
+    precision: 10,
+    scale: 0,
+    mysql: {columnName: 'ANIO', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  patente: string;
+  anio: number;
 
   @property({
     type: 'date',

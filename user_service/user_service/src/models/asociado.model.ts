@@ -7,24 +7,18 @@ export class Asociado extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mysql: {columnName: 'ALTURA', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    id: 1,
+    mysql: {columnName: 'ID', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  altura: number;
+  id: number;
 
   @property({
     type: 'string',
     required: true,
     length: 100,
-    mysql: {columnName: 'CALLE', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {columnName: 'RAZON_SOCIAL', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
-  calle: string;
-
-  @property({
-    type: 'date',
-    required: true,
-    mysql: {columnName: 'CREATED_AT', dataType: 'datetime', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
-  })
-  createdAt: string;
+  razonSocial: string;
 
   @property({
     type: 'string',
@@ -38,39 +32,54 @@ export class Asociado extends Entity {
     type: 'string',
     required: true,
     length: 100,
-    mysql: {columnName: 'EMAIL', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {columnName: 'CALLE', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
-  email: string;
+  calle: string;
 
   @property({
     type: 'number',
     required: true,
     precision: 10,
     scale: 0,
-    id: 1,
-    mysql: {columnName: 'ID', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+    mysql: {columnName: 'ALTURA', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
   })
-  id: number;
-
-  @property({
-    type: 'geopoint',
-    mysql: {columnName: 'LATITUD', dataType: 'point', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'Y'},
-  })
-  latitud?: string;
-
-  @property({
-    type: 'geopoint',
-    mysql: {columnName: 'LONGITUD', dataType: 'point', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'Y'},
-  })
-  longitud?: string;
+  altura: number;
 
   @property({
     type: 'string',
     required: true,
     length: 100,
-    mysql: {columnName: 'RAZON_SOCIAL', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {columnName: 'EMAIL', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
-  razonSocial: string;
+  email: string;
+
+  @property({
+    type: 'number',
+    precision: 12,
+    mysql: {columnName: 'LATITUD', dataType: 'float', dataLength: null, dataPrecision: 12, dataScale: null, nullable: 'Y'},
+  })
+  latitud?: number;
+
+  @property({
+    type: 'number',
+    precision: 12,
+    mysql: {columnName: 'LONGITUD', dataType: 'float', dataLength: null, dataPrecision: 12, dataScale: null, nullable: 'Y'},
+  })
+  longitud?: number;
+
+  @property({
+    type: 'date',
+    required: true,
+    mysql: {columnName: 'SYS_CREATED_AT', dataType: 'datetime', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
+  })
+  sysCreatedAt: string;
+
+  @property({
+    type: 'date',
+    required: true,
+    mysql: {columnName: 'SYS_UPDATED_AT', dataType: 'datetime', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
+  })
+  sysUpdatedAt: string;
 
   // Define well-known properties here
 

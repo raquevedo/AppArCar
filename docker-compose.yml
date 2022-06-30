@@ -46,6 +46,7 @@ services:
   be_user_service:
     depends_on:
       - users_db
+    restart: always
     build:
       context: ./user_service/user_service
       dockerfile: Dockerfile

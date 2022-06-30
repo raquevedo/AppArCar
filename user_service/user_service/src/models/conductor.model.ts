@@ -3,6 +3,24 @@ import {Entity, model, property} from '@loopback/repository';
 @model({settings: {idInjection: false, mysql: {schema: 'users', table: 'conductor'}}})
 export class Conductor extends Entity {
   @property({
+    type: 'number',
+    required: true,
+    precision: 10,
+    scale: 0,
+    id: 1,
+    mysql: {columnName: 'ID', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
+  })
+  id: number;
+
+  @property({
+    type: 'string',
+    required: true,
+    length: 100,
+    mysql: {columnName: 'NOMBRE', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
+  })
+  nombre: string;
+
+  @property({
     type: 'string',
     required: true,
     length: 100,
@@ -20,14 +38,6 @@ export class Conductor extends Entity {
   dni: number;
 
   @property({
-    type: 'string',
-    required: true,
-    length: 100,
-    mysql: {columnName: 'EMAIL', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
-  })
-  email: string;
-
-  @property({
     type: 'date',
     required: true,
     mysql: {columnName: 'FECHA_NACIMIENTO', dataType: 'datetime', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'N'},
@@ -43,22 +53,12 @@ export class Conductor extends Entity {
   genero: string;
 
   @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    id: 1,
-    mysql: {columnName: 'ID', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N'},
-  })
-  id: number;
-
-  @property({
     type: 'string',
     required: true,
     length: 100,
-    mysql: {columnName: 'NOMBRE', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
+    mysql: {columnName: 'EMAIL', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'N'},
   })
-  nombre: string;
+  email: string;
 
   @property({
     type: 'date',
