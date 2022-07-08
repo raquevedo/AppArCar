@@ -54,15 +54,18 @@ AUDIT COLUMNS
 ## Naming conventions
 
 **TABLES** 
-Each table should be use prefix on table_name. Prefix is an abbreviation refeer to database name, prefix lenght 3 characters.
+Each table should be use prefix on table_name. Prefix is an abbreviation refeer to database name, prefix lenght **3** characters.
 
-Example --> Database: Users --> Prefix: usr
+Example
+```sh
+Database: Users --> Prefix: usr
+```
 
 **COLUMNS**
 
-Audit columns should be use prefix "sys"
-Date columns should be use suffix "dt"
-Datetime columns should be use suffix "dttm"
+- Audit columns should be use prefix **"sys"**
+- Date columns should be use suffix **"dt"**
+- Datetime columns should be use suffix **"dttm"**
 
 
 **ACCESS DATABASE** 
