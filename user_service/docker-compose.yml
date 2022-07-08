@@ -1,0 +1,34 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+  users_db:
+    image: mysql:8.0.29
+    container_name: usr-db
+    volumes:
+      - "./db/config/init_users_db.sql:/docker-entrypoint-initdb.d/init_users_db.sql"
+      - "./.mysql-data/db:/var/lib/mysql"
+    restart: always
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpw
+      MYSQL_DATABASE: users
+      MYSQL_USER: ms_users_app
+      MYSQL_PASSWORD: pwdusersapp
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: php-my-admin
+    links:
+      - users_db
+    environment:
+      PMA_HOST: usr-db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+      UPLOAD_LIMIT: 300M
+    restart: always
+    ports:
+      - 8081:80
