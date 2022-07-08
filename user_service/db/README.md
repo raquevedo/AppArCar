@@ -7,7 +7,7 @@ Users db was created following our RDBS modeling guidelines
 
 Users service use a service principal for authentication at RDBS 
 
-Service principal: ms_[databasename]_app
+**Service principal**: ms_[databasename]_app
 
 usr: ms_users_app
 pwd: pwdusersapp
@@ -23,30 +23,33 @@ pwd: pwdusersapp
 ## Datatypes 
 We only use a few data types for improve perfomance and maintence high standard modeling techniques 
 
-Adventage
--Compatibility with back-end framework 
--Simplify modeling task 
--Reduce transformation at downstream 
--Simplify interactions with other services
+**Adventage**
+- Compatibility with back-end framework 
+- Simplify modeling task 
+- Reduce transformation at downstream 
+- Simplify interactions with other services
 
-Data types permitted
--BIGINT
--INTEGER
--FLOAT
--VARCHAR
--DATE
--DATETIME
+**Data types permitted**
+
+- BIGINT
+- INTEGER
+- FLOAT
+- VARCHAR
+- DATE
+- DATETIME
 
 ## General conventions
 
-Mandatory: All tables should be contains 
+**Mandatory**: All tables should be contains 
 
-id : UNIQUE ID AUTOINCREMENTAL 
+
+- id : UNIQUE ID AUTOINCREMENTAL 
+
 
 AUDIT COLUMNS 
 
-sys_created_at_dttm: DATETIME 
-sys_updated_at_dttm: DATETIME
+- sys_created_at_dttm: DATETIME 
+- sys_updated_at_dttm: DATETIME
 
 ## Naming conventions
 
