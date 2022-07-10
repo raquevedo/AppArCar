@@ -1,0 +1,39 @@
+services:
+
+  users_backend:
+    build:
+      context: .
+      dockerfile: user_service/Dockerfile
+    
+    container_name: user_service
+
+    volumes:
+      - ./user_service:/backend
+
+    ports:
+      - 8000:8000
+    
+    depends_on:
+      - mysqlDb
+
+  mysqlDb:
+    image: mysql
+
+    # These are required variables for the official MySQL image
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "db"
+      MYSQL_USER: "loopback"
+      MYSQL_PASSWORD: "password"
+
+    # Default MySQL port
+    ports:
+      - 3306:3306
+
+    # Data persistence
+    volumes:
+      - db_storage:/var/lib/mysql
+
+# These must be declared to be used above
+volumes:
+  db_storage:
