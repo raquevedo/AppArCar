@@ -1,3 +1,9 @@
+# Instalacion
+
+* Descargar node.js desde la pagina oficial
+* posicionarse en la raiz del proyecto npm install react-scripts --save
+* luego para levantar react ejecutar npm start
+* Listo!
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
