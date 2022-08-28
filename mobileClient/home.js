@@ -1,0 +1,19 @@
+import * as React from 'react';
+import { View, TextInput, Button, Text } from 'react-native';
+import { AuthContext } from './contexto'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+function HomeScreen({navigation}){
+    const { signOut } = React.useContext(AuthContext);
+    
+      return(
+        <View>
+        <Button title="Sign out" onPress={() => signOut({})} />
+      </View>
+      );
+    
+    
+}
+
+export default HomeScreen;
