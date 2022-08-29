@@ -8,9 +8,9 @@ services:
       dockerfile: Dockerfile
     container_name: auth_service_api
     environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_DB: authDb
+      MYSQL_USER: ms_auth_app
+      MYSQL_PASSWORD: pwdauthapp
+      MYSQL_DB: auth
     ports:
       - 3000:3000
     volumes:
@@ -20,20 +20,18 @@ services:
 
   # mysql database -> https://hub.docker.com/_/mysql/
   authDb:
-    image: mysql:5.6
-    container_name: mysql-db
+    image: mysql:8.0.29
+    container_name: auth-db
+    volumes:
+      - "./db/scripts/init_auth_db.sql:/docker-entrypoint-initdb.d/init_auth_db.sql"
+      - "./.mysql-data/db:/var/lib/mysql"
+    restart: always
+    expose:
+      - 3306
     ports:
         - 3306:3306
     environment:
-      MYSQL_DATABASE: 'authDb'
-      MYSQL_USER: 'loopback'
-      MYSQL_PASSWORD: '12345'
-      MYSQL_ROOT_HOST: '%'
-      MYSQL_ROOT_PASSWORD: password
-    # create and map separate volume
-    volumes:
-      - ./auth_database_vol:/var/lib/mysql
-
-volumes:
-  # mysql
-  auth_database_vol:
+      MYSQL_DATABASE: auth
+      MYSQL_USER: ms_auth_app
+      MYSQL_PASSWORD: pwdauthapp
+      MYSQL_ROOT_PASSWORD: rootpw
