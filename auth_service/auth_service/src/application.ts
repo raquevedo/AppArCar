@@ -15,7 +15,7 @@ import {
   SECURITY_SCHEME_SPEC,
   UserServiceBindings,
 } from '@loopback/authentication-jwt';
-import {DbDataSource} from './datasources';
+import {AuthdbDataSource} from './datasources';
 
 export {ApplicationConfig};
 
@@ -52,6 +52,6 @@ export class AuthServiceApplication extends BootMixin(
     // Mount jwt component
     this.component(JWTAuthenticationComponent);
     // Bind datasource
-    this.dataSource(DbDataSource, UserServiceBindings.DATASOURCE_NAME);
+    this.dataSource(AuthdbDataSource, UserServiceBindings.DATASOURCE_NAME);
   }
 }
