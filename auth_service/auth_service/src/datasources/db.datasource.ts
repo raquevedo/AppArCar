@@ -2,12 +2,12 @@ import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
 const config = {
-  name: 'authDb',
-  connector: 'mysql',
-  url: '',
-  host: 'localhost',
-  port: 3306,
-  user: 'root',
+  name: 'db',
+  connector: 'postgresql',
+  url: 'postgresql://postgres:password@authDb:5432/authDb',
+  host: 'authDb',
+  port: 5432,
+  user: 'postgres',
   password: 'password',
   database: 'authDb'
 };

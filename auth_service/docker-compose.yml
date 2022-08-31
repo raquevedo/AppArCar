@@ -8,9 +8,9 @@ services:
       dockerfile: Dockerfile
     container_name: auth_service_api
     environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_DB: authDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: authDb
     ports:
       - 3000:3000
     volumes:
@@ -18,21 +18,17 @@ services:
     depends_on:
       - authDb
 
-  # mysql database -> https://hub.docker.com/_/mysql/
   authDb:
-    image: mysql:5.6
-    container_name: mysql-db
+    image: postgres:14.1
+    container_name: authDb
     ports:
-        - 3306:3306
-    environment:
-      MYSQL_DATABASE: 'authDb'
-      MYSQL_USER: 'loopback'
-      MYSQL_PASSWORD: '12345'
-      MYSQL_ROOT_HOST: '%'
-      MYSQL_ROOT_PASSWORD: password
-    # create and map separate volume
+      - 5432:5432
     volumes:
-      - ./auth_database_vol:/var/lib/mysql
+      - ./auth_database_vol:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: authDb
 
 volumes:
   # mysql
