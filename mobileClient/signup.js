@@ -1,6 +1,6 @@
 import  * as React from 'react';
 import { View, TextInput, Button} from 'react-native';
-import { AuthContext } from './contexto'
+import { AuthContext } from './context'
 
 function SignUpScreen({navigation}) {
     const [username, setUsername] = React.useState('');

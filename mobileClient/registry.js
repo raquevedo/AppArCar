@@ -1,38 +1,38 @@
 import  * as React from 'react';
 import { View, TextInput, Button} from 'react-native';
-import { AuthContext } from './contexto'
+import { AuthContext } from './context'
 
 function FormReg({navigation}) {
-    const [nombre, setNombre] = React.useState('');
-    const [apellido, setApellido] = React.useState('');
-    const [patente, setPatente] = React.useState('');
-    const [ciudad, setciudad] = React.useState('');
-    const { registroOk } = React.useContext(AuthContext);
-    const registro=true;
+    const [name, setname] = React.useState('');
+    const [lastName, setlastName] = React.useState('');
+    const [patent, setpatent] = React.useState('');
+    const [city, setcity] = React.useState('');
+    const { register } = React.useContext(AuthContext);
+    const registered=true;
     return (
       <View>
         <TextInput
-          placeholder="nombre"
-          value={nombre}
-          onChangeText={setNombre}
+          placeholder="name"
+          value={name}
+          onChangeText={setname}
         />
         <TextInput
-          placeholder="apellido"
-          value={apellido}
-          onChangeText={setApellido}
+          placeholder="lastName"
+          value={lastName}
+          onChangeText={setlastName}
         />
         <TextInput
-          placeholder="patente"
-          value={patente}
-          onChangeText={setPatente}
+          placeholder="patent"
+          value={patent}
+          onChangeText={setpatent}
         />
          <TextInput
-          placeholder="ciudad"
-          value={ciudad}
-          onChangeText={setciudad}
+          placeholder="city"
+          value={city}
+          onChangeText={setcity}
         />
         
-        <Button title="Cargar" onPress={() => registroOk({registro})} />
+        <Button title="Cargar" onPress={() => register({registered})} />
       </View>
     );
   }
