@@ -1,0 +1,6 @@
+.Ingresos{
+    display: flex;
+    width: 20%;
+    margin-left: 40%;
+    flex-direction: column;
+}
