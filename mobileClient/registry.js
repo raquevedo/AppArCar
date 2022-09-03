@@ -6,7 +6,14 @@ function FormReg({navigation}) {
     const [name, setname] = React.useState('');
     const [lastName, setlastName] = React.useState('');
     const [patent, setpatent] = React.useState('');
-    const [city, setcity] = React.useState('');
+    const [document, setDocument] = React.useState('');
+    const [birthday, setBirthday] = React.useState('');
+    const [residence, setResidence] = React.useState('');
+    const [mobile, setMobile] = React.useState('');
+    const [brandCar, setBrandCar] = React.useState('');
+    const [modelCar, setModelCar] = React.useState('');
+
+
     const { register } = React.useContext(AuthContext);
     const registered=true;
     return (
@@ -27,9 +34,34 @@ function FormReg({navigation}) {
           onChangeText={setpatent}
         />
          <TextInput
-          placeholder="city"
-          value={city}
-          onChangeText={setcity}
+          placeholder="document"
+          value={document}
+          onChangeText={setDocument}
+        />
+        <TextInput
+          placeholder="birthday"
+          value={birthday}
+          onChangeText={setBirthday}
+        />
+        <TextInput
+          placeholder="residence"
+          value={residence}
+          onChangeText={setResidence}
+        />
+        <TextInput
+          placeholder="mobile"
+          value={mobile}
+          onChangeText={setMobile}
+        />
+        <TextInput
+          placeholder="brandCar"
+          value={brandCar}
+          onChangeText={setBrandCar}
+        />
+        <TextInput
+          placeholder="modelCar"
+          value={modelCar}
+          onChangeText={setModelCar}
         />
         
         <Button title="Cargar" onPress={() => register({registered})} />
@@ -37,3 +69,8 @@ function FormReg({navigation}) {
     );
   }
   export default FormReg;
+
+  /*
+  marca
+  modelo del auto
+  */

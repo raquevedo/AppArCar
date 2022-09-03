@@ -8,6 +8,7 @@ import HomeScreen from './home';
 import SignInScreen from './signin';
 import SignUpScreen from './signup';
 import FormReg from './registry';
+import Profile from './profile';
 import { AuthContext } from './context';
 
 
@@ -118,9 +119,9 @@ export default function App({navigation}) {
         if(data.email == "existente@existente"){ 
           Alert.alert("Ya existe una cuenta con este correo electronico");
         }else{
-          console.log('\nusuario:'+data.username+'\ncontraseña: '+data.password+'\nemail: '+data.email)
-        //dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
-          Alert.alert("Felicitaciones 'Registrado' su cuenta ha sido activada por favor loguearse para acceder a AppArCar")
+          console.log('\nusuario:'+data.username+'\ncontraseña: '+data.password+'\nemail: '+data.email);
+          
+          Alert.alert("Felicitaciones 'Registrado' su cuenta ha sido activada por favor loguearse para acceder a AppArCar");
         }
       },
       register: async(data) => {
@@ -146,6 +147,8 @@ export default function App({navigation}) {
           {isRegistered ? (
             <>
               <Stack.Screen name="Home" component={HomeScreen}/>
+              <Stack.Screen name="EditProfile" component={Profile}/>
+
            </>  
             ) : (
             <>

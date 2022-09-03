@@ -9,7 +9,8 @@ function HomeScreen({navigation}){
     
       return(
         <View>
-        <Button title="Sign out" onPress={() => signOut({})} />
+          <Button title="Editar perfil" onPress={() => navigation.navigate("EditProfile")} />
+          <Button title="Sign out" onPress={() => signOut({})} />
       </View>
       );
     

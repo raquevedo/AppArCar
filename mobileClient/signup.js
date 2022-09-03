@@ -2,13 +2,20 @@ import  * as React from 'react';
 import { View, TextInput, Button} from 'react-native';
 import { AuthContext } from './context'
 
+function sendForm(data,nav){
+  
+  signUp({data});
+  nav.goBack();
+}
+
+
 function SignUpScreen({navigation}) {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [email, setEmail] = React.useState('');
   
-    const { signUp } = React.useContext(AuthContext);
-  
+    const { signUp } = React.useContext(AuthContext);  
+
     return (
       <View>
         <TextInput
@@ -28,8 +35,10 @@ function SignUpScreen({navigation}) {
           secureTextEntry
         />
         
-        <Button title="Sign up" onPress={() => signUp({ username, password, email })} />
+        <Button title="Sign up" onPress={() => signUp({ username, password, email }) & navigation.goBack()} />
       </View>
     );
   }
   export default SignUpScreen;
+  /*sendForm({ username, password, email })*/
+  
