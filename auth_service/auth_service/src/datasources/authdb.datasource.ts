@@ -2,13 +2,13 @@ import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
 const config = {
-  name: 'db',
+  name: 'authDb',
   connector: 'postgresql',
-  url: 'postgresql://postgres:password@authDb:5432/authDb',
+  url: 'postgresql://ms_auth_app:pwdauthsapp@authDb:5432/authDb',
   host: 'authDb',
   port: 5432,
-  user: 'postgres',
-  password: 'password',
+  user: 'ms_auth_app',
+  password: 'pwdauthsapp',
   database: 'authDb'
 };
 

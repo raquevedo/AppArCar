@@ -1,16 +1,20 @@
-DROP TABLE IF EXISTS public.user; 
+CREATE TABLE public."user" (
+    id text NOT NULL,
+    realm text,
+    username text,
+    email text NOT NULL,
+    emailverified boolean,
+    verificationtoken text
+);
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+CREATE UNIQUE INDEX user_email_idx ON public."user" USING btree (email);
 
-CREATE TABLE IF NOT EXISTS public.user (
-    id SERIAL NOT NULL,
-    realm VARCHAR(100),
-    username VARCHAR(100) DEFAULT '',
-    email VARCHAR(256) NOT NULL,
-    emailVerified INTEGER NOT NULL DEFAULT 0,
-    verificationToken VARCHAR(256),
-    password VARCHAR(64) NOT NULL,
-    additionalProp1 JSON DEFAULT Null,
-    sys_created_at_dttm timestamp NOT NULL,
-    sys_updated_at_dttm timestamp NOT NULL,
-    UNIQUE (id)  
-) 
-;
+
+CREATE TABLE public.usercredentials (
+    id text NOT NULL,
+    password text NOT NULL,
+    userid text NOT NULL
+);
+ALTER TABLE ONLY public.usercredentials
+    ADD CONSTRAINT usercredentials_pkey PRIMARY KEY (id);

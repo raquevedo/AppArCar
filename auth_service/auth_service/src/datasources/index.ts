@@ -1,1 +1,1 @@
-export * from './db.datasource';
+export * from './authdb.datasource';
