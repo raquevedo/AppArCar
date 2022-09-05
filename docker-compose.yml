@@ -17,6 +17,7 @@ volumes:
     driver_opts:
      type: tmpfs
      device: tmpfs
+  auth_database_vol:
 
 networks:
   kong-net:
@@ -115,6 +116,39 @@ services:
       - kong-net
     volumes:
       - kong_data:/var/lib/postgresql/data
+
+  auth_service:
+    build:
+      context: ./auth_service/auth_service
+      dockerfile: Dockerfile
+    container_name: auth_service_api
+    environment:
+      POSTGRES_USER: ms_auth_app
+      POSTGRES_PASSWORD: pwdauthsapp
+      POSTGRES_DB: authDb
+    ports:
+      - 3000:3000
+    volumes:
+      - ./auth_service:/usr/src/auth_service
+    networks:
+      - kong-net
+    depends_on:
+      - authDb
+
+  authDb:
+    image: postgres:14.1
+    container_name: authDb
+    ports:
+      - 5432:5432
+    volumes:
+      - "./db/scripts/init_auth_db.sql:/docker-entrypoint-initdb.d/init_auth_db.sql"
+      - ./auth_database_vol:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ms_auth_app
+      POSTGRES_PASSWORD: pwdauthsapp
+      POSTGRES_DB: authDb
+    networks:
+      - kong-net
 
 secrets:
   kong_postgres_password:

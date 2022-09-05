@@ -1,3 +1,12 @@
-# a very minimal declarative config file
 _format_version: "2.1"
 _transform: true
+
+services:
+ - host: auth_service
+   url: http://auth_service:3000
+   name: auth_service
+   protocol: http
+   routes:
+   - name: authentication
+     paths:
+     - /auth
