@@ -95,6 +95,7 @@ services:
     security_opt:
       - no-new-privileges
 
+
   db:
     image: postgres:9.5
     profiles: ["database"]
@@ -116,6 +117,8 @@ services:
       - kong-net
     volumes:
       - kong_data:/var/lib/postgresql/data
+  
+ 
 
   auth_service:
     build:
@@ -127,7 +130,8 @@ services:
       POSTGRES_PASSWORD: pwdauthsapp
       POSTGRES_DB: authDb
     ports:
-      - 3000:3000
+     - 3000:3000
+
     volumes:
       - ./auth_service:/usr/src/auth_service
     networks:
@@ -149,6 +153,38 @@ services:
       POSTGRES_DB: authDb
     networks:
       - kong-net
+  
+  user_service:
+    build:
+      context: ./user_service/user_service
+      dockerfile: Dockerfile
+    container_name: user_service_api
+    ports:
+      - "9091:80"
+    environment:
+      POSTGRES_USER: ms_user_app
+      POSTGRES_PASSWORD: pwduserapp
+      POSTGRES_DB: userDb
+    volumes:
+      - ./user_service:/usr/src/user_service
+    networks:
+      - kong-net
+    depends_on:
+      - userDb
+
+  userDb:
+    image: postgres:14.1
+    container_name: userDb
+    volumes:
+      - "./user_service/db/scripts/init_auth_db.sql:/docker-entrypoint-initdb.d/init_auth_db.sql"
+      - ./user_service/user_database_vol:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ms_user_app
+      POSTGRES_PASSWORD: pwduserapp
+      POSTGRES_DB: userDb
+    networks:
+      - kong-net
+
 
 secrets:
   kong_postgres_password:
