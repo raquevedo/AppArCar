@@ -12,3 +12,11 @@ services:
     - name: authentication
       paths:
       - /auth
+  - host: user_service
+    url: http://user_service:3001
+    name: user_service
+    protocol: http
+    routes:
+    - name: authentication
+      paths:
+      - /user     

@@ -150,6 +150,39 @@ services:
     networks:
       - kong-net
 
+  user_service:
+    build:
+      context: ./user_service/user_service
+      dockerfile: Dockerfile
+    container_name: user_service_api
+    environment:
+      POSTGRES_USER: ms_user_app
+      POSTGRES_PASSWORD: pwdauserapp
+      POSTGRES_DB: userDb
+    ports:
+      - 3001:3001
+    volumes:
+      - ./user_service:/usr/src/user_service
+    networks:
+      - kong-net
+    depends_on:
+      - userDb
+
+  userDb:
+    image: postgres:14.1
+    container_name: userDb
+    ports:
+      - 5433:5432
+    volumes:
+      - ./user_service/user_database_vol:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST: userhost
+      POSTGRES_USER: ms_user_app
+      POSTGRES_PASSWORD: pwduserapp
+      POSTGRES_DB: userDb
+    networks:
+      - kong-net
+
 secrets:
   kong_postgres_password:
     file: ./POSTGRES_PASSWORD

@@ -10,6 +10,7 @@ yarn-error.log*
 lerna-debug.log*
 .mysql-data*
 auth_service/auth_database_vol/*
+user_service/user_database_vol/*
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
