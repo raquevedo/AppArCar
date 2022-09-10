@@ -1,0 +1,22 @@
+_format_version: "2.1"
+_transform: true
+
+# Do NOT use IP addresses to configure Kong as those can change over time
+
+services:
+  - host: auth_service
+    url: http://auth_service:3000
+    name: auth_service
+    protocol: http
+    routes:
+    - name: authentication
+      paths:
+      - /auth
+  - host: user_service
+    url: http://user_service:3001
+    name: user_service
+    protocol: http
+    routes:
+    - name: authentication
+      paths:
+      - /user     
