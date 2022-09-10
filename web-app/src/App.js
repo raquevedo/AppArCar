@@ -1,11 +1,10 @@
 //import logo from './logo.svg';
 import './App.css';
-import ContenedorRutas from './Componentes/ContenedorRutas';
-
+import Path from './Componentes/Path';
 function App() {
   return (
     <div className="App">
-      <ContenedorRutas></ContenedorRutas>
+      <Path></Path>
     </div>
   );
 }

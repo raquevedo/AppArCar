@@ -1,0 +1,55 @@
+.ContainerRegistry{
+    width: 60%;
+    height: 60%;
+    
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    padding: 2%;
+    /* border: 1px solid black; */
+    /* background:linear-gradient(to bottom left,violet,blue); */
+}
+
+.InputRegistry1{
+    margin-top: 10%;
+    
+}
+
+.InputRegistry2{
+    margin-top: 10%;
+    
+}
+
+.InputRegistry3{
+    
+    
+    margin-top: 10%;
+    
+}
+
+.InputRegistry4{
+    margin-top: 10%;
+    
+}
+
+.BotonInicio{
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    background-color: black;
+    color: white;
+}
+
+.BotonEnviar{
+
+   
+        background-color:black;
+        height: 5%;
+        width: 40%;
+        margin-top: 1%;
+        margin-left: 20%;
+        border-radius: 10%;
+        color:white;
+    
+    
+}

@@ -1,0 +1,12 @@
+.ContenedorRegistro{
+    width: 80%;
+    height: 80%;
+    background-color: aqua;
+    
+    position: absolute;
+    top:10%;
+    left: 10%;
+    border: 1px solid black;
+    padding: 1%;
+    border-radius: 2%;
+}

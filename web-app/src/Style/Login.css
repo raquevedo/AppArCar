@@ -1,0 +1,74 @@
+.login-wrapper{
+    
+    padding: 0;
+}
+
+.Form-container{
+
+    width:20%;
+    height:70%;
+    /* background-color: whitesmoke; */
+    position: absolute;
+    left: 40%;
+    top:20%;
+    border-radius: 2%;
+    box-shadow: 5px 5px 1px 1px;
+    border: 1px solid black;
+    /* transform: rotate(-50deg); */
+    background:linear-gradient(#df3ac4,#5741f2);
+    
+   
+    
+    
+}
+
+.Input1{
+    
+    background-color: whitesmoke;
+    color:black;
+    /* transform: rotate(50deg); */
+    margin-top: 50%;
+    margin-left: 5%;
+    border: 1px solid whitesmoke;
+    
+   
+}
+
+.Input2{
+    margin-top: 20%;
+    background-color: whitesmoke;
+    color:black;
+    /* transform: rotate(50deg); */
+    margin-left: 5%;
+    /* border-radius: 10%; */
+    border: 1px solid whitesmoke;
+    
+
+}
+
+.BotonIngreso{
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    /* transform: rotate(50deg); */
+    position: absolute;
+    top:80%;
+    right:10%;
+    background:linear-gradient(#df3ac4,#5741f2);
+    box-shadow: 2px 2px 1px 1px;
+    
+}
+
+.BotonRegistro{
+    font-size: 9px;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top:80%;
+    left: 10%;
+    /* transform: rotate(50deg); */
+    border-radius: 100%;
+    box-shadow: 2px 2px 1px 1px;
+    background:linear-gradient(#df3ac4,#5741f2);
+}
+

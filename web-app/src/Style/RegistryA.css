@@ -1,0 +1,70 @@
+.ContainerRegistry{
+    width: 60%;
+    height: 60%;
+    
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    padding: 2%;
+    /* border: 1px solid black; */
+    /* background:linear-gradient(to bottom left,violet,blue); */
+}
+
+.InputModifyA1{
+    margin-top: 10%;
+    
+}
+
+.InputModifyA2{
+    margin-top: 10%;
+    
+}
+
+.InputModifyA3{
+    
+    
+    margin-top: 10%;
+    
+}
+
+.InputModifyA4{
+    margin-top: 10%;
+    
+}
+
+.InputModifyA5{
+    margin-top: 10%;
+    
+}
+
+.InputModifyA6{
+    margin-top: 10%;
+    
+}
+
+.InputModifyA7{
+    margin-top: 10%;
+    
+}
+
+.BotonModifyA{
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    background-color: black;
+    color: white;
+}
+
+.BotonEnviarA{
+
+   
+        background-color:black;
+        height: 5%;
+        width: 20%;
+        margin-top: 1%;
+        
+        border-radius: 10%;
+        color:white;
+    
+    
+}

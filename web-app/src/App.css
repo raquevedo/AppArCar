@@ -1,1 +1,8 @@
-
+.App {
+    text-align: center;
+    background-color: bisque;
+    min-width: 100vh;
+    min-height: 100vh;
+    background:linear-gradient(#5741f2,#df3ac4);
+    
+    }
