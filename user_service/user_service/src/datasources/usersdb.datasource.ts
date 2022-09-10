@@ -1,0 +1,31 @@
+import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
+import {juggler} from '@loopback/repository';
+
+const config = {
+  name: 'usersdb',
+  connector: 'postgresql',
+  url: 'postgresql://ms_user_app:pwduserapp@userDb:5432/userDb',
+  host: 'userDb',
+  port: 5432,
+  user: 'ms_user_app',
+  password: 'pwduserapp',
+  database: 'userDb'
+};
+
+// Observe application's life cycle to disconnect the datasource when
+// application is stopped. This allows the application to be shut down
+// gracefully. The `stop()` method is inherited from `juggler.DataSource`.
+// Learn more at https://loopback.io/doc/en/lb4/Life-cycle.html
+@lifeCycleObserver('datasource')
+export class UsersdbDataSource extends juggler.DataSource
+  implements LifeCycleObserver {
+  static dataSourceName = 'usersdb';
+  static readonly defaultConfig = config;
+
+  constructor(
+    @inject('datasources.config.usersdb', {optional: true})
+    dsConfig: object = config,
+  ) {
+    super(dsConfig);
+  }
+}
