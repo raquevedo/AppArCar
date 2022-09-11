@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import useToken from '../../utils/useToken'
 
 async function loginUser(credentials) {
 
@@ -14,9 +13,8 @@ async function loginUser(credentials) {
     .then(data => data.json())
  }
 
-export default function Login() {
-
-  const { token, setToken } = useToken();  
+export default function Login({ setToken }) {
+ 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 

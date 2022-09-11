@@ -11,17 +11,7 @@ function App() {
   const { token, setToken } = useToken();
 
   if(!token) {
-    return (
-      <div className='wrapper'>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<Login />}>
-              <Route path='register' element={<Register />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </div>
-    );
+    return <Login setToken={setToken} />
   }
 
   return (
