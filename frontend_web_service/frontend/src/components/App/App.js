@@ -11,7 +11,12 @@ function App() {
   const { token, setToken } = useToken();
 
   if(!token) {
-    return <Login setToken={setToken} />
+    return (
+      <div>
+        <Login setToken={setToken} />
+        <Register />
+      </div>
+    );
   }
 
   return (
