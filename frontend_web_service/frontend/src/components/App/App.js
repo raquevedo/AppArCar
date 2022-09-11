@@ -5,16 +5,10 @@ import Dashboard from '../Dashboard/Dashboard';
 import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
-
-
-function getToken() {
-  const tokenString = sessionStorage.getItem('token');
-  const userToken = JSON.parse(tokenString);
-  return userToken?.token
-}
+import useToken from '../../utils/useToken';
 
 function App() {
-  const token = getToken();
+  const { token, setToken } = useToken();
 
   if(!token) {
     return (

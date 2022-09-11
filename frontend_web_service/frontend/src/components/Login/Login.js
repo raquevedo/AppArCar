@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import useToken from '../../utils/useToken'
 
 async function loginUser(credentials) {
+
   return fetch('http://0.0.0.0:8000/auth/users/login', {
     method: 'POST',
     headers: {
@@ -12,12 +14,9 @@ async function loginUser(credentials) {
     .then(data => data.json())
  }
 
-export default function Login({ setToken }) {
+export default function Login() {
 
-  function setToken(userToken) {
-    sessionStorage.setItem('token', JSON.stringify(userToken));
-  }
-
+  const { token, setToken } = useToken();  
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
