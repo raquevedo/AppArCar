@@ -34,7 +34,7 @@ export class CarDriverController {
     public usrCarDriverRepository : UsrCarDriverRepository,
   ) {}
 
-  @post('/car-drivers')
+  @post('/car-drivers/create-user')
   @response(200, {
     description: 'UsrCarDriver model instance',
     content: {'application/json': {schema: getModelSchemaRef(UsrCarDriver)}},
@@ -62,7 +62,7 @@ export class CarDriverController {
     usrCarDriver.sysUpdatedAtDttm = Date()
     return this.usrCarDriverRepository.create(usrCarDriver);
   }
-
+  
   @get('/car-drivers/count')
   @response(200, {
     description: 'UsrCarDriver model count',
@@ -125,6 +125,21 @@ export class CarDriverController {
     @param.filter(UsrCarDriver, {exclude: 'where'}) filter?: FilterExcludingWhere<UsrCarDriver>
   ): Promise<UsrCarDriver> {
     return this.usrCarDriverRepository.findById(id, filter);
+  }
+
+  @get('/car-drivers/user-info')
+  @response(200, {
+    description: 'UsrCarDriver myself model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(UsrCarDriver, {includeRelations: true}),
+      },
+    },
+  })
+  async findMyself(
+    @param.filter(UsrCarDriver, {exclude: 'where'}) filter?: FilterExcludingWhere<UsrCarDriver>
+  ): Promise<UsrCarDriver> {
+    return this.usrCarDriverRepository.findById(this.currentUserProfile.id, filter);
   }
 
   @patch('/car-drivers/{id}')

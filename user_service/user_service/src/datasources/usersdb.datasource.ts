@@ -4,9 +4,9 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'usersdb',
   connector: 'postgresql',
-  url: 'postgresql://ms_user_app:pwduserapp@localhost:5433/userDb',
-  host: 'localhost',
-  port: 5433,
+  url: 'postgresql://ms_user_app:pwduserapp@userDb:5432/userDb',
+  host: 'userDb',
+  port: 5432,
   user: 'ms_user_app',
   password: 'pwduserapp',
   database: 'userDb'
