@@ -17,6 +17,6 @@ services:
     name: user_service
     protocol: http
     routes:
-    - name: authentication
+    - name: users
       paths:
       - /user     
