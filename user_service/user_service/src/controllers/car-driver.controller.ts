@@ -7,6 +7,10 @@ import {
   Where,
 } from '@loopback/repository';
 import {
+  authenticate
+} from '@loopback/authentication';
+import {UserProfile, SecurityBindings} from '@loopback/security';
+import {
   post,
   param,
   get,
@@ -19,9 +23,13 @@ import {
 } from '@loopback/rest';
 import {UsrCarDriver} from '../models';
 import {UsrCarDriverRepository} from '../repositories';
+import { inject } from '@loopback/core';
 
+@authenticate('admin')
 export class CarDriverController {
   constructor(
+    @inject(SecurityBindings.USER)
+    public currentUserProfile: UserProfile,
     @repository(UsrCarDriverRepository)
     public usrCarDriverRepository : UsrCarDriverRepository,
   ) {}
@@ -37,13 +45,21 @@ export class CarDriverController {
         'application/json': {
           schema: getModelSchemaRef(UsrCarDriver, {
             title: 'NewUsrCarDriver',
+            exclude: ['id','username','email','registerDateDttm','sysCreatedAtDttm','sysUpdatedAtDttm']
             
           }),
         },
       },
     })
     usrCarDriver: UsrCarDriver,
+    
   ): Promise<UsrCarDriver> {
+    usrCarDriver.id = this.currentUserProfile.id!,
+    usrCarDriver.username = this.currentUserProfile.username!,
+    usrCarDriver.email = this.currentUserProfile.email!,
+    usrCarDriver.registerDateDttm = Date(),
+    usrCarDriver.sysCreatedAtDttm = Date(),
+    usrCarDriver.sysUpdatedAtDttm = Date()
     return this.usrCarDriverRepository.create(usrCarDriver);
   }
 
