@@ -19,4 +19,12 @@ services:
     routes:
     - name: authentication
       paths:
-      - /user     
+      - /user
+  - host: frontend_web_service
+    url: http://frontend_web_service:3002
+    name: frontend_web_service
+    protocol: http
+    routes:
+    - name: frontend
+      paths:
+      - /

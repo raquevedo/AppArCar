@@ -5,7 +5,11 @@ WORKDIR /usr/src/app/
 COPY /backend ./backend
 COPY /frontend ./frontend
 
-EXPOSE 3000
+WORKDIR /usr/src/app/frontend/
+RUN npm install
+RUN npm run build
+
+EXPOSE 3002
 EXPOSE 80
 EXPOSE 443
 

@@ -117,6 +117,16 @@ services:
     volumes:
       - kong_data:/var/lib/postgresql/data
 
+  frontend_web_service:
+    build:
+      context: ./frontend_web_service
+      dockerfile: Dockerfile
+    container_name: frontend_web_service
+    ports:
+      - 3002:3002
+    networks:
+      - kong-net
+
   auth_service:
     build:
       context: ./auth_service/auth_service
