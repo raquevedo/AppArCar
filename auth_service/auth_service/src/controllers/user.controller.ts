@@ -124,7 +124,7 @@ export class UserController {
         content: {
           'application/json': {
             schema: {
-              'x-ts-type': User,
+              'x-ts-type': User,          
             },
           },
         },
@@ -137,12 +137,14 @@ export class UserController {
         'application/json': {
           schema: getModelSchemaRef(NewUserRequest, {
             title: 'NewUser',
+            exclude: ['id','emailVerified','verificationToken','realm']
           }),
         },
       },
     })
     newUserRequest: NewUserRequest,
   ): Promise<User> {
+    newUserRequest.id = Math.floor(new Date().getTime()/1000).toString();
     const password = await hash(newUserRequest.password, await genSalt());
     const savedUser = await this.userRepository.create(
       _.omit(newUserRequest, 'password'),
