@@ -5,18 +5,19 @@ _transform: true
 
 services:
   - host: auth_service
-    url: http://auth_service:3000
+    port: 3000
     name: auth_service
     protocol: http
     routes:
     - name: authentication
       paths:
       - /auth
+
   - host: user_service
-    url: http://user_service:3001
+    port: 3001
     name: user_service
     protocol: http
     routes:
-    - name: authentication
+    - name: user
       paths:
-      - /user     
+      - /user
