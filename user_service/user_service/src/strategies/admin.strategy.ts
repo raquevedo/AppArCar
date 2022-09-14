@@ -16,7 +16,7 @@ export class AdministratorStragey implements AuthenticationStrategy {
             throw new HttpErrors[401]("Empty bearer token")
         } else {
             let tokenDecode = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
-            console.log(tokenDecode)
+            //console.log(tokenDecode)
             let userProfile: UserProfile = Object.assign(
                 {
                     id: tokenDecode.id,
