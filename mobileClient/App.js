@@ -4,12 +4,12 @@ import * as React from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './home';
-import SignInScreen from './signin';
-import SignUpScreen from './signup';
-import FormReg from './registry';
-import Profile from './profile';
-import { AuthContext } from './context';
+import HomeScreen from './Components/home';
+import SignInScreen from './Components/signin.js';
+import SignUpScreen from './Components/signup.js';
+import FormReg from './Components/registry.js';
+import Profile from './Components/profile.js';
+import { AuthContext } from './context.js';
 
 
 const Stack = createNativeStackNavigator();

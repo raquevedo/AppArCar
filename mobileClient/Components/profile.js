@@ -1,8 +1,8 @@
 import  * as React from 'react';
 import { View, TextInput, Button} from 'react-native';
-import { AuthContext } from './context'
+import { AuthContext } from '../context'
 
-function FormReg({navigation}) {
+function Profile({navigation}) {
     const [name, setname] = React.useState('');
     const [lastName, setlastName] = React.useState('');
     const [patent, setpatent] = React.useState('');
@@ -13,6 +13,9 @@ function FormReg({navigation}) {
     const [brandCar, setBrandCar] = React.useState('');
     const [modelCar, setModelCar] = React.useState('');
 
+    function mensaje(){
+        alert("actualizado");
+    }
 
     const { register } = React.useContext(AuthContext);
     const registered=true;
@@ -64,13 +67,8 @@ function FormReg({navigation}) {
           onChangeText={setModelCar}
         />
         
-        <Button title="Cargar" onPress={() => register({registered})} />
+        <Button title="Actualizar" onPress={() => mensaje() & navigation.goBack()} />
       </View>
     );
   }
-  export default FormReg;
-
-  /*
-  marca
-  modelo del auto
-  */
+  export default Profile;
