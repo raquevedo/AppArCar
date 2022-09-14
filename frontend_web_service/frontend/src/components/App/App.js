@@ -5,10 +5,12 @@ import Homepage from '../Homepage/Homepage';
 import SignIn from '../SignIn/SignIn';
 import Dashboard from '../Dashboard/Dashboard';
 import Profile from '../Profile/Profile';
+import Navbar from '../Navbar/Navbar';
 
 function App() {
   return (
     <div className="wrapper">
+      <Navbar />
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Homepage />} />

@@ -36,7 +36,7 @@ export default function Register() {
         </label>
         <label>
           <p>Username</p>
-          <input type="test" onChange={e => setUsername(e.target.value)}/>
+          <input type="text" onChange={e => setUsername(e.target.value)}/>
         </label>
         <label>
           <p>Password</p>
@@ -47,7 +47,7 @@ export default function Register() {
           <input type="password" />
         </label>
         <div>
-          <button type="submit">Submit</button>
+          <button type="button" class="button">Submit</button>
         </div>
       </form>
     </div>
