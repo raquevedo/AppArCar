@@ -173,14 +173,10 @@ export default function App({navigation}) {
       },
       register: async(data) => {
         const userToken = await SecureStore.getItemAsync('tk');
-        /*data.name="maxi101"
-        data.lastName="gilberr",
-        data.documentNumber=3123443,
-        data.gender="sasd"
-        data.contactNumber=15556444*/
-        //userToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE2NjMyMDAzNjgiLCJuYW1lIjoiVGVzIiwiZW1haWwiOiJ0ZXN0NUB0ZXN0LmNvbSIsImlhdCI6MTY2MzIwMTgxMCwiZXhwIjoxNjYzMjIzNDEwfQ.n-idBIZZFa6H4DjdZ3THjGvH4Oujb7ThIv9s9Ul6bHM
-        data.birthDateDt="2022-09-14T18:03:44.163Z"
-
+        
+        //data.birthDateDt="2022-09-14T18:03:44.163Z"
+        data.documentNumber=parseInt(data.documentNumber)
+        data.contactNumber=parseInt(data.contactNumber)
         const fetchData={}
         fetchData.method= 'POST'
         fetchData.body= JSON.stringify(data)
@@ -238,67 +234,3 @@ export default function App({navigation}) {
     </AuthContext.Provider>
   );
 }
-
- /*
-            if(data.username == "Registrado"){
-              //Solicita token
-              //const response = await fetch('https://mocki.io/v1/5a826b7c-79c6-4af1-9718-035c946428a');
-              //POSTA const response = await fetch('https://mocki.io/v1/5a826b7c-79c6-4af1-9718-035c9436428a', data);
-              //const response = await fetch('http://186.139.77.194:8000/auth/ping')
-              
-              const response = await fetch('http://192.168.0.17:8000/auth/ping');
-              const dataRes = await response.json();
-              console.log(dataRes.greeting)
-              if(response.status=='200'){
-                //nuevo fetch consultando estado registro
-                //const dataRes = await response.json();
-                await SecureStore.setItemAsync('tk', 'dummy-auth-token');
-                setIsRegistered(dataRes.registrado);
-                dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
-                console.log('\nusuario:'+data.username+'\ncontraseña: '+data.password)
-              }
-              else{
-                console.log('Credenciales invalidas');
-              }
-            }
-            else if(data.username == "Noregistrado"){
-              const response = await fetch('https://mocki.io/v1/c7d2ed2b-98c0-4e02-8e4b-909231d58162');
-              const dataRes = await response.json();
-              await SecureStore.setItemAsync('tk', 'dummy-auth-token');
-              setIsRegistered(dataRes.registrado);
-              dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
-            console.log('\nusuario:'+data.username+'\ncontraseña: '+data.password)
-            }else if(data.username == "Error"){
-              fetch('0.0.0.0')
-              .then(function(response) {console.log('ok')})
-              .catch(function(response){alert('Las credecnailes son incorrectas')});
-            }else{
-              alert("Ingresar nombre de usuraio como Registrado, Noregistrado o Error");
-            }
-            //setData(json.items);*/
-            /*const fetchData2={}
-                fetchData2.method= 'GET'
-                fetchData2.headers={
-                  'accept': 'application/json',
-                  'Content-Type': 'application/json'
-                }
-                const dataRes = await response.json();
-                console.log("Login OK:")
-                console.log("Stored token:",dataRes.token)
-                //console.log(dataRes.token)
-                dispatch({ type: 'SIGN_IN', token: dataRes.token });
-                await SecureStore.setItemAsync('tk', dataRes.token);
-                fetchData2.headers.Authorization='Bearer '+dataRes.token
-                fetch('http://192.168.0.19:8000/user/car-drivers/user-info',fetchData2)
-                .then(async function(response){
-                  
-                  if(response.status == 404){
-                    console.log("Completar registro")
-                  }else if(response.status == 200){
-                    console.log("Go to home")
-                    setIsRegistered(true)
-                    //guardar datos para perfil ??
-                  }else{
-                    console.log("Error interno")
-                  }
-                })*/
