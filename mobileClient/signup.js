@@ -35,10 +35,8 @@ function SignUpScreen({navigation}) {
           secureTextEntry
         />
         
-        <Button title="Sign up" onPress={() => signUp({ username, password, email }) & navigation.goBack()} />
+        <Button title="Sign up" onPress={() => signUp({ username, password, email }) & navigation.goBack() } />
       </View>
     );
   }
   export default SignUpScreen;
-  /*sendForm({ username, password, email })*/
-  
