@@ -1,7 +1,4 @@
-import { StyleSheet, Text, View, Alert } from 'react-native';
-
-
-
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     themetext: {
@@ -12,7 +9,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center'
   },
-    
   
   buttonText: {
     fontSize: 18,
@@ -21,17 +17,20 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     backgroundColor: 'transparent',
   },
+
   linearGradient: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column'
   },
+
   wrapperbutton: {
     flex: 1,
     display: 'flex',
     flexdirection: 'row'
   },
+
   buttonstyle: {
       borderWidth:1,
        borderColor:'rgba(0,0,0,0.2)',
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
     color: '#5741f2',
     backgroundColor: 'transparent',
   },
-  
+
   section: {
     flex: 2,
     borderWidth:1,
@@ -62,11 +61,13 @@ const styles = StyleSheet.create({
      backgroundColor:'white',
      borderRadius:40,
   },
+
   image: {
     flex: 1,
     width: 380,
     height: 120,
     resizeMode: 'contain'
   },
-  })
-  export default styles;
+})
+
+export default styles;
