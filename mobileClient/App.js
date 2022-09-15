@@ -4,39 +4,16 @@ import * as React from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './home';
-import SignInScreen from './signin';
-import SignUpScreen from './signup';
-import FormReg from './registry';
-import Profile from './profile';
-import { AuthContext } from './context';
-
+import HomeScreen from './Home/home';
+import SignInScreen from './Login/signin';
+import SignUpScreen from './SignUp/signup';
+import FormReg from './Login/registry';
+import Profile from './Home/profile';
+import { AuthContext } from './Services/context';
+import host_instance from './host_instance.json';
+import IsRegisteredFunc from './Services/requests';
 
 const Stack = createNativeStackNavigator();
-async function isRegisteredFunc(token){
-  
-  const fetchData2={}
-  fetchData2.method= 'GET'
-  fetchData2.headers={
-    'accept': 'application/json',
-    'Content-Type': 'application/json',
-    'Authorization':'Bearer '+token
-  }
-  console.log(fetchData2)
-  //fetchData2.headers.Authorization='Bearer '+token
-  const response = await fetch('http://192.168.0.19:8000/user/car-drivers/user-info',fetchData2)
-
-  
-  if(response.status == 200){
-    console.log('registrado')
-    return true
-  }else{
-    console.log('no registrado')
-    return false
-  }
-  
-}
-
 
 export default function App({navigation}) {
   const [isRegistered, setIsRegistered] = React.useState(false);
@@ -77,7 +54,7 @@ export default function App({navigation}) {
 
       try {
         userToken = await SecureStore.getItemAsync('tk');
-        const registro_boolean = await isRegisteredFunc(userToken)
+        const registro_boolean = await IsRegisteredFunc(userToken)
         console.log(registro_boolean)
         console.log(userToken)
         if(userToken != null){
@@ -114,7 +91,7 @@ export default function App({navigation}) {
           }
         //Hago el request a signup
         console.log(fetchData)
-        fetch('http://192.168.0.19:8000/auth/signup',fetchData)
+        fetch(host_instance.path+'/auth/signup',fetchData)
         .then(async function(response){
           if(response.status != 200){
             alert("Internal error")
@@ -137,7 +114,7 @@ export default function App({navigation}) {
                 'Content-Type': 'application/json'
               }
             //Hago el request a login
-            fetch('http://192.168.0.19:8000/auth/users/login',fetchData)
+            fetch(host_instance.path+'/auth/users/login',fetchData)
             .then(async function(response){
               const dataRes = await response.json()
               if(response.status == 422){
@@ -147,7 +124,7 @@ export default function App({navigation}) {
                 console.log("Status response:",response.status)
                 alert("Credenciales invalidas")
               }else if(response.status == 200){
-                const isReg= await isRegisteredFunc(dataRes.token)
+                const isReg= await IsRegisteredFunc(dataRes.token)
                 dispatch({ type: 'SIGN_IN', token: dataRes.token });
                 await SecureStore.setItemAsync('tk', dataRes.token);
                 if(!isReg){
@@ -189,7 +166,7 @@ export default function App({navigation}) {
         //fetchData.headers.Authorization='Bearer '+userToken
         console.log('Data to register:',fetchData)
         //Hago el request a signup
-        fetch('http://192.168.0.19:8000/user/car-drivers/create-user',fetchData)
+        fetch(host_instance.path+'/user/car-drivers/create-user',fetchData)
         .then(async function(response){
           if(response.status != 200){
             console.log("not 200")
@@ -221,7 +198,6 @@ export default function App({navigation}) {
             <>
               <Stack.Screen name="Home" component={HomeScreen}/>
               <Stack.Screen name="EditProfile" component={Profile}/>
-
            </>  
             ) : (
             <>
@@ -234,3 +210,23 @@ export default function App({navigation}) {
     </AuthContext.Provider>
   );
 }
+/*async function IsRegisteredFunc(token){
+  const fetchData2={}
+  fetchData2.method= 'GET'
+  fetchData2.headers={
+    'accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization':'Bearer '+token
+  }
+  console.log(fetchData2)
+  //fetchData2.headers.Authorization='Bearer '+token
+  const response = await fetch(host_instance.path+'/user/car-drivers/user-info',fetchData2)
+
+  if(response.status == 200){
+    console.log('registrado')
+    return true
+  }else{
+    console.log('no registrado')
+    return false
+  }
+}*/

@@ -1,6 +1,6 @@
 import  * as React from 'react';
 import { View, TextInput, Button, Text, StyleSheet} from 'react-native';
-import { AuthContext } from './context'
+import { AuthContext } from '../Services/context'
 
 function SignInScreen({navigation}) {
     const [email, setEmail] = React.useState('');
