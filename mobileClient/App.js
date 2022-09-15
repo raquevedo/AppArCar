@@ -13,6 +13,30 @@ import { AuthContext } from './context';
 
 
 const Stack = createNativeStackNavigator();
+async function isRegisteredFunc(token){
+  
+  const fetchData2={}
+  fetchData2.method= 'GET'
+  fetchData2.headers={
+    'accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization':'Bearer '+token
+  }
+  console.log(fetchData2)
+  //fetchData2.headers.Authorization='Bearer '+token
+  const response = await fetch('http://192.168.0.19:8000/user/car-drivers/user-info',fetchData2)
+
+  
+  if(response.status == 200){
+    console.log('registrado')
+    return true
+  }else{
+    console.log('no registrado')
+    return false
+  }
+  
+}
+
 
 export default function App({navigation}) {
   const [isRegistered, setIsRegistered] = React.useState(false);
@@ -53,16 +77,24 @@ export default function App({navigation}) {
 
       try {
         userToken = await SecureStore.getItemAsync('tk');
-        console.log(userToken);
+        const registro_boolean = await isRegisteredFunc(userToken)
+        console.log(registro_boolean)
+        console.log(userToken)
+        if(userToken != null){
+          console.log('Token status: available')
+          setIsRegistered(registro_boolean)
+        }else{
+          console.log('Token status: empty')
+        }
       } catch (e) {
         // Restoring token failed
       }
 
-      // After restoring token, we may need to validate it in production apps
-
-      // This will switch to the App screen or Auth screen and this loading
-      // screen will be unmounted and thrown away.
+      
       dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+      //Habilitar ambas para resetear localstorge
+      //dispatch({ type: 'SIGN_OUT' })
+      //await SecureStore.deleteItemAsync('tk')
     };
 
     bootstrapAsync();
@@ -70,66 +102,111 @@ export default function App({navigation}) {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async (data) => {
+      signUp: async (data) => {
         
-          try {
-            if(data.username == "Registrado"){
-              //Solicita token
-              //const response = await fetch('https://mocki.io/v1/5a826b7c-79c6-4af1-9718-035c946428a');
-              const response = await fetch('https://mocki.io/v1/5a826b7c-79c6-4af1-9718-035c9436428a', data);
-              
-              if(response.status=='200'){
-                //nuevo fetch consultando estado registro
-                const dataRes = await response.json();
-                await SecureStore.setItemAsync('tk', 'dummy-auth-token');
-                setIsRegistered(dataRes.registrado);
-                dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
-                console.log('\nusuario:'+data.username+'\ncontraseña: '+data.password)
-              }
-              else{
-                console.log('Credenciales invalidas');
-              }
-            }
-            else if(data.username == "Noregistrado"){
-              const response = await fetch('https://mocki.io/v1/c7d2ed2b-98c0-4e02-8e4b-909231d58162');
-              const dataRes = await response.json();
-              await SecureStore.setItemAsync('tk', 'dummy-auth-token');
-              setIsRegistered(dataRes.registrado);
-              dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
-            console.log('\nusuario:'+data.username+'\ncontraseña: '+data.password)
-            }else if(data.username == "Error"){
-              fetch('0.0.0.0')
-              .then(function(response) {console.log('ok')})
-              .catch(function(response){alert('Las credecnailes son incorrectas')});
-            }else{
-              alert("Ingresar nombre de usuraio como Registrado, Noregistrado o Error");
-            }
-            //setData(json.items);
-          } catch (error) {
-            console.error(error);
+        //Armo los datos que serán enviados en la request
+        const fetchData={}
+        fetchData.method= 'POST'
+        fetchData.body= JSON.stringify(data)
+        fetchData.headers={
+            'accept': 'application/json',
+            'Content-Type': 'application/json'
           }
-        
-        
+        //Hago el request a signup
+        console.log(fetchData)
+        fetch('http://192.168.0.19:8000/auth/signup',fetchData)
+        .then(async function(response){
+          if(response.status != 200){
+            alert("Internal error")
+          }else{
+            const dataRes = await response.json();
+            console.log('SignaUp OK')
+            //console.log('Response header:',response)
+            alert("Credenciales aceptadas, por favor inicie sesión")
+          }
+        })
+      },
+      signIn: async (data) => {
+          try {
+            //Armo los datos que serán enviados en la request
+            const fetchData={}
+            fetchData.method= 'POST'
+            fetchData.body= JSON.stringify(data)
+            fetchData.headers={
+                'accept': 'application/json',
+                'Content-Type': 'application/json'
+              }
+            //Hago el request a login
+            fetch('http://192.168.0.19:8000/auth/users/login',fetchData)
+            .then(async function(response){
+              const dataRes = await response.json()
+              if(response.status == 422){
+                console.log("Status response:",response.status)
+                alert("Credenciales invalidas longitud")
+              }else if(response.status == 401){
+                console.log("Status response:",response.status)
+                alert("Credenciales invalidas")
+              }else if(response.status == 200){
+                const isReg= await isRegisteredFunc(dataRes.token)
+                dispatch({ type: 'SIGN_IN', token: dataRes.token });
+                await SecureStore.setItemAsync('tk', dataRes.token);
+                if(!isReg){
+                  console.log("Completar registro")
+                }else{
+                  console.log("Go to home")
+                  setIsRegistered(true)
+                  //guardar datos para perfil ??
+                }
+              }else{
+                //const dataRes = await response.json();
+                console.log(dataRes)
+                alert("error interno")
+              }
+            })
+          } catch (error) {
+            console.error("error error:",error);
+          }
       },
       signOut: async() => {
         dispatch({ type: 'SIGN_OUT' })
         await SecureStore.deleteItemAsync('tk')
       },
-      signUp: async (data) => {
-        if(data.email == "existente@existente"){ 
-          Alert.alert("Ya existe una cuenta con este correo electronico");
-        }else{
-          console.log('\nusuario:'+data.username+'\ncontraseña: '+data.password+'\nemail: '+data.email);
-          
-          Alert.alert("Felicitaciones 'Registrado' su cuenta ha sido activada por favor loguearse para acceder a AppArCar");
-        }
-      },
       register: async(data) => {
-        setIsRegistered(data.registered);
-        alert('Aplicación activada');
-      }
-    }),
-    []
+        const userToken = await SecureStore.getItemAsync('tk');
+        /*data.name="maxi101"
+        data.lastName="gilberr",
+        data.documentNumber=3123443,
+        data.gender="sasd"
+        data.contactNumber=15556444*/
+        //userToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE2NjMyMDAzNjgiLCJuYW1lIjoiVGVzIiwiZW1haWwiOiJ0ZXN0NUB0ZXN0LmNvbSIsImlhdCI6MTY2MzIwMTgxMCwiZXhwIjoxNjYzMjIzNDEwfQ.n-idBIZZFa6H4DjdZ3THjGvH4Oujb7ThIv9s9Ul6bHM
+        data.birthDateDt="2022-09-14T18:03:44.163Z"
+
+        const fetchData={}
+        fetchData.method= 'POST'
+        fetchData.body= JSON.stringify(data)
+        fetchData.headers={
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization':'Bearer '+userToken
+          }
+        
+        //fetchData.headers.Authorization='Bearer '+userToken
+        console.log('Data to register:',fetchData)
+        //Hago el request a signup
+        fetch('http://192.168.0.19:8000/user/car-drivers/create-user',fetchData)
+        .then(async function(response){
+          if(response.status != 200){
+            console.log("not 200")
+          }else{
+            const dataRes = await response.json();
+            console.log('Registry is success')
+            setIsRegistered(true)
+            alert('BienVenido a AppArCar')
+            
+          }
+        })
+      },
+    })  
   );
 
   return (
@@ -162,4 +239,66 @@ export default function App({navigation}) {
   );
 }
 
-   
+ /*
+            if(data.username == "Registrado"){
+              //Solicita token
+              //const response = await fetch('https://mocki.io/v1/5a826b7c-79c6-4af1-9718-035c946428a');
+              //POSTA const response = await fetch('https://mocki.io/v1/5a826b7c-79c6-4af1-9718-035c9436428a', data);
+              //const response = await fetch('http://186.139.77.194:8000/auth/ping')
+              
+              const response = await fetch('http://192.168.0.17:8000/auth/ping');
+              const dataRes = await response.json();
+              console.log(dataRes.greeting)
+              if(response.status=='200'){
+                //nuevo fetch consultando estado registro
+                //const dataRes = await response.json();
+                await SecureStore.setItemAsync('tk', 'dummy-auth-token');
+                setIsRegistered(dataRes.registrado);
+                dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+                console.log('\nusuario:'+data.username+'\ncontraseña: '+data.password)
+              }
+              else{
+                console.log('Credenciales invalidas');
+              }
+            }
+            else if(data.username == "Noregistrado"){
+              const response = await fetch('https://mocki.io/v1/c7d2ed2b-98c0-4e02-8e4b-909231d58162');
+              const dataRes = await response.json();
+              await SecureStore.setItemAsync('tk', 'dummy-auth-token');
+              setIsRegistered(dataRes.registrado);
+              dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+            console.log('\nusuario:'+data.username+'\ncontraseña: '+data.password)
+            }else if(data.username == "Error"){
+              fetch('0.0.0.0')
+              .then(function(response) {console.log('ok')})
+              .catch(function(response){alert('Las credecnailes son incorrectas')});
+            }else{
+              alert("Ingresar nombre de usuraio como Registrado, Noregistrado o Error");
+            }
+            //setData(json.items);*/
+            /*const fetchData2={}
+                fetchData2.method= 'GET'
+                fetchData2.headers={
+                  'accept': 'application/json',
+                  'Content-Type': 'application/json'
+                }
+                const dataRes = await response.json();
+                console.log("Login OK:")
+                console.log("Stored token:",dataRes.token)
+                //console.log(dataRes.token)
+                dispatch({ type: 'SIGN_IN', token: dataRes.token });
+                await SecureStore.setItemAsync('tk', dataRes.token);
+                fetchData2.headers.Authorization='Bearer '+dataRes.token
+                fetch('http://192.168.0.19:8000/user/car-drivers/user-info',fetchData2)
+                .then(async function(response){
+                  
+                  if(response.status == 404){
+                    console.log("Completar registro")
+                  }else if(response.status == 200){
+                    console.log("Go to home")
+                    setIsRegistered(true)
+                    //guardar datos para perfil ??
+                  }else{
+                    console.log("Error interno")
+                  }
+                })*/

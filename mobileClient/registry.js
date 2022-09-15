@@ -5,56 +5,64 @@ import { AuthContext } from './context'
 function FormReg({navigation}) {
     const [name, setname] = React.useState('');
     const [lastName, setlastName] = React.useState('');
-    const [patent, setpatent] = React.useState('');
-    const [document, setDocument] = React.useState('');
-    const [birthday, setBirthday] = React.useState('');
-    const [residence, setResidence] = React.useState('');
-    const [mobile, setMobile] = React.useState('');
-    const [brandCar, setBrandCar] = React.useState('');
-    const [modelCar, setModelCar] = React.useState('');
-
+    //const [patent, setpatent] = React.useState('');
+    const [documentNumber, setDocument] = React.useState('');
+    const [birthDateDt, setBirthday] = React.useState('');
+    //const [residence, setResidence] = React.useState('');
+    const [contactNumber, setContactNumber] = React.useState('');
+    //const [brandCar, setBrandCar] = React.useState('');
+    //const [modelCar, setModelCar] = React.useState('');
+    const [gender, setGender] = React.useState('');
+  
 
     const { register } = React.useContext(AuthContext);
-    const registered=true;
+    const { signOut } = React.useContext(AuthContext);
+    
     return (
       <View>
         <TextInput
-          placeholder="name"
+          placeholder="Nombre"
           value={name}
           onChangeText={setname}
         />
         <TextInput
-          placeholder="lastName"
+          placeholder="Apellido"
           value={lastName}
           onChangeText={setlastName}
         />
-        <TextInput
-          placeholder="patent"
-          value={patent}
-          onChangeText={setpatent}
-        />
+        
          <TextInput
-          placeholder="document"
-          value={document}
+          placeholder="Documento"
+          value={documentNumber}
           onChangeText={setDocument}
         />
         <TextInput
-          placeholder="birthday"
-          value={birthday}
+          placeholder="Fecha de Nacimiento"
+          value={birthDateDt}
           onChangeText={setBirthday}
         />
+        
         <TextInput
-          placeholder="residence"
-          value={residence}
-          onChangeText={setResidence}
+          placeholder="Teléfono móvil"
+          value={contactNumber}
+          onChangeText={setContactNumber}
         />
+        
         <TextInput
-          placeholder="mobile"
-          value={mobile}
-          onChangeText={setMobile}
+          placeholder="Género"
+          value={gender}
+          onChangeText={setGender}
         />
-        <TextInput
-          placeholder="brandCar"
+        <Button title="Cargar" onPress={() => register({ name, lastName, documentNumber, birthDateDt, contactNumber, gender })} />
+        <Button title="Sign out" onPress={() => signOut({})} />
+      </View> 
+    );  
+  }
+  export default FormReg;
+
+  /*
+ <TextInput
+          placeholder="patete"
           value={brandCar}
           onChangeText={setBrandCar}
         />
@@ -63,14 +71,14 @@ function FormReg({navigation}) {
           value={modelCar}
           onChangeText={setModelCar}
         />
-        
-        <Button title="Cargar" onPress={() => register({registered})} />
-      </View>
-    );
-  }
-  export default FormReg;
-
-  /*
-  marca
-  modelo del auto
+        <TextInput
+          placeholder="residence"
+          value={residence}
+          onChangeText={setResidence}
+        />
+        <TextInput
+          placeholder="patent"
+          value={patent}
+          onChangeText={setpatent}
+        />
   */
