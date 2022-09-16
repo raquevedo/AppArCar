@@ -1,6 +1,6 @@
 import  * as React from 'react';
 import { View, TextInput, Button} from 'react-native';
-import { AuthContext } from '../Services/context'
+import { AuthContext } from '../../Services/context'
 
 function FormReg({navigation}) {
     const [name, setname] = React.useState('');
