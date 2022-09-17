@@ -4,13 +4,14 @@ import * as React from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './home';
-import SignInScreen from './signin';
-import SignUpScreen from './signup';
-import FormReg from './registry';
-import Profile from './profile';
-import { AuthContext } from './context';
-
+import HomeScreen from './Home/components/home';
+import SignInScreen from './Login/components/signin';
+import SignUpScreen from './SignUp/components/signup';
+import FormReg from './Login/components/registry';
+import Profile from './Home/components/profile';
+import { AuthContext } from './Services/context';
+import host_instance from './host_instance.json';
+import IsRegisteredFunc from './Services/requests';
 
 const Stack = createNativeStackNavigator();
 async function isRegisteredFunc(token){
@@ -36,7 +37,6 @@ async function isRegisteredFunc(token){
   }
   
 }
-
 
 export default function App({navigation}) {
   const [isRegistered, setIsRegistered] = React.useState(false);
@@ -77,7 +77,7 @@ export default function App({navigation}) {
 
       try {
         userToken = await SecureStore.getItemAsync('tk');
-        const registro_boolean = await isRegisteredFunc(userToken)
+        const registro_boolean = await IsRegisteredFunc(userToken)
         console.log(registro_boolean)
         console.log(userToken)
         if(userToken != null){
@@ -89,7 +89,6 @@ export default function App({navigation}) {
       } catch (e) {
         // Restoring token failed
       }
-
       
       dispatch({ type: 'RESTORE_TOKEN', token: userToken });
       //Habilitar ambas para resetear localstorge
@@ -114,7 +113,7 @@ export default function App({navigation}) {
           }
         //Hago el request a signup
         console.log(fetchData)
-        fetch('http://192.168.0.19:8000/auth/signup',fetchData)
+        fetch(host_instance.path+'/auth/signup',fetchData)
         .then(async function(response){
           if(response.status != 200){
             alert("Internal error")
@@ -137,7 +136,7 @@ export default function App({navigation}) {
                 'Content-Type': 'application/json'
               }
             //Hago el request a login
-            fetch('http://192.168.0.19:8000/auth/users/login',fetchData)
+            fetch(host_instance.path+'/auth/users/login',fetchData)
             .then(async function(response){
               const dataRes = await response.json()
               if(response.status == 422){
@@ -147,7 +146,7 @@ export default function App({navigation}) {
                 console.log("Status response:",response.status)
                 alert("Credenciales invalidas")
               }else if(response.status == 200){
-                const isReg= await isRegisteredFunc(dataRes.token)
+                const isReg= await IsRegisteredFunc(dataRes.token)
                 dispatch({ type: 'SIGN_IN', token: dataRes.token });
                 await SecureStore.setItemAsync('tk', dataRes.token);
                 if(!isReg){
@@ -189,7 +188,7 @@ export default function App({navigation}) {
         //fetchData.headers.Authorization='Bearer '+userToken
         console.log('Data to register:',fetchData)
         //Hago el request a signup
-        fetch('http://192.168.0.19:8000/user/car-drivers/create-user',fetchData)
+        fetch(host_instance.path+'/user/car-drivers/create-user',fetchData)
         .then(async function(response){
           if(response.status != 200){
             console.log("not 200")
@@ -221,7 +220,6 @@ export default function App({navigation}) {
             <>
               <Stack.Screen name="Home" component={HomeScreen}/>
               <Stack.Screen name="EditProfile" component={Profile}/>
-
            </>  
             ) : (
             <>

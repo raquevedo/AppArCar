@@ -1,13 +1,6 @@
 import  * as React from 'react';
 import { View, TextInput, Button} from 'react-native';
-import { AuthContext } from './context'
-
-function sendForm(data,nav){
-  
-  signUp({data});
-  nav.goBack();
-}
-
+import { AuthContext } from '../../Services/context'
 
 function SignUpScreen({navigation}) {
     const [username, setUsername] = React.useState('');
