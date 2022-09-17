@@ -40,32 +40,49 @@ export default function SetupForm({ setPartnerData, setIsRegistered }) {
 
   return(
     <div className="setup-wrapper">
-      <h1>Tell us about you</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>First Name</p>
-          <input type="text" onChange={e => setFirstName(e.target.value)}/>
-        </label>
-        <label>
-          <p>Last Name</p>
-          <input type="text" onChange={e => setLastName(e.target.value)}/>
-        </label>
-        <label>
-          <p>ID Number</p>
-          <input type="text" onChange={e => setIdNumber(e.target.value)}/>
-        </label>
-        <label>
-          <p>Gender</p>
-          <Select options={genderOptions} onChange={e => setGender(e.target.value)} />
-        </label>
-        <label>
-          <p>Phone Number</p>
-          <input type="text" onChange={e => setPhoneNumber(e.target.value)} />
-        </label>
-        <div>
-          <button type="button" class="button">Submit</button>
+      <div class='grid-container'>
+        <div class='grid-y'>
+          <div className='cell shrink'>
+            <div className='grid-x align-center'>
+              <div className='cell shrink'>
+                <h1>Tell us about you</h1>
+              </div>
+            </div>
+            
+          </div>
+          <div className='cell'>
+            <div className='grid-x align-center'>
+              <div className='cell small-8'>
+                <form onSubmit={handleSubmit}>
+                  <label>
+                    <p>First Name</p>
+                    <input type="text" onChange={e => setFirstName(e.target.value)}/>
+                  </label>
+                  <label>
+                    <p>Last Name</p>
+                    <input type="text" onChange={e => setLastName(e.target.value)}/>
+                  </label>
+                  <label>
+                    <p>ID Number</p>
+                    <input type="text" onChange={e => setIdNumber(e.target.value)}/>
+                  </label>
+                  <label>
+                    <p>Phone Number</p>
+                    <input type="text" onChange={e => setPhoneNumber(e.target.value)} />
+                  </label>
+                  <label>
+                    <p>Gender</p>
+                    <Select options={genderOptions} onChange={e => setGender(e.target.value)} />
+                  </label>
+                  <div>
+                    <button type="button" class="button">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

@@ -19,7 +19,7 @@ export default function DashboardWrapper() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [partnerData, setPartnerData] = useState({});
 
-  partner = getPartnerData();
+  const partner = getPartnerData();
   if (partner['isRegistered']) {
     setIsRegistered(true);
     setPartnerData(partner['data'])
