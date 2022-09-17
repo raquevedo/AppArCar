@@ -24,6 +24,7 @@ import {
 import {UsrPartner} from '../models';
 import {UsrPartnerRepository} from '../repositories';
 import { inject } from '@loopback/core';
+import { Result } from 'express-validator';
 
 @authenticate('admin')
 export class PartnerController {
@@ -132,14 +133,32 @@ export class PartnerController {
     description: 'UsrPartner myself model instance',
     content: {
       'application/json': {
-        schema: getModelSchemaRef(UsrPartner, {includeRelations: true}),
+        schema: {
+          type: 'object',
+          properties: {
+            data: {type: 'object'},
+            isRegister: {type: 'boolean'}
+          }
+        } ,
       },
     },
   })
   async findMyself(
-    @param.filter(UsrPartner, {exclude: 'where'}) filter?: FilterExcludingWhere<UsrPartner>
-  ): Promise<UsrPartner> {
-    return this.usrPartnerRepository.findById(this.currentUserProfile.id, filter);
+    @param.filter(UsrPartner, {exclude: 'where'}) filter?: FilterExcludingWhere<UsrPartner>,
+  ){
+    var data 
+    var isRegister
+    try {
+      data = await this.usrPartnerRepository.findById(this.currentUserProfile.id, filter)
+      isRegister = true
+    }catch (Error)
+    { 
+      data = {}
+      isRegister = false
+    }
+
+    return {'data':data,'isRegister':isRegister}
+    
   }
 
   @patch('/partners/{id}')
