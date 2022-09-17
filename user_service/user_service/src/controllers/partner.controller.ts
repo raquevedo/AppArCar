@@ -7,6 +7,10 @@ import {
   Where,
 } from '@loopback/repository';
 import {
+  authenticate
+} from '@loopback/authentication';
+import {UserProfile, SecurityBindings} from '@loopback/security';
+import {
   post,
   param,
   get,
@@ -19,14 +23,18 @@ import {
 } from '@loopback/rest';
 import {UsrPartner} from '../models';
 import {UsrPartnerRepository} from '../repositories';
+import { inject } from '@loopback/core';
 
+@authenticate('admin')
 export class PartnerController {
   constructor(
+    @inject(SecurityBindings.USER)
+    public currentUserProfile: UserProfile,
     @repository(UsrPartnerRepository)
     public usrPartnerRepository : UsrPartnerRepository,
   ) {}
 
-  @post('/partners')
+  @post('/partners/create-user')
   @response(200, {
     description: 'UsrPartner model instance',
     content: {'application/json': {schema: getModelSchemaRef(UsrPartner)}},
@@ -37,6 +45,7 @@ export class PartnerController {
         'application/json': {
           schema: getModelSchemaRef(UsrPartner, {
             title: 'NewUsrPartner',
+            exclude: ['id','username','email','latitude','longitude','sysCreatedAtDttm','sysUpdatedAtDttm']
             
           }),
         },
@@ -44,6 +53,13 @@ export class PartnerController {
     })
     usrPartner: UsrPartner,
   ): Promise<UsrPartner> {
+    usrPartner.id = this.currentUserProfile.id!,
+    usrPartner.username = this.currentUserProfile.username!,
+    usrPartner.email = this.currentUserProfile.email!,    
+    usrPartner.latitude = 0, 
+    usrPartner.longitude = 0, 
+    usrPartner.sysCreatedAtDttm = Date(),
+    usrPartner.sysUpdatedAtDttm = Date()
     return this.usrPartnerRepository.create(usrPartner);
   }
 
@@ -109,6 +125,21 @@ export class PartnerController {
     @param.filter(UsrPartner, {exclude: 'where'}) filter?: FilterExcludingWhere<UsrPartner>
   ): Promise<UsrPartner> {
     return this.usrPartnerRepository.findById(id, filter);
+  }
+
+  @get('/partners/user-info')
+  @response(200, {
+    description: 'UsrPartner myself model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(UsrPartner, {includeRelations: true}),
+      },
+    },
+  })
+  async findMyself(
+    @param.filter(UsrPartner, {exclude: 'where'}) filter?: FilterExcludingWhere<UsrPartner>
+  ): Promise<UsrPartner> {
+    return this.usrPartnerRepository.findById(this.currentUserProfile.id, filter);
   }
 
   @patch('/partners/{id}')
