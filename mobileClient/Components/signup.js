@@ -26,30 +26,30 @@ function SignUpScreen({navigation}) {
         <View style={styles.section}>
         
           <Text style={styles.themetext} >Sign Up</Text>
-            <TextInput
-              placeholder="Username"
-              value={username}
-              onChangeText={setUsername}
-              style={ styles.text}
-            />
-            <TextInput
-              placeholder="Email"
-              value={email}
-              onChangeText={setEmail}
-              style={ styles.text}
-            />
-            <TextInput
-              placeholder="Password"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-              style={ styles.text}
-            />
-            <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#3043ff','#df3ac4']} style={styles.buttonstyle}>
-                  <Text style={styles.buttonText} onPress={() => signUp({ username, password, email }) & navigation.goBack()}>Sign up</Text>
-            </LinearGradient>
-          </View>
-          <View style={{flex: 1,justifyContent: 'center',alignItems: 'center'}}></View>
+          <TextInput
+            placeholder="Username"
+            value={username}
+            onChangeText={setUsername}
+            style={ styles.text}
+          />
+          <TextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            style={ styles.text}
+          />
+          <TextInput
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            style={ styles.text}
+          />
+          <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#3043ff','#df3ac4']} style={styles.buttonstyle}>
+            <Text style={styles.buttonText} onPress={() => signUp({ username, password, email }) & navigation.goBack()}>Sign up</Text>
+          </LinearGradient>
+        </View>
+        <View style={{flex: 1,justifyContent: 'center',alignItems: 'center'}}></View>
       </LinearGradient>
     );
   }
