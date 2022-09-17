@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Select from 'react-select';
 
 async function registerUser(partnerData) {
   return fetch('http://0.0.0.0:8000/user/partner/create-user', {
@@ -13,25 +12,19 @@ async function registerUser(partnerData) {
 }
 
 export default function SetupForm({ setPartnerData, setIsRegistered }) {
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [idNumber, setIdNumber] = useState();
-  const [gender, setGender] = useState();
+  const [businessName, setBusinessName] = useState();
+  const [cuit, setCuit] = useState();
+  const [streetName, setStreetName] = useState();
+  const [streetNumber, setStreetNumber] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
-
-  const genderOptions = [
-    { value: 'male', label:'Male' },
-    { value: 'female', label: 'Female' },
-    { value: 'other', label: 'Other'}
-  ]
 
   const handleSubmit = async e => {
     e.preventDefault();
     const partner = await registerUser({
-      firstName,
-      lastName,
-      idNumber,
-      gender,
+      businessName,
+      cuit,
+      streetName,
+      streetNumber,
       phoneNumber
     });
     setIsRegistered(true);
@@ -55,24 +48,24 @@ export default function SetupForm({ setPartnerData, setIsRegistered }) {
               <div className='cell small-8'>
                 <form onSubmit={handleSubmit}>
                   <label>
-                    <p>First Name</p>
-                    <input type="text" onChange={e => setFirstName(e.target.value)}/>
+                    <p>businessName</p>
+                    <input type="text" onChange={e => setBusinessName(e.target.value)}/>
                   </label>
                   <label>
-                    <p>Last Name</p>
-                    <input type="text" onChange={e => setLastName(e.target.value)}/>
+                    <p>CUIT</p>
+                    <input type="text" onChange={e => setCuit(e.target.value)}/>
                   </label>
                   <label>
-                    <p>ID Number</p>
-                    <input type="text" onChange={e => setIdNumber(e.target.value)}/>
+                    <p>Street Name</p>
+                    <input type="text" onChange={e => setStreetName(e.target.value)}/>
+                  </label>
+                  <label>
+                    <p>Street Number</p>
+                    <input type="text" onChange={e => setStreetNumber(e.target.value)}/>
                   </label>
                   <label>
                     <p>Phone Number</p>
                     <input type="text" onChange={e => setPhoneNumber(e.target.value)} />
-                  </label>
-                  <label>
-                    <p>Gender</p>
-                    <Select options={genderOptions} onChange={e => setGender(e.target.value)} />
                   </label>
                   <div>
                     <button type="button" class="button">Submit</button>
