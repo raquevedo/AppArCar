@@ -58,4 +58,4 @@ function Profile({navigation}) {
       </View> 
     );  
   }
-  export default FormReg;
+  export default Profile;
