@@ -9,24 +9,58 @@ async function registerUser(credentials) {
     body: JSON.stringify(credentials)
   })
     .then(data => data.json())
- }
+  }
 
 export default function Register() {
  
   const [email, setEmail] = useState();
   const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [password, setPassword] = useState('');
+  const [passwordCorrect,setpasswordCorrect] = useState(false);
+  const [mailCorrect,setmailCorrect] = useState(false);
+  const [userCorrect,setuserCorrect] = useState(false);
+  const EmailRegex = /\S+@\S+\.\S+/;
+  
+  
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await registerUser({
-      email,
-      username,
-      password
-    });
+    
+     if((passwordCorrect == true) && (mailCorrect == true) && (userCorrect == true)){
+      const token = await registerUser({
+        email,
+        username,
+        password
+      });
+    }
   }
 
-  return(
+  function Validation(){
+    if ((password != '') && (password.length>=8)){
+      setpasswordCorrect(!passwordCorrect);
+    }
+    else{
+      alert('Ingrese una contraseñá con mas de 8 digitos');
+    }
+
+    if(EmailRegex.test(email)){
+      setmailCorrect(!mailCorrect);
+    }
+    else{
+      alert('Ingrese un mail con el formato example@example.com')
+    }
+
+    if(username != ''){
+      setuserCorrect(!userCorrect)
+    }
+    else{
+      alert('Ingrese un Usuario');
+    }
+    
+    
+  }
+
+return(
     <div className="login-wrapper">
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
@@ -47,7 +81,7 @@ export default function Register() {
           <input type="password" />
         </label>
         <div>
-          <button type="button" class="button">Submit</button>
+          <button type="button" class="button" onClick={Validation}>Submit</button>
         </div>
       </form>
     </div>
