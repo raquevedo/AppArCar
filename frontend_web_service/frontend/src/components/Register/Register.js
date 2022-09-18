@@ -14,7 +14,7 @@ async function registerUser(credentials) {
 export default function Register() {
  
   const [email, setEmail] = useState();
-  const [username, setUsername] = useState();
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState();
   const [passwordCorrect,setpasswordCorrect] = useState(false);
@@ -42,25 +42,25 @@ export default function Register() {
       setpasswordCorrect(!passwordCorrect);
     }
     else{
-      alert('Ingrese una contraseñá con mas de 8 digitos');
+      alert('Enter a password with 8 digits or more');
     }
     if(EmailRegex.test(email)){
       setmailCorrect(!mailCorrect);
     }
     else{
-      alert('Ingrese un mail con el formato example@example.com')
+      alert('Enter an email with the format example@example.com')
     }
     if(username != ''){
       setuserCorrect(!userCorrect)
     }
     else{
-      alert('Ingrese un Usuario');
+      alert('Enter a username');
     }
     if(password == passwordConfirmation){
       setPasswordConfirmation(!passwordConfirmation)
     }
     else{
-      alert('La contraseña a confirmar no coincide con la contraseña previa')
+      alert('The password to confirm does not match the previous one')
     }
 }
 

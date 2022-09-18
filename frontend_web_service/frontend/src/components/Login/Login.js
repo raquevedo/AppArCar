@@ -11,7 +11,7 @@ async function loginUser(credentials) {
     body: JSON.stringify(credentials)
   })
     .then(data => data.json())
-    .then(data => {
+    .then((data) => {
       console.log(data);
     })
  }
@@ -27,13 +27,13 @@ export default function Login({ setToken }) {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    // if((emailConfirmationL) && (passwordConfirmationL)){
+    if((emailConfirmationL) && (passwordConfirmationL)){
       const token = await loginUser({
         email,
         password
       });
       setToken(token);
-    // }
+    }
   
   }
 
@@ -43,14 +43,14 @@ export default function Login({ setToken }) {
       setemailConfirmationL(!emailConfirmationL);
     }
     else{
-      alert('Ingrese un mail con el formato example@example.com')
+      alert('Enter an email with the format example@example.com')
     }
 
     if((password != '') && (password.length>=8)){
       setPasswordConfirmationL(!passwordConfirmationL);
     }
     else{
-      alert('Ingrese una contraseña con 8 digitos o mas');
+      alert('Enter a password with 8 digits or more');
     }
 
   }
