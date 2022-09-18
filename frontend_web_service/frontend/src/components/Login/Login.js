@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 async function loginUser(credentials) {
 
-  return fetch('http://0.0.0.0:8000/auth/users/login', {
+  return fetch('http://localhost:3000/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -11,20 +11,48 @@ async function loginUser(credentials) {
     body: JSON.stringify(credentials)
   })
     .then(data => data.json())
+    .then(data => {
+      console.log(data);
+    })
  }
 
 export default function Login({ setToken }) {
  
   const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [password, setPassword] = useState('');
+  const [passwordConfirmationL,setPasswordConfirmationL] = useState(false);
+  const [emailConfirmationL,setemailConfirmationL] = useState(false);
+  const EmailRegex = /\S+@\S+\.\S+/;
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await loginUser({
-      email,
-      password
-    });
-    setToken(token);
+
+    // if((emailConfirmationL) && (passwordConfirmationL)){
+      const token = await loginUser({
+        email,
+        password
+      });
+      setToken(token);
+    // }
+  
+  }
+
+  function validationLogin(){
+
+    if(EmailRegex.test(email)){
+      setemailConfirmationL(!emailConfirmationL);
+    }
+    else{
+      alert('Ingrese un mail con el formato example@example.com')
+    }
+
+    if((password != '') && (password.length>=8)){
+      setPasswordConfirmationL(!passwordConfirmationL);
+    }
+    else{
+      alert('Ingrese una contraseña con 8 digitos o mas');
+    }
+
   }
 
   return(
@@ -40,7 +68,7 @@ export default function Login({ setToken }) {
           <input type="password" onChange={e => setPassword(e.target.value)}/>
         </label>
         <div>
-          <button type="button" class="button">Submit</button>
+          <button type="button" class="button" onClick={validationLogin}>Submit</button>
         </div>
       </form>
     </div>
