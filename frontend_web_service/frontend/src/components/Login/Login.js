@@ -14,9 +14,7 @@ async function loginUser(credentials) {
     body: JSON.stringify(credentials)
   })
     .then(data => data.json())
-    .then((data) => {
-      console.log(data);
-    })
+    
  }
 
 export default function Login({ setToken }) {
@@ -43,11 +41,12 @@ export default function Login({ setToken }) {
     }
   
   }
+  
 
 
 
-  console.log(emailConfirmationL);
-  console.log(passwordConfirmationL);
+  // console.log(emailConfirmationL);
+  // console.log(passwordConfirmationL);
 
   paswordLenghtL = password.length;
 return(

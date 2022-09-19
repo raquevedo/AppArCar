@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import ValidationInputsPassword from '../../utils/ValidationInputsPassword';
 import ValidationInputsEmail from '../../utils/ValidationInputsEmail';
+import ValidationInputsUsername from '../../utils/ValidationInputsUsername';
+import ValidationInputsPasswordConfirmation from '../../utils/ValidationInputsPasswordConfirmation';
 
 async function registerUser(credentials) {
   return fetch('http://0.0.0.0:8000/auth/signup', {
@@ -24,7 +26,6 @@ export default function Register() {
   const [PasswordCorrect,setPasswordCorrect] = useState(false);
   const [EmailCorrect,setEmailCorrect] = useState(false);
   let passwordlenght = 0;
-  
   const handleSubmit = async e => {
     e.preventDefault();
     
@@ -40,27 +41,9 @@ export default function Register() {
     }
   }
 
-  function ValidateUsername(){
-    if(username != ''){
-      setUsernameCorrect(!UsernameCorrect)
-  }
-  else{
-    alert('Enter a username');
-  }
-  }
-
-  function ValidatePasswordConfirmation(){
-    
-    if(password == passwordConfirmation){
-      setPasswordConfirmationCorrect(!PasswordConfirmationCorrect);
-  }
-  else{
-    alert('The password to confirm does not match the previous one')
-  }
-  }  
 passwordlenght = password.length;
 
-console.log(EmailCorrect);
+//console.log(EmailCorrect);
 //console.log(UsernameCorrect)
 // console.log(PasswordCorrect);
 // console.log(PasswordConfirmationCorrect);
@@ -74,7 +57,7 @@ return(
         </label>
         <label>
           <p>Username</p>
-          <input type="text" onChange={e => setUsername(e.target.value)}  onBlur = {() =>{ValidateUsername()}}/>
+          <input type="text" onChange={e => setUsername(e.target.value)}  onBlur = {() =>{setUsernameCorrect(ValidationInputsUsername(username))}}/>
         </label>
         <label>
           <p>Password</p>
@@ -82,7 +65,7 @@ return(
         </label>
         <label>
           <p>Confirm Password</p>
-          <input type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onBlur = {() => {ValidatePasswordConfirmation()}}/>
+          <input type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onBlur = {() => {setPasswordConfirmationCorrect(ValidationInputsPasswordConfirmation(passwordConfirmation))}}/>
         </label>
         <div>
           <button type="button" class="button" onClick={handleSubmit}>Submit</button>
