@@ -24,6 +24,10 @@ export class UsrPartner extends Entity {
     required: true,
     length: 100,
     postgresql: {columnName: 'business_name', dataType: 'character varying', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    jsonSchema: {
+      minLength: 3,
+      maxLength: 100,
+    }
   })
   businessName: string;
 
@@ -40,6 +44,10 @@ export class UsrPartner extends Entity {
     required: true,
     length: 100,
     postgresql: {columnName: 'street_name', dataType: 'character varying', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    jsonSchema: {
+      minLength: 3,
+      maxLength: 100,
+    }
   })
   streetName: string;
 
@@ -48,6 +56,9 @@ export class UsrPartner extends Entity {
     required: true,
     scale: 0,
     postgresql: {columnName: 'street_number', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
+    jsonSchema: {
+      minimum: 1
+    }
   })
   streetNumber: number;
 
@@ -56,6 +67,9 @@ export class UsrPartner extends Entity {
     required: true,
     length: 100,
     postgresql: {columnName: 'email', dataType: 'character varying', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    jsonSchema: {
+      pattern: '/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/'
+    }
   })
   email: string;
 
@@ -64,6 +78,9 @@ export class UsrPartner extends Entity {
     required: true,
     scale: 0,
     postgresql: {columnName: 'contact_number', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
+    jsonSchema: {
+      minimum: 1
+    }
   })
   contactNumber: number;
 
