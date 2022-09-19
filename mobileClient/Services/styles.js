@@ -12,6 +12,14 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center'
   },
+  themetextshort: {
+    flex: 4,
+    fontSize: 30,
+    textAlign: 'center',
+    color: '#5741f2',
+    justifyContent: 'center',
+    alignItems: 'center'
+},
   buttonTextl: {
     fontSize: 20,
     textAlign: 'center',
@@ -30,8 +38,7 @@ const styles = StyleSheet.create({
   linearGradient: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column'
+    alignItems: 'center'
   },
   wrapperbutton: {
     flex: 1,
@@ -72,6 +79,17 @@ const styles = StyleSheet.create({
   
   section: {
     flex: 2,
+    borderWidth:1,
+     borderColor:'rgba(0,0,0,0.2)',
+     alignItems:'center',
+     justifyContent:'center',
+     width:330,
+     height:150,
+     backgroundColor:'white',
+     borderRadius:40,
+  },
+  sectionlong: {
+    flex: 6,
     borderWidth:1,
      borderColor:'rgba(0,0,0,0.2)',
      alignItems:'center',

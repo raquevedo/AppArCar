@@ -25,7 +25,7 @@ function SignInScreen({navigation}) {
                   style={styles.text}
                   onChangeText={setEmail}
                   
-                  right={<TextInput.Icon icon="email" />}
+                  left={<TextInput.Icon icon="email" />}
                 />
                 <TextInput
                   placeholder="Password"
@@ -33,7 +33,7 @@ function SignInScreen({navigation}) {
                   onChangeText={setPassword}
                   secureTextEntry
                   style={styles.text}
-                  right={<TextInput.Icon icon="lock" />}
+                  left={<TextInput.Icon icon="lock" />}
                 />
                 
                   <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#3043ff','#df3ac4']} style={styles.buttonstylel}>

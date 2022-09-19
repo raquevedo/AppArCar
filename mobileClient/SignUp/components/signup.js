@@ -23,14 +23,14 @@ function SignUpScreen({navigation}) {
               value={username}
               onChangeText={setUsername}
               style={ styles.text}
-              right={<TextInput.Icon icon="eye" />}
+              left={<TextInput.Icon icon="eye" />}
             />
             <TextInput
               placeholder="Email"
               value={email}
               onChangeText={setEmail}
               style={ styles.text}
-              right={<TextInput.Icon icon="email" />}
+              left={<TextInput.Icon icon="email" />}
             />
             <TextInput
               placeholder="Password"
@@ -38,7 +38,7 @@ function SignUpScreen({navigation}) {
               onChangeText={setPassword}
               secureTextEntry
               style={ styles.text}
-              right={<TextInput.Icon icon="lock" />}
+              left={<TextInput.Icon icon="lock" />}
             />
             <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#3043ff','#df3ac4']} style={styles.buttonstyle}>
                   <Text style={styles.buttonText} onPress={() => signUp({ username, password, email }) & navigation.goBack()}>Sign up</Text>
