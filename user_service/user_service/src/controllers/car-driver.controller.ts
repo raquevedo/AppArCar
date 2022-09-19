@@ -125,8 +125,8 @@ export class CarDriverController {
   })
   async findMyself(
   ){
-    var data
-    var isRegister
+    let data
+    let isRegister
     try{
       data = await this.usrCarDriverRepository.findById(this.currentUserProfile.id)
       isRegister = true
