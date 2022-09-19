@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import ValidationInputsPassword from '../../utils/ValidationInputsPassword';
+import ValidationInputsEmail from '../../utils/ValidationInputsEmail';
+
 
 async function loginUser(credentials) {
 
@@ -22,7 +25,8 @@ export default function Login({ setToken }) {
   const [password, setPassword] = useState('');
   const [passwordConfirmationL,setPasswordConfirmationL] = useState(false);
   const [emailConfirmationL,setemailConfirmationL] = useState(false);
-  const EmailRegex = /\S+@\S+\.\S+/;
+  let paswordLenghtL = 0;
+  
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -34,41 +38,32 @@ export default function Login({ setToken }) {
       });
       setToken(token);
     }
+    else{
+      alert('Missing fields to complete')
+    }
   
   }
 
-  function validationLogin(){
 
-    if(EmailRegex.test(email)){
-      setemailConfirmationL(!emailConfirmationL);
-    }
-    else{
-      alert('Enter an email with the format example@example.com')
-    }
 
-    if((password != '') && (password.length>=8)){
-      setPasswordConfirmationL(!passwordConfirmationL);
-    }
-    else{
-      alert('Enter a password with 8 digits or more');
-    }
+  console.log(emailConfirmationL);
+  console.log(passwordConfirmationL);
 
-  }
-
-  return(
+  paswordLenghtL = password.length;
+return(
     <div className="login-wrapper">
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input type="text" onChange={e => setEmail(e.target.value)}/>
+          <input type="text" onChange={e => setEmail(e.target.value)} onBlur = {() => {setemailConfirmationL(ValidationInputsEmail(email))}}/>
         </label>
         <label>
           <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)}/>
+          <input type="password" onChange={e => setPassword(e.target.value)} onBlur = {() => {setPasswordConfirmationL(ValidationInputsPassword(password,paswordLenghtL))}}/>
         </label>
         <div>
-          <button type="button" class="button" onClick={validationLogin}>Submit</button>
+          <button type="button" class="button" onClick={handleSubmit}>Submit</button>
         </div>
       </form>
     </div>

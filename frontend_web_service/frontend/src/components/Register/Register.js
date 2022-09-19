@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import ValidationInputsPassword from '../../utils/ValidationInputsPassword';
+import ValidationInputsEmail from '../../utils/ValidationInputsEmail';
 
 async function registerUser(credentials) {
   return fetch('http://0.0.0.0:8000/auth/signup', {
@@ -17,75 +19,73 @@ export default function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState();
-  const [passwordCorrect,setpasswordCorrect] = useState(false);
-  const [mailCorrect,setmailCorrect] = useState(false);
-  const [userCorrect,setuserCorrect] = useState(false);
-  const [passwordConfirmationCorrect,setpasswordConfirmationCorrect] = useState(false);
-  const EmailRegex = /\S+@\S+\.\S+/;
+  const [UsernameCorrect,setUsernameCorrect] = useState(false);
+  const [PasswordConfirmationCorrect,setPasswordConfirmationCorrect] = useState(false)
+  const [PasswordCorrect,setPasswordCorrect] = useState(false);
+  const [EmailCorrect,setEmailCorrect] = useState(false);
+  let passwordlenght = 0;
   
-  
-
   const handleSubmit = async e => {
     e.preventDefault();
     
-     if((passwordCorrect == true) && (mailCorrect == true) && (userCorrect == true) && (passwordConfirmationCorrect == true)){
+     if((PasswordCorrect == true) && (EmailCorrect == true) && (UsernameCorrect == true) && (PasswordConfirmationCorrect == true)){
       const token = await registerUser({
         email,
         username,
         password
       });
     }
+    else{
+      alert('Missing fields to complete')
+    }
   }
 
-  function Validation(){
-    if ((password != '') && (password.length>=8)){
-      setpasswordCorrect(!passwordCorrect);
-    }
-    else{
-      alert('Enter a password with 8 digits or more');
-    }
-    if(EmailRegex.test(email)){
-      setmailCorrect(!mailCorrect);
-    }
-    else{
-      alert('Enter an email with the format example@example.com')
-    }
+  function ValidateUsername(){
     if(username != ''){
-      setuserCorrect(!userCorrect)
-    }
-    else{
-      alert('Enter a username');
-    }
-    if(password == passwordConfirmation){
-      setPasswordConfirmation(!passwordConfirmation)
-    }
-    else{
-      alert('The password to confirm does not match the previous one')
-    }
-}
+      setUsernameCorrect(!UsernameCorrect)
+  }
+  else{
+    alert('Enter a username');
+  }
+  }
 
+  function ValidatePasswordConfirmation(){
+    
+    if(password == passwordConfirmation){
+      setPasswordConfirmationCorrect(!PasswordConfirmationCorrect);
+  }
+  else{
+    alert('The password to confirm does not match the previous one')
+  }
+  }  
+passwordlenght = password.length;
+
+console.log(EmailCorrect);
+//console.log(UsernameCorrect)
+// console.log(PasswordCorrect);
+// console.log(PasswordConfirmationCorrect);
 return(
     <div className="login-wrapper">
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input type="text" onChange={e => setEmail(e.target.value)}/>
+          <input type="text" onChange={e => setEmail(e.target.value)}  onBlur = {() => {setEmailCorrect(ValidationInputsEmail(email))}}/>
         </label>
         <label>
           <p>Username</p>
-          <input type="text" onChange={e => setUsername(e.target.value)}/>
+          <input type="text" onChange={e => setUsername(e.target.value)}  onBlur = {() =>{ValidateUsername()}}/>
         </label>
         <label>
           <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)}/>
+          <input type="password" onChange={e => setPassword(e.target.value)} onBlur = {() => {setPasswordCorrect(ValidationInputsPassword(password,passwordlenght))}}/>
         </label>
         <label>
           <p>Confirm Password</p>
-          <input type="password"  onChange={e => setPasswordConfirmation(e.target.value)}/>
+          <input type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onBlur = {() => {ValidatePasswordConfirmation()}}/>
         </label>
         <div>
-          <button type="button" class="button" onClick={Validation}>Submit</button>
+          <button type="button" class="button" onClick={handleSubmit}>Submit</button>
         </div>
       </form>
     </div>
