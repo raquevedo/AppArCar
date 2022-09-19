@@ -107,4 +107,6 @@ function Profile({navigation}) {
       </View> 
     );  
   }
-  export default Profile;
+
+export default Profile
+
