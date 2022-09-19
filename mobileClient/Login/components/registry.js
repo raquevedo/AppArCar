@@ -62,7 +62,7 @@ function FormReg({navigation}) {
 
   /*
  <TextInput
-          placeholder="patete"
+          placeholder="patente"
           value={brandCar}
           onChangeText={setBrandCar}
         />
