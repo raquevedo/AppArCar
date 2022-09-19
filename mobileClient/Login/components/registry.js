@@ -1,6 +1,9 @@
 import  * as React from 'react';
-import { View, TextInput, Button} from 'react-native';
-import { AuthContext } from '../../Services/context'
+import { View, TextInput, Button,Text} from 'react-native';
+import { AuthContext } from '../../Services/context';
+import styles from '../../Services/styles';
+import { TextInput } from 'react-native-paper';
+import {LinearGradient} from 'expo-linear-gradient';
 
 function FormReg({navigation}) {
     const [name, setname] = React.useState('');
