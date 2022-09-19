@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import fetchToken from '../../utils/fetchToken';
 
 async function registerUser(partnerData) {
-  return fetch('http://0.0.0.0:8000/user/partner/create-user', {
+  let myHeaders = new Headers();
+  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
+  myHeaders.append('Content-Type', 'application/json');
+
+  return fetch('http://0.0.0.0:8000/user/partners/create-user', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: myHeaders,
     body: JSON.stringify(partnerData)
   })
     .then(data => data.json())
@@ -13,19 +16,19 @@ async function registerUser(partnerData) {
 
 export default function SetupForm({ setPartnerData, setIsRegistered }) {
   const [businessName, setBusinessName] = useState();
-  const [cuit, setCuit] = useState();
+  const [cuitNumber, setCuitNumber] = useState();
   const [streetName, setStreetName] = useState();
   const [streetNumber, setStreetNumber] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
+  const [contactNumber, setContactNumber] = useState();
 
   const handleSubmit = async e => {
     e.preventDefault();
     const partner = await registerUser({
       businessName,
-      cuit,
+      cuitNumber,
       streetName,
       streetNumber,
-      phoneNumber
+      contactNumber
     });
     setIsRegistered(true);
     setPartnerData(partner);
@@ -48,12 +51,12 @@ export default function SetupForm({ setPartnerData, setIsRegistered }) {
               <div className='cell small-8'>
                 <form onSubmit={handleSubmit}>
                   <label>
-                    <p>businessName</p>
+                    <p>Business Name</p>
                     <input type="text" onChange={e => setBusinessName(e.target.value)}/>
                   </label>
                   <label>
                     <p>CUIT</p>
-                    <input type="text" onChange={e => setCuit(e.target.value)}/>
+                    <input type="text" onChange={e => setCuitNumber(e.target.value)}/>
                   </label>
                   <label>
                     <p>Street Name</p>
@@ -61,14 +64,14 @@ export default function SetupForm({ setPartnerData, setIsRegistered }) {
                   </label>
                   <label>
                     <p>Street Number</p>
-                    <input type="text" onChange={e => setStreetNumber(e.target.value)}/>
+                    <input type="text" onChange={e => setStreetNumber(parseInt(e.target.value))}/>
                   </label>
                   <label>
                     <p>Phone Number</p>
-                    <input type="text" onChange={e => setPhoneNumber(e.target.value)} />
+                    <input type="text" onChange={e => setContactNumber(parseInt(e.target.value))} />
                   </label>
                   <div>
-                    <button type="button" class="button">Submit</button>
+                    <button type="submit" class="button">Submit</button>
                   </div>
                 </form>
               </div>
