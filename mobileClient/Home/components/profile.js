@@ -1,31 +1,46 @@
 import  * as React from 'react';
 import { View, TextInput, Button} from 'react-native';
-import { AuthContext } from '../../Services/context'
+import * as SecureStore from 'expo-secure-store';
+import host_instance from '../../host_instance.json';
 
 function Profile({navigation}) {
-    const [name, setname] = React.useState('');
-    const [lastName, setlastName] = React.useState('');
-    //const [patent, setpatent] = React.useState('');
-    const [documentNumber, setDocument] = React.useState('');
-    const [birthDateDt, setBirthday] = React.useState('');
-    //const [residence, setResidence] = React.useState('');
-    const [contactNumber, setContactNumber] = React.useState('');
-    //const [brandCar, setBrandCar] = React.useState('');
-    //const [modelCar, setModelCar] = React.useState('');
-    const [gender, setGender] = React.useState('');
-  
-
-    const { register } = React.useContext(AuthContext);
-    const { signOut } = React.useContext(AuthContext);
     
+    const [name,setName] = React.useState('');
+
+    const loadDataOnlyOnce = async function(){
+      const token = await SecureStore.getItemAsync('tk');
+      const fetchData={}
+      fetchData.method= 'GET'
+      fetchData.headers={
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization':'Bearer '+token
+      }
+      
+      const response = await fetch(host_instance.path+'/user/car-drivers/user-info',fetchData)
+      const respData = await response.json()
+      console.log('nombre:',respData.name)
+      setName(respData.name);
+    }
+
+    React.useEffect(() => {
+      loadDataOnlyOnce()
+    },[])
+
     return (
       <View>
         <TextInput
           placeholder="Nombre"
           value={name}
-          onChangeText={setname}
+          onChangeText={setName}
         />
-        <TextInput
+        
+        <Button title="Cargar" onPress={() => console.log('perfil')} />
+      </View> 
+    );  
+  }
+  export default Profile;
+/*<TextInput
           placeholder="Apellido"
           value={lastName}
           onChangeText={setlastName}
@@ -52,10 +67,4 @@ function Profile({navigation}) {
           placeholder="Género"
           value={gender}
           onChangeText={setGender}
-        />
-        <Button title="Cargar" onPress={() => register({ name, lastName, documentNumber, birthDateDt, contactNumber, gender })} />
-        <Button title="Sign out" onPress={() => signOut({})} />
-      </View> 
-    );  
-  }
-  export default Profile;
+        />*/
