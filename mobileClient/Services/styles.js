@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     borderRadius: 50,
   },
-  containbuttonstylel: {
+  containButtonStylel: {
     flex: 4,
     alignItems: "center",
     justifyContent: "center",

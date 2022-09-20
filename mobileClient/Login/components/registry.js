@@ -18,14 +18,14 @@ function FormReg({ navigation }) {
   //const [brandCar, setBrandCar] = React.useState('');
   //const [modelCar, setModelCar] = React.useState('');
   const [gender, setGender] = React.useState("");
-  const [isDatePickerVisible, setDatePickerVisibility] = React.useState(false);
+  const [isDatePickerVisible, setIsDatePickerVisibility] = React.useState(false);
 
   const showDatePicker = () => {
-    setDatePickerVisibility(true);
+    setIsDatePickerVisibility(true);
   };
 
   const hideDatePicker = () => {
-    setDatePickerVisibility(false);
+    setIsDatePickerVisibility(false);
   };
 
   const handleConfirm = (birthDateDt) => {
@@ -85,7 +85,7 @@ function FormReg({ navigation }) {
             birthDateDt ? moment(birthDateDt).format("MM/DD/YYYY") : "--/--/--"
           }`}</Text>
           <TouchableOpacity
-            style={styles.containbuttonstylel}
+            style={styles.containButtonStylel}
             onPress={showDatePicker}
           >
             <LinearGradient
@@ -104,7 +104,7 @@ function FormReg({ navigation }) {
             onCancel={hideDatePicker}
           />
           <TouchableOpacity
-            style={styles.containbuttonstylel}
+            style={styles.containButtonStylel}
             onPress={() =>
               register({
                 name,
