@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     textAlign: "center",
-    margin: 10,
     color: "#ffffff",
     backgroundColor: "transparent",
   },
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
 
   text: {
     flex: 4,
-    fontSize: 30,
+    fontSize: 25,
     textAlign: "center",
     width: "70%",
     margin: 10,
