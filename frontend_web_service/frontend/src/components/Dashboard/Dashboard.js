@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default function Dashboard() {
+export default function Dashboard({ partnerData, setPartnerData }) {
   return(
-    <h2>Dashboard</h2>
+    <div></div>
   );
 }

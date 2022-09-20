@@ -1,6 +1,10 @@
 import  * as React from 'react';
 import { View, TextInput, Button} from 'react-native';
+<<<<<<< HEAD:mobileClient/Components/registry.js
+import { AuthContext } from '../context'
+=======
 import { AuthContext } from '../../Services/context'
+>>>>>>> dcc6a522dad7d257cca72244580342802a95a0ac:mobileClient/Login/components/registry.js
 
 function FormReg({navigation}) {
     const [name, setname] = React.useState('');
