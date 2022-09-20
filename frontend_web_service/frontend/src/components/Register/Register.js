@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ValidationInputsPassword from '../../utils/ValidationInputsPassword';
-import ValidationInputsEmail from '../../utils/ValidationInputsEmail';
-import ValidationInputsUsername from '../../utils/ValidationInputsUsername';
-import ValidationInputsPasswordConfirmation from '../../utils/ValidationInputsPasswordConfirmation';
+import ValidatePassword from '../../utils/ValidatePassword';
+import ValidateEmail from '../../utils/ValidateEmail';
+import ValidateUsername from '../../utils/ValidateUsername';
+import ValidatePasswordConfirmation from '../../utils/ValidatePasswordConfirmation';
 
 async function registerUser(credentials) {
   return fetch('http://0.0.0.0:8000/auth/signup', {
@@ -12,8 +12,8 @@ async function registerUser(credentials) {
     },
     body: JSON.stringify(credentials)
   })
-    .then(data => data.json())
-  }
+  .then(data => data.json())
+}
 
 export default function Register() {
  
@@ -21,15 +21,16 @@ export default function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState();
-  const [UsernameCorrect,setUsernameCorrect] = useState(false);
-  const [PasswordConfirmationCorrect,setPasswordConfirmationCorrect] = useState(false)
-  const [PasswordCorrect,setPasswordCorrect] = useState(false);
-  const [EmailCorrect,setEmailCorrect] = useState(false);
-  let passwordlenght = 0;
+  const [usernameCorrect,setUsernameCorrect] = useState(false);
+  const [passwordConfirmationCorrect,setPasswordConfirmationCorrect] = useState(false)
+  const [passwordCorrect,setPasswordCorrect] = useState(false);
+  const [emailCorrect,setEmailCorrect] = useState(false);
+ 
+  
   const handleSubmit = async e => {
     e.preventDefault();
     
-     if((PasswordCorrect == true) && (EmailCorrect == true) && (UsernameCorrect == true) && (PasswordConfirmationCorrect == true)){
+     if((passwordCorrect) && (emailCorrect) && (usernameCorrect) && (passwordConfirmationCorrect)){
       const token = await registerUser({
         email,
         username,
@@ -41,31 +42,25 @@ export default function Register() {
     }
   }
 
-passwordlenght = password.length;
-
-//console.log(EmailCorrect);
-//console.log(UsernameCorrect)
-// console.log(PasswordCorrect);
-// console.log(PasswordConfirmationCorrect);
-return(
+  return(
     <div className="login-wrapper">
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input type="text" onChange={e => setEmail(e.target.value)}  onBlur = {() => {setEmailCorrect(ValidationInputsEmail(email))}}/>
+          <input type="text" onChange={e => setEmail(e.target.value)}  onBlur = {() => {setEmailCorrect(ValidateEmail(email))}}/>
         </label>
         <label>
           <p>Username</p>
-          <input type="text" onChange={e => setUsername(e.target.value)}  onBlur = {() =>{setUsernameCorrect(ValidationInputsUsername(username))}}/>
+          <input type="text" onChange={e => setUsername(e.target.value)}  onBlur = {() =>{setUsernameCorrect(ValidateUsername(username))}}/>
         </label>
         <label>
           <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)} onBlur = {() => {setPasswordCorrect(ValidationInputsPassword(password,passwordlenght))}}/>
+          <input type="password" onChange={e => setPassword(e.target.value)} onBlur = {() => {setPasswordCorrect(ValidatePassword(password))}}/>
         </label>
         <label>
           <p>Confirm Password</p>
-          <input type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onBlur = {() => {setPasswordConfirmationCorrect(ValidationInputsPasswordConfirmation(passwordConfirmation))}}/>
+          <input type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onBlur = {() => {setPasswordConfirmationCorrect(ValidatePasswordConfirmation(password,passwordConfirmation))}}/>
         </label>
         <div>
           <button type="button" class="button" onClick={handleSubmit}>Submit</button>
