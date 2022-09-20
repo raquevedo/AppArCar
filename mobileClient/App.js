@@ -11,7 +11,7 @@ import FormReg from './Login/components/registry';
 import Profile from './Home/components/profile';
 import { AuthContext } from './Services/context';
 import host_instance from './host_instance.json';
-import IsRegisteredFunc from './Services/requests';
+import { IsRegisteredFunc } from './Services/requests';
 
 const Stack = createNativeStackNavigator();
 
