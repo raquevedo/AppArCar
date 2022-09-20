@@ -1,37 +1,84 @@
 import  * as React from 'react';
 import { View, TextInput, Button} from 'react-native';
-import { AuthContext } from '../../Services/context'
+import * as SecureStore from 'expo-secure-store';
+import host_instance from '../../host_instance.json';
+
+async function PersistProfile(data){
+  const userToken = await SecureStore.getItemAsync('tk');
+  data.documentNumber=parseInt(data.documentNumber)
+  data.contactNumber=parseInt(data.contactNumber)
+  const fetchData={}
+  fetchData.method= 'PATCH'
+  fetchData.body= JSON.stringify(data)
+  fetchData.headers={
+      'accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization':'Bearer '+userToken
+    }
+
+  data.documentNumber=parseInt(data.documentNumber)
+  data.contactNumber=parseInt(data.contactNumber)
+
+  fetch(host_instance.path+'/user/car-drivers/update-profile')
+  .then(async function(response){
+    if(response.status != 204){
+      console.log("Error")
+      alert("Error, por favor verifique los datos ingresados")
+    }else{
+      //const dataRes = await response.json();
+      console.log('Update profile is success')
+      alert('Sus datos fueron actualizados con éxito')
+      
+    }
+  })
+}
 
 function Profile({navigation}) {
-    const [name, setname] = React.useState('');
-    const [lastName, setlastName] = React.useState('');
-    //const [patent, setpatent] = React.useState('');
+    
+    const [name, setName] = React.useState('');
+    const [lastName, setLastName] = React.useState('');
     const [documentNumber, setDocument] = React.useState('');
     const [birthDateDt, setBirthday] = React.useState('');
-    //const [residence, setResidence] = React.useState('');
     const [contactNumber, setContactNumber] = React.useState('');
-    //const [brandCar, setBrandCar] = React.useState('');
-    //const [modelCar, setModelCar] = React.useState('');
     const [gender, setGender] = React.useState('');
-  
 
-    const { register } = React.useContext(AuthContext);
-    const { signOut } = React.useContext(AuthContext);
-    
+    const loadDataOnlyOnce = async function(){
+      const token = await SecureStore.getItemAsync('tk');
+      const fetchData={}
+      fetchData.method= 'GET'
+      fetchData.headers={
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization':'Bearer '+token
+      }
+      const response = await fetch(host_instance.path+'/user/car-drivers/user-info',fetchData)
+      const respData = await response.json()
+      setName(respData.name)
+      setLastName(respData.lastName)
+      setDocument(respData.documentNumber.toString())
+      setBirthday(respData.birthDateDt)
+      setContactNumber(respData.contactNumber.toString())
+      setGender(respData.gender)   
+      console.log(respData)   
+    }
+
+    React.useEffect(() => {
+      loadDataOnlyOnce()
+    },[])
+
     return (
       <View>
         <TextInput
           placeholder="Nombre"
           value={name}
-          onChangeText={setname}
+          onChangeText={setName}
         />
         <TextInput
           placeholder="Apellido"
           value={lastName}
-          onChangeText={setlastName}
+          onChangeText={setLastName}
         />
-        
-         <TextInput
+        <TextInput
           placeholder="Documento"
           value={documentNumber}
           onChangeText={setDocument}
@@ -41,21 +88,20 @@ function Profile({navigation}) {
           value={birthDateDt}
           onChangeText={setBirthday}
         />
-        
         <TextInput
           placeholder="Teléfono móvil"
           value={contactNumber}
           onChangeText={setContactNumber}
         />
-        
         <TextInput
           placeholder="Género"
           value={gender}
           onChangeText={setGender}
         />
-        <Button title="Cargar" onPress={() => register({ name, lastName, documentNumber, birthDateDt, contactNumber, gender })} />
-        <Button title="Sign out" onPress={() => signOut({})} />
+        <Button title="Cargar" onPress={() => PersistProfile({name, lastName, documentNumber, birthDateDt, contactNumber, gender})} />
       </View> 
     );  
   }
-  export default Profile;
+
+export default Profile
+
