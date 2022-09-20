@@ -25,7 +25,7 @@ function SignUpScreen({ navigation }) {
         <Image source={require("../../assets/logo.png")} style={styles.image} />
         <View style={styles.section}>
           <View style={styles.space}></View>
-          <Text style={styles.themetext}>Sign Up</Text>
+          <Text style={styles.themeText}>Sign Up</Text>
           <TextInput
             placeholder="Username"
             value={username}
@@ -49,7 +49,7 @@ function SignUpScreen({ navigation }) {
             left={<TextInput.Icon icon="lock" />}
           />
           <TouchableOpacity
-            style={styles.containbuttonstyle}
+            style={styles.containButtonStyle}
             onPress={() =>
               signUp({ username, password, email }) & navigation.goBack()
             }
@@ -58,7 +58,7 @@ function SignUpScreen({ navigation }) {
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               colors={["#3043ff", "#df3ac4"]}
-              style={styles.buttonstyle}
+              style={styles.buttonStyle}
             >
               <Text style={styles.buttonText}>Sign up</Text>
             </LinearGradient>

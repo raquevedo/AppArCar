@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Alert, Dimensions } from "react-native";
 
 const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
-  themetext: {
+  themeText: {
     flex: 4,
     fontSize: 40,
     textAlign: "center",
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  themetextshort: {
+  themeTextShort: {
     flex: 4,
     fontSize: 30,
     textAlign: "center",
@@ -31,16 +31,16 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     backgroundColor: "transparent",
   },
-  wrapperbutton: {
+  wrapperButton: {
     flex: 1,
     display: "flex",
     flexdirection: "row",
   },
-  containbuttonstyle: {
+  containButtonStyle: {
     alignItems: "center",
     justifyContent: "center",
   },
-  buttonstyle: {
+  buttonStyle: {
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.2)",
     alignItems: "center",
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  buttonstylel: {
+  buttonStylel: {
     flex: 4,
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.2)",
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 40,
   },
-  sectionlong: {
+  sectionLong: {
     flex: 6,
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.2)",
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     height: 120,
     resizeMode: "contain",
   },
-  textdate: {
+  textDate: {
     fontSize: 12,
     justifyContent: "center",
     alignItems: "center",

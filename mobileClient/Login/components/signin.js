@@ -26,7 +26,7 @@ function SignInScreen({ navigation }) {
 
         <View style={styles.section}>
           <View style={styles.space}></View>
-          <Text style={styles.themetext}>Hello!</Text>
+          <Text style={styles.themeText}>Hello!</Text>
           <TextInput
             placeholder="Email"
             value={email}
@@ -43,14 +43,14 @@ function SignInScreen({ navigation }) {
             left={<TextInput.Icon icon="lock" />}
           />
           <TouchableOpacity
-            style={styles.containbuttonstylel}
+            style={styles.containButtonStylel}
             onPress={() => signIn({ email, password })}
           >
             <LinearGradient
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               colors={["#3043ff", "#df3ac4"]}
-              style={styles.buttonstylel}
+              style={styles.buttonStylel}
             >
               <Text style={styles.buttonTextl}>Login</Text>
             </LinearGradient>
@@ -59,14 +59,14 @@ function SignInScreen({ navigation }) {
         </View>
         <View style={styles.space}>
           <TouchableOpacity
-            style={styles.containbuttonstyle}
+            style={styles.containButtonStyle}
             onPress={() => navigation.navigate("SignUp")}
           >
             <LinearGradient
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               colors={["#df3ac4", "#3043ff"]}
-              style={styles.buttonstyle}
+              style={styles.buttonStyle}
             >
               <Text style={styles.buttonText}>Sign up</Text>
             </LinearGradient>

@@ -40,9 +40,9 @@ function FormReg({ navigation }) {
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
         <Image source={require("../../assets/logo.png")} style={styles.image} />
-        <View style={styles.sectionlong}>
+        <View style={styles.sectionLong}>
           <View style={styles.space}></View>
-          <Text style={styles.themetextshort}>Complete sus datos:</Text>
+          <Text style={styles.themeTextShort}>Complete sus datos:</Text>
           <TextInput
             placeholder="Nombre"
             value={name}
@@ -92,9 +92,9 @@ function FormReg({ navigation }) {
               start={{ x: 0, y: 1 }}
               end={{ x: 0, y: 0 }}
               colors={["#df3ac4", "#3043ff"]}
-              style={styles.buttonstylel}
+              style={styles.buttonStylel}
             >
-              <Text style={styles.textdate}>Fecha de Nacimiento</Text>
+              <Text style={styles.textDate}>Fecha de Nacimiento</Text>
             </LinearGradient>
           </TouchableOpacity>
           <DatePicker
@@ -120,7 +120,7 @@ function FormReg({ navigation }) {
               start={{ x: 1, y: 0 }}
               end={{ x: 0, y: 1 }}
               colors={["#df3ac4", "#3043ff"]}
-              style={styles.buttonstylel}
+              style={styles.buttonStylel}
             >
               <Text style={styles.buttonText}>Send</Text>
             </LinearGradient>
@@ -129,14 +129,14 @@ function FormReg({ navigation }) {
         </View>
         <View style={styles.space}>
           <TouchableOpacity
-            style={styles.containbuttonstyle}
+            style={styles.containButtonStyle}
             onPress={() => signOut({})}
           >
             <LinearGradient
               start={{ x: 0, y: 0 }}
               end={{ x: 0, y: 0 }}
               colors={["#3043ff", "#df3ac4"]}
-              style={styles.buttonstyle}
+              style={styles.buttonStyle}
             >
               <Text style={styles.buttonText}>Sign out</Text>
             </LinearGradient>
