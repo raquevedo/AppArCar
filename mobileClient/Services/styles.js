@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View, Alert } from "react-native";
+import { StyleSheet, Text, View, Alert, Dimensions } from "react-native";
 
+const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   themetext: {
     flex: 4,
@@ -114,6 +115,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  gradient: {
+    width:'100%', 
+    height: windowHeight,
+    justifyContent: "center",
+    alignItems: "center", 
   },
 });
 export default styles;

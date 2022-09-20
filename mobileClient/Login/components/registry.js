@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Button, Text, Image, TouchableOpacity } from "react-native";
+import { View, Button, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { AuthContext } from "../../Services/context";
 import styles from "../../Services/styles";
 import { TextInput } from "react-native-paper";
@@ -37,111 +37,113 @@ function FormReg({ navigation }) {
   const { signOut } = React.useContext(AuthContext);
 
   return (
-    <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.space}>
-      <Image source={require("../../assets/logo.png")} style={styles.image} />
-      <View style={styles.sectionlong}>
-        <View style={styles.space}></View>
-        <Text style={styles.themetextshort}>Complete sus datos:</Text>
-        <TextInput
-          placeholder="Nombre"
-          value={name}
-          onChangeText={setname}
-          style={styles.text}
-          left={<TextInput.Icon icon="eye" />}
-        />
-        <TextInput
-          placeholder="Apellido"
-          value={lastName}
-          onChangeText={setlastName}
-          style={styles.text}
-          left={<TextInput.Icon icon="eye" />}
-        />
+    <ScrollView style={{ flex: 1 }}>
+      <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
+        <Image source={require("../../assets/logo.png")} style={styles.image} />
+        <View style={styles.sectionlong}>
+          <View style={styles.space}></View>
+          <Text style={styles.themetextshort}>Complete sus datos:</Text>
+          <TextInput
+            placeholder="Nombre"
+            value={name}
+            onChangeText={setname}
+            style={styles.text}
+            left={<TextInput.Icon icon="eye" />}
+          />
+          <TextInput
+            placeholder="Apellido"
+            value={lastName}
+            onChangeText={setlastName}
+            style={styles.text}
+            left={<TextInput.Icon icon="eye" />}
+          />
 
-        <TextInput
-          placeholder="Documento"
-          value={documentNumber}
-          onChangeText={setDocument}
-          style={styles.text}
-          left={<TextInput.Icon icon="book" />}
-        />
+          <TextInput
+            placeholder="Documento"
+            value={documentNumber}
+            onChangeText={setDocument}
+            style={styles.text}
+            left={<TextInput.Icon icon="book" />}
+          />
 
-        <TextInput
-          placeholder="Teléfono móvil"
-          value={contactNumber}
-          onChangeText={setContactNumber}
-          style={styles.text}
-          left={<TextInput.Icon icon="phone" />}
-        />
+          <TextInput
+            placeholder="Teléfono móvil"
+            value={contactNumber}
+            onChangeText={setContactNumber}
+            style={styles.text}
+            left={<TextInput.Icon icon="phone" />}
+          />
 
-        <TextInput
-          placeholder="Género"
-          value={gender}
-          onChangeText={setGender}
-          style={styles.text}
-        />
+          <TextInput
+            placeholder="Género"
+            value={gender}
+            onChangeText={setGender}
+            style={styles.text}
+          />
 
-        <Text>{`Date:  ${
-          birthDateDt ? moment(birthDateDt).format("MM/DD/YYYY") : "--/--/--"
-        }`}</Text>
-        <TouchableOpacity
-          style={styles.containbuttonstylel}
-          onPress={showDatePicker}
-        >
-          <LinearGradient
-            start={{ x: 0, y: 1 }}
-            end={{ x: 0, y: 0 }}
-            colors={["#df3ac4", "#3043ff"]}
-            style={styles.buttonstylel}
+          <Text>{`Date:  ${
+            birthDateDt ? moment(birthDateDt).format("MM/DD/YYYY") : "--/--/--"
+          }`}</Text>
+          <TouchableOpacity
+            style={styles.containbuttonstylel}
+            onPress={showDatePicker}
           >
-            <Text style={styles.textdate}>Fecha de Nacimiento</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-        <DatePicker
-          isVisible={isDatePickerVisible}
-          mode="date"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-        />
-        <TouchableOpacity
-          style={styles.containbuttonstylel}
-          onPress={() =>
-            register({
-              name,
-              lastName,
-              documentNumber,
-              birthDateDt,
-              contactNumber,
-              gender,
-            })
-          }
-        >
-          <LinearGradient
-            start={{ x: 1, y: 0 }}
-            end={{ x: 0, y: 1 }}
-            colors={["#df3ac4", "#3043ff"]}
-            style={styles.buttonstylel}
+            <LinearGradient
+              start={{ x: 0, y: 1 }}
+              end={{ x: 0, y: 0 }}
+              colors={["#df3ac4", "#3043ff"]}
+              style={styles.buttonstylel}
+            >
+              <Text style={styles.textdate}>Fecha de Nacimiento</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+          <DatePicker
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+          />
+          <TouchableOpacity
+            style={styles.containbuttonstylel}
+            onPress={() =>
+              register({
+                name,
+                lastName,
+                documentNumber,
+                birthDateDt,
+                contactNumber,
+                gender,
+              })
+            }
           >
-            <Text style={styles.buttonText}>Send</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-        <View style={styles.space}></View>
-      </View>
-      <View style={styles.space}>
-        <TouchableOpacity
-          style={styles.containbuttonstyle}
-          onPress={() => signOut({})}
-        >
-          <LinearGradient
-            start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 0 }}
-            colors={["#3043ff", "#df3ac4"]}
-            style={styles.buttonstyle}
+            <LinearGradient
+              start={{ x: 1, y: 0 }}
+              end={{ x: 0, y: 1 }}
+              colors={["#df3ac4", "#3043ff"]}
+              style={styles.buttonstylel}
+            >
+              <Text style={styles.buttonText}>Send</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+          <View style={styles.space}></View>
+        </View>
+        <View style={styles.space}>
+          <TouchableOpacity
+            style={styles.containbuttonstyle}
+            onPress={() => signOut({})}
           >
-            <Text style={styles.buttonText}>Sign out</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </View>
-    </LinearGradient>
+            <LinearGradient
+              start={{ x: 0, y: 0 }}
+              end={{ x: 0, y: 0 }}
+              colors={["#3043ff", "#df3ac4"]}
+              style={styles.buttonstyle}
+            >
+              <Text style={styles.buttonText}>Sign out</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
+      </LinearGradient>
+    </ScrollView>
   );
 }
 export default FormReg;
