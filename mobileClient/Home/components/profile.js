@@ -5,8 +5,6 @@ import host_instance from '../../host_instance.json';
 
 async function PersistProfile(data){
   const userToken = await SecureStore.getItemAsync('tk');
-  const id = data.id
-  delete data.id
   data.documentNumber=parseInt(data.documentNumber)
   data.contactNumber=parseInt(data.contactNumber)
   const fetchData={}
@@ -21,8 +19,7 @@ async function PersistProfile(data){
   data.documentNumber=parseInt(data.documentNumber)
   data.contactNumber=parseInt(data.contactNumber)
 
-  console.log('Data to register:',fetchData,'path:',host_instance.path+'/user/car-drivers/'+id)
-  fetch(host_instance.path+'/user/car-drivers/'+id,fetchData)
+  fetch(host_instance.path+'/user/car-drivers/update-profile')
   .then(async function(response){
     if(response.status != 204){
       console.log("Error")
@@ -38,7 +35,6 @@ async function PersistProfile(data){
 
 function Profile({navigation}) {
     
-    const [id, setId] = React.useState('');
     const [name, setName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
     const [documentNumber, setDocument] = React.useState('');
@@ -57,7 +53,6 @@ function Profile({navigation}) {
       }
       const response = await fetch(host_instance.path+'/user/car-drivers/user-info',fetchData)
       const respData = await response.json()
-      setId(respData.id)
       setName(respData.name)
       setLastName(respData.lastName)
       setDocument(respData.documentNumber.toString())
@@ -103,7 +98,7 @@ function Profile({navigation}) {
           value={gender}
           onChangeText={setGender}
         />
-        <Button title="Cargar" onPress={() => PersistProfile({id, name, lastName, documentNumber, birthDateDt, contactNumber, gender})} />
+        <Button title="Cargar" onPress={() => PersistProfile({name, lastName, documentNumber, birthDateDt, contactNumber, gender})} />
       </View> 
     );  
   }
