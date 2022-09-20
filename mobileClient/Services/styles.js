@@ -1,109 +1,120 @@
-import { StyleSheet, Text, View, Alert } from 'react-native';
-
-
-
+import { StyleSheet, Text, View, Alert } from "react-native";
 
 const styles = StyleSheet.create({
-    themetext: {
-      flex: 4,
-      fontSize: 40,
-      textAlign: 'center',
-      color: '#5741f2',
-      justifyContent: 'center',
-      alignItems: 'center'
+  themetext: {
+    flex: 4,
+    fontSize: 40,
+    textAlign: "center",
+    color: "#5741f2",
+    justifyContent: "center",
+    alignItems: "center",
   },
   themetextshort: {
     flex: 4,
     fontSize: 30,
-    textAlign: 'center',
-    color: '#5741f2',
-    justifyContent: 'center',
-    alignItems: 'center'
-},
+    textAlign: "center",
+    color: "#5741f2",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   buttonTextl: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: '#ffffff',
-    backgroundColor: 'transparent',
+    textAlign: "center",
+    color: "#ffffff",
+    backgroundColor: "transparent",
   },
-  
+
   buttonText: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
     margin: 10,
-    color: '#ffffff',
-    backgroundColor: 'transparent',
-  },
-  linearGradient: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    color: "#ffffff",
+    backgroundColor: "transparent",
   },
   wrapperbutton: {
     flex: 1,
-    display: 'flex',
-    flexdirection: 'row'
+    display: "flex",
+    flexdirection: "row",
+  },
+  containbuttonstyle: {
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonstyle: {
-      borderWidth:1,
-       borderColor:'rgba(0,0,0,0.2)',
-       alignItems:'center',
-       justifyContent:'center',
-       width:100,
-       height:50,
-       backgroundColor:'transparent',
-       borderRadius:50,
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.2)",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 100,
+    height: 50,
+    backgroundColor: "transparent",
+    borderRadius: 50,
+  },
+  containbuttonstylel: {
+    flex: 4,
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonstylel: {
-    flex:4,
-    borderWidth:1,
-     borderColor:'rgba(0,0,0,0.2)',
-     alignItems:'center',
-     justifyContent:'center',
-     width:150,
-     height:50,
-     backgroundColor:'transparent',
-     borderRadius:50,
-},
+    flex: 4,
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.2)",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 150,
+    height: 50,
+    backgroundColor: "transparent",
+    borderRadius: 50,
+  },
 
   text: {
     flex: 4,
     fontSize: 30,
-    textAlign: 'center',
+    textAlign: "center",
     width: "70%",
     margin: 10,
-    color: '#5741f2',
-    backgroundColor: 'transparent',
+    color: "#5741f2",
+    backgroundColor: "transparent",
   },
-  
+
   section: {
     flex: 2,
-    borderWidth:1,
-     borderColor:'rgba(0,0,0,0.2)',
-     alignItems:'center',
-     justifyContent:'center',
-     width:330,
-     height:150,
-     backgroundColor:'white',
-     borderRadius:40,
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.2)",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 330,
+    height: 150,
+    backgroundColor: "white",
+    borderRadius: 40,
   },
   sectionlong: {
     flex: 6,
-    borderWidth:1,
-     borderColor:'rgba(0,0,0,0.2)',
-     alignItems:'center',
-     justifyContent:'center',
-     width:330,
-     height:150,
-     backgroundColor:'white',
-     borderRadius:40,
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.2)",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 330,
+    height: 150,
+    backgroundColor: "white",
+    borderRadius: 40,
   },
   image: {
     flex: 1,
     width: 380,
     height: 120,
-    resizeMode: 'contain'
+    resizeMode: "contain",
   },
-  })
-  export default styles;
+  textdate: {
+    fontSize: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#ffffff",
+  },
+  space: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+export default styles;

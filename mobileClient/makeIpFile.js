@@ -5,7 +5,7 @@ try {
 }
 
 var ip = require("ip");
-ip_address = "192.168.0.34";
+ip_address = ip.address();
 
 const fs = require('fs');
 
