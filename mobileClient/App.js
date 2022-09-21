@@ -4,13 +4,17 @@ import * as React from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './home';
-import SignInScreen from './signin';
-import SignUpScreen from './signup';
-import FormReg from './registry';
-import Profile from './profile';
-import { AuthContext } from './context';
-
+import HomeScreen from './Home/components/home';
+import SignInScreen from './Login/components/signin';
+import SignUpScreen from './SignUp/components/signup';
+import FormReg from './Login/components/registry';
+import Profile from './Home/components/profile';
+import Cars from './Home/components/cars';
+import AddCar from './Home/components/addCar';
+import EditCar from './Home/components/editCar';
+import { AuthContext } from './Services/context';
+import host_instance from './host_instance.json';
+import { IsRegisteredFunc } from './Services/requests';
 
 const Stack = createNativeStackNavigator();
 
@@ -53,16 +57,23 @@ export default function App({navigation}) {
 
       try {
         userToken = await SecureStore.getItemAsync('tk');
-        console.log(userToken);
+        const registro_boolean = await IsRegisteredFunc(userToken)
+        console.log(registro_boolean)
+        console.log(userToken)
+        if(userToken != null){
+          console.log('Token status: available')
+          setIsRegistered(registro_boolean)
+        }else{
+          console.log('Token status: empty')
+        }
       } catch (e) {
         // Restoring token failed
       }
-
-      // After restoring token, we may need to validate it in production apps
-
-      // This will switch to the App screen or Auth screen and this loading
-      // screen will be unmounted and thrown away.
+      
       dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+      //Habilitar ambas para resetear localstorge
+      //dispatch({ type: 'SIGN_OUT' })
+      //await SecureStore.deleteItemAsync('tk')
     };
 
     bootstrapAsync();
@@ -70,73 +81,113 @@ export default function App({navigation}) {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async (data) => {
+      signUp: async (data) => {
         
-          try {
-            if(data.username == "Registrado"){
-              //Solicita token
-              //const response = await fetch('https://mocki.io/v1/5a826b7c-79c6-4af1-9718-035c946428a');
-              const response = await fetch('https://mocki.io/v1/5a826b7c-79c6-4af1-9718-035c9436428a', data);
-              
-              if(response.status=='200'){
-                //nuevo fetch consultando estado registro
-                const dataRes = await response.json();
-                await SecureStore.setItemAsync('tk', 'dummy-auth-token');
-                setIsRegistered(dataRes.registrado);
-                dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
-                console.log('\nusuario:'+data.username+'\ncontraseña: '+data.password)
-              }
-              else{
-                console.log('Credenciales invalidas');
-              }
-            }
-            else if(data.username == "Noregistrado"){
-              const response = await fetch('https://mocki.io/v1/c7d2ed2b-98c0-4e02-8e4b-909231d58162');
-              const dataRes = await response.json();
-              await SecureStore.setItemAsync('tk', 'dummy-auth-token');
-              setIsRegistered(dataRes.registrado);
-              dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
-            console.log('\nusuario:'+data.username+'\ncontraseña: '+data.password)
-            }else if(data.username == "Error"){
-              fetch('0.0.0.0')
-              .then(function(response) {console.log('ok')})
-              .catch(function(response){alert('Las credecnailes son incorrectas')});
-            }else{
-              alert("Ingresar nombre de usuraio como Registrado, Noregistrado o Error");
-            }
-            //setData(json.items);
-          } catch (error) {
-            console.error(error);
+        //Armo los datos que serán enviados en la request
+        const fetchData={}
+        fetchData.method= 'POST'
+        fetchData.body= JSON.stringify(data)
+        fetchData.headers={
+            'accept': 'application/json',
+            'Content-Type': 'application/json'
           }
-        
-        
+        //Hago el request a signup
+        console.log(fetchData)
+        fetch(host_instance.path+'/auth/signup',fetchData)
+        .then(async function(response){
+          if(response.status != 200){
+            alert("Internal error")
+          }else{
+            const dataRes = await response.json();
+            console.log('SignaUp OK')
+            //console.log('Response header:',response)
+            alert("Credenciales aceptadas, por favor inicie sesión")
+          }
+        })
+      },
+      signIn: async (data) => {
+          try {
+            //Armo los datos que serán enviados en la request
+            const fetchData={}
+            fetchData.method= 'POST'
+            fetchData.body= JSON.stringify(data)
+            fetchData.headers={
+                'accept': 'application/json',
+                'Content-Type': 'application/json'
+              }
+            //Hago el request a login
+            fetch(host_instance.path+'/auth/users/login',fetchData)
+            .then(async function(response){
+              const dataRes = await response.json()
+              if(response.status == 422){
+                console.log("Status response:",response.status)
+                alert("Credenciales invalidas longitud")
+              }else if(response.status == 401){
+                console.log("Status response:",response.status)
+                alert("Credenciales invalidas")
+              }else if(response.status == 200){
+                const isReg= await IsRegisteredFunc(dataRes.token)
+                dispatch({ type: 'SIGN_IN', token: dataRes.token });
+                await SecureStore.setItemAsync('tk', dataRes.token);
+                if(!isReg){
+                  console.log("Completar registro")
+                }else{
+                  console.log("Go to home")
+                  setIsRegistered(true)
+                  //guardar datos para perfil ??
+                }
+              }else{
+                //const dataRes = await response.json();
+                console.log(dataRes)
+                alert("error interno")
+              }
+            })
+          } catch (error) {
+            console.error("error error:",error);
+          }
       },
       signOut: async() => {
         dispatch({ type: 'SIGN_OUT' })
         await SecureStore.deleteItemAsync('tk')
       },
-      signUp: async (data) => {
-        if(data.email == "existente@existente"){ 
-          Alert.alert("Ya existe una cuenta con este correo electronico");
-        }else{
-          console.log('\nusuario:'+data.username+'\ncontraseña: '+data.password+'\nemail: '+data.email);
-          
-          Alert.alert("Felicitaciones 'Registrado' su cuenta ha sido activada por favor loguearse para acceder a AppArCar");
-        }
-      },
       register: async(data) => {
-        setIsRegistered(data.registered);
-        alert('Aplicación activada');
-      }
-    }),
-    []
+        const userToken = await SecureStore.getItemAsync('tk');
+        
+        //data.birthDateDt="2022-09-14T18:03:44.163Z"
+        data.documentNumber=parseInt(data.documentNumber)
+        data.contactNumber=parseInt(data.contactNumber)
+        const fetchData={}
+        fetchData.method= 'POST'
+        fetchData.body= JSON.stringify(data)
+        fetchData.headers={
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization':'Bearer '+userToken
+          }
+        
+        //fetchData.headers.Authorization='Bearer '+userToken
+        console.log('Data to register:',fetchData)
+        //Hago el request a signup
+        fetch(host_instance.path+'/user/car-drivers/create-user',fetchData)
+        .then(async function(response){
+          if(response.status != 200){
+            console.log("not 200")
+          }else{
+            const dataRes = await response.json();
+            console.log('Registry is success')
+            setIsRegistered(true)
+            alert('BienVenido a AppArCar')
+            
+          }
+        })
+      },
+    })  
   );
 
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
         <Stack.Navigator>
-          
           {state.userToken == null ? (
           <>
             <Stack.Screen name="SignIn" component={SignInScreen} />
@@ -148,8 +199,10 @@ export default function App({navigation}) {
             <>
               <Stack.Screen name="Home" component={HomeScreen}/>
               <Stack.Screen name="EditProfile" component={Profile}/>
-
-           </>  
+              <Stack.Screen name="Cars" component={Cars}/>
+              <Stack.Screen name="AddCar" component={AddCar}/>
+              <Stack.Screen name="EditCar" component={EditCar}/>
+            </>  
             ) : (
             <>
               <Stack.Screen name="Registrar" component={FormReg} />
@@ -161,5 +214,3 @@ export default function App({navigation}) {
     </AuthContext.Provider>
   );
 }
-
-   

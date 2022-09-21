@@ -19,14 +19,22 @@ import {
 } from '@loopback/rest';
 import {UsrCar} from '../models';
 import {UsrCarRepository} from '../repositories';
+import {
+  authenticate
+} from '@loopback/authentication';
+import {UserProfile, SecurityBindings} from '@loopback/security';
+import { inject } from '@loopback/core';
 
+@authenticate('admin')
 export class CarController {
   constructor(
+    @inject(SecurityBindings.USER)
+    public currentUserProfile: UserProfile,
     @repository(UsrCarRepository)
     public usrCarRepository : UsrCarRepository,
   ) {}
 
-  @post('/cars')
+  @post('/cars/create')
   @response(200, {
     description: 'UsrCar model instance',
     content: {'application/json': {schema: getModelSchemaRef(UsrCar)}},
@@ -37,26 +45,20 @@ export class CarController {
         'application/json': {
           schema: getModelSchemaRef(UsrCar, {
             title: 'NewUsrCar',
-            exclude: ['id'],
+            exclude: ['id','idCarDriver','sysCreatedAtDttm','sysUpdatedAtDttm'],
           }),
         },
       },
     })
     usrCar: Omit<UsrCar, 'id'>,
   ): Promise<UsrCar> {
+    usrCar.idCarDriver = this.currentUserProfile.id!,
+    usrCar.sysCreatedAtDttm = Date(),
+    usrCar.sysUpdatedAtDttm = Date()
     return this.usrCarRepository.create(usrCar);
   }
 
-  @get('/cars/count')
-  @response(200, {
-    description: 'UsrCar model count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async count(
-    @param.where(UsrCar) where?: Where<UsrCar>,
-  ): Promise<Count> {
-    return this.usrCarRepository.count(where);
-  }
+
 
   @get('/cars')
   @response(200, {
@@ -71,47 +73,12 @@ export class CarController {
     },
   })
   async find(
-    @param.filter(UsrCar) filter?: Filter<UsrCar>,
+    filter = {where: {idCarDriver: this.currentUserProfile.id}, fields: ['id','idCarDriver','patentId','brand','model','color','productionYear']}
   ): Promise<UsrCar[]> {
     return this.usrCarRepository.find(filter);
   }
 
-  @patch('/cars')
-  @response(200, {
-    description: 'UsrCar PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async updateAll(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(UsrCar, {partial: true}),
-        },
-      },
-    })
-    usrCar: UsrCar,
-    @param.where(UsrCar) where?: Where<UsrCar>,
-  ): Promise<Count> {
-    return this.usrCarRepository.updateAll(usrCar, where);
-  }
-
-  @get('/cars/{id}')
-  @response(200, {
-    description: 'UsrCar model instance',
-    content: {
-      'application/json': {
-        schema: getModelSchemaRef(UsrCar, {includeRelations: true}),
-      },
-    },
-  })
-  async findById(
-    @param.path.number('id') id: number,
-    @param.filter(UsrCar, {exclude: 'where'}) filter?: FilterExcludingWhere<UsrCar>
-  ): Promise<UsrCar> {
-    return this.usrCarRepository.findById(id, filter);
-  }
-
-  @patch('/cars/{id}')
+  @patch('/cars/update-car/{id}')
   @response(204, {
     description: 'UsrCar PATCH success',
   })
@@ -120,27 +87,17 @@ export class CarController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(UsrCar, {partial: true}),
+          schema: getModelSchemaRef(UsrCar, {exclude: ['id','idCarDriver','sysCreatedAtDttm','sysUpdatedAtDttm'],partial: true}),
         },
       },
     })
     usrCar: UsrCar,
   ): Promise<void> {
+    usrCar.sysUpdatedAtDttm = Date(),
     await this.usrCarRepository.updateById(id, usrCar);
   }
 
-  @put('/cars/{id}')
-  @response(204, {
-    description: 'UsrCar PUT success',
-  })
-  async replaceById(
-    @param.path.number('id') id: number,
-    @requestBody() usrCar: UsrCar,
-  ): Promise<void> {
-    await this.usrCarRepository.replaceById(id, usrCar);
-  }
-
-  @del('/cars/{id}')
+  @del('/cars/remove/{id}')
   @response(204, {
     description: 'UsrCar DELETE success',
   })

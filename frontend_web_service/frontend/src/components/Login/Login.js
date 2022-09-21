@@ -33,7 +33,7 @@ export default function Login({ setToken }) {
         password
       });
       setToken(token);
-      
+      navigate('/dashboard');
     }
     else{
       setFailAlertL(true);
