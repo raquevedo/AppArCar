@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import ValidatePassword from '../../utils/ValidatePassword';
-import ValidateEmail from '../../utils/ValidateEmail';
-import ValidateUsername from '../../utils/ValidateUsername';
-import ValidatePasswordConfirmation from '../../utils/ValidatePasswordConfirmation';
+import '../../Style/ApprovedNotApproved.css';
+import {ValidateEmail,ValidatePassword,ValidateUsername,ValidatePasswordConfirmation} from '../../utils/ValidateInputs';
 
 async function registerUser(credentials) {
   return fetch('http://0.0.0.0:8000/auth/signup', {
@@ -18,8 +16,8 @@ async function registerUser(credentials) {
 export default function Register() {
  
   const [email, setEmail] = useState();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
   const [passwordConfirmation, setPasswordConfirmation] = useState();
   const [usernameCorrect,setUsernameCorrect] = useState(false);
   const [passwordConfirmationCorrect,setPasswordConfirmationCorrect] = useState(false)
@@ -48,19 +46,19 @@ export default function Register() {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input type="text" onChange={e => setEmail(e.target.value)}  onBlur = {() => {setEmailCorrect(ValidateEmail(email))}}/>
+          <input id={emailCorrect ? 'approved' : 'notapproved'} type="text" onChange={e => setEmail(e.target.value)}  onBlur = {() => {setEmailCorrect(ValidateEmail(email))}}/>
         </label>
         <label>
           <p>Username</p>
-          <input type="text" onChange={e => setUsername(e.target.value)}  onBlur = {() =>{setUsernameCorrect(ValidateUsername(username))}}/>
+          <input id={usernameCorrect ? 'approved' : 'notapproved'} type="text" onChange={e => setUsername(e.target.value)}  onBlur = {() =>{setUsernameCorrect(ValidateUsername(username))}}/>
         </label>
         <label>
           <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)} onBlur = {() => {setPasswordCorrect(ValidatePassword(password))}}/>
+          <input id={passwordCorrect ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onBlur = {() => {setPasswordCorrect(ValidatePassword(password))}}/>
         </label>
         <label>
           <p>Confirm Password</p>
-          <input type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onBlur = {() => {setPasswordConfirmationCorrect(ValidatePasswordConfirmation(password,passwordConfirmation))}}/>
+          <input id={passwordConfirmationCorrect ? 'approved' : 'notapproved'} type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onBlur = {() => {setPasswordConfirmationCorrect(ValidatePasswordConfirmation(password,passwordConfirmation))}}/>
         </label>
         <div>
           <button type="button" class="button" onClick={handleSubmit}>Submit</button>

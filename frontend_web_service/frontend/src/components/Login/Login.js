@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import ValidatePassword from '../../utils/ValidatePassword';
-import ValidateEmail from '../../utils/ValidateEmail';
+import '../../Style/ApprovedNotApproved.css';
+import {ValidateEmail,ValidatePassword} from '../../utils/ValidateInputs';
 
 async function loginUser(credentials) {
 
@@ -18,7 +18,7 @@ async function loginUser(credentials) {
 export default function Login({ setToken }) {
  
   const [email, setEmail] = useState();
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState();
   const [passwordConfirmationL,setPasswordConfirmationL] = useState(false);
   const [emailConfirmationL,setemailConfirmationL] = useState(false);
 
@@ -43,11 +43,11 @@ export default function Login({ setToken }) {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input type="text" onChange={e => setEmail(e.target.value)} onBlur = {() => {setemailConfirmationL(ValidateEmail(email))}}/>
+          <input id={emailConfirmationL ? 'approved' : 'notapproved'} type="text" onChange={e => setEmail(e.target.value)} onBlur = {() => {setemailConfirmationL(ValidateEmail(email))}}/>
         </label>
         <label>
           <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)} onBlur = {() => {setPasswordConfirmationL(ValidatePassword(password))}}/>
+          <input id={passwordConfirmationL ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onBlur = {() => {setPasswordConfirmationL(ValidatePassword(password))}}/>
         </label>
         <div>
           <button type="button" class="button" onClick={handleSubmit}>Submit</button>
