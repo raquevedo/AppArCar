@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Alert, Dimensions } from "react-native";
 
 const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   themeText: {
     flex: 4,
@@ -35,6 +36,27 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     flexdirection: "row",
+  },
+  imageContainer: {
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.2)",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 80,
+    height: 80,
+    backgroundColor: "#1e41ff",
+    borderRadius: 50,
+  },
+  imageButton: {
+    height:60,
+    width: 60,
+    borderRadius: 64
+  },
+  containButtonHome: {
+    flex: 1,
+    flexdirection: "column",
+    alignItems: "flex-end",
+    justifyContent: "space-around",
   },
   containButtonStyle: {
     alignItems: "center",
@@ -103,6 +125,10 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 380,
     height: 120,
+    resizeMode: "contain",
+  },
+  imageGoogle: {
+    flex: 1,
     resizeMode: "contain",
   },
   textDate: {
