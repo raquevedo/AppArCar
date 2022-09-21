@@ -58,7 +58,7 @@ function EditCar({route, navigation}) {
           value={productionYear}
           onChangeText={setProductionYear}
         />
-        <Button title="Guardar" onPress={() => UpdateCar({id,patentId,brand,model,color,productionYear}) & navigation.goBack()} />
+        <Button title="Guardar" onPress={() => UpdateCar({id,patentId,brand,model,color,productionYear})} />
         <Button title="Borrar automovil" onPress={() => DeleteCar(id) & navigation.goBack()} />
       </View> 
     );  
