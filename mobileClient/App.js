@@ -9,9 +9,12 @@ import SignInScreen from './Login/components/signin';
 import SignUpScreen from './SignUp/components/signup';
 import FormReg from './Login/components/registry';
 import Profile from './Home/components/profile';
+import Cars from './Home/components/cars';
+import AddCar from './Home/components/addCar';
+import EditCar from './Home/components/editCar';
 import { AuthContext } from './Services/context';
 import host_instance from './host_instance.json';
-import IsRegisteredFunc from './Services/requests';
+import { IsRegisteredFunc } from './Services/requests';
 
 const Stack = createNativeStackNavigator();
 
@@ -185,7 +188,6 @@ export default function App({navigation}) {
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
         <Stack.Navigator>
-          
           {state.userToken == null ? (
           <>
             <Stack.Screen name="SignIn" component={SignInScreen} />
@@ -197,7 +199,10 @@ export default function App({navigation}) {
             <>
               <Stack.Screen name="Home" component={HomeScreen}/>
               <Stack.Screen name="EditProfile" component={Profile}/>
-           </>  
+              <Stack.Screen name="Cars" component={Cars}/>
+              <Stack.Screen name="AddCar" component={AddCar}/>
+              <Stack.Screen name="EditCar" component={EditCar}/>
+            </>  
             ) : (
             <>
               <Stack.Screen name="Registrar" component={FormReg} />

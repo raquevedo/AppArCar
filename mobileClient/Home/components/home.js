@@ -27,7 +27,16 @@ function HomeScreen({ navigation }) {
           <TouchableOpacity
             style={styles.imageContainer}
             onPress={() => navigation.navigate("EditProfile")}
-          >
+           >
+            <Image
+              style={styles.imageButton}
+              source={require("../../assets/profile.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.imageContainer}
+            onPress={() => navigation.navigate("Cars")}
+           >
             <Image
               style={styles.imageButton}
               source={require("../../assets/profile.png")}
@@ -36,7 +45,7 @@ function HomeScreen({ navigation }) {
           <TouchableOpacity
             style={styles.imageContainer}
             onPress={() => signOut({})}
-          >
+           >
             <Image
               style={styles.imageButton}
               source={require("../../assets/signout.png")}

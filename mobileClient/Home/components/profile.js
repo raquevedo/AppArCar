@@ -1,37 +1,7 @@
 import  * as React from 'react';
 import { View, TextInput, Button} from 'react-native';
-import * as SecureStore from 'expo-secure-store';
-import host_instance from '../../host_instance.json';
-
-async function PersistProfile(data){
-  const userToken = await SecureStore.getItemAsync('tk');
-  data.documentNumber=parseInt(data.documentNumber)
-  data.contactNumber=parseInt(data.contactNumber)
-  const fetchData={}
-  fetchData.method= 'PATCH'
-  fetchData.body= JSON.stringify(data)
-  fetchData.headers={
-      'accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization':'Bearer '+userToken
-    }
-
-  data.documentNumber=parseInt(data.documentNumber)
-  data.contactNumber=parseInt(data.contactNumber)
-
-  fetch(host_instance.path+'/user/car-drivers/update-profile')
-  .then(async function(response){
-    if(response.status != 204){
-      console.log("Error")
-      alert("Error, por favor verifique los datos ingresados")
-    }else{
-      //const dataRes = await response.json();
-      console.log('Update profile is success')
-      alert('Sus datos fueron actualizados con éxito')
-      
-    }
-  })
-}
+import { GetUserInfo } from '../../Services/requests';
+import { PersistProfile } from '../controllers/profile_controller';
 
 function Profile({navigation}) {
     
@@ -43,16 +13,9 @@ function Profile({navigation}) {
     const [gender, setGender] = React.useState('');
 
     const loadDataOnlyOnce = async function(){
-      const token = await SecureStore.getItemAsync('tk');
-      const fetchData={}
-      fetchData.method= 'GET'
-      fetchData.headers={
-        'accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization':'Bearer '+token
-      }
-      const response = await fetch(host_instance.path+'/user/car-drivers/user-info',fetchData)
-      const respData = await response.json()
+      const response = await GetUserInfo()
+      let respData = await response.json()
+      respData = respData.data
       setName(respData.name)
       setLastName(respData.lastName)
       setDocument(respData.documentNumber.toString())
