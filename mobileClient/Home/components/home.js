@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { View, TextInput, Button, Text } from 'react-native';
+import { View, Button } from 'react-native';
 import { AuthContext } from '../../Services/context'
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 function HomeScreen({navigation}){
     const { signOut } = React.useContext(AuthContext);
@@ -10,6 +9,7 @@ function HomeScreen({navigation}){
       return(
         <View>
           <Button title="Editar perfil" onPress={() => navigation.navigate("EditProfile")} />
+          <Button title="Automoviles" onPress={() => navigation.navigate("Cars")} />
           <Button title="Sign out" onPress={() => signOut({})} />
       </View>
       );

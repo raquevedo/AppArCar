@@ -9,6 +9,8 @@ import SignInScreen from './Login/components/signin';
 import SignUpScreen from './SignUp/components/signup';
 import FormReg from './Login/components/registry';
 import Profile from './Home/components/profile';
+import Cars from './Home/components/cars';
+import AddCar from './Home/components/addCar';
 import { AuthContext } from './Services/context';
 import host_instance from './host_instance.json';
 import { IsRegisteredFunc } from './Services/requests';
@@ -197,6 +199,8 @@ export default function App({navigation}) {
             <>
               <Stack.Screen name="Home" component={HomeScreen}/>
               <Stack.Screen name="EditProfile" component={Profile}/>
+              <Stack.Screen name="Cars" component={Cars}/>
+              <Stack.Screen name="AddCar" component={AddCar}/>
            </>  
             ) : (
             <>
