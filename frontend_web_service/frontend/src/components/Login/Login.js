@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import '../../Style/ApprovedNotApproved.css';
-import {ValidateEmail,ValidatePassword} from '../../utils/ValidateInputs';
+import '../../components/App/App.css';
+import {validateEmail,validatePassword} from '../../utils/ValidateInputs';
+import {alertFail} from '../../utils/AlertFail';
+import {Navigate, useNavigate} from 'react-router-dom';
 
 async function loginUser(credentials) {
 
@@ -19,19 +21,20 @@ export default function Login({ setToken }) {
  
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [passwordConfirmationL,setPasswordConfirmationL] = useState(false);
-  const [emailConfirmationL,setemailConfirmationL] = useState(false);
+  const [isPasswordValid,setIsPasswordValid] = useState(false);
+  const [isEmailValid,setIsEmailValid] = useState(false);
   const [failalertL,setFailAlertL] = useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
   
-    if((emailConfirmationL) && (passwordConfirmationL)){
+    if((isEmailValid) && (isPasswordValid)){
       const token = await loginUser({
         email,
         password
       });
       setToken(token);
+      Navigate('/dashboard');
     }
     else{
       setFailAlertL(true);
@@ -44,19 +47,17 @@ export default function Login({ setToken }) {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input id={emailConfirmationL ? 'approved' : 'notapproved'} type="text" onChange={e => setEmail(e.target.value)} onFocus={() =>{setemailConfirmationL(false)}} onBlur = {() => {setemailConfirmationL(ValidateEmail(email))}}/>
+          <input id={isEmailValid ? 'approved' : 'notapproved'} type="text" onChange={e => setEmail(e.target.value)} onFocus={() =>{setIsEmailValid(false)}} onBlur = {() => {setIsEmailValid(validateEmail(email))}}/>
         </label>
         <label>
           <p>Password</p>
-          <input id={passwordConfirmationL ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onFocus={() =>{setPasswordConfirmationL(false)}} onBlur = {() => {setPasswordConfirmationL(ValidatePassword(password))}}/>
+          <input id={isPasswordValid ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onFocus={() =>{setIsPasswordValid(false)}} onBlur = {() => {setIsPasswordValid(validatePassword(password))}}/>
         </label>
         <div>
-          <button type="button" class="button" onClick={handleSubmit}>Submit</button>
+          <button type="button" class="button">Submit</button>
         </div>
       </form>
-      <div id={failalertL ? 'failalerton' : 'failalertoff'} class="callout alert">
-        <h5>Missing fields to complete</h5>
-      </div>
+      {alertFail(failalertL)}
     </div>
   );
 }

@@ -1,40 +1,25 @@
 import React from "react";
 
-function ValidateEmail(email){
-
-    const EmailRegex = /\S+@\S+\.\S+/;
+function validateEmail(email){
   
-    if(EmailRegex.test(email)){
-      return true;
-    }
-    else{
-      return false;
-    }
+  const EmailRegex = /\S+@\S+\.\S+/;
+  
+  return EmailRegex.test(email);
+
 }
 
-function ValidatePassword(password){
+function validatePassword(password){
 
-    if ((password != null) && (password.length>=8)){
-      return true;
-      
-    }
-    else{
-      return false;
-    }
+  return ((password) && (password.length>=8));
 }
 
-function ValidatePasswordConfirmation(password,passwordConfirmation){
+function validatePasswordconfirmation(password, passwordConfirmation){
     
-    if((password == passwordConfirmation) && (passwordConfirmation.length>=8)){
-        return true;
-    }
-    else{
-      return false;
-    }
+    return (password == passwordConfirmation) && (passwordConfirmation.length>=8);
 }  
 
-function ValidateUsername(username){
-    if(username != null){
+function validateUsername(username){
+    if(username){
       return true;
     }
     else{
@@ -42,4 +27,4 @@ function ValidateUsername(username){
     }
 }
 
-export {ValidateEmail,ValidatePassword,ValidatePasswordConfirmation,ValidateUsername};
+export {validateEmail, validatePassword, validatePasswordconfirmation, validateUsername};

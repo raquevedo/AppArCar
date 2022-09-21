@@ -2,3 +2,19 @@
     --primary-color: #47a4fa;
     --grey: #c5c5c5;
 }
+
+#approved{
+    color:green;
+}
+
+#notapproved{
+    color:red;
+}
+
+#failalerton{
+    visibility: visible;
+}
+
+#failalertoff{
+    visibility: hidden;
+}

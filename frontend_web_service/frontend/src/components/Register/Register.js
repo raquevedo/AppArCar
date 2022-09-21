@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import '../../Style/ApprovedNotApproved.css';
-import {ValidateEmail,ValidatePassword,ValidateUsername,ValidatePasswordConfirmation} from '../../utils/ValidateInputs';
+import '../../components/App/App.css';
+import {validateEmail,validatePassword,validateUsername,validatePasswordconfirmation} from '../../utils/ValidateInputs';
+import {alertFail} from '../../utils/AlertFail';
 
 async function registerUser(credentials) {
   return fetch('http://0.0.0.0:8000/auth/signup', {
@@ -40,9 +41,9 @@ export default function Register() {
     }
   }
   
-  function ChangePasswordConfirmation(){
+  function changePasswordconfirmation(){
     
-    setPasswordCorrect(ValidatePassword(password))
+    setPasswordCorrect(validatePassword(password))
     
     if((password != passwordConfirmation) && (passwordConfirmation != null)){
       setPasswordConfirmationCorrect(false);
@@ -55,27 +56,25 @@ export default function Register() {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input id={emailCorrect ? 'approved' : 'notapproved'} type="text" onChange={e => setEmail(e.target.value)} onFocus={() =>{setEmailCorrect(false)}} onBlur = {() => {setEmailCorrect(ValidateEmail(email))}}/>
+          <input id={emailCorrect ? 'approved' : 'notapproved'} type="text" onChange={e => setEmail(e.target.value)} onFocus={() =>{setEmailCorrect(false)}} onBlur = {() => {setEmailCorrect(validateEmail(email))}}/>
         </label>
         <label>
           <p>Username</p>
-          <input id={usernameCorrect ? 'approved' : 'notapproved'} type="text" onChange={e => setUsername(e.target.value)}  onFocus={() =>{setUsernameCorrect(false)}} onBlur = {() =>{setUsernameCorrect(ValidateUsername(username))}}/>
+          <input id={usernameCorrect ? 'approved' : 'notapproved'} type="text" onChange={e => setUsername(e.target.value)}  onFocus={() =>{setUsernameCorrect(false)}} onBlur = {() =>{setUsernameCorrect(validateUsername(username))}}/>
         </label>
         <label>
           <p>Password</p>
-          <input id={passwordCorrect ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onFocus={() =>{setPasswordCorrect(false)}} onBlur = {() => {ChangePasswordConfirmation()}}/>
+          <input id={passwordCorrect ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onFocus={() =>{setPasswordCorrect(false)}} onBlur = {() => {changePasswordconfirmation()}}/>
         </label>
         <label>
           <p>Confirm Password</p>
-          <input className='ConfirmPassword' id={passwordConfirmationCorrect ? 'approved' : 'notapproved'} type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onFocus={() =>{setPasswordConfirmationCorrect(false)}} onBlur = {() => {setPasswordConfirmationCorrect(ValidatePasswordConfirmation(password,passwordConfirmation))}}/>
+          <input className='ConfirmPassword' id={passwordConfirmationCorrect ? 'approved' : 'notapproved'} type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onFocus={() =>{setPasswordConfirmationCorrect(false)}} onBlur = {() => {setPasswordConfirmationCorrect(validatePasswordconfirmation(password,passwordConfirmation))}}/>
         </label>
         <div>
-          <button type="button" class="button" onClick={handleSubmit}>Submit</button>
+          <button type="button" class="button">Submit</button>
         </div>
       </form>
-      <div id={failalert ? 'failalerton' : 'failalertoff'} class="callout alert">
-        <h5>Missing fields to complete</h5>
-      </div>
+      {alertFail(failalert)}
     </div>
   );
 }
