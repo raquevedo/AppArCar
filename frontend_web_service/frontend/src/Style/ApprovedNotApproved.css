@@ -5,3 +5,11 @@
 #notapproved{
     color:red;
 }
+
+#failalerton{
+    visibility: visible;
+}
+
+#failalertoff{
+    visibility: hidden;
+}

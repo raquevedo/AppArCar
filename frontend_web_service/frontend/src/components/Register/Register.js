@@ -23,9 +23,9 @@ export default function Register() {
   const [passwordConfirmationCorrect,setPasswordConfirmationCorrect] = useState(false)
   const [passwordCorrect,setPasswordCorrect] = useState(false);
   const [emailCorrect,setEmailCorrect] = useState(false);
- 
+  const [failalert,setFailAlert] = useState(false);
   
-  const handleSubmit = async e => {
+ const handleSubmit = async e => {
     e.preventDefault();
     
      if((passwordCorrect) && (emailCorrect) && (usernameCorrect) && (passwordConfirmationCorrect)){
@@ -36,10 +36,10 @@ export default function Register() {
       });
     }
     else{
-      alert('Missing fields to complete')
+      setFailAlert(true);
     }
   }
-
+  
   function ChangePasswordConfirmation(){
     
     setPasswordCorrect(ValidatePassword(password))
@@ -73,6 +73,9 @@ export default function Register() {
           <button type="button" class="button" onClick={handleSubmit}>Submit</button>
         </div>
       </form>
+      <div id={failalert ? 'failalerton' : 'failalertoff'} class="callout alert">
+        <h5>Missing fields to complete</h5>
+      </div>
     </div>
   );
 }

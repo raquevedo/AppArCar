@@ -21,6 +21,7 @@ export default function Login({ setToken }) {
   const [password, setPassword] = useState();
   const [passwordConfirmationL,setPasswordConfirmationL] = useState(false);
   const [emailConfirmationL,setemailConfirmationL] = useState(false);
+  const [failalertL,setFailAlertL] = useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -33,7 +34,7 @@ export default function Login({ setToken }) {
       setToken(token);
     }
     else{
-      alert('Missing fields to complete')
+      setFailAlertL(true);
     }
   }
   
@@ -53,6 +54,9 @@ export default function Login({ setToken }) {
           <button type="button" class="button" onClick={handleSubmit}>Submit</button>
         </div>
       </form>
+      <div id={failalertL ? 'failalerton' : 'failalertoff'} class="callout alert">
+        <h5>Missing fields to complete</h5>
+      </div>
     </div>
   );
 }
