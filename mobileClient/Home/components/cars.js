@@ -30,7 +30,7 @@ function Cars({navigation}) {
       <FlatList
         data={cars}
         renderItem={({ item }) => (
-          <Text>{item.brand} {item.model}</Text>
+          <Text style={{ color:"blue", width: 100, height: 20}} onPress={() => navigation.navigate("EditCar",{idCar:item.id})}>{item.brand} {item.model}</Text>
         )}
       />
       <Button title="Registrar automovil" onPress={() => navigation.navigate("AddCar")} />

@@ -36,6 +36,20 @@ async function PersistCar(data){
         }
     })
 }
+async function UpdateCar(){
 
-
-export { GetCars, PersistCar }
+}
+async function DeleteCar(id){
+    console.log(id)
+    const userToken = await SecureStore.getItemAsync('tk');
+    const fetchData={}
+    fetchData.method= 'DELETE'
+    fetchData.headers={
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization':'Bearer '+userToken
+        }
+    console.log(fetchData)
+    await fetch(host_instance.path+'/user/cars/remove/'+id,fetchData)
+}
+export { GetCars, PersistCar, DeleteCar, UpdateCar}
