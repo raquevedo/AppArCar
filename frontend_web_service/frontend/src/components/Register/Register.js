@@ -40,6 +40,15 @@ export default function Register() {
     }
   }
 
+  function ChangePasswordConfirmation(){
+    
+    setPasswordCorrect(ValidatePassword(password))
+    
+    if((password != passwordConfirmation) && (passwordConfirmation != null)){
+      setPasswordConfirmationCorrect(false);
+    }
+  }
+  
   return(
     <div className="login-wrapper">
       <h1>Register</h1>
@@ -54,11 +63,11 @@ export default function Register() {
         </label>
         <label>
           <p>Password</p>
-          <input id={passwordCorrect ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onFocus={() =>{setPasswordCorrect(false)}} onBlur = {() => {setPasswordCorrect(ValidatePassword(password))}}/>
+          <input id={passwordCorrect ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onFocus={() =>{setPasswordCorrect(false)}} onBlur = {() => {ChangePasswordConfirmation()}}/>
         </label>
         <label>
           <p>Confirm Password</p>
-          <input id={passwordConfirmationCorrect ? 'approved' : 'notapproved'} type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onFocus={() =>{setPasswordConfirmationCorrect(false)}} onBlur = {() => {setPasswordConfirmationCorrect(ValidatePasswordConfirmation(password,passwordConfirmation))}}/>
+          <input className='ConfirmPassword' id={passwordConfirmationCorrect ? 'approved' : 'notapproved'} type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onFocus={() =>{setPasswordConfirmationCorrect(false)}} onBlur = {() => {setPasswordConfirmationCorrect(ValidatePasswordConfirmation(password,passwordConfirmation))}}/>
         </label>
         <div>
           <button type="button" class="button" onClick={handleSubmit}>Submit</button>
