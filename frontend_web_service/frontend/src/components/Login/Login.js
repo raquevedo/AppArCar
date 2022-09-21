@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import '../../components/App/App.css';
 import {validateEmail,validatePassword} from '../../utils/ValidateInputs';
 import {alertFail} from '../../utils/AlertFail';
+import {useNavigate} from 'react-router-dom';
 
 async function loginUser(credentials) {
 
@@ -18,6 +19,7 @@ async function loginUser(credentials) {
 
 export default function Login({ setToken }) {
  
+  const navigate =useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isPasswordValid,setIsPasswordValid] = useState(false);
