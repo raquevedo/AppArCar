@@ -19,7 +19,11 @@ RUN npm install
 # Bundle app source code
 COPY --chown=node . .
 
+
 RUN npm run build
+
+RUN npm run migrate
+
 
 # Bind to all network interfaces so that it can be mapped to the host OS
 ENV HOST=0.0.0.0 PORT=3002

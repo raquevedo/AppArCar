@@ -1,2 +1,2 @@
-export * from './driver-benefit.model';
 export * from './benefit.model';
+export * from './rewards.model';

@@ -105,7 +105,7 @@ export class BenefitController {
     },
   })
   async findById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.filter(Benefit, {exclude: 'where'}) filter?: FilterExcludingWhere<Benefit>
   ): Promise<Benefit> {
     return this.benefitRepository.findById(id, filter);
@@ -116,7 +116,7 @@ export class BenefitController {
     description: 'Benefit PATCH success',
   })
   async updateById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody({
       content: {
         'application/json': {
@@ -134,7 +134,7 @@ export class BenefitController {
     description: 'Benefit PUT success',
   })
   async replaceById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody() benefit: Benefit,
   ): Promise<void> {
     await this.benefitRepository.replaceById(id, benefit);
@@ -144,7 +144,7 @@ export class BenefitController {
   @response(204, {
     description: 'Benefit DELETE success',
   })
-  async deleteById(@param.path.string('id') id: string): Promise<void> {
+  async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.benefitRepository.deleteById(id);
   }
 }

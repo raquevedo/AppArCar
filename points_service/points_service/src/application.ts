@@ -4,12 +4,11 @@ import {
   RestExplorerBindings,
   RestExplorerComponent,
 } from '@loopback/rest-explorer';
-import {RepositoryMixin} from '@loopback/repository';
+import {RepositoryMixin, SchemaMigrationOptions} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
-
 export {ApplicationConfig};
 
 export class PointServiceApplication extends BootMixin(
@@ -40,5 +39,11 @@ export class PointServiceApplication extends BootMixin(
         nested: true,
       },
     };
+  }
+  async migrateSchema(options?: SchemaMigrationOptions) {
+    // 1. Run migration scripts provided by connectors
+    await super.migrateSchema(options);
+
+    
   }
 }

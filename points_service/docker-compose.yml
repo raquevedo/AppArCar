@@ -17,14 +17,14 @@ services:
 
   pointsDb:
     image: postgres:14.1
-    container_name: pointsDb-dev
+    container_name: pointsDb
     ports:
       - 5434:5432
     volumes:
       - "./db/scripts/init_points_db.sql:/docker-entrypoint-initdb.d/init_points_db.sql"
       - ./points_service/points_database_vol:/var/lib/postgresql/data
     environment:
-      POSTGRES_HOST: pointshost
+      POSTGRES_HOST: pointsDb
       POSTGRES_USER: ms_points_app
       POSTGRES_PASSWORD: pwdpointsapp
       POSTGRES_DB: pointsDb

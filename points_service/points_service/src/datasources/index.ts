@@ -1,1 +1,1 @@
-export * from './postgresql.datasource';
+export * from './points.datasource';

@@ -1,64 +1,72 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model({
-  settings: {postgresql: {schema: 'benefit', table: 'BENEFIT'}},
- 
-  
-})
+@model()
 export class Benefit extends Entity {
   @property({
-    type: 'string',
+    type: 'number',
     id: true,
-    postgresql: {
-      columnName: 'id'
-    }
-  })
-  id?: string;
-
-  @property({
-    type: 'string',
+    generated: false,
     required: true,
-    postgresql: {
-      columnName: 'associate_id'
-    }
   })
-  associate_id: string;
-
-  @property({
-    type: 'string',
-    required: true,
-    postgresql: {
-      columnName: 'benefit_name'
-    }
-  })
-  benefit_name: string;
+  id: number;
 
   @property({
     type: 'number',
     required: true,
-    postgresql: {
-      columnName: 'benefit_price'
-    }
   })
-  benefit_price: number;
-
-  @property({
-    type: 'number',
-    required: true,
-    postgresql: {
-      columnName: 'benefit_points'
-    }
-  })
-  benefit_points: number;
+  partner_id: number;
 
   @property({
     type: 'string',
     required: true,
-    postgresql: {
-      columnName: 'benefit_description'
-    }
   })
-  benefit_description: string;
+  title: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  description: string;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  price: number;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  points: number;
+
+  @property({
+    type: 'date',
+    required: true,
+  })
+  exp_dt: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  state: string;
+
+  @property({
+    type: 'date',
+    required: true,
+  })
+  creation_dt: string;
+
+  @property({
+    type: 'date',
+  })
+  sys_created_at_dttm?: string;
+
+  @property({
+    type: 'date',
+  })
+  sys_updated_at_dttm?: string;
 
 
   constructor(data?: Partial<Benefit>) {

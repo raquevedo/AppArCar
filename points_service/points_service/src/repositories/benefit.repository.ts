@@ -1,6 +1,6 @@
 import {inject} from '@loopback/core';
 import {DefaultCrudRepository} from '@loopback/repository';
-import {PostgresqlDataSource} from '../datasources';
+import {PointsDataSource} from '../datasources';
 import {Benefit, BenefitRelations} from '../models';
 
 export class BenefitRepository extends DefaultCrudRepository<
@@ -9,7 +9,7 @@ export class BenefitRepository extends DefaultCrudRepository<
   BenefitRelations
 > {
   constructor(
-    @inject('datasources.postgresql') dataSource: PostgresqlDataSource,
+    @inject('datasources.points') dataSource: PointsDataSource,
   ) {
     super(Benefit, dataSource);
   }
