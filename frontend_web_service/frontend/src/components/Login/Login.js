@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import '../../components/App/App.css';
 import {validateEmail,validatePassword} from '../../utils/ValidateInputs';
 import {alertFail} from '../../utils/AlertFail';
-import {Navigate, useNavigate} from 'react-router-dom';
 
 async function loginUser(credentials) {
 
@@ -34,7 +33,7 @@ export default function Login({ setToken }) {
         password
       });
       setToken(token);
-      Navigate('/dashboard');
+      
     }
     else{
       setFailAlertL(true);
@@ -54,7 +53,7 @@ export default function Login({ setToken }) {
           <input id={isPasswordValid ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onFocus={() =>{setIsPasswordValid(false)}} onBlur = {() => {setIsPasswordValid(validatePassword(password))}}/>
         </label>
         <div>
-          <button type="button" class="button" onClick={handleSubmit}>Submit</button>
+          <button type="submit" class="button">Submit</button>
         </div>
       </form>
       {alertFail(failalertL)}

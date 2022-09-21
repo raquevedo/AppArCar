@@ -71,7 +71,7 @@ export default function Register() {
           <input className='ConfirmPassword' id={passwordConfirmationCorrect ? 'approved' : 'notapproved'} type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onFocus={() =>{setPasswordConfirmationCorrect(false)}} onBlur = {() => {setPasswordConfirmationCorrect(validatePasswordconfirmation(password,passwordConfirmation))}}/>
         </label>
         <div>
-          <button type="button" class="button" onClick={handleSubmit}>Submit</button>
+          <button type="submit" class="button">Submit</button>
         </div>
       </form>
       {alertFail(failalert)}
