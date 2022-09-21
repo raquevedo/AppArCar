@@ -54,7 +54,7 @@ export default function Login({ setToken }) {
           <input id={isPasswordValid ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onFocus={() =>{setIsPasswordValid(false)}} onBlur = {() => {setIsPasswordValid(validatePassword(password))}}/>
         </label>
         <div>
-          <button type="button" class="button">Submit</button>
+          <button type="button" class="button" onClick={handleSubmit}>Submit</button>
         </div>
       </form>
       {alertFail(failalertL)}
