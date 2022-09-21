@@ -62,6 +62,7 @@ function Profile({navigation}) {
           onChangeText={setGender}
         />
         <Button title="Cargar" onPress={() => PersistProfile({name, lastName, documentNumber, birthDateDt, contactNumber, gender})} />
+        <Button title="Volver" onPress={() => navigation.goBack()} />
       </View> 
     );  
   }

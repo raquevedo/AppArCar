@@ -190,18 +190,18 @@ export default function App({navigation}) {
         <Stack.Navigator>
           {state.userToken == null ? (
           <>
-            <Stack.Screen name="SignIn" component={SignInScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
+            <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }}/>
+            <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }}/>
           </>  
           ) : (
           <>
           {isRegistered ? (
             <>
-              <Stack.Screen name="Home" component={HomeScreen}/>
-              <Stack.Screen name="EditProfile" component={Profile}/>
-              <Stack.Screen name="Cars" component={Cars}/>
-              <Stack.Screen name="AddCar" component={AddCar}/>
-              <Stack.Screen name="EditCar" component={EditCar}/>
+              <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
+              <Stack.Screen name="EditProfile" component={Profile} options={{ headerShown: false }}/>
+              <Stack.Screen name="Cars" component={Cars} options={{ headerShown: false }}/>
+              <Stack.Screen name="AddCar" component={AddCar} options={{ headerShown: false }}/>
+              <Stack.Screen name="EditCar" component={EditCar} options={{ headerShown: false }}/>
             </>  
             ) : (
             <>
