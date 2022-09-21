@@ -150,7 +150,7 @@ export default FormReg;
 
 /*
  <TextInput
-          placeholder="patete"
+          placeholder="patente"
           value={brandCar}
           onChangeText={setBrandCar}
         />

@@ -14,29 +14,6 @@ import host_instance from './host_instance.json';
 import IsRegisteredFunc from './Services/requests';
 
 const Stack = createNativeStackNavigator();
-async function isRegisteredFunc(token){
-  
-  const fetchData2={}
-  fetchData2.method= 'GET'
-  fetchData2.headers={
-    'accept': 'application/json',
-    'Content-Type': 'application/json',
-    'Authorization':'Bearer '+token
-  }
-  console.log(fetchData2)
-  //fetchData2.headers.Authorization='Bearer '+token
-  const response = await fetch('http://192.168.0.19:8000/user/car-drivers/user-info',fetchData2)
-
-  
-  if(response.status == 200){
-    console.log('registrado')
-    return true
-  }else{
-    console.log('no registrado')
-    return false
-  }
-  
-}
 
 export default function App({navigation}) {
   const [isRegistered, setIsRegistered] = React.useState(false);
