@@ -43,11 +43,11 @@ export default function Login({ setToken }) {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input id={emailConfirmationL ? 'approved' : 'notapproved'} type="text" onChange={e => setEmail(e.target.value)} onBlur = {() => {setemailConfirmationL(ValidateEmail(email))}}/>
+          <input id={emailConfirmationL ? 'approved' : 'notapproved'} type="text" onChange={e => setEmail(e.target.value)} onFocus={() =>{setemailConfirmationL(false)}} onBlur = {() => {setemailConfirmationL(ValidateEmail(email))}}/>
         </label>
         <label>
           <p>Password</p>
-          <input id={passwordConfirmationL ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onBlur = {() => {setPasswordConfirmationL(ValidatePassword(password))}}/>
+          <input id={passwordConfirmationL ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onFocus={() =>{setPasswordConfirmationL(false)}} onBlur = {() => {setPasswordConfirmationL(ValidatePassword(password))}}/>
         </label>
         <div>
           <button type="button" class="button" onClick={handleSubmit}>Submit</button>

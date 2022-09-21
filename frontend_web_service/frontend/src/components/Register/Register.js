@@ -46,19 +46,19 @@ export default function Register() {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input id={emailCorrect ? 'approved' : 'notapproved'} type="text" onChange={e => setEmail(e.target.value)}  onBlur = {() => {setEmailCorrect(ValidateEmail(email))}}/>
+          <input id={emailCorrect ? 'approved' : 'notapproved'} type="text" onChange={e => setEmail(e.target.value)} onFocus={() =>{setEmailCorrect(false)}} onBlur = {() => {setEmailCorrect(ValidateEmail(email))}}/>
         </label>
         <label>
           <p>Username</p>
-          <input id={usernameCorrect ? 'approved' : 'notapproved'} type="text" onChange={e => setUsername(e.target.value)}  onBlur = {() =>{setUsernameCorrect(ValidateUsername(username))}}/>
+          <input id={usernameCorrect ? 'approved' : 'notapproved'} type="text" onChange={e => setUsername(e.target.value)}  onFocus={() =>{setUsernameCorrect(false)}} onBlur = {() =>{setUsernameCorrect(ValidateUsername(username))}}/>
         </label>
         <label>
           <p>Password</p>
-          <input id={passwordCorrect ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onBlur = {() => {setPasswordCorrect(ValidatePassword(password))}}/>
+          <input id={passwordCorrect ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onFocus={() =>{setPasswordCorrect(false)}} onBlur = {() => {setPasswordCorrect(ValidatePassword(password))}}/>
         </label>
         <label>
           <p>Confirm Password</p>
-          <input id={passwordConfirmationCorrect ? 'approved' : 'notapproved'} type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onBlur = {() => {setPasswordConfirmationCorrect(ValidatePasswordConfirmation(password,passwordConfirmation))}}/>
+          <input id={passwordConfirmationCorrect ? 'approved' : 'notapproved'} type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onFocus={() =>{setPasswordConfirmationCorrect(false)}} onBlur = {() => {setPasswordConfirmationCorrect(ValidatePasswordConfirmation(password,passwordConfirmation))}}/>
         </label>
         <div>
           <button type="button" class="button" onClick={handleSubmit}>Submit</button>

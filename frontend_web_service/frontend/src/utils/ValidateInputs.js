@@ -25,7 +25,7 @@ function ValidatePassword(password){
 
 function ValidatePasswordConfirmation(password,passwordConfirmation){
     
-    if(password == passwordConfirmation){
+    if((password == passwordConfirmation) && (passwordConfirmation.length>=8)){
         return true;
     }
     else{
