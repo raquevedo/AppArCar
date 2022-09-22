@@ -43,8 +43,6 @@ export default function Register() {
   
   function changePasswordconfirmation(){
     
-    setPasswordCorrect(validatePassword(password))
-    
     if((password != passwordConfirmation) && (passwordConfirmation != null)){
       setPasswordConfirmationCorrect(false);
     }
@@ -64,7 +62,7 @@ export default function Register() {
         </label>
         <label>
           <p>Password</p>
-          <input id={passwordCorrect ? 'approved' : 'not-approved'} type="password" onChange={e => setPassword(e.target.value)} onKeyUp={() => {setPasswordCorrect(validatePassword(password))}}/>
+          <input id={passwordCorrect ? 'approved' : 'not-approved'} type="password" onChange={e => setPassword(e.target.value)} onKeyUp={() => {{setPasswordCorrect(validatePassword(password));changePasswordconfirmation()}}}/>
         </label>
         <label>
           <p>Confirm Password</p>
