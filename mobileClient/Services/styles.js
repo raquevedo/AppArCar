@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
   themeText: {
     flex: 4,
     fontSize: 40,
+    fontFamily: "TTNorms-BoldItalic",
     textAlign: "center",
     color: "#5741f2",
     justifyContent: "center",
@@ -15,6 +16,7 @@ const styles = StyleSheet.create({
     flex: 4,
     fontSize: 30,
     textAlign: "center",
+    fontFamily: "TTNorms-Regular",
     color: "#5741f2",
     justifyContent: "center",
     alignItems: "center",
@@ -22,13 +24,22 @@ const styles = StyleSheet.create({
   buttonTextl: {
     fontSize: 20,
     textAlign: "center",
+    fontFamily: "TTNorms-Regular",
     color: "#ffffff",
     backgroundColor: "transparent",
   },
-
+  
+  buttonTextSignUp: {
+    fontSize: 18,
+    textAlign: "center",
+    fontFamily: "TTNorms-Regular",
+    color: "#5741f2",
+    backgroundColor: "transparent",
+  },
   buttonText: {
     fontSize: 18,
     textAlign: "center",
+    fontFamily: "TTNorms-Regular",
     color: "#ffffff",
     backgroundColor: "transparent",
   },
@@ -58,9 +69,30 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "space-around",
   },
+  containAnthem: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  imageAnthem: {
+    alignItems: "center",
+    width: 250,
+    height: 80,
+    justifyContent: "center",
+    resizeMode: "contain",
+  },
   containButtonStyle: {
     alignItems: "center",
     justifyContent: "center",
+  },
+  containButtonStyleSignUp: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.2)",
+    width: 100,
+    height: 50,
+    backgroundColor: "white",
   },
   buttonStyle: {
     borderWidth: 1,
@@ -91,8 +123,9 @@ const styles = StyleSheet.create({
 
   text: {
     flex: 4,
-    fontSize: 25,
+    fontSize: 16,
     textAlign: "center",
+    fontFamily: "TTNorms-Light",
     width: "70%",
     margin: 10,
     color: "#5741f2",
@@ -127,6 +160,7 @@ const styles = StyleSheet.create({
     height: 120,
     resizeMode: "contain",
   },
+  
   imageGoogle: {
     flex: 1,
     resizeMode: "contain",
@@ -134,6 +168,7 @@ const styles = StyleSheet.create({
   textDate: {
     fontSize: 12,
     justifyContent: "center",
+    fontFamily: "TTNorms-Regular",
     alignItems: "center",
     color: "#ffffff",
   },
