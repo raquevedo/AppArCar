@@ -1,5 +1,5 @@
 import react from 'react';
-import '../components/App/App.css';
+import '../App/App.css';
 
 function alertFail(failalert){
     return(

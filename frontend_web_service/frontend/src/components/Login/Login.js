@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../../components/App/App.css';
-import {validateEmail,validatePassword} from '../../utils/ValidateInputs';
-import {alertFail} from '../../utils/AlertFail';
+import {validateEmail, validatePassword} from '../../utils/ValidateInputs';
+import {alertFail} from '../../components/AlertFail/AlertFail';
 import {useNavigate} from 'react-router-dom';
 
 async function loginUser(credentials) {
@@ -19,7 +19,7 @@ async function loginUser(credentials) {
 
 export default function Login({ setToken }) {
  
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isPasswordValid,setIsPasswordValid] = useState(false);
@@ -29,7 +29,7 @@ export default function Login({ setToken }) {
   const handleSubmit = async e => {
     e.preventDefault();
   
-    if((isEmailValid) && (isPasswordValid)){
+    if (isEmailValid && isPasswordValid){
       const token = await loginUser({
         email,
         password
@@ -48,11 +48,11 @@ export default function Login({ setToken }) {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input id={isEmailValid ? 'approved' : 'notapproved'} type="text" onChange={e => setEmail(e.target.value)} onFocus={() =>{setIsEmailValid(false)}} onBlur = {() => {setIsEmailValid(validateEmail(email))}}/>
+          <input id={isEmailValid ? 'approved' : 'not-approved'} type="text" onChange={e => setEmail(e.target.value)} onKeyUp={() => {setIsEmailValid(validateEmail(email))}}/>
         </label>
         <label>
           <p>Password</p>
-          <input id={isPasswordValid ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onFocus={() =>{setIsPasswordValid(false)}} onBlur = {() => {setIsPasswordValid(validatePassword(password))}}/>
+          <input id={isPasswordValid ? 'approved' : 'not-approved'} type="password" onChange={e => setPassword(e.target.value)} onKeyUp={() => {setIsPasswordValid(validatePassword(password))}}/>
         </label>
         <div>
           <button type="submit" class="button">Submit</button>

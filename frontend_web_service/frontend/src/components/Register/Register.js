@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../components/App/App.css';
-import {validateEmail,validatePassword,validateUsername,validatePasswordconfirmation} from '../../utils/ValidateInputs';
-import {alertFail} from '../../utils/AlertFail';
+import {validateEmail, validatePassword, validateUsername, validatePasswordconfirmation} from '../../utils/ValidateInputs';
+import {alertFail} from '../../components/AlertFail/AlertFail';
 
 async function registerUser(credentials) {
   return fetch('http://0.0.0.0:8000/auth/signup', {
@@ -29,7 +29,7 @@ export default function Register() {
  const handleSubmit = async e => {
     e.preventDefault();
     
-     if((passwordCorrect) && (emailCorrect) && (usernameCorrect) && (passwordConfirmationCorrect)){
+     if(passwordCorrect && emailCorrect && usernameCorrect && passwordConfirmationCorrect){
       const token = await registerUser({
         email,
         username,
@@ -56,19 +56,19 @@ export default function Register() {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input id={emailCorrect ? 'approved' : 'notapproved'} type="text" onChange={e => setEmail(e.target.value)} onFocus={() =>{setEmailCorrect(false)}} onBlur = {() => {setEmailCorrect(validateEmail(email))}}/>
+          <input id={emailCorrect ? 'approved' : 'not-approved'} type="text" onChange={e => setEmail(e.target.value)} onKeyUp={() => {setEmailCorrect(validateEmail(email))}}/>
         </label>
         <label>
           <p>Username</p>
-          <input id={usernameCorrect ? 'approved' : 'notapproved'} type="text" onChange={e => setUsername(e.target.value)}  onFocus={() =>{setUsernameCorrect(false)}} onBlur = {() =>{setUsernameCorrect(validateUsername(username))}}/>
+          <input id={usernameCorrect ? 'approved' : 'not-approved'} type="text" onChange={e => setUsername(e.target.value)} onKeyUp={() => {setUsernameCorrect(validateUsername(username))}}/>
         </label>
         <label>
           <p>Password</p>
-          <input id={passwordCorrect ? 'approved' : 'notapproved'} type="password" onChange={e => setPassword(e.target.value)} onFocus={() =>{setPasswordCorrect(false)}} onBlur = {() => {changePasswordconfirmation()}}/>
+          <input id={passwordCorrect ? 'approved' : 'not-approved'} type="password" onChange={e => setPassword(e.target.value)} onKeyUp={() => {setPasswordCorrect(validatePassword(password))}}/>
         </label>
         <label>
           <p>Confirm Password</p>
-          <input className='ConfirmPassword' id={passwordConfirmationCorrect ? 'approved' : 'notapproved'} type="password"  onChange={e => setPasswordConfirmation(e.target.value)}  onFocus={() =>{setPasswordConfirmationCorrect(false)}} onBlur = {() => {setPasswordConfirmationCorrect(validatePasswordconfirmation(password,passwordConfirmation))}}/>
+          <input className='ConfirmPassword' id={passwordConfirmationCorrect ? 'approved' : 'not-approved'} type="password" onChange={e => setPasswordConfirmation(e.target.value)} onKeyUp={() => {setPasswordConfirmationCorrect(validatePasswordconfirmation(password,passwordConfirmation))}}/>
         </label>
         <div>
           <button type="submit" class="button">Submit</button>
