@@ -18,3 +18,7 @@
 #failalertoff{
     visibility: hidden;
 }
+
+#typing{
+    color: black;
+}

@@ -1,29 +1,56 @@
 import React from "react";
+import '../components/App/App.css';
 
-function validateEmail(email){
+function validateEmail(email, setIsEmailValid, element){
   
   const EmailRegex = /\S+@\S+\.\S+/;
-  
-  return EmailRegex.test(email);
 
+  if(EmailRegex.test(email)){
+
+    setIsEmailValid(true);
+    element.id = 'approved';
+  }
+  else{
+    setIsEmailValid(false);
+    element.id = 'not-approved';
+  }
 }
 
-function validatePassword(password){
+function validatePassword(password, setIsPasswordValid, element){
 
-  return ((password) && (password.length>=8));
+  if((password) && (password.length>=8)){
+
+    setIsPasswordValid(true);
+    element.id = 'approved';
+  }
+  else{
+    setIsPasswordValid(false);
+    element.id = 'not-approved'
+  }
 }
 
-function validatePasswordconfirmation(password, passwordConfirmation){
+function validatePasswordconfirmation(password, passwordConfirmation, setPasswordConfirmationCorrect, element){
     
-    return (password == passwordConfirmation) && (passwordConfirmation.length>=8);
-}  
+    if((password == passwordConfirmation) && (passwordConfirmation.length>=8)){
 
-function validateUsername(username){
-    if(username){
-      return true;
+      setPasswordConfirmationCorrect(true);
+      element.id = 'approved';
     }
     else{
-      return false;
+      setPasswordConfirmationCorrect(false);
+      element.id = 'not-approved';
+    }
+}  
+
+function validateUsername(username, setUsernameCorrect, element){
+    
+  if(username){
+      setUsernameCorrect(true);
+      element.id = 'approved';
+    }
+    else{
+      setUsernameCorrect(false);
+      element.id = 'not-approved'
     }
 }
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../../components/App/App.css';
 import {validateEmail, validatePassword} from '../../utils/ValidateInputs';
-import {alertFail} from '../../components/AlertFail/AlertFail';
+import AlertFail from '../../components/AlertFail/AlertFail';
 import {useNavigate} from 'react-router-dom';
 
 async function loginUser(credentials) {
@@ -48,17 +48,19 @@ export default function Login({ setToken }) {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input id={isEmailValid ? 'approved' : 'not-approved'} type="text" onChange={e => setEmail(e.target.value)} onKeyUp={() => {setIsEmailValid(validateEmail(email))}}/>
+          <input className='emailL' type="text" onChange={e => {setEmail(e.target.value)}} onFocus={() => document.getElementsByClassName('emailL')[0].id = 'typing'} onBlur={() => validateEmail(email,setIsEmailValid,document.getElementsByClassName('emailL')[0])}/>
         </label>
         <label>
           <p>Password</p>
-          <input id={isPasswordValid ? 'approved' : 'not-approved'} type="password" onChange={e => setPassword(e.target.value)} onKeyUp={() => {setIsPasswordValid(validatePassword(password))}}/>
+          <input className='passwordL' type="password" onChange={e => setPassword(e.target.value)} onFocus={() => document.getElementsByClassName('passwordL')[0].id = 'typing'} onBlur={() => validatePassword(password, setIsPasswordValid, document.getElementsByClassName('passwordL')[0])}/>
         </label>
         <div>
           <button type="submit" class="button">Submit</button>
         </div>
       </form>
-      {alertFail(failalertL)}
+      <AlertFail
+        failalert = {failalertL}
+        />
     </div>
   );
 }
