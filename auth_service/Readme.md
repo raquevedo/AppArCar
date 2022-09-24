@@ -1,7 +1,7 @@
 ### Table of contents 
 > [POST signup](#POST-signup)
 >
-> [POST users/login](#POST-users/login)
+> [POST users/login](#POST-users-login)
 
 ### POST /signup
 ```sh
@@ -10,11 +10,20 @@ curl -X 'POST' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "username": "string",
-  "email": "string",
-  "password": "string"
+  "username": "testuser",
+  "email": "testuser@dominio.com",
+  "password": "minimo8char"
 }'
 ```
+Response 200 OK
+```sh
+{
+  "id": "1664032056",
+  "username": "testuser",
+  "email": "usertest@dominio.com"
+}
+```
+ 
 ### POST /users/login
 ```sh
 curl -X 'POST' \
@@ -22,10 +31,17 @@ curl -X 'POST' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "email": "user@example.com",
-  "password": "stringst"
+  "email": "testuser@dominio.com",
+  "password": "minimo8char"
 }'
 ```
+Response 200 OK 
+```sh
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE2NjQwMzIyMDgiLCJuYW1lIjoidGVzdHVzZXIiLCJlbWFpbCI6InRlc3R1c2VyQGRvbWluaW8uY29tIiwiaWF0IjoxNjY0MDMyMjM0LCJleHAiOjE2NjQwNTM4MzR9.c46Tiym6_qhVTg-_tUTEboJ8p_EIb5R6yd-9btbtonI"
+}
+```
+
 ## Data Catalog
 
 #### authDb.public.user
