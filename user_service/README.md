@@ -1,9 +1,9 @@
 ### Car Driver
-> [POST car-driver/create-user](#POST-car-driver-create-user)
+> [POST car-driver/create-user](#POST-car-drivercreate-user)
 >
-> [PATCH car-driver/update-profile](#PATCH-car-driver-update-profile)
+> [PATCH car-driver/update-profile](#PATCH-car-driverupdate-profile)
 >
-> [GET car-driver/user-info](#GET-car-driver-user-info)
+> [GET car-driver/user-info](#GET-car-driveruser-info)
 
 ### POST car-driver/create-user
 ```sh
@@ -98,13 +98,13 @@ If not register
 ```
 
 ### Cars
-> [POST cars/create](#POST-cars-create)
+> [POST cars/create](#POST-carscreate)
 >
 > [GET cars](#GET-cars)
 >
-> [DELETE cars/remove/{id}](#PATCH-cars-remove-{id})
+> [DELETE cars/remove/{id}](#PATCH-carsremoveid)
 >
-> [PATCH cars/update-car/{id}](#GET-cars-update-car-{id})
+> [PATCH cars/update-car/{id}](#PATCH-carsupdate-carid)
 
 
 ### POST cars/create
@@ -198,9 +198,9 @@ curl -X 'PATCH' \
 }'
 ```
 ### Partners
-> [POST partners/create-user](#POST-partners-create-user)
+> [POST partners/create-user](#POST-partnerscreate-user)
 >
-> [GET partners/user-info](#GET-partners-user-info)
+> [GET partners/user-info](#GET-partnersuser-info)
 
 ### POST partners/create-user
 ```sh
