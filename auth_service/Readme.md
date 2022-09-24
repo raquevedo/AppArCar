@@ -1,7 +1,7 @@
 ### Table of contents 
 > [POST signup](#POST-signup)
 >
-> [POST users/login](#POST-users-login)
+> [POST users/login](#POST-userslogin)
 
 ### POST /signup
 ```sh

@@ -27,13 +27,14 @@ In order to have the containers be able to communicate locally we use the kong-n
 Handles authentication and generates JSON web tokens that must be sent to the other microservices for authorization
 
 Path: /auth
-[Release notes](auth_service/Readme.md)
+> [Release notes](auth_service/README.md)
 
 ## User_service
 
 Handles driver user information and changes to their profiles
 
 Path: /user
+> [Release notes](user_service/README.md)
 
 ## Partner_service
 
