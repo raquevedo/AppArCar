@@ -22,6 +22,10 @@ COPY --chown=node . .
 
 RUN npm run build
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> bdbee1ae4877f8270b5c9d3af05c0a1fc0e4f9da
 
 
 # Bind to all network interfaces so that it can be mapped to the host OS
