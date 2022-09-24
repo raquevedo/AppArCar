@@ -1,1 +1,1 @@
-export * from './points.datasource';
+export * from './pointsdb.datasource';
