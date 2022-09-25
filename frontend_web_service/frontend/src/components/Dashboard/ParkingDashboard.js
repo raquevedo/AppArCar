@@ -1,11 +1,11 @@
 import React from 'react';
 import {Grid} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import ParkingNavbar from "../components/ParkingNavbar";
+import ParkingNavbar from "../components/Navbar/ParkingNavbar";
 import 'fontsource-roboto';
 import '../assets/css/Dashboard.css';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import ParkingHeader from '../components/ParkingHeader';
+import ParkingHeader from '../components/Dashboard/ParkingHeader'
 const useStyles = makeStyles(()=> ({
 root: {
     flexGrow: 1

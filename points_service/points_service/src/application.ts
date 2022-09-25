@@ -40,10 +40,5 @@ export class PointServiceApplication extends BootMixin(
       },
     };
   }
-  async migrateSchema(options?: SchemaMigrationOptions) {
-    // 1. Run migration scripts provided by connectors
-    await super.migrateSchema(options);
-
-    
-  }
+  
 }
