@@ -4,7 +4,7 @@ import '../App/App.css';
 function AlertFail(props){
     return(
         <div>
-            <div id={props.failalert ? 'failalerton' : 'failalertoff'} class="callout alert">
+            <div id={props.failAlert ? 'failalerton' : 'failalertoff'} class="callout alert">
                 <h5>Missing fields to complete</h5>
             </div>
         </div>

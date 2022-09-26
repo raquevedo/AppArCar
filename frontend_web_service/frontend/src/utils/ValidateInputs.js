@@ -18,7 +18,7 @@ function validateEmail(email, setIsEmailValid, element){
 
 function validatePassword(password, setIsPasswordValid, element){
 
-  if((password) && (password.length>=8)){
+  if((password) && (password.length >= 8)){
 
     setIsPasswordValid(true);
     element.id = 'approved';
@@ -31,7 +31,7 @@ function validatePassword(password, setIsPasswordValid, element){
 
 function validatePasswordconfirmation(password, passwordConfirmation, setPasswordConfirmationCorrect, element){
     
-    if((password == passwordConfirmation) && (passwordConfirmation.length>=8)){
+    if((password == passwordConfirmation) && (passwordConfirmation.length >= 8)){
 
       setPasswordConfirmationCorrect(true);
       element.id = 'approved';

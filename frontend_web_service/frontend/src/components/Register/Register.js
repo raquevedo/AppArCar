@@ -21,15 +21,15 @@ export default function Register() {
   const [password, setPassword] = useState();
   const [passwordConfirmation, setPasswordConfirmation] = useState();
   const [usernameCorrect,setUsernameCorrect] = useState(false);
-  const [passwordConfirmationCorrect,setPasswordConfirmationCorrect] = useState(false)
+  const [passwordConfirmationcorrect,setPasswordConfirmationCorrect] = useState(false)
   const [passwordCorrect,setPasswordCorrect] = useState(false);
   const [emailCorrect,setEmailCorrect] = useState(false);
-  const [failalert,setFailAlert] = useState(false);
+  const [failAlert,setFailAlert] = useState(false);
   
  const handleSubmit = async e => {
     e.preventDefault();
     
-     if(passwordCorrect && emailCorrect && usernameCorrect && passwordConfirmationCorrect){
+     if(passwordCorrect && emailCorrect && usernameCorrect && passwordConfirmationcorrect){
       const token = await registerUser({
         email,
         username,
@@ -74,7 +74,7 @@ export default function Register() {
         </div>
       </form>
       <AlertFail
-        failalert = {failalert}
+        failAlert = {failAlert}
       />
     </div>
   );

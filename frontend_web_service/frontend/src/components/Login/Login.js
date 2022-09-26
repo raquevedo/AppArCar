@@ -22,14 +22,14 @@ export default function Login({ setToken }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [isPasswordValid,setIsPasswordValid] = useState(false);
-  const [isEmailValid,setIsEmailValid] = useState(false);
-  const [failalertL,setFailAlertL] = useState(false);
+  const [isPasswordvalid,setIsPasswordValid] = useState(false);
+  const [isEmailvalid,setIsEmailValid] = useState(false);
+  const [failAlertl,setFailAlertL] = useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
   
-    if (isEmailValid && isPasswordValid){
+    if (isEmailvalid && isPasswordvalid){
       const token = await loginUser({
         email,
         password
@@ -59,7 +59,7 @@ export default function Login({ setToken }) {
         </div>
       </form>
       <AlertFail
-        failalert = {failalertL}
+        failAlert = {failAlertl}
         />
     </div>
   );
