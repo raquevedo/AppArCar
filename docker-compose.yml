@@ -183,6 +183,16 @@ services:
       POSTGRES_DB: userDb
     networks:
       - kong-net
+  
+  geo_service:
+    build:
+      context: ./geolocation_service/geolocation_service
+      dockerfile: Dockerfile
+    container_name: geolocation_api
+    ports:
+      - 3002:3002
+    networks:
+      - kong-net
 
 secrets:
   kong_postgres_password:
