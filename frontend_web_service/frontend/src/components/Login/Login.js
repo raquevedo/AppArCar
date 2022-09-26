@@ -22,14 +22,14 @@ export default function Login({ setToken }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [isPasswordvalid,setIsPasswordValid] = useState(false);
-  const [isEmailvalid,setIsEmailValid] = useState(false);
-  const [failAlertl,setFailAlertL] = useState(false);
+  const [ispasswordvalid,setIsPasswordValid] = useState(false);
+  const [isemailvalid,setIsEmailValid] = useState(false);
+  const [failalertl,setFailAlertL] = useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
   
-    if (isEmailvalid && isPasswordvalid){
+    if (isemailvalid && ispasswordvalid){
       const token = await loginUser({
         email,
         password
@@ -48,18 +48,18 @@ export default function Login({ setToken }) {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input className='emailL' type="text" onChange={e => {setEmail(e.target.value)}} onFocus={() => document.getElementsByClassName('emailL')[0].id = 'typing'} onBlur={() => validateEmail(email,setIsEmailValid,document.getElementsByClassName('emailL')[0])}/>
+          <input className='emaill' type="text" onChange={e => {setEmail(e.target.value)}} onFocus={() => document.getElementsByClassName('emaill')[0].id = 'typing'} onBlur={() => validateEmail(email,setIsEmailValid,document.getElementsByClassName('emaill')[0])}/>
         </label>
         <label>
           <p>Password</p>
-          <input className='passwordL' type="password" onChange={e => setPassword(e.target.value)} onFocus={() => document.getElementsByClassName('passwordL')[0].id = 'typing'} onBlur={() => validatePassword(password, setIsPasswordValid, document.getElementsByClassName('passwordL')[0])}/>
+          <input className='passwordl' type="password" onChange={e => setPassword(e.target.value)} onFocus={() => document.getElementsByClassName('passwordl')[0].id = 'typing'} onBlur={() => validatePassword(password, setIsPasswordValid, document.getElementsByClassName('passwordl')[0])}/>
         </label>
         <div>
           <button type="submit" class="button">Submit</button>
         </div>
       </form>
       <AlertFail
-        failAlert = {failAlertl}
+        failAlert = {failalertl}
         />
     </div>
   );

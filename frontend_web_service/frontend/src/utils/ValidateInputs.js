@@ -3,9 +3,9 @@ import '../components/App/App.css';
 
 function validateEmail(email, setIsEmailValid, element){
   
-  const EmailRegex = /\S+@\S+\.\S+/;
+  const emailregex = /\S+@\S+\.\S+/;
 
-  if(EmailRegex.test(email)){
+  if(emailregex.test(email)){
 
     setIsEmailValid(true);
     element.id = 'approved';
