@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     backgroundColor: "#1e41ff",
+    margin: 5,
     borderRadius: 50,
   },
   imageButton: {
@@ -65,9 +66,10 @@ const styles = StyleSheet.create({
   },
   containButtonHome: {
     flex: 1,
+    padding: 5,
     flexdirection: "column",
     alignItems: "flex-end",
-    justifyContent: "space-around",
+    justifyContent: "flex-end",
   },
   containAnthem: {
     alignItems: "center",
@@ -182,6 +184,26 @@ const styles = StyleSheet.create({
     height: windowHeight,
     justifyContent: "center",
     alignItems: "center", 
+  },
+  dropdown: {
+    width: 210,
+    height: 50,
+    borderBottomColor: 'gray',
+    borderBottomWidth: 0.5,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
   },
 });
 export default styles;

@@ -24,6 +24,7 @@
     "react-dom": "18.0.0",
     "react-native": "0.69.4",
     "react-native-datepicker": "^1.7.2",
+    "react-native-element-dropdown": "^2.3.0",
     "react-native-modal-datetime-picker": "^14.0.0",
     "react-native-paper": "^4.12.4",
     "react-native-web": "~0.18.7"

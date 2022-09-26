@@ -242,7 +242,7 @@ export default function App({ navigation }) {
                   </>
                 ) : (
                   <>
-                    <Stack.Screen name="Registrar" component={FormReg} />
+                    <Stack.Screen name="Registrar" component={FormReg} options={{ headerShown: false }}/>
                   </>
                 )}
               </>
