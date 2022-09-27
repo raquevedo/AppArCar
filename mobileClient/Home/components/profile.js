@@ -156,7 +156,7 @@ function Profile({ navigation }) {
         <View style={styles.space}>
           <TouchableOpacity
             style={styles.containButtonStyle}
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate("Home")}
           >
             <LinearGradient
               start={{ x: 0, y: 0 }}

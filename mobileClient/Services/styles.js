@@ -12,6 +12,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  themeTextFlat: {
+    flex: 1,
+    fontSize: 40,
+    fontFamily: "TTNorms-BoldItalic",
+    textAlign: "center",
+    color: "#5741f2",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   themeTextShort: {
     flex: 4,
     fontSize: 30,
@@ -105,6 +114,22 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "transparent",
     borderRadius: 50,
+  },
+  buttonStyleFlat: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.2)",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 150,
+    height: 40,
+    backgroundColor: "transparent",
+    borderRadius: 50,
+  },
+  containButtonStyleFlat: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
   containButtonStylel: {
     flex: 4,
@@ -204,6 +229,37 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
+  },
+  
+  containFlat: {
+    
+    flex: 6,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  flatlist: {
+    
+    paddingVertical: 30,
+    paddingHorizontal: 10,
+    width: 250,
+    
+  },
+  containTextFlatList:{
+    justifyContent: 'space-between',
+    
+  },
+  heading2: {
+    fontSize: 30,
+    fontFamily: "TTNorms-BoldItalic",
+  },
+  subheading: {
+    fontSize: 18,
+    color: 'grey',
+    fontFamily: "TTNorms-Regular",
+  },
+  itemSeparator: {
+    backgroundColor: 'grey',
+    height: 1,
   },
 });
 export default styles;
