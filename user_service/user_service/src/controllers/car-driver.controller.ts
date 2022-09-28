@@ -92,25 +92,6 @@ export class CarDriverController {
     return this.usrCarDriverRepository.find(filter);
   }
 
-  @patch('/car-drivers')
-  @response(200, {
-    description: 'UsrCarDriver PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async updateAll(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(UsrCarDriver, {partial: true}),
-        },
-      },
-    })
-    usrCarDriver: UsrCarDriver,
-    @param.where(UsrCarDriver) where?: Where<UsrCarDriver>,
-  ): Promise<Count> {
-    return this.usrCarDriverRepository.updateAll(usrCarDriver, where);
-  }
-
   @get('/car-drivers/{id}')
   @response(200, {
     description: 'UsrCarDriver model instance',
@@ -132,32 +113,50 @@ export class CarDriverController {
     description: 'UsrCarDriver myself model instance',
     content: {
       'application/json': {
-        schema: getModelSchemaRef(UsrCarDriver, {includeRelations: true}),
+        schema: {
+          type: 'object',
+          properties: {
+            data: {type: 'object'},
+            isRegister: {type: 'boolean'}
+          }
+        },
       },
     },
   })
   async findMyself(
-    @param.filter(UsrCarDriver, {exclude: 'where'}) filter?: FilterExcludingWhere<UsrCarDriver>
-  ): Promise<UsrCarDriver> {
-    return this.usrCarDriverRepository.findById(this.currentUserProfile.id, filter);
+  ){
+    let data
+    let isRegister
+    try{
+      data = await this.usrCarDriverRepository.findById(this.currentUserProfile.id)
+      isRegister = true
+    }catch(Error){
+      data = {}
+      isRegister = false
+    };
+    
+    return {'data':data,'isRegister':isRegister}
   }
 
-  @patch('/car-drivers/{id}')
+  @patch('/car-drivers/update-profile')
   @response(204, {
     description: 'UsrCarDriver PATCH success',
   })
   async updateById(
-    @param.path.number('id') id: number,
-    @requestBody({
+
+   @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(UsrCarDriver, {partial: true}),
+          schema: getModelSchemaRef(UsrCarDriver, 
+            {exclude: ['id','username','email','registerDateDttm','sysCreatedAtDttm','sysUpdatedAtDttm'],
+            partial: true}),
         },
       },
     })
     usrCarDriver: UsrCarDriver,
   ): Promise<void> {
-    await this.usrCarDriverRepository.updateById(id, usrCarDriver);
+    usrCarDriver.sysUpdatedAtDttm  = Date();
+    await this.usrCarDriverRepository.updateById(this.currentUserProfile.id, usrCarDriver);
   }
 
   @put('/car-drivers/{id}')

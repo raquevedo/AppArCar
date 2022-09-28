@@ -24,6 +24,10 @@ export class UsrCarDriver extends Entity {
     required: true,
     length: 100,
     postgresql: {columnName: 'name', dataType: 'character varying', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    jsonSchema: {
+      minLength: 3,
+      maxLength: 100,
+    }
   })
   name: string;
 
@@ -32,6 +36,10 @@ export class UsrCarDriver extends Entity {
     required: true,
     length: 100,
     postgresql: {columnName: 'last_name', dataType: 'character varying', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    jsonSchema: {
+      minLength: 3,
+      maxLength: 100,
+    }
   })
   lastName: string;
 
@@ -40,6 +48,9 @@ export class UsrCarDriver extends Entity {
     required: true,
     scale: 0,
     postgresql: {columnName: 'document_number', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
+    jsonSchema: {
+      minimum: 1,
+    }
   })
   documentNumber: number;
 
@@ -55,6 +66,10 @@ export class UsrCarDriver extends Entity {
     required: true,
     length: 50,
     postgresql: {columnName: 'gender', dataType: 'character varying', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    jsonSchema: {
+      minLength: 1,
+      maxLength: 50,
+    },
   })
   gender: string;
 
@@ -63,6 +78,9 @@ export class UsrCarDriver extends Entity {
     required: true,
     length: 100,
     postgresql: {columnName: 'email', dataType: 'character varying', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    jsonSchema: {
+      pattern: '/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/'
+    }
   })
   email: string;
 
@@ -71,6 +89,9 @@ export class UsrCarDriver extends Entity {
     required: true,
     scale: 0,
     postgresql: {columnName: 'contact_number', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
+    jsonSchema: {
+      minimum: 1,
+    },
   })
   contactNumber: number;
 

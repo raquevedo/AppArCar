@@ -3,7 +3,7 @@ import './App.css';
 import { useLocation, BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Homepage from '../Homepage/Homepage';
 import SignIn from '../SignIn/SignIn';
-import Dashboard from '../Dashboard/Dashboard';
+import DashboardWrapper from '../DashboardWrapper/DashboardWrapper';
 import Profile from '../Profile/Profile';
 import Navbar from '../Navbar/Navbar';
 
@@ -20,7 +20,7 @@ function App() {
             path='dashboard'
             element={
               <RequireAuth>
-                <Dashboard />
+                <DashboardWrapper />
               </RequireAuth>
             }
           />
