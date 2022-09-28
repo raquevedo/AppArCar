@@ -33,7 +33,10 @@ export default function DashboardWrapper() {
       }
     })
   }
-  checkIsRegistered()
+
+  if (isRegistered == false) {
+    checkIsRegistered()
+  }
 
   return(
     <div>
