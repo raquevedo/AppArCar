@@ -8,23 +8,32 @@ async function getPartnerData() {
   myHeaders.append('Authorization', 'Bearer ' + fetchToken());
   myHeaders.append('Content-Type', 'application/json');
 
-  fetch('http://0.0.0.0:8000/user/partners/user-info', {
+  let response = await fetch('http://0.0.0.0:8000/user/partners/user-info', {
     method: 'GET',
     headers: myHeaders
-  }).then((response) => {
-      return response.json()
-  })
+  });
+  response = await response.json();
+  return response
 }
 
 export default function DashboardWrapper() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [partnerData, setPartnerData] = useState({});
 
-  const partner = getPartnerData();
-  if (partner['isRegistered']) {
-    setIsRegistered(true);
-    setPartnerData(partner['data'])
+  const partner = getPartnerData().then(partner => {
+    return partner;
+  });
+  
+  const checkIsRegistered = () => {
+    partner.then((partner) => {
+      console.log(partner);
+      if (partner['isRegister']) {
+        setIsRegistered(true);
+        setPartnerData(partner['data'])
+      }
+    })
   }
+  checkIsRegistered()
 
   return(
     <div>

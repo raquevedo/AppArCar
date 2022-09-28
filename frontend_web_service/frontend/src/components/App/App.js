@@ -16,18 +16,10 @@ function App() {
           <Route path='/' element={<Homepage />} />
           <Route path='signin' element={<SignIn />} />
           <Route
-            path='dashboard'
+            path='/dashboard/*'
             element={
               <RequireAuth>
                 <DashboardWrapper />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path='profile'
-            element={
-              <RequireAuth>
-                <Profile />
               </RequireAuth>
             }
           />
