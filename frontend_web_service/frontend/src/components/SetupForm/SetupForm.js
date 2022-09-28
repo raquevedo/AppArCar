@@ -1,18 +1,5 @@
 import React, { useState } from 'react';
-import fetchToken from '../../utils/fetchToken';
-
-async function registerUser(partnerData) {
-  let myHeaders = new Headers();
-  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-  myHeaders.append('Content-Type', 'application/json');
-
-  return fetch('http://0.0.0.0:8000/user/partners/create-user', {
-    method: 'POST',
-    headers: myHeaders,
-    body: JSON.stringify(partnerData)
-  })
-    .then(data => data.json())
-}
+import { registerUser } from '../../controllers/usersController';
 
 export default function SetupForm({ setPartnerData, setIsRegistered }) {
   const [businessName, setBusinessName] = useState();
