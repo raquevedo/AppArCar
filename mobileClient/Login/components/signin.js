@@ -59,18 +59,16 @@ function SignInScreen({ navigation }) {
         </View>
         <View style={styles.space}>
           <TouchableOpacity
-            style={styles.containButtonStyle}
+            style={styles.containButtonStyleSignUp}
             onPress={() => navigation.navigate("SignUp")}
           >
-            <LinearGradient
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              colors={["#df3ac4", "#3043ff"]}
-              style={styles.buttonStyle}
-            >
-              <Text style={styles.buttonText}>Sign up</Text>
-            </LinearGradient>
+            <Text style={styles.buttonTextSignUp}>Sign up</Text>
           </TouchableOpacity>
+
+          <Image
+            source={require("../../assets/anthem.png")}
+            style={styles.imageAnthem}
+          />
         </View>
       </LinearGradient>
     </ScrollView>
