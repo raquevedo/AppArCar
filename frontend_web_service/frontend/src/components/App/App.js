@@ -23,6 +23,14 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path='/profile/*'
+            element={
+              <RequireAuth>
+                <Profile />
+              </RequireAuth>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

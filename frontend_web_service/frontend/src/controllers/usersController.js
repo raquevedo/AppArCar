@@ -25,3 +25,16 @@ export async function registerUser(partnerData) {
   })
     .then(data => data.json())
 }
+
+export async function updateUser(partnerData) {
+  let myHeaders = new Headers();
+  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
+  myHeaders.append('Content-Type', 'application/json');
+
+  return fetch('http://0.0.0.0:8000/user/partners/update-user', {
+    method: 'POST',
+    headers: myHeaders,
+    body: JSON.stringify(partnerData)
+  })
+    .then(data => data.json())
+}

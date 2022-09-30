@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Dashboard from '../Dashboard/Dashboard';
-import SetupForm from '../SetupForm/SetupForm';
+import ProfileSetup from '../ProfileSetup/ProfileSetup';
 import { getPartnerData }  from '../../controllers/usersController';
 
 export default function DashboardWrapper() {
@@ -20,7 +20,7 @@ export default function DashboardWrapper() {
     <div>
       {isRegistered
         ? <Dashboard partnerData={partnerData}/>
-        : <SetupForm setIsRegistered={setIsRegistered}/>
+        : <ProfileSetup setIsRegistered={setIsRegistered}/>
       }
     </div>
   );
