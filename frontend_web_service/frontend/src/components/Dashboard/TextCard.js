@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ParkingHeader(props){
+function TextCard(props){
   return(
     <div className='card'>
       {props.icon}
@@ -16,4 +16,4 @@ function ParkingHeader(props){
   )
 }
 
-export default ParkingHeader;
+export default TextCard;
