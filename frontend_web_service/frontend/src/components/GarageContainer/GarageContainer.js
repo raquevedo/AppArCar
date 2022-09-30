@@ -1,5 +1,5 @@
 import React from 'react';
-import TextCard from '../Dashboard/TextCard';
+import TextCard from '../TextCard/TextCard';
 
 export default function GarageContainer() {
   return(
