@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { registerUser } from '../../controllers/usersController';
 
-export default function SetupForm({ setPartnerData, setIsRegistered }) {
+export default function SetupForm({ setIsRegistered }) {
   const [businessName, setBusinessName] = useState();
   const [cuitNumber, setCuitNumber] = useState();
   const [streetName, setStreetName] = useState();
@@ -18,7 +18,6 @@ export default function SetupForm({ setPartnerData, setIsRegistered }) {
       contactNumber
     });
     setIsRegistered(true);
-    setPartnerData(partner);
   }
 
   return(
