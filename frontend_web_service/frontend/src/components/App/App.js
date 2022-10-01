@@ -6,7 +6,7 @@ import SignIn from '../SignIn/SignIn';
 import DashboardWrapper from '../DashboardWrapper/DashboardWrapper';
 import Profile from '../Profile/Profile';
 import Navbar from '../Navbar/Navbar';
-
+import Dashboard from '../Dashboard/Dashboard';
 
 function App() {
   return (
@@ -19,9 +19,10 @@ function App() {
           <Route
             path='dashboard'
             element={
-              <RequireAuth>
-                <DashboardWrapper />
-              </RequireAuth>
+              <Dashboard />
+              //<RequireAuth>
+                //<DashboardWrapper />
+              //</RequireAuth>
             }
           />
           <Route
