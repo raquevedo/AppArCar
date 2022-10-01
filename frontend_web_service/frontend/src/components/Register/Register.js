@@ -55,7 +55,7 @@ export default function Register() {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input className='emailregister' type="text" onChange={e => setEmail(e.target.value)} onFocus = {() => document.getElementsByClassName('emailregister')[0].id = 'typing'} onBlur = {() => validateEmail(email,setEmailCorrect,document.getElementsByClassName('emailregister')[0])}/>
+          <input className='email-register' type="text" onChange={e => setEmail(e.target.value)} onFocus = {() => document.getElementsByClassName('email-register')[0].id = 'typing'} onBlur = {() => validateEmail(email,setEmailCorrect,document.getElementsByClassName('email-register')[0])}/>
         </label>
         <label>
           <p>Username</p>
@@ -63,11 +63,11 @@ export default function Register() {
         </label>
         <label>
           <p>Password</p>
-          <input className='passwordregister' type="password" onChange={e => setPassword(e.target.value)} onFocus = {() => document.getElementsByClassName('passwordregister')[0].id = 'typing'} onBlur = {() => {validatePassword(password,setPasswordCorrect,document.getElementsByClassName('passwordregister')[0]);changePasswordConfirmation(document.getElementsByClassName('passwordconfirmation')[0])}}/>
+          <input className='password-register' type="password" onChange={e => setPassword(e.target.value)} onFocus = {() => document.getElementsByClassName('password-register')[0].id = 'typing'} onBlur = {() => {validatePassword(password,setPasswordCorrect,document.getElementsByClassName('password-register')[0]);changePasswordConfirmation(document.getElementsByClassName('password-confirmation')[0])}}/>
         </label>
         <label>
           <p>Confirm Password</p>
-          <input className='passwordconfirmation' type="password" onChange={e => setPasswordConfirmation(e.target.value)} onFocus = {() => document.getElementsByClassName('passwordconfirmation')[0].id = 'typing'} onBlur = {() => validatePasswordConfirmation(password,passwordConfirmation,setPasswordConfirmationCorrect,document.getElementsByClassName('passwordconfirmation')[0])}/>
+          <input className='password-confirmation' type="password" onChange={e => setPasswordConfirmation(e.target.value)} onFocus = {() => document.getElementsByClassName('password-confirmation')[0].id = 'typing'} onBlur = {() => validatePasswordConfirmation(password,passwordConfirmation,setPasswordConfirmationCorrect,document.getElementsByClassName('password-confirmation')[0])}/>
         </label>
         <div>
           <button type="submit" class="button">Submit</button>

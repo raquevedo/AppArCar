@@ -48,11 +48,11 @@ export default function Login({ setToken }) {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input className='emaillogin' type="text" onChange={e => {setEmail(e.target.value)}} onFocus={() => document.getElementsByClassName('emaillogin')[0].id = 'typing'} onBlur={() => validateEmail(email,setIsEmailValid,document.getElementsByClassName('emaillogin')[0])}/>
+          <input className='email-login' type="text" onChange={e => {setEmail(e.target.value)}} onFocus={() => document.getElementsByClassName('email-login')[0].id = 'typing'} onBlur={() => validateEmail(email,setIsEmailValid,document.getElementsByClassName('email-login')[0])}/>
         </label>
         <label>
           <p>Password</p>
-          <input className='passwordlogin' type="password" onChange={e => setPassword(e.target.value)} onFocus={() => document.getElementsByClassName('passwordlogin')[0].id = 'typing'} onBlur={() => validatePassword(password, setIsPasswordValid, document.getElementsByClassName('passwordlogin')[0])}/>
+          <input className='password-login' type="password" onChange={e => setPassword(e.target.value)} onFocus={() => document.getElementsByClassName('password-login')[0].id = 'typing'} onBlur={() => validatePassword(password, setIsPasswordValid, document.getElementsByClassName('password-login')[0])}/>
         </label>
         <div>
           <button type="submit" class="button">Submit</button>
