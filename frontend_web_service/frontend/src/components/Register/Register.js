@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../components/App/App.css';
-import {validateEmail, validatePassword, validateUsername, validatePasswordconfirmation} from '../../utils/ValidateInputs';
+import {validateEmail, validatePassword, validateUsername, validatePasswordConfirmation} from '../../utils/ValidateInputs';
 import AlertFail from '../../components/AlertFail/AlertFail';
 
 async function registerUser(credentials) {
@@ -19,17 +19,17 @@ export default function Register() {
   const [email, setEmail] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  const [passwordConfirmation, setPasswordconfirmation] = useState();
-  const [usernameCorrect,setUsernamecorrect] = useState(false);
-  const [passwordConfirmationcorrect,setpasswordConfirmationcorrect] = useState(false)
-  const [passwordCorrect,setPasswordcorrect] = useState(false);
-  const [emailCorrect,setEmailcorrect] = useState(false);
-  const [failAlert,setFailalert] = useState(false);
+  const [passwordConfirmation, setPasswordConfirmation] = useState();
+  const [usernameCorrect,setUsernameCorrect] = useState(false);
+  const [passwordConfirmationCorrect,setPasswordConfirmationCorrect] = useState(false)
+  const [passwordCorrect,setPasswordCorrect] = useState(false);
+  const [emailCorrect,setEmailCorrect] = useState(false);
+  const [failAlert,setFailAlert] = useState(false);
   
  const handleSubmit = async e => {
     e.preventDefault();
     
-     if(passwordCorrect && emailCorrect && usernameCorrect && passwordConfirmationcorrect){
+     if(passwordCorrect && emailCorrect && usernameCorrect && passwordConfirmationCorrect){
       const token = await registerUser({
         email,
         username,
@@ -37,14 +37,14 @@ export default function Register() {
       });
     }
     else{
-      setFailalert(true);
+      setFailAlert(true);
     }
   }
   
-  function changePasswordconfirmation(element){
+  function changePasswordConfirmation(element){
     
     if((password != passwordConfirmation) && (passwordConfirmation != null)){
-      setpasswordConfirmationcorrect(false);
+      setPasswordConfirmationCorrect(false);
       element.id = 'not-approved';
       
     }
@@ -55,19 +55,19 @@ export default function Register() {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input className='emailr' type="text" onChange={e => setEmail(e.target.value)} onFocus = {() => document.getElementsByClassName('emailr')[0].id = 'typing'} onBlur = {() => validateEmail(email,setEmailcorrect,document.getElementsByClassName('emailr')[0])}/>
+          <input className='emailregister' type="text" onChange={e => setEmail(e.target.value)} onFocus = {() => document.getElementsByClassName('emailregister')[0].id = 'typing'} onBlur = {() => validateEmail(email,setEmailCorrect,document.getElementsByClassName('emailregister')[0])}/>
         </label>
         <label>
           <p>Username</p>
-          <input className='username' type="text" onChange={e => setUsername(e.target.value)} onFocus = {() => document.getElementsByClassName('username')[0].id = 'typing'} onBlur = {() => validateUsername(username,setUsernamecorrect,document.getElementsByClassName('username')[0])}/>
+          <input className='username' type="text" onChange={e => setUsername(e.target.value)} onFocus = {() => document.getElementsByClassName('username')[0].id = 'typing'} onBlur = {() => validateUsername(username,setUsernameCorrect,document.getElementsByClassName('username')[0])}/>
         </label>
         <label>
           <p>Password</p>
-          <input className='passwordr' type="password" onChange={e => setPassword(e.target.value)} onFocus = {() => document.getElementsByClassName('passwordr')[0].id = 'typing'} onBlur = {() => {validatePassword(password,setPasswordcorrect,document.getElementsByClassName('passwordr')[0]);changePasswordconfirmation(document.getElementsByClassName('passwordconfirmation')[0])}}/>
+          <input className='passwordregister' type="password" onChange={e => setPassword(e.target.value)} onFocus = {() => document.getElementsByClassName('passwordregister')[0].id = 'typing'} onBlur = {() => {validatePassword(password,setPasswordCorrect,document.getElementsByClassName('passwordregister')[0]);changePasswordConfirmation(document.getElementsByClassName('passwordconfirmation')[0])}}/>
         </label>
         <label>
           <p>Confirm Password</p>
-          <input className='passwordconfirmation' type="password" onChange={e => setPasswordconfirmation(e.target.value)} onFocus = {() => document.getElementsByClassName('passwordconfirmation')[0].id = 'typing'} onBlur = {() => validatePasswordconfirmation(password,passwordConfirmation,setpasswordConfirmationcorrect,document.getElementsByClassName('passwordconfirmation')[0])}/>
+          <input className='passwordconfirmation' type="password" onChange={e => setPasswordConfirmation(e.target.value)} onFocus = {() => document.getElementsByClassName('passwordconfirmation')[0].id = 'typing'} onBlur = {() => validatePasswordConfirmation(password,passwordConfirmation,setPasswordConfirmationCorrect,document.getElementsByClassName('passwordconfirmation')[0])}/>
         </label>
         <div>
           <button type="submit" class="button">Submit</button>

@@ -22,14 +22,14 @@ export default function Login({ setToken }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [isPasswordvalid,setisPasswordvalid] = useState(false);
-  const [isEmailvalid,setisEmailvalid] = useState(false);
-  const [failAlertl,setFailalertl] = useState(false);
+  const [isPasswordValid,setIsPasswordValid] = useState(false);
+  const [isEmailValid,setIsEmailValid] = useState(false);
+  const [failAlertLogin,setFailAlertLogin] = useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
   
-    if (isEmailvalid && isPasswordvalid){
+    if (isEmailValid && isPasswordValid){
       const token = await loginUser({
         email,
         password
@@ -38,7 +38,7 @@ export default function Login({ setToken }) {
       navigate('/dashboard');
     }
     else{
-      setFailalertl(true);
+      setFailAlertLogin(true);
     }
   }
   
@@ -48,18 +48,18 @@ export default function Login({ setToken }) {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input className='emaill' type="text" onChange={e => {setEmail(e.target.value)}} onFocus={() => document.getElementsByClassName('emaill')[0].id = 'typing'} onBlur={() => validateEmail(email,setisEmailvalid,document.getElementsByClassName('emaill')[0])}/>
+          <input className='emaillogin' type="text" onChange={e => {setEmail(e.target.value)}} onFocus={() => document.getElementsByClassName('emaillogin')[0].id = 'typing'} onBlur={() => validateEmail(email,setIsEmailValid,document.getElementsByClassName('emaillogin')[0])}/>
         </label>
         <label>
           <p>Password</p>
-          <input className='passwordl' type="password" onChange={e => setPassword(e.target.value)} onFocus={() => document.getElementsByClassName('passwordl')[0].id = 'typing'} onBlur={() => validatePassword(password, setisPasswordvalid, document.getElementsByClassName('passwordl')[0])}/>
+          <input className='passwordlogin' type="password" onChange={e => setPassword(e.target.value)} onFocus={() => document.getElementsByClassName('passwordlogin')[0].id = 'typing'} onBlur={() => validatePassword(password, setIsPasswordValid, document.getElementsByClassName('passwordlogin')[0])}/>
         </label>
         <div>
           <button type="submit" class="button">Submit</button>
         </div>
       </form>
       <AlertFail
-        failAlert = {failAlertl}
+        failAlert = {failAlertLogin}
         />
     </div>
   );
