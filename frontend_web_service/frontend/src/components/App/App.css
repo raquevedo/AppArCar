@@ -11,11 +11,11 @@
     color:red;
 }
 
-#failalerton{
+#fail-alert-on{
     visibility: visible;
 }
 
-#failalertoff{
+#fail-alert-off{
     visibility: hidden;
 }
 
