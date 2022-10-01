@@ -1,6 +1,6 @@
 
 CREATE table if not exists public.pkg_parking (
-    id integer,
+    id integer generated always as identity,
     business_name varchar(100) NOT NULL,
     cuit_number VARCHAR(25) NOT NULL ,
     street_name VARCHAR(100) NOT NULL ,
@@ -57,3 +57,15 @@ CREATE table if not exists public.pkg_reservation (
 
 CREATE UNIQUE INDEX IF NOT EXISTS reservation_driver_idx ON public."pkg_reservation" USING btree (id_car_driver);
 CREATE UNIQUE INDEX IF NOT EXISTS reservation_parking_idx ON public."pkg_reservation" USING btree (id_parking);
+
+CREATE table if not exists public.pkg_parking_users (
+    id integer generated always as identity,
+    id_parking integer,
+    id_parking_user integer,
+    user_role VARCHAR(50), 
+    sys_created_at_dttm timestamp NOT NULL,
+    sys_updated_at_dttm timestamp NOT NULL,
+  CONSTRAINT parking_user_id_pkey PRIMARY KEY (id)
+);
+CREATE INDEX IF NOT EXISTS pu_parking_user_idx ON public."pkg_parking_users" USING btree (id_parking_user);
+CREATE INDEX IF NOT EXISTS pu_parking_id_idx ON public."pkg_parking_users" USING btree (id_parking);

@@ -6,9 +6,9 @@ import {Entity, model, property} from '@loopback/repository';
 export class PkgParking extends Entity {
   @property({
     type: 'number',
-    required: true,
     scale: 0,
     id: 1,
+    generated: true,
     postgresql: {columnName: 'id', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
   })
   id: number;
@@ -55,9 +55,9 @@ export class PkgParking extends Entity {
     type: 'number',
     required: true,
     scale: 0,
-    postgresql: {columnName: 'qty_slot', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
+    postgresql: {columnName: 'qty_total_slots', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
   })
-  qtySlot: number;
+  qtyTotalSlots: number;
 
   @property({
     type: 'string',

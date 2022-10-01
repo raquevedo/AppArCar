@@ -17,16 +17,18 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {PkgParking} from '../models';
-import {PkgParkingRepository} from '../repositories';
+import {PkgParking, PkgParkingUsers} from '../models';
+import {PkgParkingRepository, PkgParkingUsersRepository} from '../repositories';
 
 export class ParkingController {
   constructor(
     @repository(PkgParkingRepository)
     public pkgParkingRepository : PkgParkingRepository,
+    @repository(PkgParkingUsersRepository)
+    public pkgParkingUsersRepository : PkgParkingUsersRepository,
   ) {}
 
-  @post('/parking')
+  @post('/parking/create')
   @response(200, {
     description: 'PkgParking model instance',
     content: {'application/json': {schema: getModelSchemaRef(PkgParking)}},
@@ -37,26 +39,36 @@ export class ParkingController {
         'application/json': {
           schema: getModelSchemaRef(PkgParking, {
             title: 'NewPkgParking',
-            exclude: ['id'],
+            exclude: ['id','geocode','sysUpdatedAtDttm','sysCreatedAtDttm'],
           }),
         },
       },
     })
-    pkgParking: Omit<PkgParking, 'id'>,
+    pkgParking: PkgParking,
   ): Promise<PkgParking> {
-    return this.pkgParkingRepository.create(pkgParking);
+    
+    //TODO: Replace by geolocalization interface
+    pkgParking.geocode = JSON.stringify({'latitude':0,'longitude':0})!,
+    pkgParking.sysCreatedAtDttm = Date(),
+    pkgParking.sysUpdatedAtDttm = Date()
+
+    let currentParking = await this.pkgParkingRepository.create(pkgParking) 
+    console.log("Tengo que crear en parking-users id del creador y el id del parking-->",currentParking.id); 
+
+    let pkgParkingUsers = await new PkgParkingUsers()
+    pkgParkingUsers.idParking = currentParking.id
+    pkgParkingUsers.idParkingUser = 666
+    pkgParkingUsers.userRole = 'owner'
+    pkgParkingUsers.sysCreatedAtDttm = Date()
+    pkgParkingUsers.sysUpdatedAtDttm = Date()
+    this.pkgParkingUsersRepository.create(pkgParkingUsers);
+
+    //TODO Cargar el status de cochera ParkingStatus
+
+    return currentParking
   }
 
-  @get('/parking/count')
-  @response(200, {
-    description: 'PkgParking model count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async count(
-    @param.where(PkgParking) where?: Where<PkgParking>,
-  ): Promise<Count> {
-    return this.pkgParkingRepository.count(where);
-  }
+
 
   @get('/parking')
   @response(200, {
@@ -71,30 +83,25 @@ export class ParkingController {
     },
   })
   async find(
-    @param.filter(PkgParking) filter?: Filter<PkgParking>,
+    //@param.filter(PkgParking) filter?: Filter<PkgParking>,
+    //filter = {where: {idCarDriver: this.currentUserProfile.id}, fields: ['id','idCarDriver','patentId','brand','model','color','productionYear']}
+    filter = {where: {idCarDriver: 666}, fields: ['idParking'], include: [{relation: 'PkgParkingRelations'}]}
   ): Promise<PkgParking[]> {
-    return this.pkgParkingRepository.find(filter);
+    let parkings = await this.pkgParkingUsersRepository.find(filter);
+    console.log("litado de parkings asociados al user 666",parkings)
+
+    let parksIds = []
+    await parkings.forEach(element => parksIds.push(element.idParking) );  
+    
+    let filter_parking = {where: {id: 8}};
+    let list : PkgParking[]
+    let rpar = this.pkgParkingRepository.findById(3)
+    
+    return this.pkgParkingRepository.find(filter_parking);
   }
 
-  @patch('/parking')
-  @response(200, {
-    description: 'PkgParking PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async updateAll(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(PkgParking, {partial: true}),
-        },
-      },
-    })
-    pkgParking: PkgParking,
-    @param.where(PkgParking) where?: Where<PkgParking>,
-  ): Promise<Count> {
-    return this.pkgParkingRepository.updateAll(pkgParking, where);
-  }
 
+  
   @get('/parking/{id}')
   @response(200, {
     description: 'PkgParking model instance',
@@ -111,7 +118,7 @@ export class ParkingController {
     return this.pkgParkingRepository.findById(id, filter);
   }
 
-  @patch('/parking/{id}')
+  @patch('/parking/update/{id}')
   @response(204, {
     description: 'PkgParking PATCH success',
   })
@@ -120,25 +127,17 @@ export class ParkingController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(PkgParking, {partial: true}),
+          schema: getModelSchemaRef(PkgParking, {partial: true, exclude: ['id','geocode','sysUpdatedAtDttm','sysCreatedAtDttm']}),
         },
       },
     })
     pkgParking: PkgParking,
   ): Promise<void> {
+    //TODO: Recalcular coordenadas 
     await this.pkgParkingRepository.updateById(id, pkgParking);
   }
 
-  @put('/parking/{id}')
-  @response(204, {
-    description: 'PkgParking PUT success',
-  })
-  async replaceById(
-    @param.path.number('id') id: number,
-    @requestBody() pkgParking: PkgParking,
-  ): Promise<void> {
-    await this.pkgParkingRepository.replaceById(id, pkgParking);
-  }
+
 
   @del('/parking/{id}')
   @response(204, {

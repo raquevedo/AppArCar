@@ -31,12 +31,12 @@ export class PkgParkingStatus extends Entity {
   officeHours?: string;
 
   @property({
-    type: 'string',
+    type: 'number',
     required: true,
-    length: 25,
-    postgresql: {columnName: 'qty_total_slots', dataType: 'character varying', dataLength: 25, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    scale: 0,
+    postgresql: {columnName: 'qty_total_slots', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
   })
-  qtyTotalSlots: string;
+  qtyTotalSlots: number;
 
   @property({
     type: 'number',
