@@ -7,6 +7,7 @@ import DashboardWrapper from '../DashboardWrapper/DashboardWrapper';
 import Profile from '../Profile/Profile';
 import Navbar from '../Navbar/Navbar';
 
+
 function App() {
   return (
     <div className="wrapper">
