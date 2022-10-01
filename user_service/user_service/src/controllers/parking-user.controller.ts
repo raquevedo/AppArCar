@@ -91,7 +91,7 @@ export class ParkingUserController {
     return {'data':data,'isRegister':isRegister}
   }
   
-  @patch('/car-drivers/update-profile')
+  @patch('/parking-user/update-profile')
   @response(204, {
     description: 'UsrCarDriver PATCH success',
   })
