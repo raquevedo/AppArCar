@@ -6,32 +6,46 @@ import SignIn from '../SignIn/SignIn';
 import DashboardWrapper from '../DashboardWrapper/DashboardWrapper';
 import Profile from '../Profile/Profile';
 import Navbar from '../Navbar/Navbar';
+import SideNav from '../SideNav/SideNav';
 
 function App() {
   return (
     <div className="wrapper">
-      <Navbar />
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Homepage />} />
-          <Route path='signin' element={<SignIn />} />
-          <Route
-            path='dashboard'
-            element={
-              <RequireAuth>
-                <DashboardWrapper />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path='profile'
-            element={
-              <RequireAuth>
-                <Profile />
-              </RequireAuth>
-            }
-          />
-        </Routes>
+        <div className='grid-y'>
+          <div className='cell'>
+            <Navbar />
+          </div>
+          <div className='cell'>
+            <div className='grid-x'>
+              <div className='cell small-2'>
+                <SideNav />
+              </div>
+              <div className='cell small-10'>
+                <Routes>
+                  <Route path='/' element={<Homepage />} />
+                  <Route path='signin' element={<SignIn />} />
+                  <Route
+                    path='dashboard'
+                    element={
+                      <RequireAuth>
+                        <DashboardWrapper />
+                      </RequireAuth>
+                    }
+                  />
+                  <Route
+                    path='profile'
+                    element={
+                      <RequireAuth>
+                        <Profile />
+                      </RequireAuth>
+                    }
+                  />
+                </Routes>
+              </div>
+            </div>
+          </div>
+        </div>
       </BrowserRouter>
     </div>
   );

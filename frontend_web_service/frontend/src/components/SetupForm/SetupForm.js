@@ -36,8 +36,8 @@ export default function SetupForm({ setPartnerData, setIsRegistered }) {
 
   return(
     <div className="setup-wrapper">
-      <div class='grid-container'>
-        <div class='grid-y'>
+      <div className='grid-container'>
+        <div className='grid-y'>
           <div className='cell shrink'>
             <div className='grid-x align-center'>
               <div className='cell shrink'>
@@ -71,7 +71,7 @@ export default function SetupForm({ setPartnerData, setIsRegistered }) {
                     <input type="text" onChange={e => setContactNumber(parseInt(e.target.value))} />
                   </label>
                   <div>
-                    <button type="submit" class="button">Submit</button>
+                    <button type="submit" className="button">Submit</button>
                   </div>
                 </form>
               </div>
