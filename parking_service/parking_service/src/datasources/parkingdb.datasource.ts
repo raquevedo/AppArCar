@@ -4,9 +4,9 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'parkingdb',
   connector: 'postgresql',
-  url: 'postgresql://ms_parking_app:pwdparkingapp@localhost:5435/parkingDb',
-  host: 'localhost',
-  port: 5435,
+  url: 'postgresql://ms_parking_app:pwdparkingapp@parkingDb:5432/parkingDb',
+  host: 'parkingDb',
+  port: 5432,
   user: 'ms_parking_app',
   password: 'pwdparkingapp',
   database: 'parkingDb'

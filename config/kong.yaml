@@ -21,3 +21,12 @@ services:
     - name: user
       paths:
       - /user
+
+  - host: parking_service
+    port: 3003
+    name: parking_service
+    protocol: http
+    routes:
+    - name: parking
+      paths:
+      - /parking
