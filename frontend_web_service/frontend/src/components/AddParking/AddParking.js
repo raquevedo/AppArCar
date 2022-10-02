@@ -1,39 +1,45 @@
 import React, { useState } from 'react';
 import fetchToken from '../../utils/fetchToken';
-import PopUp from '../PopUp/PopUp';
 
-async function registerUser(partnerData) {
+async function registerParking(parkingData) {
     let myHeaders = new Headers();
     myHeaders.append('Authorization', 'Bearer ' + fetchToken());
     myHeaders.append('Content-Type', 'application/json');
 
-    return fetch('http://0.0.0.0:8000/user/partners/create-user', {
+    return fetch('http://0.0.0.0:8000/parking/parking/create', {
         method: 'POST',
         headers: myHeaders,
-        body: JSON.stringify(partnerData)
+        body: JSON.stringify(parkingData)
       })
-        .then(data => data.json())
+        .then(data => data.json()) 
     }
 
-export default function AddGarageForm({ setPartnerData, setIsRegistered}) {
+
+export default function AddParking({ parkingCount, setParkingCount }) {
     const [GarageName, setGarageName] = useState();
     const [cuitNumber, setCuitNumber] = useState();
     const [streetName, setStreetName] = useState();
     const [streetNumber, setStreetNumber] = useState();
-    const [contactNumber, setContactNumber] = useState();
+    const [priceHour, setPriceHour] = useState();
   
     const handleSubmit = async e => {
       e.preventDefault();
-      const partner = await registerUser({
+
+      const response = await registerParking({
         GarageName,
         cuitNumber,
         streetName,
         streetNumber,
-        contactNumber
+        priceHour
       });
-      setIsRegistered(true);
-      setPartnerData(partner);
+
+      if (response.status === 200){
+        setParkingCount(parkingCount + 1);
+      }
     }
+
+
+    
   
     return(
       <div className="setup-wrapper">
@@ -68,8 +74,8 @@ export default function AddGarageForm({ setPartnerData, setIsRegistered}) {
                       <input type="text" onChange={e => setStreetNumber(parseInt(e.target.value))}/>
                     </label>
                     <label>
-                      <p>Phone Number</p>
-                      <input type="text" onChange={e => setContactNumber(parseInt(e.target.value))} />
+                      <p>Price per Hour</p>
+                      <input type="text" onChange={e => setPriceHour(parseInt(e.target.value))} />
                     </label>
                     <div>
                       <button type="submit" class="button" > Add Garage</button>

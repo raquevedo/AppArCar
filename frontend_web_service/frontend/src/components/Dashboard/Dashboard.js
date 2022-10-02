@@ -1,10 +1,34 @@
 import React from 'react';
-import GarageContainer from '../GarageContainer/GarageContainer';
+import ParkingContainer from '../ParkingContainer/ParkingContainer';
 import PopUp from '../PopUp/PopUp';
 import styled from 'styled-components';
-import { useState } from 'react';
-import GarageAccordion from '../GarageAccordion/GarageAccordion';
+import { useState, useEffect, useRef } from 'react';
+import ParkingAccordion from '../ParkingAccordion/ParkingAccordion';
+import fetchToken from '../../utils/fetchToken';
+
+
+async function getParking() {
+  let myHeaders = new Headers();
+  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
+  myHeaders.append('Content-Type', 'application/json');
+
+  let response = await fetch('http://0.0.0.0:8000/parking/parking', {
+    method: 'GET',
+    headers: myHeaders
+  });
+  response = await response.json();
+  return response
+}
+
+
 export default function Dashboard({ partnerData, setPartnerData }) {
+
+
+let parkingData = useRef([]);
+
+console.log(parkingData.current);
+
+const [parkingCount, setParkingCount] = useState();
 
 const Button = styled.button`
 background-color: green;
@@ -18,27 +42,30 @@ cursor: pointer;
 
 const [buttonPopup, setButtonPopup] = useState(false);
 
+useEffect(() => {
+  async function assignPartnerData() {
+    const response = await getParking();
+    parkingData.current = response.data;
+  }
+  assignPartnerData();
+}, [])
+
   return(
     <div className='grid-container'>
       <div className='grid-y'>
         <div className='cell'>
-          {//<GarageContainer />
+          {//<ParkingContainer />
 
 }
-            <br>
-            </br>
-            <div className="title"><h1> Your Garages: </h1></div>
-            <br>
-            </br>
-            <br>
-            </br>
-            <div><GarageAccordion/></div>
+            <div className="title"><h1> Your Parkings: </h1></div>
+            
+            <div><ParkingAccordion parkingData={parkingData.current}/></div>
             <div className='add-button'>
                 <Button onClick={() => setButtonPopup(true)}>
-                    + Add Garage
+                    + Add Parking
                 </Button>
                     <div>
-                    <PopUp trigger={buttonPopup} setTrigger={setButtonPopup}/>
+                    <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} setParkingCount={setParkingCount} parkingCount={parkingCount} />
                 </div>
                 </div>
          </div>
