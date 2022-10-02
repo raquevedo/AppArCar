@@ -17,11 +17,13 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {PkgParking, PkgParkingUsers} from '../models';
-import {PkgParkingRepository, PkgParkingUsersRepository} from '../repositories';
+import {PkgParking, PkgParkingUsers, PkgParkingStatus} from '../models';
+import {PkgParkingRepository, PkgParkingUsersRepository, PkgParkingStatusRepository} from '../repositories';
 
 export class ParkingController {
   constructor(
+    @repository(PkgParkingStatusRepository)
+    public pkgParkingStatusRepository : PkgParkingStatusRepository,
     @repository(PkgParkingRepository)
     public pkgParkingRepository : PkgParkingRepository,
     @repository(PkgParkingUsersRepository)
@@ -53,17 +55,29 @@ export class ParkingController {
     pkgParking.sysUpdatedAtDttm = Date()
 
     let currentParking = await this.pkgParkingRepository.create(pkgParking) 
-    console.log("Tengo que crear en parking-users id del creador y el id del parking-->",currentParking.id); 
 
+    //Create relation between parking and user 
     let pkgParkingUsers = await new PkgParkingUsers()
     pkgParkingUsers.idParking = currentParking.id
-    pkgParkingUsers.idParkingUser = 666
+    pkgParkingUsers.idParkingUser = 500
     pkgParkingUsers.userRole = 'owner'
     pkgParkingUsers.sysCreatedAtDttm = Date()
     pkgParkingUsers.sysUpdatedAtDttm = Date()
     this.pkgParkingUsersRepository.create(pkgParkingUsers);
 
-    //TODO Cargar el status de cochera ParkingStatus
+    //Create initial status for Parking
+    let pkgParkingStatus = await new PkgParkingStatus()
+    pkgParkingStatus.idParking = currentParking.id
+    pkgParkingStatus.status = 'active'
+    pkgParkingStatus.officeHours = currentParking.officeHours
+    pkgParkingStatus.qtyTotalSlots = currentParking.qtyTotalSlots
+    pkgParkingStatus.qtyFreeSlots = currentParking.qtyTotalSlots
+    pkgParkingStatus.qtyBussySlots = 0
+    pkgParkingStatus.qtyReservedSlots = 0
+    pkgParkingStatus.qtyBlockedSlots =  0
+    pkgParkingStatus.sysCreatedAtDttm = Date()
+    pkgParkingStatus.sysUpdatedAtDttm = Date()
+    this.pkgParkingStatusRepository.create(pkgParkingStatus);
 
     return currentParking
   }
@@ -83,21 +97,23 @@ export class ParkingController {
     },
   })
   async find(
-    //@param.filter(PkgParking) filter?: Filter<PkgParking>,
-    //filter = {where: {idCarDriver: this.currentUserProfile.id}, fields: ['id','idCarDriver','patentId','brand','model','color','productionYear']}
-    filter = {where: {idCarDriver: 666}, fields: ['idParking'], include: [{relation: 'PkgParkingRelations'}]}
-  ): Promise<PkgParking[]> {
+    //REPLACE 666 by TOKEN ID 
+    filter = {where: {idParkingUser: 500}, fields: ['idParking'] }
+  ) {
     let parkings = await this.pkgParkingUsersRepository.find(filter);
-    console.log("litado de parkings asociados al user 666",parkings)
+    let parksIds: any[] = [];
+    let data : any[] = [];
 
-    let parksIds = []
     await parkings.forEach(element => parksIds.push(element.idParking) );  
+
+    for (const id of parksIds) {  
+      
+      let parkingInfo   = await this.pkgParkingRepository.findById(Number(id));
+      let parkingStatus = await this.pkgParkingStatusRepository.findById(Number(id));
+      data.push({'parkingInfo':parkingInfo, 'status':parkingStatus})
+    }
     
-    let filter_parking = {where: {id: 8}};
-    let list : PkgParking[]
-    let rpar = this.pkgParkingRepository.findById(3)
-    
-    return this.pkgParkingRepository.find(filter_parking);
+    return data
   }
 
 

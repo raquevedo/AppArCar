@@ -1,21 +1,11 @@
 import {
-  Count,
-  CountSchema,
-  Filter,
-  FilterExcludingWhere,
-  repository,
-  Where,
+  repository
 } from '@loopback/repository';
 import {
   post,
-  param,
-  get,
   getModelSchemaRef,
-  patch,
-  put,
-  del,
   requestBody,
-  response,
+  response
 } from '@loopback/rest';
 import {PkgParkingUsers} from '../models';
 import {PkgParkingUsersRepository} from '../repositories';

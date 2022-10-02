@@ -34,7 +34,7 @@ CREATE table if not exists public.pkg_parking_status (
 );
 
 
-CREATE UNIQUE INDEX IF NOT EXISTS parking_status_idx ON public."pkg_parking_status" USING btree (status);
+CREATE INDEX parking_status_idx ON public.pkg_parking_status USING btree (status);
 
 
 CREATE table if not exists public.pkg_reservation (
