@@ -19,9 +19,15 @@ import {
 } from '@loopback/rest';
 import {PkgParkingStatus} from '../models';
 import {PkgParkingStatusRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
+import { inject } from '@loopback/core';
+import {UserProfile, SecurityBindings} from '@loopback/security';
 
+@authenticate('admin')
 export class ParkingStatusController {
   constructor(
+    @inject(SecurityBindings.USER)
+    public currentUserProfile: UserProfile,
     @repository(PkgParkingStatusRepository)
     public pkgParkingStatusRepository : PkgParkingStatusRepository,
   ) {}

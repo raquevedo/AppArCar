@@ -9,6 +9,9 @@ import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
+import {AuthenticationComponent, registerAuthenticationStrategy} from '@loopback/authentication';
+import { AdministratorStragey } from './strategies/admin.strategy';
+import { JWTAuthenticationComponent } from '@loopback/authentication-jwt';
 
 export {ApplicationConfig};
 
@@ -29,6 +32,10 @@ export class ParkingServiceApplication extends BootMixin(
       path: '/explorer',
     });
     this.component(RestExplorerComponent);
+
+    this.component(JWTAuthenticationComponent);
+    registerAuthenticationStrategy(this, AdministratorStragey);
+    this.component(AuthenticationComponent);
 
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here

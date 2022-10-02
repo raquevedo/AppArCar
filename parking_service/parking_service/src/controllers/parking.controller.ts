@@ -1,10 +1,6 @@
 import {
-  Count,
-  CountSchema,
-  Filter,
   FilterExcludingWhere,
-  repository,
-  Where,
+  repository
 } from '@loopback/repository';
 import {
   post,
@@ -19,9 +15,15 @@ import {
 } from '@loopback/rest';
 import {PkgParking, PkgParkingUsers, PkgParkingStatus} from '../models';
 import {PkgParkingRepository, PkgParkingUsersRepository, PkgParkingStatusRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
+import { inject } from '@loopback/core';
+import {UserProfile, SecurityBindings} from '@loopback/security';
 
+@authenticate('admin')
 export class ParkingController {
   constructor(
+    @inject(SecurityBindings.USER)
+    public currentUserProfile: UserProfile,
     @repository(PkgParkingStatusRepository)
     public pkgParkingStatusRepository : PkgParkingStatusRepository,
     @repository(PkgParkingRepository)
@@ -59,7 +61,7 @@ export class ParkingController {
     //Create relation between parking and user 
     let pkgParkingUsers = await new PkgParkingUsers()
     pkgParkingUsers.idParking = currentParking.id
-    pkgParkingUsers.idParkingUser = 500
+    pkgParkingUsers.idParkingUser = this.currentUserProfile.id!
     pkgParkingUsers.userRole = 'owner'
     pkgParkingUsers.sysCreatedAtDttm = Date()
     pkgParkingUsers.sysUpdatedAtDttm = Date()
@@ -98,7 +100,7 @@ export class ParkingController {
   })
   async find(
     //REPLACE 666 by TOKEN ID 
-    filter = {where: {idParkingUser: 500}, fields: ['idParking'] }
+    filter = {where: {idParkingUser: this.currentUserProfile.id!}, fields: ['idParking'] }
   ) {
     let parkings = await this.pkgParkingUsersRepository.find(filter);
     let parksIds: any[] = [];
@@ -107,10 +109,13 @@ export class ParkingController {
     await parkings.forEach(element => parksIds.push(element.idParking) );  
 
     for (const id of parksIds) {  
-      
+      try {
       let parkingInfo   = await this.pkgParkingRepository.findById(Number(id));
       let parkingStatus = await this.pkgParkingStatusRepository.findById(Number(id));
       data.push({'parkingInfo':parkingInfo, 'status':parkingStatus})
+      } catch (error) {
+        console.error("Parkingid",id," was deleted by user.");
+      }
     }
     
     return data
