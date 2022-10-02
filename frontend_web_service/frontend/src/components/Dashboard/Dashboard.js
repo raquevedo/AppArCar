@@ -7,26 +7,25 @@ import ParkingAccordion from '../ParkingAccordion/ParkingAccordion';
 import fetchToken from '../../utils/fetchToken';
 
 
-async function getParking() {
-  let myHeaders = new Headers();
-  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-  myHeaders.append('Content-Type', 'application/json');
+//async function getParking() {
+  //let myHeaders = new Headers();
+ // myHeaders.append('Authorization', 'Bearer ' + fetchToken());
+  //myHeaders.append('Content-Type', 'application/json');
 
-  let response = await fetch('http://0.0.0.0:8000/parking/parking', {
-    method: 'GET',
-    headers: myHeaders
-  });
-  response = await response.json();
-  return response
-}
+ // let response = await fetch('http://0.0.0.0:8000/parking/parking', {
+   // method: 'GET',
+   // headers: myHeaders
+  //});
+  //response = await response.json();
+  //return response
+//}
 
 
 export default function Dashboard({ partnerData, setPartnerData }) {
 
 
-let parkingData = useRef([]);
+//let parkingData = useRef([]);
 
-console.log(parkingData.current);
 
 const [parkingCount, setParkingCount] = useState();
 
@@ -42,13 +41,13 @@ cursor: pointer;
 
 const [buttonPopup, setButtonPopup] = useState(false);
 
-useEffect(() => {
-  async function assignPartnerData() {
-    const response = await getParking();
-    parkingData.current = response.data;
-  }
-  assignPartnerData();
-}, [])
+//useEffect(() => {
+ // async function assignPartnerData() {
+  //  const response = await getParking();
+   // parkingData.current = response.data;
+ // }
+  //assignPartnerData();
+//}, [])
 
   return(
     <div className='grid-container'>
@@ -59,7 +58,7 @@ useEffect(() => {
 }
             <div className="title"><h1> Your Parkings: </h1></div>
             
-            <div><ParkingAccordion parkingData={parkingData.current}/></div>
+            <div><ParkingAccordion /></div>
             <div className='add-button'>
                 <Button onClick={() => setButtonPopup(true)}>
                     + Add Parking

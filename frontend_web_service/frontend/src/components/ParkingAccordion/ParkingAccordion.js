@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
 
-export default function ParkingAccordion(parkingData){
+export default function ParkingAccordion(){
 
 const [selected, setSelected] = useState(null)
 
-console.log(parkingData)
+
 
 const toggle = (i) => {
     if (selected === i) {
@@ -34,7 +34,13 @@ const toggle = (i) => {
     )
 }
 
+const parkingData = [
+{
+    Parking_name: "Parking Las Heras",
+    street_name: "Av Las Heras 1234"
+}
 
+]
 
 //function AddParking1(){
     //const parking = {
