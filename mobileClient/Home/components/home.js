@@ -1,4 +1,4 @@
-import * as React from "react";
+import {useContext, useState, useEffect} from "react";
 import {
   View,
   TextInput,
@@ -12,17 +12,55 @@ import { AuthContext } from "../../Services/context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import styles from "../../Services/styles";
+import MapView from 'react-native-maps';
+import * as Location from 'expo-location';
 
 function HomeScreen({ navigation }) {
-  const { signOut } = React.useContext(AuthContext);
+  const { signOut } = useContext(AuthContext);
+  const [location, setLocation] = useState(null);
+  console.log(MapView.Marker)
+  useEffect(() => {
+    (async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          setErrorMsg('Permission to access location was denied');
+        }
 
+        let location = await Location.getCurrentPositionAsync({});
+        console.log(location)
+        setLocation(location);
+    })();
+    }, []);
+
+    let text = 'Waiting..';
+    if (location===null) {
+      return (
+      <View style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"}}>
+      <Text>Cargando su ubicación</Text>
+      </View>)
+    } else if (location) {
+      console.log("latitud: "+location.coords.latitude+ 'longitud: '+location.coords.longitude)
+    }
   return (
     <View style={{ flex: 1 }}>
-      <ImageBackground
-        source={require("../../assets/iniciogoogle.png")}
-        resizeMode="cover"
-        style={styles.imageGoogle}
-      >
+        <MapView
+            style={{ flex: 1, position: 'relative'}}
+            initialRegion={{
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            latitudeDelta: 0.010,
+            longitudeDelta: 0.016
+          }}>
+          <MapView.Marker
+                  title="yo"
+                  description="conductor"
+                  coordinate={{"latitude":location.coords.latitude,"longitude":location.coords.longitude}}
+                />
+          <MapView.Marker coordinate={{latitude:-34.633190, longitude:-58.455946}}/>
+        </MapView>
         <View style={styles.containButtonHome}>
           <TouchableOpacity
             style={styles.imageContainer}
@@ -52,7 +90,7 @@ function HomeScreen({ navigation }) {
             />
           </TouchableOpacity>
         </View>
-      </ImageBackground>
+      
     </View>
   );
 }
