@@ -21,6 +21,15 @@ services:
     - name: user
       paths:
       - /user
+  
+  - host: geolocation_api
+    port: 3002
+    name: geolocation_api
+    protocol: http
+    routes:
+    - name: geo
+      paths:
+      - /geo
 
   - host: parking_service
     port: 3003

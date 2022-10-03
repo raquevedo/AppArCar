@@ -2,3 +2,9 @@
     --primary-color: #47a4fa;
     --grey: #c5c5c5;
 }
+
+body{
+    margin: 0;
+    padding: 0px 30px 30px 30px;
+}
+

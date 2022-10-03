@@ -7,6 +7,7 @@ import DashboardWrapper from '../DashboardWrapper/DashboardWrapper';
 import Profile from '../Profile/Profile';
 import Navbar from '../Navbar/Navbar';
 
+
 function App() {
   return (
     <div className="wrapper">
@@ -16,7 +17,7 @@ function App() {
           <Route path='/' element={<Homepage />} />
           <Route path='signin' element={<SignIn />} />
           <Route
-            path='dashboard'
+            path='/dashboard/*'
             element={
               <RequireAuth>
                 <DashboardWrapper />
@@ -24,7 +25,7 @@ function App() {
             }
           />
           <Route
-            path='profile'
+            path='/profile/*'
             element={
               <RequireAuth>
                 <Profile />

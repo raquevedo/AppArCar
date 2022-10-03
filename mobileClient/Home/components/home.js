@@ -39,7 +39,7 @@ function HomeScreen({ navigation }) {
            >
             <Image
               style={styles.imageButton}
-              source={require("../../assets/profile.png")}
+              source={require("../../assets/car.png")}
             />
           </TouchableOpacity>
           <TouchableOpacity

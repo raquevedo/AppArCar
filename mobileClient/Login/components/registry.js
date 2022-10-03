@@ -1,14 +1,22 @@
 import * as React from "react";
-import { View, Button, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Button,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { AuthContext } from "../../Services/context";
 import styles from "../../Services/styles";
 import { TextInput } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
 import DatePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
+import { Dropdown } from "react-native-element-dropdown";
 
 function FormReg({ navigation }) {
-  const [name, setname] = React.useState("");
+  const [name, setName] = React.useState("");
   const [lastName, setlastName] = React.useState("");
   //const [patent, setpatent] = React.useState('');
   const [documentNumber, setDocument] = React.useState("");
@@ -18,7 +26,8 @@ function FormReg({ navigation }) {
   //const [brandCar, setBrandCar] = React.useState('');
   //const [modelCar, setModelCar] = React.useState('');
   const [gender, setGender] = React.useState("");
-  const [isDatePickerVisible, setIsDatePickerVisibility] = React.useState(false);
+  const [isDatePickerVisible, setIsDatePickerVisibility] =
+    React.useState(false);
 
   const showDatePicker = () => {
     setIsDatePickerVisibility(true);
@@ -36,6 +45,11 @@ function FormReg({ navigation }) {
   const { register } = React.useContext(AuthContext);
   const { signOut } = React.useContext(AuthContext);
 
+  const data = [
+    { label: "Masculino", value: "1" },
+    { label: "Femenino", value: "2" },
+    { label: "Indefinido", value: "3" },
+  ];
   return (
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
@@ -46,7 +60,7 @@ function FormReg({ navigation }) {
           <TextInput
             placeholder="Nombre"
             value={name}
-            onChangeText={setname}
+            onChangeText={setName}
             style={styles.text}
             left={<TextInput.Icon icon="eye" />}
           />
@@ -74,11 +88,23 @@ function FormReg({ navigation }) {
             left={<TextInput.Icon icon="phone" />}
           />
 
-          <TextInput
-            placeholder="Género"
+          <Dropdown
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            iconStyle={styles.iconStyle}
+            valueField="value"
+            label="Genero"
+            data={data}
+            search
+            labelField="label"
+            placeholder="Seleccione Genero"
+            searchPlaceholder="Search..."
             value={gender}
-            onChangeText={setGender}
-            style={styles.text}
+            onChange={(item) => {
+              setGender(item.label);
+            }}
           />
 
           <Text>{`Date:  ${
