@@ -62,3 +62,11 @@ typings/
 
 # Cache used by TypeScript's incremental build
 *.tsbuildinfo
+
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
