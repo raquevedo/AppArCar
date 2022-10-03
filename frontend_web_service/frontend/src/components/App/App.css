@@ -3,6 +3,25 @@
     --grey: #c5c5c5;
 }
 
+#approved{
+    color:green;
+}
+
+#not-approved{
+    color:red;
+}
+
+#fail-alert-on{
+    visibility: visible;
+}
+
+#fail-alert-off{
+    visibility: hidden;
+}
+
+#typing{
+    color: black;
+}
 body{
     margin: 0;
     padding: 0px 30px 30px 30px;
