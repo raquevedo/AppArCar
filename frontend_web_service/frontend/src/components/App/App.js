@@ -17,7 +17,7 @@ function App() {
           <Route path='/' element={<Homepage />} />
           <Route path='signin' element={<SignIn />} />
           <Route
-            path='dashboard'
+            path='/dashboard/*'
             element={
               <RequireAuth>
                 <DashboardWrapper />
@@ -25,7 +25,7 @@ function App() {
             }
           />
           <Route
-            path='profile'
+            path='/profile/*'
             element={
               <RequireAuth>
                 <Profile />
