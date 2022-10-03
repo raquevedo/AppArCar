@@ -5,9 +5,9 @@ CREATE table if not exists public.pkg_parking (
     cuit_number VARCHAR(25) NOT NULL ,
     street_name VARCHAR(100) NOT NULL ,
     street_number integer NOT NULL ,
-    geocode json,
+    latitude float,
+    longitude float,
     qty_total_slots integer NOT NULL ,
-    office_hours json, 
     price_hour float, 
     price_6_hours float,
     price_12_hours float, 
@@ -19,10 +19,30 @@ CREATE table if not exists public.pkg_parking (
   CONSTRAINT parking_id_pkey PRIMARY KEY (id)
 );
 
+CREATE table if not exists public.pkg_parking_settings (
+    id_parking integer,
+    start_monday time,
+    end_monday time,
+    start_tuesday time,
+    end_tuesday time, 
+    start_wednesday time,
+    end_wednesday time, 
+    start_thursday time,
+    end_thursday time, 
+    start_friday time,
+    end_friday time,
+    start_saturday time,
+    end_saturday time,
+    start_sunday time,
+    end_sunday time,
+    sys_created_at_dttm timestamp NOT NULL,
+    sys_updated_at_dttm timestamp NOT NULL,
+  CONSTRAINT pkg_settings_parking_id_pkey PRIMARY KEY (id_parking)
+);
+
 CREATE table if not exists public.pkg_parking_status (
     id_parking integer,
     status varchar(50) NOT NULL,
-    office_hours json, 
     qty_total_slots integer NOT NULL ,
     qty_free_slots integer NOT NULL, 
     qty_bussy_slots integer NOT NULL,
@@ -34,7 +54,7 @@ CREATE table if not exists public.pkg_parking_status (
 );
 
 
-CREATE INDEX parking_status_idx ON public.pkg_parking_status USING btree (status);
+CREATE INDEX IF NOT EXISTS parking_status_idx ON public.pkg_parking_status USING btree (status);
 
 
 CREATE table if not exists public.pkg_reservation (

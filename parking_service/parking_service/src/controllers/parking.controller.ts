@@ -43,7 +43,7 @@ export class ParkingController {
         'application/json': {
           schema: getModelSchemaRef(PkgParking, {
             title: 'NewPkgParking',
-            exclude: ['id','geocode','sysUpdatedAtDttm','sysCreatedAtDttm'],
+            exclude: ['id','latitude','longitude','sysUpdatedAtDttm','sysCreatedAtDttm'],
           }),
         },
       },
@@ -52,7 +52,9 @@ export class ParkingController {
   ): Promise<PkgParking> {
     
     //TODO: Replace by geolocalization interface
-    pkgParking.geocode = JSON.stringify({'latitude':0,'longitude':0})!,
+    pkgParking.latitude = -34.902
+    pkgParking.longitude = 29.001
+    //pkgParking.geocode = JSON.stringify({'latitude':0,'longitude':0})!,
     pkgParking.sysCreatedAtDttm = Date(),
     pkgParking.sysUpdatedAtDttm = Date()
 
@@ -71,7 +73,6 @@ export class ParkingController {
     let pkgParkingStatus = await new PkgParkingStatus()
     pkgParkingStatus.idParking = currentParking.id
     pkgParkingStatus.status = 'active'
-    pkgParkingStatus.officeHours = currentParking.officeHours
     pkgParkingStatus.qtyTotalSlots = currentParking.qtyTotalSlots
     pkgParkingStatus.qtyFreeSlots = currentParking.qtyTotalSlots
     pkgParkingStatus.qtyBussySlots = 0
@@ -148,7 +149,7 @@ export class ParkingController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(PkgParking, {partial: true, exclude: ['id','geocode','sysUpdatedAtDttm','sysCreatedAtDttm']}),
+          schema: getModelSchemaRef(PkgParking, {partial: true, exclude: ['id','latitude','longitude','sysUpdatedAtDttm','sysCreatedAtDttm']}),
         },
       },
     })

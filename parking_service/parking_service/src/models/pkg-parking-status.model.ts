@@ -25,12 +25,6 @@ export class PkgParkingStatus extends Entity {
   status: string;
 
   @property({
-    type: 'string',
-    postgresql: {columnName: 'office_hours', dataType: 'json', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
-  })
-  officeHours?: string;
-
-  @property({
     type: 'number',
     required: true,
     scale: 0,

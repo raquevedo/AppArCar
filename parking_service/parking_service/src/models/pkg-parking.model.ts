@@ -46,10 +46,16 @@ export class PkgParking extends Entity {
   streetNumber: number;
 
   @property({
-    type: 'string',
-    postgresql: {columnName: 'geocode', dataType: 'json', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    type: 'number',
+    postgresql: {columnName: 'latitude', dataType: 'float', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
-  geocode?: string;
+  latitude?: number;
+
+  @property({
+    type: 'number',
+    postgresql: {columnName: 'longitude', dataType: 'float', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+  })
+  longitude?: number;
 
   @property({
     type: 'number',
@@ -58,12 +64,6 @@ export class PkgParking extends Entity {
     postgresql: {columnName: 'qty_total_slots', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
   })
   qtyTotalSlots: number;
-
-  @property({
-    type: 'string',
-    postgresql: {columnName: 'office_hours', dataType: 'json', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
-  })
-  officeHours?: string;
 
   @property({
     type: 'number',
