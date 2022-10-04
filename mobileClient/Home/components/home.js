@@ -1,14 +1,9 @@
 import {useContext, useState, useEffect} from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { AuthContext } from "../../Services/context";
-import styles from "../../Services/styles";
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
+import TInput from './inputExample';
 
 function HomeScreen({ navigation }) {
   const { signOut } = useContext(AuthContext);
@@ -54,9 +49,30 @@ function HomeScreen({ navigation }) {
                   description="conductor"
                   coordinate={{"latitude":location.coords.latitude,"longitude":location.coords.longitude}}
                 />
-          <MapView.Marker coordinate={{latitude:-34.633190, longitude:-58.455946}}/>
+          {/*<MapView.Marker coordinate={{latitude:-34.633190, longitude:-58.455946}}/>*/}
         </MapView>
-        <View style={styles.containButtonHome}>
+        <View style={styles.inputView}>
+          <TInput>
+          </TInput>
+        </View>
+    </View>
+  );
+}
+
+export default HomeScreen;
+const styles = StyleSheet.create({
+  inputView: {
+    backgroundColor: 'rgba(0,0,0,0)',
+      position: 'absolute', 
+      top: 0,
+      left: 5,
+      right: 5
+  },
+});
+/*
+**********************Backup de botones flotantes.*******************************
+
+<View style={styles.containButtonHome}>
           <TouchableOpacity
             style={styles.imageContainer}
             onPress={() => navigation.navigate("EditProfile")}
@@ -85,9 +101,4 @@ function HomeScreen({ navigation }) {
             />
           </TouchableOpacity>
         </View>
-      
-    </View>
-  );
-}
-
-export default HomeScreen;
+*/

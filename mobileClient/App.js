@@ -109,7 +109,7 @@ export default function App({ navigation }) {
             const dataRes = await response.json();
             console.log("SignaUp OK");
             //console.log('Response header:',response)
-            alert("Credenciales aceptadas, por favor inicie sesión");
+            alert("Succes credentials. Please loged-on.");
           }
         }
       );
@@ -130,10 +130,10 @@ export default function App({ navigation }) {
             const dataRes = await response.json();
             if (response.status == 422) {
               console.log("Status response:", response.status);
-              alert("Credenciales invalidas longitud");
+              alert("Invalid credentials");
             } else if (response.status == 401) {
               console.log("Status response:", response.status);
-              alert("Credenciales invalidas");
+              alert("Invalid credentials");
             } else if (response.status == 200) {
               const isReg = await IsRegisteredFunc(dataRes.token);
               dispatch({ type: "SIGN_IN", token: dataRes.token });
@@ -148,7 +148,7 @@ export default function App({ navigation }) {
             } else {
               //const dataRes = await response.json();
               console.log(dataRes);
-              alert("error interno");
+              alert("Internal error");
             }
           }
         );
@@ -188,7 +188,7 @@ export default function App({ navigation }) {
           const dataRes = await response.json();
           console.log("Registry is success");
           setIsRegistered(true);
-          alert("BienVenido a AppArCar");
+          alert("Welcome to AppArCar");
         }
       });
     },
