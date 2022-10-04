@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
@@ -8,7 +8,7 @@ function Navbar() {
         <div className="top-bar-left">
           <ul className="dropdown menu" data-dropdown-menu>
             <Link to='/'>
-              <li classNameName="menu-text">AppArCar</li>
+              <li className="menu-text">AppArCar</li>
             </Link>
           </ul>
         </div>

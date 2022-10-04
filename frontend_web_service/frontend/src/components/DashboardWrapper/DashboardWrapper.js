@@ -4,7 +4,7 @@ import ProfileSetup from '../ProfileSetup/ProfileSetup';
 import { getPartnerData }  from '../../controllers/usersController';
 
 export default function DashboardWrapper() {
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [isRegistered, setIsRegistered] = useState();
   const [partnerData, setPartnerData] = useState({});
 
   useEffect(() => {
@@ -18,10 +18,8 @@ export default function DashboardWrapper() {
 
   return(
     <div>
-      {isRegistered
-        ? <Dashboard partnerData={partnerData}/>
-        : <ProfileSetup setIsRegistered={setIsRegistered}/>
-      }
+      {isRegistered && <Dashboard partnerData={partnerData}/>}
+      {isRegistered === false && <ProfileSetup setIsRegistered={setIsRegistered}/>}
     </div>
   );
 }
