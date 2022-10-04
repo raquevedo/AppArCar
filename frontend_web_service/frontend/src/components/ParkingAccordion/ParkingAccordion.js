@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
+
 
 export default function ParkingAccordion(){
 
 const [selected, setSelected] = useState(null)
+const [parkingData, setParkingData] = useState([])
 
 
+useEffect(() => {
+    fetchData()
+}, [])
+
+const fetchData = async () => {
+    const data = await fetch('http://0.0.0.0:8000/parking/parking/')
+    const parking = await data.json()
+    setParkingData(parking)
+}
 
 const toggle = (i) => {
     if (selected === i) {
@@ -34,13 +45,9 @@ const toggle = (i) => {
     )
 }
 
-const parkingData = [
-{
-    Parking_name: "Parking Las Heras",
-    street_name: "Av Las Heras 1234"
-}
 
-]
+
+
 
 //function AddParking1(){
     //const parking = {

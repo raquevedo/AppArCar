@@ -1,13 +1,13 @@
 import React from "react";
 import { useState } from 'react';
-import AddParkingForm from "../AddParking/AddParking";
+import AddParking from "../AddParking/AddParking";
 
 
 export default function PopUp(props) {
     return (props.trigger) ? (
         <div className="popup">
             <div className="popup-inner">
-                <AddParkingForm setParkingCount={props.setParkingCount} parkingCount={props.parkingCount}/>
+                <AddParking />
                 <button className="close-btn" onClick={() => props.setTrigger(false)}> close</button> 
             </div>
         </div>

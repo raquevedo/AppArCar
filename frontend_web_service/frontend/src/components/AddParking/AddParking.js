@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import fetchToken from '../../utils/fetchToken';
 
+
+
 async function registerParking(parkingData) {
     let myHeaders = new Headers();
     myHeaders.append('Authorization', 'Bearer ' + fetchToken());
@@ -21,7 +23,10 @@ export default function AddParking({ parkingCount, setParkingCount }) {
     const [streetName, setStreetName] = useState();
     const [streetNumber, setStreetNumber] = useState();
     const [priceHour, setPriceHour] = useState();
+    
   
+   
+
     const handleSubmit = async e => {
       e.preventDefault();
 
@@ -32,6 +37,11 @@ export default function AddParking({ parkingCount, setParkingCount }) {
         streetNumber,
         priceHour
       });
+
+      //setParkingData(parkingData.push({
+        //GarageName,
+        //streetName
+      //}))
 
       if (response.status === 200){
         setParkingCount(parkingCount + 1);
@@ -78,7 +88,7 @@ export default function AddParking({ parkingCount, setParkingCount }) {
                       <input type="text" onChange={e => setPriceHour(parseInt(e.target.value))} />
                     </label>
                     <div>
-                      <button type="submit" class="button" > Add Garage</button>
+                      <button type="submit" class="button"> Add Garage</button>
                     </div>
                   </form>
                 </div>
@@ -89,3 +99,23 @@ export default function AddParking({ parkingCount, setParkingCount }) {
       </div>
     );
   }
+
+ //function Add1(GarageName, streetName){
+
+   
+
+    //return(
+    
+   //setParkingData(parkingData.push(
+      //{
+        //GarageName,
+        //streetName
+      
+     // })
+
+    //))
+ // }
+
+     
+      
+   
