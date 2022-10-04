@@ -13,9 +13,9 @@ useEffect(() => {
 }, [])
 
 const fetchData = async () => {
-    const data = await fetch('http://0.0.0.0:8000/parking/parking/')
-    const parking = await data.json()
-    setParkingData(parking)
+    const data = await fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(data => data.json())
+    setParkingData(data)
 }
 
 const toggle = (i) => {
@@ -34,10 +34,10 @@ const toggle = (i) => {
                 {parkingData.map((item, i) => (
                     <div className='item'>
                         <div className='title1' onClick={() => toggle(i)} >
-                            <h2>{item.Parking_name}</h2>
+                            <h2>{item.title}</h2>
                             <span>{selected === i ? '-' : '+'}</span>
                     </div>
-                    <div className= {selected === i ? 'content show' : 'content'}>{item.street_name}</div>
+                    <div className= {selected === i ? 'content show' : 'content'}>{item.body}</div>
                     </div>
                 ))}
             </div>

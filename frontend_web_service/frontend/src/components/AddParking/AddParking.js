@@ -8,7 +8,7 @@ async function registerParking(parkingData) {
     myHeaders.append('Authorization', 'Bearer ' + fetchToken());
     myHeaders.append('Content-Type', 'application/json');
 
-    return fetch('http://0.0.0.0:8000/parking/parking/create', {
+    return fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
         headers: myHeaders,
         body: JSON.stringify(parkingData)
@@ -38,11 +38,7 @@ export default function AddParking({ parkingCount, setParkingCount }) {
         priceHour
       });
 
-      //setParkingData(parkingData.push({
-        //GarageName,
-        //streetName
-      //}))
-
+    
       if (response.status === 200){
         setParkingCount(parkingCount + 1);
       }
@@ -100,21 +96,6 @@ export default function AddParking({ parkingCount, setParkingCount }) {
     );
   }
 
- //function Add1(GarageName, streetName){
-
-   
-
-    //return(
-    
-   //setParkingData(parkingData.push(
-      //{
-        //GarageName,
-        //streetName
-      
-     // })
-
-    //))
- // }
 
      
       
