@@ -1,16 +1,11 @@
 import {useContext, useState, useEffect} from "react";
 import {
   View,
-  TextInput,
-  Button,
   Text,
-  ImageBackground,
   Image,
   TouchableOpacity,
 } from "react-native";
 import { AuthContext } from "../../Services/context";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import styles from "../../Services/styles";
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';

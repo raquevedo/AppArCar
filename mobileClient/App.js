@@ -4,6 +4,7 @@ import * as React from "react";
 import * as SecureStore from "expo-secure-store";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import NavBar from "./navBar";
 import HomeScreen from "./Home/components/home";
 import SignInScreen from "./Login/components/signin";
 import SignUpScreen from "./SignUp/components/signup";
@@ -214,6 +215,11 @@ export default function App({ navigation }) {
               <>
                 {isRegistered ? (
                   <>
+                    <Stack.Screen
+                      name="NavBar"
+                      component={NavBar}
+                      options={{ headerShown: false }}
+                    />
                     <Stack.Screen
                       name="Home"
                       component={HomeScreen}
