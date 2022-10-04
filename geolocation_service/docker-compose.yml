@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  geo_service:
+    build:
+      context: ./geolocation_service
+      dockerfile: Dockerfile
+    container_name: geolocation_api
+    ports:
+      - 3002:3002

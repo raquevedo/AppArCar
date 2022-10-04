@@ -8,6 +8,7 @@ import Profile from '../Profile/Profile';
 import Navbar from '../Navbar/Navbar';
 import SideNav from '../SideNav/SideNav';
 
+
 function App() {
   return (
     <div className="wrapper">
