@@ -1,6 +1,7 @@
 # Databases
 auth_database_vol
 user_database_vol
+parking_database_vol
 
 # Kong
 deck.tar.gz

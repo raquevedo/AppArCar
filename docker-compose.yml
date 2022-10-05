@@ -194,6 +194,40 @@ services:
     networks:
       - kong-net
 
+  parking_service:
+    build:
+      context: ./parking_service/parking_service
+      dockerfile: Dockerfile
+    container_name: parking_service_api
+    environment:
+      POSTGRES_USER: ms_user_app
+      POSTGRES_PASSWORD: pwdauserapp
+      POSTGRES_DB: userDb
+    ports:
+      - 3003:3003
+    volumes:
+      - ./parking_service:/usr/src/parking_service
+    networks:
+      - kong-net
+    depends_on:
+      - parkingDb
+
+  parkingDb:
+    image: postgres:14.1
+    container_name: parkingDb
+    ports:
+      - 5435:5432
+    volumes:
+      - "./parking_service/db/scripts/init_parking_db.sql:/docker-entrypoint-initdb.d/init_parking_db.sql"
+      - ./parking_service/parking_database_vol:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST: parkinghost
+      POSTGRES_USER: ms_parking_app
+      POSTGRES_PASSWORD: pwdparkingapp
+      POSTGRES_DB: parkingDb
+    networks:
+      - kong-net
+
 secrets:
   kong_postgres_password:
     file: ./POSTGRES_PASSWORD
