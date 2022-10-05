@@ -24,14 +24,14 @@ async function PersistCar(data){
         'Content-Type': 'application/json',
         'Authorization':'Bearer '+userToken
         }
-    fetch(host_instance.path+'/user/cars/create',fetchData)
+    return fetch(host_instance.path+'/user/cars/create',fetchData)
     .then(async function(response){
         if(response.status != 200){
         console.log("Error")
-        alert("Error, por favor verifique los datos ingresados")
+        alert("Error, please check data inputs")
         }else{
         console.log('Create car is success')
-        alert('Su auto fue cargado')
+        alert('Your car was registered.')
         
         }
     })
@@ -57,7 +57,7 @@ async function UpdateCar(data){
         alert("Error, por favor verifique los datos ingresados")
         }else{
         console.log('Create car is success')
-        alert('Su auto fue actualizado')
+        alert('Your car was updated.')
         
         }
     })

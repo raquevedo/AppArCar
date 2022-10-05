@@ -27,9 +27,14 @@
       },
       "package":"com.educative.appmobile",
       "versionCode":1
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      },
+      "web": {
+        "favicon": "./assets/favicon.png"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB0x1HFjVLYBWb2TbiCKPooZLFmtSvedq8"
+        }
+      }
   }
 }
