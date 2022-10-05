@@ -54,8 +54,8 @@ function AddCar({ navigation }) {
           />
           <TouchableOpacity
             style={styles.containButtonStylel}
-            onPress={() =>
-              PersistCar({ patentId, brand, model, color, productionYear }) &
+            onPress={async () =>
+              await PersistCar({ patentId, brand, model, color, productionYear }) &
               navigation.goBack()
             }
           >
