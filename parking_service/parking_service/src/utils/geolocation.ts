@@ -1,4 +1,4 @@
-
+import fetch from 'node-fetch'
 
 export async function coordinatesDistance(lat1:number, lon1:number, lat2:number, lon2:number, unit:string) {
     var radlat1 = Math.PI * lat1/180
@@ -16,3 +16,18 @@ export async function coordinatesDistance(lat1:number, lon1:number, lat2:number,
     if (unit=="N") { dist = dist * 0.8684 }
     return dist
   }
+
+export async function getCoordinates(address:string) {
+
+    let url  = 'http://localhost:3002/coordinates/address=' + address 
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then((response => response.json()))
+      
+      
+}
+

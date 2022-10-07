@@ -18,7 +18,7 @@ import {PkgParkingRepository, PkgParkingUsersRepository, PkgParkingStatusReposit
 import { authenticate } from '@loopback/authentication';
 import { inject } from '@loopback/core';
 import {UserProfile, SecurityBindings} from '@loopback/security';
-import { coordinatesDistance } from '../utils/geolocation';
+import { coordinatesDistance, getCoordinates } from '../utils/geolocation';
 
 @authenticate('admin')
 export class ParkingController {
@@ -51,13 +51,21 @@ export class ParkingController {
     })
     pkgParking: PkgParking,
   ): Promise<PkgParking> {
+       
+    let address = pkgParking.streetName + ' ' + pkgParking.streetNumber
+    let response = await getCoordinates(address)
+    if(response['statusCode'] == 500){
+      pkgParking.latitude = 0
+      pkgParking.longitude = 0  
+    }else{
+      pkgParking.latitude = response['latitude']
+      pkgParking.longitude = response['longitude']  
+    }
     
-    //TODO: Replace by geolocalization interface
-    pkgParking.latitude = -34.902
-    pkgParking.longitude = 29.001
-    //pkgParking.geocode = JSON.stringify({'latitude':0,'longitude':0})!,
+    
     pkgParking.sysCreatedAtDttm = Date(),
-    pkgParking.sysUpdatedAtDttm = Date()
+    pkgParking.sysUpdatedAtDttm = Date()  
+    
 
     let currentParking = await this.pkgParkingRepository.create(pkgParking) 
 
@@ -116,6 +124,7 @@ export class ParkingController {
       data.push({'parkingInfo':parkingInfo, 'status':parkingStatus})
       } catch (error) {
         console.error("Parkingid",id," was deleted by user.");
+        
       }
     }
     
@@ -155,7 +164,15 @@ export class ParkingController {
     })
     pkgParking: PkgParking,
   ): Promise<void> {
-    //TODO: Recalcular coordenadas 
+    let address = pkgParking.streetName + ' ' + pkgParking.streetNumber
+    let response = await getCoordinates(address)
+    if(response['statusCode'] == 500){
+      pkgParking.latitude = 0
+      pkgParking.longitude = 0  
+    }else{
+      pkgParking.latitude = response['latitude']
+      pkgParking.longitude = response['longitude']  
+    }
     await this.pkgParkingRepository.updateById(id, pkgParking);
   }
 
