@@ -13,11 +13,12 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {PkgParking, PkgParkingUsers, PkgParkingStatus} from '../models';
+import {PkgParking, PkgParkingUsers, PkgParkingStatus, PkgParkingRelations} from '../models';
 import {PkgParkingRepository, PkgParkingUsersRepository, PkgParkingStatusRepository} from '../repositories';
 import { authenticate } from '@loopback/authentication';
 import { inject } from '@loopback/core';
 import {UserProfile, SecurityBindings} from '@loopback/security';
+import { coordinatesDistance } from '../utils/geolocation';
 
 @authenticate('admin')
 export class ParkingController {
@@ -100,7 +101,6 @@ export class ParkingController {
     },
   })
   async find(
-    //REPLACE 666 by TOKEN ID 
     filter = {where: {idParkingUser: this.currentUserProfile.id!}, fields: ['idParking'] }
   ) {
     let parkings = await this.pkgParkingUsersRepository.find(filter);
@@ -168,4 +168,37 @@ export class ParkingController {
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.pkgParkingRepository.deleteById(id);
   }
-}
+
+  @get('/parking/nearest/latitude={latitude}/longitude={longitude}/kilometers={kilometers}')
+  @response(200, {
+    description: 'Array of PkgParking model instances',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(PkgParking, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async findNearestParking(
+    @param.path.number('latitude') latitude: number,
+    @param.path.number('longitude') longitude: number,
+    @param.path.number('kilometers') kilometers: number,
+  ) {
+
+    let parkings = await this.pkgParkingRepository.find()
+    let nearest: (PkgParking & PkgParkingRelations)[] = []
+
+    parkings.forEach(async item => {
+        let dist = await coordinatesDistance(latitude,longitude,Number(item.latitude),Number(item.longitude),'K')
+        if (dist < kilometers) {
+          nearest.push(item)
+        }
+    });
+    return nearest
+  }
+
+   
+  }
+
