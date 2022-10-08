@@ -14,7 +14,7 @@ async function registerUser(credentials) {
  }
 
 const schema = yup.object({
-  email: yup.string().required().matches('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'),
+  email: yup.string().required().matches('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
   username: yup.string().required().matches('^(.{0,4})(.*)$'),
   password: yup.string().required().matches('^(.{0,8})(.*)$'),
   confirmPassword: yup.string().test(
@@ -30,9 +30,9 @@ export default function Register() {
   });
 
   const onSubmit = async (data) => {
-    const email = data.email
-    const username = data.username
-    const password = data.password
+    const email = data.email;
+    const username = data.username;
+    const password = data.password;
     await registerUser({
       email,
       username,
@@ -50,26 +50,26 @@ export default function Register() {
           ...register("email")
           }
         />
-        <p>{errors.email?.message}</p>
+        { errors.email && <p>Email is invalid</p> }
 
         <label>Username</label>
         <input type="text" {
           ...register("username")
         }
         />
-        <p>{errors.username?.message}</p>
+        { errors.username && <p>Username is invalid</p> }
 
         <label>Password</label>
         <input type="password"{
           ...register("password")
         }/>
-        <p>{errors.password?.message}</p>
+        { errors.password && <p>Password is invalid</p> }
 
         <label>Confirm Password</label>
         <input type="password"{
           ...register("confirmPassword")
         }/>
-        <p>{errors.password?.message}</p>
+        { errors.password && <p>Password doesn't match</p>}
 
         <button className="button" type="submit">Register</button>
       </form>

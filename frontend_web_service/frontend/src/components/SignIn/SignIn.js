@@ -4,7 +4,7 @@ import Register from '../Register/Register';
 import useToken from '../../utils/useToken';
 
 function SignIn() {
-  const { token, setToken } = useToken();
+  const { setToken } = useToken();
   return (
     <div className='grid-container'>
       <div className='grid-x grid-margin-x grid-padding-x'>
