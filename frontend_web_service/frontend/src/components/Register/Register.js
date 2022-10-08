@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 async function registerUser(credentials) {
   return fetch('http://0.0.0.0:8000/auth/signup', {
@@ -11,15 +13,27 @@ async function registerUser(credentials) {
     .then(data => data.json())
  }
 
-export default function Register() {
- 
-  const [email, setEmail] = useState();
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+const schema = yup.object({
+  email: yup.string().required().matches('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'),
+  username: yup.string().required().matches('^(.{0,4})(.*)$'),
+  password: yup.string().required().matches('^(.{0,8})(.*)$'),
+  confirmPassword: yup.string().test(
+    'passwords-match', 'Passwords must match', function(value){
+      return this.parent.password === value
+  })
+})
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const token = await registerUser({
+export default function Register() {
+  const { register, handleSubmit, formState:{ errors } } = useForm({
+    mode: 'onTouched',
+    resolver: yupResolver(schema)
+  });
+
+  const onSubmit = async (data) => {
+    const email = data.email
+    const username = data.username
+    const password = data.password
+    await registerUser({
       email,
       username,
       password
@@ -29,26 +43,35 @@ export default function Register() {
   return(
     <div className="login-wrapper">
       <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>Email</p>
-          <input type="text" onChange={e => setEmail(e.target.value)}/>
-        </label>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={e => setUsername(e.target.value)}/>
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)}/>
-        </label>
-        <label>
-          <p>Confirm Password</p>
-          <input type="password" />
-        </label>
-        <div>
-          <button type="submit" class="button">Submit</button>
-        </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+
+        <label>Email</label>
+        <input type="text" {
+          ...register("email")
+          }
+        />
+        <p>{errors.email?.message}</p>
+
+        <label>Username</label>
+        <input type="text" {
+          ...register("username")
+        }
+        />
+        <p>{errors.username?.message}</p>
+
+        <label>Password</label>
+        <input type="password"{
+          ...register("password")
+        }/>
+        <p>{errors.password?.message}</p>
+
+        <label>Confirm Password</label>
+        <input type="password"{
+          ...register("confirmPassword")
+        }/>
+        <p>{errors.password?.message}</p>
+
+        <button className="button" type="submit">Register</button>
       </form>
     </div>
   );
