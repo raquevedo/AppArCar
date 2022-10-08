@@ -50,4 +50,17 @@ CONSTRAINT partner_pkey PRIMARY KEY (id)
 CREATE INDEX if not exists partner_cuit_number_idx ON public."usr_partner" USING btree (cuit_number);
 CREATE UNIQUE INDEX IF NOT EXISTS partner_username_idx ON public."usr_car_driver" USING btree (username);
 
+CREATE TABLE if not exists public.usr_parking_user (
+id bigint NOT NULL,
+username text NULL,
+name varchar(100) NOT NULL,
+last_name varchar(100) NOT NULL,
+document_number int NOT NULL,
+email VARCHAR(100) NOT NULL ,
+role VARCHAR(50) NOT NULL,
+sys_created_at_dttm timestamp NOT NULL,
+sys_updated_at_dttm timestamp NOT NULL,
+CONSTRAINT usr_parking_pkey PRIMARY KEY (id)
+) ; 
+CREATE UNIQUE INDEX IF NOT EXISTS parking_user_role_idx ON public."usr_parking_user" USING btree (role);
 
