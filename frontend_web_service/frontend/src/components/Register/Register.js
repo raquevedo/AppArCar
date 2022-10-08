@@ -1,6 +1,8 @@
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import NoticeModal from '../NoticeModal/NoticeModal';
 
 async function registerUser(credentials) {
   return fetch('http://0.0.0.0:8000/auth/signup', {
@@ -24,7 +26,11 @@ const schema = yup.object({
 })
 
 export default function Register() {
-  const { register, handleSubmit, formState:{ errors } } = useForm({
+  const [showModal, setShowModal] = useState(false);
+  const modalHeader = 'Success'
+  const modalBody = 'Account successfully registered'
+
+  const { register, handleSubmit, reset, formState:{ errors } } = useForm({
     mode: 'onTouched',
     resolver: yupResolver(schema)
   });
@@ -38,6 +44,13 @@ export default function Register() {
       username,
       password
     });
+    setShowModal(true);
+    reset({
+      email: '',
+      username: '',
+      password: '',
+      confirmPassword: ''
+    })
   }
 
   return(
@@ -73,6 +86,7 @@ export default function Register() {
 
         <button className="button" type="submit">Register</button>
       </form>
+      { showModal && <NoticeModal header={modalHeader} body={modalBody} setShowModal={setShowModal} /> }
     </div>
   );
 }
