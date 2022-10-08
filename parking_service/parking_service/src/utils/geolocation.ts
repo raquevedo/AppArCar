@@ -19,7 +19,7 @@ export async function coordinatesDistance(lat1:number, lon1:number, lat2:number,
 
 export async function getCoordinates(address:string) {
 
-    let url  = 'http://localhost:3002/coordinates/address=' + address 
+    let url  = 'http://0.0.0.0:8000/geo/coordinates/address=' + address 
     return fetch(url, {
       method: 'GET',
       headers: {
