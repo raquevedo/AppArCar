@@ -1,7 +1,7 @@
 import React from 'react';
 import TextCard from '../TextCard/TextCard';
 
-export default function GarageContainer() {
+export default function ParkingContainer() {
   return(
     <div className='grid-container'>
       <div className='grid-x'>         

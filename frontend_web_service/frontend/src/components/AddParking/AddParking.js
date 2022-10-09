@@ -1,29 +1,44 @@
 import React, { useState } from 'react';
+import fetchToken from '../../utils/fetchToken';
 
 
 
 
 
 export default function AddParking() {
-    const [userId, setUserId] = useState();
-    const [id, setId] = useState();
-    const [title, setTitle] = useState();
-    const [body, setbody] = useState();
-    //const [priceHour, setPriceHour] = useState();
+    const [businessName, setBusinessName] = useState();
+    const [cuitNumber, setCuitNumber] = useState();
+    const [streetName, setStreetName] = useState();
+    const [streetNumber, setStreetNumber] = useState();
+    const [qtyTotalSlots, setQtyTotalSlots] = useState();
+    const [priceHour, setPriceHour] = useState();
+    const [price_6Hours, setPrice6Hours] = useState();
+    const [price_12Hours, setPrice12Hours] = useState();
+    const [price_24Hours, setPrice24Hours] = useState();
+    const [priceWeek, setPriceWeek] = useState();
+    const [priceMonth, setPriceMonth] = useState();
     
   
-    const fetchData = async (e) =>{
-      e.fetch('http://localhost:8000/parking/parking/create', {
+    const handleSubmit = async (e) =>{
+      e.preventDefault();
+      let myHeaders = new Headers();
+      myHeaders.append('Authorization', 'Bearer ' + fetchToken());
+      myHeaders.append('Content-Type', 'application/json');
+      fetch('http://localhost:8000/parking/parking/create', {
       method: 'POST',
       body: JSON.stringify({
-        userId,
-        id,
-        title,
-        body
+        businessName,
+        cuitNumber,
+        streetName,
+        streetNumber,
+        qtyTotalSlots,
+        priceHour,
+        price_6Hours,
+        price_12Hours,
+        price_24Hours,
+        priceWeek,
+        priceMonth
       }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
     })
       .then((response) => response.json())
       .then((json) => console.log(json));
@@ -48,26 +63,53 @@ export default function AddParking() {
             <div className='cell'>
               <div className='grid-x align-center'>
                 <div className='cell small-8'>
-                  <form >
+                  <form onSubmit={handleSubmit}>
                     <label>
-                      <p>Garage Name</p>
-                      <input type="text" onChange={e => setId(e.target.value)}/>
+                      <p>Business Name</p>
+                      <input type="text" onChange={e => setBusinessName(e.target.value)}/>
                     </label>
                     <label>
                       <p>CUIT</p>
-                      <input type="text" onChange={e => setUserId(e.target.value)}/>
+                      <input type="text" onChange={e => setCuitNumber(e.target.value)}/>
                     </label>
                     <label>
                       <p>Street Name</p>
-                      <input type="text" onChange={e => setTitle(e.target.value)}/>
+                      <input type="text" onChange={e => setStreetName(e.target.value)}/>
                     </label>
                     <label>
                       <p>Street Number</p>
-                      <input type="text" onChange={e => setbody(parseInt(e.target.value))}/>
+                      <input type="text" onChange={e => setStreetNumber(parseInt(e.target.value))}/>
                     </label>
-                    
+                    <label>
+                      <p>Total Slots</p>
+                      <input type="text" onChange={e => setQtyTotalSlots(parseInt(e.target.value))}/>
+                    </label>
+                    <label>
+                      <p>Price Hour</p>
+                      <input type="text" onChange={e => setPriceHour(parseInt(e.target.value))}/>
+                    </label>
+                    <label>
+                      <p>Price 6 Hours</p>
+                      <input type="text" onChange={e => setPrice6Hours(parseInt(e.target.value))}/>
+                    </label>
+                    <label>
+                      <p>Price 12 Hours</p>
+                      <input type="text" onChange={e => setPrice12Hours(parseInt(e.target.value))}/>
+                    </label>
+                    <label>
+                      <p>Price 24 Hours</p>
+                      <input type="text" onChange={e => setPrice24Hours(parseInt(e.target.value))}/>
+                    </label>
+                    <label>
+                      <p>Price Week</p>
+                      <input type="text" onChange={e => setPriceWeek(parseInt(e.target.value))}/>
+                    </label>
+                    <label>
+                      <p>Price Month</p>
+                      <input type="text" onChange={e => setPriceMonth(parseInt(e.target.value))}/>
+                    </label>
                     <div>
-                      <button type="submit" class="button" onClick={fetchData}> Add Garage</button>
+                      <button type="submit" class="button" > Add Garage</button>
                     </div>
                   </form>
                 </div>

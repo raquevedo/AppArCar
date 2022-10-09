@@ -75,10 +75,11 @@ const styles = StyleSheet.create({
   },
   containButtonHome: {
     flex: 1,
-    padding: 5,
+    padding: 20,
     flexdirection: "column",
     alignItems: "flex-end",
     justifyContent: "flex-end",
+    position:'absolute'
   },
   containAnthem: {
     alignItems: "center",

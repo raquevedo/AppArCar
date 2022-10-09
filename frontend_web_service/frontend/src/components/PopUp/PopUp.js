@@ -7,7 +7,7 @@ export default function PopUp(props) {
     return (props.trigger) ? (
         <div className="popup">
             <div className="popup-inner">
-                <AddParking />
+                <AddParking setParkingCount={props.setParkingCount} parkingCount={props.parkingCount}/>
                 <button className="close-btn" onClick={() => props.setTrigger(false)}> close</button> 
             </div>
         </div>
