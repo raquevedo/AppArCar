@@ -17,9 +17,15 @@ import {
 } from '@loopback/rest';
 import {PkgReservation} from '../models';
 import {PkgReservationRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
+import { inject } from '@loopback/core';
+import {UserProfile, SecurityBindings} from '@loopback/security';
 
+@authenticate('admin')
 export class ReservationController {
   constructor(
+    @inject(SecurityBindings.USER)
+    public currentUserProfile: UserProfile,
     @repository(PkgReservationRepository)
     public pkgReservationRepository : PkgReservationRepository,
   ) {}
@@ -45,38 +51,19 @@ export class ReservationController {
 
     let dt = new Date();
     
-    pkgReservation.idCarDriver = 666 //Replace by token id 
+    pkgReservation.idCarDriver = this.currentUserProfile.id!
     pkgReservation.createdAtDttm = Date()
     pkgReservation.expirationAtDttm = dt.setHours( dt.getHours() + 1 );
     pkgReservation.status = 'created'
     pkgReservation.paymentStatus = 'pending'
     pkgReservation.flgExtended = false 
-    pkgReservation.totalPrice = 200
+    pkgReservation.totalPrice = 200 //TODO Replace by hour price from pkg_parking_settings
     pkgReservation.sysCreatedAtDttm = Date()
     pkgReservation.sysUpdatedAtDttm = Date()
     
 
     return this.pkgReservationRepository.create(pkgReservation);
   }
-
-  @get('/reservation/')
-  @response(200, {
-    description: 'Array of PkgReservation model instances',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'array',
-          items: getModelSchemaRef(PkgReservation, {includeRelations: true}),
-        },
-      },
-    },
-  })
-  async find(
-    @param.filter(PkgReservation) filter?: Filter<PkgReservation>,
-  ): Promise<PkgReservation[]> {
-    return this.pkgReservationRepository.find(filter);
-  }
-
 
   @get('/reservation/{id}')
   @response(200, {
@@ -125,24 +112,6 @@ export class ReservationController {
   ): Promise<PkgReservation[]> {
     return this.pkgReservationRepository.find(filter);
   }
-  
-  @patch('/reservation/{id}')
-  @response(204, {
-    description: 'PkgReservation PATCH success',
-  })
-  async updateById(
-    @param.path.number('id') id: number,
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(PkgReservation, {partial: true}),
-        },
-      },
-    })
-    pkgReservation: PkgReservation,
-  ): Promise<void> {
-    await this.pkgReservationRepository.updateById(id, pkgReservation);
-  }
 
   @post('/reservation/cancel/{id}')
   @response(204, {
@@ -190,7 +159,7 @@ export class ReservationController {
       
       pkgReservation.status = 'extended'
       pkgReservation.flgExtended = true
-      pkgReservation.totalPrice = 200 + Number(pkgReservation.totalPrice)
+      pkgReservation.totalPrice = 200 + Number(pkgReservation.totalPrice) //TODO replace by hour price from pkg_parking_settings
       pkgReservation.sysUpdatedAtDttm = Date()
       //TODO ADD 1 HOUR TO expirationAtDttm 
     }
