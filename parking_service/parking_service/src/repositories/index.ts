@@ -6,3 +6,4 @@ export * from './pkg-parking-users.repository';
 export * from './pkg-parking.repository';
 export * from './pkg-reservation.repository';
 export * from './pkg-parking-settings.repository';
+export * from './pkg-reservation.repository';
