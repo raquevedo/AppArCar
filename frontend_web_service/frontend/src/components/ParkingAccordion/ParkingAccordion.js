@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import fetchToken from '../../utils/fetchToken'
+
+
 
 
 export default function ParkingAccordion(){
@@ -13,7 +16,12 @@ useEffect(() => {
 }, [])
 
 const fetchData = async () => {
-    const data = await fetch('http://0.0.0.0:8000/parking/parking/')
+    let myHeaders = new Headers();
+    myHeaders.append('Authorization', 'Bearer ' + fetchToken());
+    myHeaders.append('Content-Type', 'application/json');
+    const data = await fetch('http://localhost:8000/parking/parking', {
+        headers: myHeaders
+    })
     .then(data => data.json())
     setParkingData(data)
 }
@@ -34,10 +42,10 @@ const toggle = (i) => {
                 {parkingData.map((item, i) => (
                     <div className='item'>
                         <div className='title1' onClick={() => toggle(i)} >
-                            <h2>{item.GarageName}</h2>
+                            <h2>{item.parkingInfo.businessName}</h2>
                             <span>{selected === i ? '-' : '+'}</span>
                     </div>
-                    <div className= {selected === i ? 'content show' : 'content'}>{item.streetName}</div>
+                    <div className= {selected === i ? 'content show' : 'content'}>{item.parkingInfo.streetName}</div>
                     </div>
                 ))}
             </div>
@@ -45,17 +53,3 @@ const toggle = (i) => {
     )
 }
 
-
-
-
-
-//function AddParking1(){
-    //const parking = {
-      //park: ParkingName,
-      //street: streetName
-   // }
-  
-   // return(
-    //  data.push(parking)
-   // )
- // }

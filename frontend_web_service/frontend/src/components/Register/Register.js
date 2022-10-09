@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 async function registerUser(credentials) {
-  return fetch('http://0.0.0.0:8000/auth/signup', {
+  return fetch('http://localhost:8000/auth/signup', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
