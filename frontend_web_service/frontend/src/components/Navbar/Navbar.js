@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/img/logo solo.png'
+import "./index.css";
 
 function Navbar() {
   return (
-    <div className="navbar">
+    <div className="navvar">
       <div className="top-bar">
         <div className="top-bar-left">
           <ul className="dropdown menu" data-dropdown-menu>
             <Link to='/'>
-              <li className="menu-text">AppArCar</li>
+            <img src={logo} alt='Logo' className="logo"></img>
             </Link>
           </ul>
         </div>
