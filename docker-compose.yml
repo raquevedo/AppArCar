@@ -22,6 +22,8 @@ volumes:
 networks:
   kong-net:
     external: false
+  rabbitmq_net:
+    driver: bridge
 
 services:
   kong-migrations:
@@ -116,6 +118,18 @@ services:
       - kong-net
     volumes:
       - kong_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3.8-management
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - rabbitmq_net
 
   auth_service:
     build:
