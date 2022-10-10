@@ -6,7 +6,7 @@ async function registerUser(partnerData) {
   myHeaders.append('Authorization', 'Bearer ' + fetchToken());
   myHeaders.append('Content-Type', 'application/json');
 
-  return fetch('http://0.0.0.0:8000/parking/parking/', {
+  return fetch('http://localhost:8000/parking/parking/', {
     method: 'POST',
     headers: myHeaders,
     body: JSON.stringify(partnerData)

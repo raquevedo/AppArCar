@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
 import fetchToken from '../../utils/fetchToken';
 
+async function newParking(parkingData) {
+  let myHeaders = new Headers();
+  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
+  myHeaders.append('Content-Type', 'application/json');
+
+  return fetch('http://localhost:8000/parking/parking/create', {
+    method: 'POST',
+    headers: myHeaders,
+    body: JSON.stringify(parkingData)
+  })
+    .then(data => data.json())
+}
 
 
 
 
-export default function AddParking() {
+export default function AddParking(setParkingData) {
     const [businessName, setBusinessName] = useState();
     const [cuitNumber, setCuitNumber] = useState();
     const [streetName, setStreetName] = useState();
@@ -18,15 +30,9 @@ export default function AddParking() {
     const [priceWeek, setPriceWeek] = useState();
     const [priceMonth, setPriceMonth] = useState();
     
-  
-    const handleSubmit = async (e) =>{
+    const handleSubmit = async e => {
       e.preventDefault();
-      let myHeaders = new Headers();
-      myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-      myHeaders.append('Content-Type', 'application/json');
-      fetch('http://localhost:8000/parking/parking/create', {
-      method: 'POST',
-      body: JSON.stringify({
+      const parking = await newParking({
         businessName,
         cuitNumber,
         streetName,
@@ -38,15 +44,12 @@ export default function AddParking() {
         price_24Hours,
         priceWeek,
         priceMonth
-      }),
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json));
-  }
-   
+      });
+      setParkingData(parking);
+    }
 
 
-    
+  
   
     return(
       <div className="setup-wrapper">
