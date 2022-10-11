@@ -18,18 +18,15 @@ async function registerUser(credentials) {
 const schema = yup.object({
   email: yup.string().required().matches('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
   username: yup.string().required().matches('^(.{0,4})(.*)$'),
-  password: yup.string().required().matches('^(.{0,8})(.*)$'),
-  confirmPassword: yup.string().test(
-    'passwords-match', 'Passwords must match', function(value){
-      return this.parent.password === value
-  })
+  password: yup.string().required().matches('^(.{8})(.*)$'),
+  confirmPassword: yup.string().oneOf([yup.ref("password")], "Passwords must match"),
 })
 
 export default function Register() {
   const [showModal, setShowModal] = useState(false);
-  const modalHeader = 'Success'
-  const modalBody = 'Account successfully registered'
-
+  const modalHeader = 'Error'
+  const modalBody = 'There was an unknown error when processing the request.'
+  
   const { register, handleSubmit, reset, formState:{ errors } } = useForm({
     mode: 'onTouched',
     resolver: yupResolver(schema)
@@ -39,18 +36,22 @@ export default function Register() {
     const email = data.email;
     const username = data.username;
     const password = data.password;
-    await registerUser({
+    const res = await registerUser({
       email,
       username,
       password
     });
+    if (res.status == '200'){
+      const modalHeader = 'Success'
+      const modalBody = 'Account successfully registered'
+      reset({
+        email: '',
+        username: '',
+        password: '',
+        confirmPassword: ''
+      })
+    };
     setShowModal(true);
-    reset({
-      email: '',
-      username: '',
-      password: '',
-      confirmPassword: ''
-    })
   }
 
   return(
@@ -82,7 +83,7 @@ export default function Register() {
         <input type="password"{
           ...register("confirmPassword")
         }/>
-        { errors.password && <p>Password doesn't match</p>}
+        { errors.confirmPassword && <p>Password doesn't match</p>}
 
         <button className="button" type="submit">Register</button>
       </form>

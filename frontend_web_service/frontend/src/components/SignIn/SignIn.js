@@ -2,9 +2,15 @@ import React from 'react';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import useToken from '../../utils/useToken';
+import { Navigate, useLocation } from 'react-router-dom';
 
 function SignIn() {
+  let location = useLocation();
   const { setToken } = useToken();
+  /* Checks if the user is already logged in and redirects to dashboard */
+  if(sessionStorage.getItem('token')) {
+    return <Navigate to="/dashboard" state={{ from: location }} replace />;
+  }
   return (
     <div className='grid-container'>
       <div className='grid-x grid-margin-x grid-padding-x'>
@@ -17,6 +23,6 @@ function SignIn() {
       </div>
     </div>
   );
-}
+} 
 
 export default SignIn;
