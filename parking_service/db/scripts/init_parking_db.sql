@@ -72,11 +72,11 @@ CREATE table if not exists public.pkg_reservation (
     total_price float,
     sys_created_at_dttm timestamp NOT NULL,
     sys_updated_at_dttm timestamp NOT NULL,
-  CONSTRAINT reservation_id_pkey PRIMARY KEY (id_parking)
+  CONSTRAINT reservation_id_pkey PRIMARY KEY (id)
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS reservation_driver_idx ON public."pkg_reservation" USING btree (id_car_driver);
-CREATE UNIQUE INDEX IF NOT EXISTS reservation_parking_idx ON public."pkg_reservation" USING btree (id_parking);
+CREATE INDEX IF NOT EXISTS reservation_driver_idx ON public."pkg_reservation" USING btree (id_car_driver);
+CREATE INDEX IF NOT EXISTS reservation_parking_idx ON public."pkg_reservation" USING btree (id_parking);
 
 CREATE table if not exists public.pkg_parking_users (
     id integer generated always as identity,
