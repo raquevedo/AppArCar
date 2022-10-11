@@ -27,6 +27,7 @@
     "react-native": "0.69.4",
     "react-native-datepicker": "^1.7.2",
     "react-native-element-dropdown": "^2.3.0",
+    "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.5.0",
     "react-native-maps": "0.31.1",
     "react-native-modal-datetime-picker": "^14.0.0",

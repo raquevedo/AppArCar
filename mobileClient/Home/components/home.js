@@ -1,13 +1,21 @@
 import {useContext, useState, useEffect} from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Modal, Pressable } from "react-native";
 import { AuthContext } from "../../Services/context";
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
-import TInput from './inputExample';
+import { SearchBar, Badge } from 'react-native-elements';
+import { GetCars } from "../controllers/car_controller";
+import { useIsFocused } from "@react-navigation/native";
 
 function HomeScreen({ navigation }) {
-  const { signOut } = useContext(AuthContext);
+  //const { signOut } = useContext(AuthContext);
   const [location, setLocation] = useState(null);
+  const [search, setSearch] = useState("")
+  const [modalVisible, setModalVisible] = useState(false); 
+  const [cars, setCars] = useState([]);
+  const [patent,setPatent] = useState("Select patent");
+  const focus = useIsFocused();
+
   console.log(MapView.Marker)
   useEffect(() => {
     (async () => {
@@ -21,7 +29,18 @@ function HomeScreen({ navigation }) {
         setLocation(location);
     })();
     }, []);
-
+    useEffect(() => {
+      console.log(focus);
+      const getCars = async () => {
+        const response = await GetCars();
+        const resData = await response.json();
+        console.log(resData);
+        setCars(resData);
+      };
+      if (focus) {
+        getCars();
+      }
+    }, [focus]);
     let text = 'Waiting..';
     if (location===null) {
       return (
@@ -52,10 +71,47 @@ function HomeScreen({ navigation }) {
           {/*<MapView.Marker coordinate={{latitude:-34.633190, longitude:-58.455946}}/>*/}
         </MapView>
         <View style={styles.inputView}>
-          <TInput>
-          </TInput>
+          <SearchBar 
+            placeholder="Type Here..."
+            onChangeText={setSearch}
+            value={search}
+            platform="defaullt"
+            round="true" 
+            lightTheme="true"
+            onSubmitEditing={()=>console.log('busca', search)}
+          />
+          <Badge value={patent} status="primary" onPress={() => setModalVisible(true)} />
+        </View>
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                {cars.map((item) => 
+                  <Text key={item.patentId} 
+                        onPress={()=> setPatent(item.patentId) & setModalVisible(!modalVisible)}>
+                          {item.patentId}
+                  </Text> 
+                )}
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>Close</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
         </View>
     </View>
+
   );
 }
 
@@ -66,8 +122,64 @@ const styles = StyleSheet.create({
       position: 'absolute', 
       top: 0,
       left: 5,
-      right: 5
+      right: 5,
+      marginTop: 40,
+      borderRadius: 20,
   },
+    input: {
+        height: 48,
+        padding: 10,
+        marginTop: 60,
+        marginLeft: 10,
+        marginRight: 10,
+        fontSize: 18,
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#48BBEC',
+        backgroundColor: 'white',
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22,
+        position: 'absolute', 
+    },
+    modalView: {
+        margin: 130,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    buttonOpen: {
+        backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    }
 });
 /*
 **********************Backup de botones flotantes.*******************************
