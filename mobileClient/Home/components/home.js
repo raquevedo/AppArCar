@@ -6,6 +6,7 @@ import * as Location from 'expo-location';
 import { SearchBar, Badge } from 'react-native-elements';
 import { GetCars } from "../controllers/car_controller";
 import { useIsFocused } from "@react-navigation/native";
+import * as SecureStore from "expo-secure-store";
 
 function HomeScreen({ navigation }) {
   //const { signOut } = useContext(AuthContext);
@@ -15,6 +16,20 @@ function HomeScreen({ navigation }) {
   const [cars, setCars] = useState([]);
   const [patent,setPatent] = useState("Select patent");
   const focus = useIsFocused();
+
+  async function isExistentPatent(){
+    const storedPatent = await SecureStore.getItemAsync("patent");
+    const response = await GetCars();
+    const thisCars = await response.json();
+    if(storedPatent != null){
+      for(const index in thisCars){
+        if(thisCars[index].patentId === storedPatent){
+          return true
+        }
+      }
+      return false
+    }
+  }
 
   console.log(MapView.Marker)
   useEffect(() => {
@@ -41,6 +56,20 @@ function HomeScreen({ navigation }) {
         getCars();
       }
     }, [focus]);
+    
+    useEffect(() => {
+      const validatePatent = async () => {
+        const storedPatent = await SecureStore.getItemAsync("patent");
+        const validPatent= await isExistentPatent()
+        if(storedPatent != null && validPatent){
+          setPatent(storedPatent);
+        }else{
+          setPatent('Select patent');
+        }
+      };
+      validatePatent();
+    }, [focus]);
+
     let text = 'Waiting..';
     if (location===null) {
       return (
@@ -48,7 +77,7 @@ function HomeScreen({ navigation }) {
         flex: 1,
         justifyContent: "center",
         alignItems: "center"}}>
-      <Text>Cargando su ubicación</Text>
+        <Text>{text}</Text>
       </View>)
     } else if (location) {
       console.log("latitud: "+location.coords.latitude+ 'longitud: '+location.coords.longitude)
@@ -96,7 +125,7 @@ function HomeScreen({ navigation }) {
               <View style={styles.modalView}>
                 {cars.map((item) => 
                   <Text key={item.patentId} 
-                        onPress={()=> setPatent(item.patentId) & setModalVisible(!modalVisible)}>
+                        onPress={async ()=> setPatent(item.patentId) & await SecureStore.setItemAsync("patent", item.patentId) & setModalVisible(!modalVisible) }>
                           {item.patentId}
                   </Text> 
                 )}
