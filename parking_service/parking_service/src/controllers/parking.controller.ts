@@ -13,11 +13,12 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {PkgParking, PkgParkingUsers, PkgParkingStatus} from '../models';
+import {PkgParking, PkgParkingUsers, PkgParkingStatus, PkgParkingRelations} from '../models';
 import {PkgParkingRepository, PkgParkingUsersRepository, PkgParkingStatusRepository} from '../repositories';
 import { authenticate } from '@loopback/authentication';
 import { inject } from '@loopback/core';
 import {UserProfile, SecurityBindings} from '@loopback/security';
+import { coordinatesDistance, getCoordinates } from '../utils/geolocation';
 
 @authenticate('admin')
 export class ParkingController {
@@ -50,13 +51,21 @@ export class ParkingController {
     })
     pkgParking: PkgParking,
   ): Promise<PkgParking> {
+       
+    let address = pkgParking.streetName + ' ' + pkgParking.streetNumber
+    let response = await getCoordinates(address)
+    if(response['statusCode'] == 500){
+      pkgParking.latitude = 0
+      pkgParking.longitude = 0  
+    }else{
+      pkgParking.latitude = response['latitude']
+      pkgParking.longitude = response['longitude']  
+    }
     
-    //TODO: Replace by geolocalization interface
-    pkgParking.latitude = -34.902
-    pkgParking.longitude = 29.001
-    //pkgParking.geocode = JSON.stringify({'latitude':0,'longitude':0})!,
+    
     pkgParking.sysCreatedAtDttm = Date(),
-    pkgParking.sysUpdatedAtDttm = Date()
+    pkgParking.sysUpdatedAtDttm = Date()  
+    
 
     let currentParking = await this.pkgParkingRepository.create(pkgParking) 
 
@@ -100,7 +109,6 @@ export class ParkingController {
     },
   })
   async find(
-    //REPLACE 666 by TOKEN ID 
     filter = {where: {idParkingUser: this.currentUserProfile.id!}, fields: ['idParking'] }
   ) {
     let parkings = await this.pkgParkingUsersRepository.find(filter);
@@ -116,6 +124,7 @@ export class ParkingController {
       data.push({'parkingInfo':parkingInfo, 'status':parkingStatus})
       } catch (error) {
         console.error("Parkingid",id," was deleted by user.");
+        
       }
     }
     
@@ -155,7 +164,15 @@ export class ParkingController {
     })
     pkgParking: PkgParking,
   ): Promise<void> {
-    //TODO: Recalcular coordenadas 
+    let address = pkgParking.streetName + ' ' + pkgParking.streetNumber
+    let response = await getCoordinates(address)
+    if(response['statusCode'] == 500){
+      pkgParking.latitude = 0
+      pkgParking.longitude = 0  
+    }else{
+      pkgParking.latitude = response['latitude']
+      pkgParking.longitude = response['longitude']  
+    }
     await this.pkgParkingRepository.updateById(id, pkgParking);
   }
 
@@ -168,4 +185,37 @@ export class ParkingController {
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.pkgParkingRepository.deleteById(id);
   }
-}
+
+  @get('/parking/nearest/latitude={latitude}/longitude={longitude}/kilometers={kilometers}')
+  @response(200, {
+    description: 'Array of PkgParking model instances',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(PkgParking, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async findNearestParking(
+    @param.path.number('latitude') latitude: number,
+    @param.path.number('longitude') longitude: number,
+    @param.path.number('kilometers') kilometers: number,
+  ) {
+
+    let parkings = await this.pkgParkingRepository.find()
+    let nearest: (PkgParking & PkgParkingRelations)[] = []
+
+    parkings.forEach(async item => {
+        let dist = await coordinatesDistance(latitude,longitude,Number(item.latitude),Number(item.longitude),'K')
+        if (dist < kilometers) {
+          nearest.push(item)
+        }
+    });
+    return nearest
+  }
+
+   
+  }
+

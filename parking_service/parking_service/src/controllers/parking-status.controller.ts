@@ -1,19 +1,15 @@
 import {
   Count,
   CountSchema,
-  Filter,
   FilterExcludingWhere,
   repository,
   Where,
 } from '@loopback/repository';
 import {
-  post,
   param,
   get,
   getModelSchemaRef,
   patch,
-  put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
@@ -32,125 +28,112 @@ export class ParkingStatusController {
     public pkgParkingStatusRepository : PkgParkingStatusRepository,
   ) {}
 
-  @post('/parking-status')
-  @response(200, {
-    description: 'PkgParkingStatus model instance',
-    content: {'application/json': {schema: getModelSchemaRef(PkgParkingStatus)}},
-  })
-  async create(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(PkgParkingStatus, {
-            title: 'NewPkgParkingStatus',
-            exclude: ['id_parking'],
-          }),
-        },
-      },
-    })
-    pkgParkingStatus: Omit<PkgParkingStatus, 'id_parking'>,
-  ): Promise<PkgParkingStatus> {
-    return this.pkgParkingStatusRepository.create(pkgParkingStatus);
-  }
-
-  @get('/parking-status/count')
-  @response(200, {
-    description: 'PkgParkingStatus model count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async count(
-    @param.where(PkgParkingStatus) where?: Where<PkgParkingStatus>,
-  ): Promise<Count> {
-    return this.pkgParkingStatusRepository.count(where);
-  }
-
-  @get('/parking-status')
-  @response(200, {
-    description: 'Array of PkgParkingStatus model instances',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'array',
-          items: getModelSchemaRef(PkgParkingStatus, {includeRelations: true}),
-        },
-      },
-    },
-  })
-  async find(
-    @param.filter(PkgParkingStatus) filter?: Filter<PkgParkingStatus>,
-  ): Promise<PkgParkingStatus[]> {
-    return this.pkgParkingStatusRepository.find(filter);
-  }
-
-  @patch('/parking-status')
-  @response(200, {
-    description: 'PkgParkingStatus PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async updateAll(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(PkgParkingStatus, {partial: true}),
-        },
-      },
-    })
-    pkgParkingStatus: PkgParkingStatus,
-    @param.where(PkgParkingStatus) where?: Where<PkgParkingStatus>,
-  ): Promise<Count> {
-    return this.pkgParkingStatusRepository.updateAll(pkgParkingStatus, where);
-  }
-
   @get('/parking-status/{id}')
   @response(200, {
-    description: 'PkgParkingStatus model instance',
-    content: {
-      'application/json': {
-        schema: getModelSchemaRef(PkgParkingStatus, {includeRelations: true}),
-      },
-    },
+    description: 'PkgParkingStatus model instance'
   })
   async findById(
-    @param.path.number('id') id: number,
-    @param.filter(PkgParkingStatus, {exclude: 'where'}) filter?: FilterExcludingWhere<PkgParkingStatus>
+    @param.path.number('id') id: number
   ): Promise<PkgParkingStatus> {
-    return this.pkgParkingStatusRepository.findById(id, filter);
+    return this.pkgParkingStatusRepository.findById(id);
   }
 
-  @patch('/parking-status/{id}')
+  @patch('/parking-status/block-slot/{id}')
   @response(204, {
     description: 'PkgParkingStatus PATCH success',
   })
-  async updateById(
+  async blockFreeSlot(
     @param.path.number('id') id: number,
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(PkgParkingStatus, {partial: true}),
+          schema: getModelSchemaRef(PkgParkingStatus, {partial: true
+          ,exclude: ['idParking','status','qtyTotalSlots','qtyFreeSlots','qtyBussySlots','qtyReservedSlots','sysCreatedAtDttm','sysUpdatedAtDttm']
+        }),
         },
       },
     })
     pkgParkingStatus: PkgParkingStatus,
   ): Promise<void> {
-    await this.pkgParkingStatusRepository.updateById(id, pkgParkingStatus);
+    let currentStatus = await this.pkgParkingStatusRepository.findById(id);
+    if (currentStatus.qtyFreeSlots > pkgParkingStatus.qtyBlockedSlots ){
+      currentStatus.qtyBlockedSlots += pkgParkingStatus.qtyBlockedSlots
+      currentStatus.qtyFreeSlots -= pkgParkingStatus.qtyBlockedSlots
+    } else {
+      throw new Error("qtyBlockedSlot is grather than qtyFreeSlots")
+    }
+    await this.pkgParkingStatusRepository.updateById(id, currentStatus);
   }
 
-  @put('/parking-status/{id}')
+  @patch('/parking-status/use-free-slot/{id}')
   @response(204, {
-    description: 'PkgParkingStatus PUT success',
+    description: 'PkgParkingStatus PATCH success',
   })
-  async replaceById(
-    @param.path.number('id') id: number,
-    @requestBody() pkgParkingStatus: PkgParkingStatus,
+  async useFreeSlot(
+    @param.path.number('id') id: number
   ): Promise<void> {
-    await this.pkgParkingStatusRepository.replaceById(id, pkgParkingStatus);
+    let currentStatus = await this.pkgParkingStatusRepository.findById(id);
+    if (currentStatus.qtyFreeSlots >= 1 ){
+      currentStatus.qtyFreeSlots -= 1
+      currentStatus.qtyBussySlots += 1
+    } else {
+      throw new Error("Parking is full, qtyFreeSlots = 0 ")
+    }
+    await this.pkgParkingStatusRepository.updateById(id, currentStatus);
   }
 
-  @del('/parking-status/{id}')
+  @patch('/parking-status/free-bussy-slot/{id}')
   @response(204, {
-    description: 'PkgParkingStatus DELETE success',
+    description: 'PkgParkingStatus PATCH success',
   })
-  async deleteById(@param.path.number('id') id: number): Promise<void> {
-    await this.pkgParkingStatusRepository.deleteById(id);
+  async freeBussySlot(
+    @param.path.number('id') id: number,
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(PkgParkingStatus, {partial: true
+          ,exclude: ['idParking','status','qtyTotalSlots','qtyBlockedSlots','qtyBussySlots','qtyReservedSlots','sysCreatedAtDttm','sysUpdatedAtDttm']
+        }),
+        },
+      },
+    })
+    pkgParkingStatus: PkgParkingStatus,
+  ): Promise<void> {
+    let currentStatus = await this.pkgParkingStatusRepository.findById(id);
+    if (currentStatus.qtyBussySlots >= pkgParkingStatus.qtyFreeSlots ){
+      currentStatus.qtyFreeSlots += pkgParkingStatus.qtyFreeSlots
+      currentStatus.qtyBussySlots -= pkgParkingStatus.qtyFreeSlots
+    } else {
+      throw new Error("qtyFreeSlots is grather than qtyBussySlots or qtyBussySlots is 0")
+    }
+    await this.pkgParkingStatusRepository.updateById(id, currentStatus);
   }
+
+  @patch('/parking-status/free-blocked-slot/{id}')
+  @response(204, {
+    description: 'PkgParkingStatus PATCH success',
+  })
+  async freeBlockedSlot(
+    @param.path.number('id') id: number,
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(PkgParkingStatus, {partial: true
+          ,exclude: ['idParking','status','qtyTotalSlots','qtyBlockedSlots','qtyBussySlots','qtyReservedSlots','sysCreatedAtDttm','sysUpdatedAtDttm']
+        }),
+        },
+      },
+    })
+    pkgParkingStatus: PkgParkingStatus,
+  ): Promise<void> {
+    let currentStatus = await this.pkgParkingStatusRepository.findById(id);
+    if (currentStatus.qtyBlockedSlots >= pkgParkingStatus.qtyFreeSlots ){
+      currentStatus.qtyFreeSlots += pkgParkingStatus.qtyFreeSlots
+      currentStatus.qtyBlockedSlots -= pkgParkingStatus.qtyFreeSlots
+    } else {
+      throw new Error("qtyFreeSlots is grather than qtyBlockedSlots or qtyBlockedSlots is 0")
+    }
+    await this.pkgParkingStatusRepository.updateById(id, currentStatus);
+  }
+
 }
