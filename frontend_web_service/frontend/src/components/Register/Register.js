@@ -27,7 +27,7 @@ export default function Register() {
   }
 
   return(
-    <div className="login-wrapper">
+    <div className="login-box">
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <label>

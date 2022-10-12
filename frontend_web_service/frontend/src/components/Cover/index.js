@@ -8,7 +8,7 @@ const Cover = () => {
     return (
         <div className="cover-container">
             <video className="video" src={coverVideo} autoPlay loop muted />
-            <img src={logo} alt='Logo' className="navbar-logo"></img>
+            <img src={logo} alt='Logo' className="home-logo"></img>
             
             <a href="/signin"><button class="bn632-hover bn24">Log In</button></a>
             <p className='short'>Cercano, Economico y Rapido</p>
