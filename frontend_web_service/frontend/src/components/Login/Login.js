@@ -7,7 +7,7 @@ import * as yup from 'yup';
 
 async function loginUser(credentials) {
 
-  return fetch('http://0.0.0.0:8000/auth/users/login', {
+  return fetch('http://localhost:8000/auth/users/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

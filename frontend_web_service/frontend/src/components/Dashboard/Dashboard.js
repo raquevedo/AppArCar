@@ -28,4 +28,5 @@ export default function Dashboard({ partnerData }) {
       </div>
     </div>
   );
+
 }
