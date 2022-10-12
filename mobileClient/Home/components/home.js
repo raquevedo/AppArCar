@@ -79,8 +79,6 @@ function HomeScreen({ navigation }) {
         alignItems: "center"}}>
         <Text>{text}</Text>
       </View>)
-    } else if (location) {
-      console.log("latitud: "+location.coords.latitude+ 'longitud: '+location.coords.longitude)
     }
   return (
     <View style={{ flex: 1 }}>
