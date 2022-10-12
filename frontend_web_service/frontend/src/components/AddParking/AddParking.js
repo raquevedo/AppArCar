@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import newParking from '../../controllers/parkingController';
+import { newParking } from '../../controllers/parkingController';
 
 export default function AddParking(setParkingData) {
   const [businessName, setBusinessName] = useState();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BsFillHouseFill, BsFillPersonFill, BsFillBarChartFill } from 'react-icons/bs'
+import { BsFillPersonFill, BsFillBarChartFill } from 'react-icons/bs'
 
 function SideNav() {
   return (

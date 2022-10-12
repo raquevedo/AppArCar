@@ -1,4 +1,4 @@
-import fetchToken from '../../utils/fetchToken';
+import fetchToken from '../utils/fetchToken';
 
 export async function newParking(parkingData) {
   let myHeaders = new Headers();

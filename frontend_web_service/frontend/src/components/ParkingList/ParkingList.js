@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useState, useEffect, useRef } from 'react';
-import PopUp from '../PopUp/PopUp';
+import AddParkingModal from '../AddParkingModal/AddParkingModal';
 import ParkingAccordion from '../ParkingAccordion/ParkingAccordion';
 
 const Button = styled.button`
@@ -15,24 +14,25 @@ cursor: pointer;
 `;
 
 export default function ParkingList() {
-  const [buttonPopup, setButtonPopup] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   return(
     <div className='grid-container'>
       <div className='grid-y'>
         <div className='cell'>
-            <div className="title"><h1> Your Parkings: </h1></div>
-            
-            <div><ParkingAccordion /></div>
-            <div className='add-button'>
-                <Button onClick={() => setButtonPopup(true)}>
-                    + Add Parking
-                </Button>
-                    <div>
-                    <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} />
-                </div>
-                </div>
-         </div>
-         </div>
+          <div className='grid-x'>
+            <div className='cell large-8 small-12'>
+              <h1> Your Parkings: </h1>
+            </div>
+            <div className='cell large-4 small-6'>
+              <Button onClick={() => setShowModal(true)}>+ Add Parking</Button>
+              { showModal && <AddParkingModal setShowModal={setShowModal}/> }
+            </div>
+          </div>
+        </div>
+        <div className='cell'>
+          <ParkingAccordion />
+        </div>
+      </div>
     </div>
   );
 }

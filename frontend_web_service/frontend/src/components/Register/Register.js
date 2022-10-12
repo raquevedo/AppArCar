@@ -24,8 +24,8 @@ const schema = yup.object({
 
 export default function Register() {
   const [showModal, setShowModal] = useState(false);
-  const modalHeader = 'Error'
-  const modalBody = 'There was an unknown error when processing the request.'
+  let modalHeader = 'Error'
+  let modalBody = 'There was an unknown error when processing the request.'
   
   const { register, handleSubmit, reset, formState:{ errors } } = useForm({
     mode: 'onTouched',
@@ -41,9 +41,9 @@ export default function Register() {
       username,
       password
     });
-    if (res.status == '200'){
-      const modalHeader = 'Success'
-      const modalBody = 'Account successfully registered'
+    if (res.status === '200'){
+      modalHeader = 'Success'
+      modalBody = 'Account successfully registered'
       reset({
         email: '',
         username: '',

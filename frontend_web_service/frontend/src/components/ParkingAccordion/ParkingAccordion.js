@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import fetchToken from '../../utils/fetchToken'
 import { getParkingData } from "../../controllers/parkingController";
 
 export default function ParkingAccordion(){
