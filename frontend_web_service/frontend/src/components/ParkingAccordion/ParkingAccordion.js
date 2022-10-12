@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import fetchToken from '../../utils/fetchToken'
-
-
-
+import { getParkingData } from "../../controllers/parkingController";
 
 export default function ParkingAccordion(){
 
@@ -16,13 +14,7 @@ export default function ParkingAccordion(){
   }, [])
 
   const fetchData = async () => {
-    let myHeaders = new Headers();
-    myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-    myHeaders.append('Content-Type', 'application/json');
-    const data = await fetch('http://localhost:8000/parking/parking', {
-      headers: myHeaders
-    });
-    data = await data.json();
+    const data = await getParkingData()
     setParkingData(data);
   }
 
