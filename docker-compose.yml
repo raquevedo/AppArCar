@@ -241,6 +241,16 @@ services:
       POSTGRES_DB: parkingDb
     networks:
       - kong-net
+  
+  notification_service:
+    build:
+      context: ./notification_service/notification_service
+      dockerfile: Dockerfile
+    container_name: notification_service
+    ports:
+      - 3004:3004
+    networks:
+      - kong-net
 
 secrets:
   kong_postgres_password:
