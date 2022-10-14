@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import AddParkingModal from '../AddParkingModal/AddParkingModal';
+import AddParkingModal from './AddParkingModal';
 import ParkingAccordion from './ParkingAccordion';
 
 const Button = styled.button`
