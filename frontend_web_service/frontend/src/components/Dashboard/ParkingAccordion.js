@@ -19,7 +19,9 @@ export default function ParkingAccordion(){
   return (
     <div className='custom-accordion'>
       {parkingData.map((garage, index) => (
-        <ParkingAccordionItem garage={garage} index={index}/>
+        <div key={index}>
+          <ParkingAccordionItem garage={garage} index={index}/>
+        </div>
       ))}
     </div>
   )
