@@ -3,6 +3,7 @@ import ParkingList from './ParkingList';
 import { Route, Routes } from 'react-router-dom';
 import Profile from '../Profile/Profile';
 import SideNav from '../Shared/SideNav';
+import GarageBoard from '../Management/GarageBoard';
 
 export default function Dashboard({ partnerData }) {
   return(
@@ -27,7 +28,7 @@ export default function Dashboard({ partnerData }) {
           <Route
             path='manage/:id'
             element={
-              <ManagementDashboard />
+              <GarageBoard />
             }
           />
         </Routes>
