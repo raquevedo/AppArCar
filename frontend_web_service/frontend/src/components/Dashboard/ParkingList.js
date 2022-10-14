@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import AddParkingModal from '../AddParkingModal/AddParkingModal';
-import ParkingAccordion from '../ParkingAccordion/ParkingAccordion';
+import ParkingAccordion from './ParkingAccordion';
 
 const Button = styled.button`
 background-color: green;
