@@ -6,6 +6,7 @@ import {
   FlatList,
   SafeAreaView,
   TouchableOpacity,
+  Image
 } from "react-native";
 import { GetUserInfo } from "../../Services/requests";
 import { GetCars } from "../controllers/car_controller";
@@ -47,7 +48,7 @@ function Cars({ navigation }) {
 
   return (
     <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
-      <View style={styles.space}></View>
+      <Image source={require("../../assets/logo.png")} style={styles.image} />
       <SafeAreaView style={styles.sectionLong}>
         <View style={styles.space}></View>
         <Text style={styles.themeTextFlat}>Automoviles</Text>

@@ -7,6 +7,7 @@ import { SearchBar, Badge } from 'react-native-elements';
 import { GetCars } from "../controllers/car_controller";
 import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
+import styles from "../../Services/styles";
 
 function HomeScreen({ navigation }) {
   //const { signOut } = useContext(AuthContext);
@@ -105,9 +106,12 @@ function HomeScreen({ navigation }) {
             platform="defaullt"
             round="true" 
             lightTheme="true"
+            containerStyle={{height: 70, width:400}}
             onSubmitEditing={()=>console.log('busca', search)}
           />
-          <Badge value={patent} status="primary" onPress={() => setModalVisible(true)} />
+          
+          <Badge textStyle={styles.textPatent} containerStyle={styles.buttonPatent} value={patent} status="primary" onPress={() => setModalVisible(true)} />
+          
         </View>
         <View style={styles.centeredView}>
           <Modal
@@ -143,101 +147,4 @@ function HomeScreen({ navigation }) {
 }
 
 export default HomeScreen;
-const styles = StyleSheet.create({
-  inputView: {
-    backgroundColor: 'rgba(0,0,0,0)',
-      position: 'absolute', 
-      top: 0,
-      left: 5,
-      right: 5,
-      marginTop: 40,
-      borderRadius: 20,
-  },
-    input: {
-        height: 48,
-        padding: 10,
-        marginTop: 60,
-        marginLeft: 10,
-        marginRight: 10,
-        fontSize: 18,
-        borderWidth: 1,
-        borderRadius: 10,
-        borderColor: '#48BBEC',
-        backgroundColor: 'white',
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22,
-        position: 'absolute', 
-    },
-    modalView: {
-        margin: 130,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-    },
-    buttonOpen: {
-        backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-        backgroundColor: "#2196F3",
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-    }
-});
-/*
-**********************Backup de botones flotantes.*******************************
 
-<View style={styles.containButtonHome}>
-          <TouchableOpacity
-            style={styles.imageContainer}
-            onPress={() => navigation.navigate("EditProfile")}
-           >
-            <Image
-              style={styles.imageButton}
-              source={require("../../assets/profile.png")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.imageContainer}
-            onPress={() => navigation.navigate("Cars")}
-           >
-            <Image
-              style={styles.imageButton}
-              source={require("../../assets/car.png")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.imageContainer}
-            onPress={() => signOut({})}
-           >
-            <Image
-              style={styles.imageButton}
-              source={require("../../assets/signout.png")}
-            />
-          </TouchableOpacity>
-        </View>
-*/

@@ -106,22 +106,15 @@ function FormReg({ navigation }) {
               setGender(item.label);
             }}
           />
-
-          <Text>{`Date:  ${
-            birthDateDt ? moment(birthDateDt).format("MM/DD/YYYY") : "--/--/--"
-          }`}</Text>
           <TouchableOpacity
-            style={styles.containButtonStylel}
+            style={styles.containButtonStyleDate}
             onPress={showDatePicker}
           >
-            <LinearGradient
-              start={{ x: 0, y: 1 }}
-              end={{ x: 0, y: 0 }}
-              colors={["#df3ac4", "#3043ff"]}
-              style={styles.buttonStylel}
-            >
-              <Text style={styles.textDate}>Fecha de Nacimiento</Text>
-            </LinearGradient>
+            
+              <Text style={styles.textDate}>{`${
+            birthDateDt ? moment(birthDateDt).format("MM/DD/YYYY") : "Fecha de Nacimiento"
+          }`}</Text>
+           
           </TouchableOpacity>
           <DatePicker
             isVisible={isDatePickerVisible}

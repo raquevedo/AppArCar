@@ -29,6 +29,7 @@ export default function App({ navigation }) {
     "TTNorms-Light": require("./assets/fonts/TTNorms-Light.otf"),
     "TTNorms-Regular": require("./assets/fonts/TTNorms-Regular.otf"),
     "TTNorms-BoldItalic": require("./assets/fonts/TTNorms-BoldItalic.otf"),
+    "LicensePlate": require("./assets/fonts/LicensePlate.ttf"),
   });
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {

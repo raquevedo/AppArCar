@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Button, ScrollView, Text, TouchableOpacity } from "react-native";
+import { View, Button, ScrollView, Text, TouchableOpacity,Image } from "react-native";
 import { GetUserInfo } from "../../Services/requests";
 import { PersistProfile } from "../controllers/profile_controller";
 import { LinearGradient } from "expo-linear-gradient";
@@ -54,7 +54,8 @@ function Profile({ navigation }) {
   return (
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
-        <View style={styles.space}></View>
+      <Image source={require("../../assets/logo.png")} style={styles.image} />
+        
         <View style={styles.sectionLong}>
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>Perfil</Text>
@@ -79,6 +80,21 @@ function Profile({ navigation }) {
             style={styles.text}
             left={<TextInput.Icon icon="book" />}
           />
+
+          <DatePicker
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+          />
+
+          <TextInput
+            placeholder="Teléfono móvil"
+            value={contactNumber}
+            onChangeText={setContactNumber}
+            style={styles.text}
+            left={<TextInput.Icon icon="phone" />}
+          />
           <Dropdown
             style={styles.dropdown}
             placeholderStyle={styles.placeholderStyle}
@@ -97,36 +113,17 @@ function Profile({ navigation }) {
               setGender(item.label);
             }}
           />
-          <Text>{`Date:  ${
-            birthDateDt ? moment(birthDateDt).format("MM/DD/YYYY") : "--/--/--"
-          }`}</Text>
+
           <TouchableOpacity
-            style={styles.containButtonStylel}
+            style={styles.containButtonStyleDate}
             onPress={showDatePicker}
           >
-            <LinearGradient
-              start={{ x: 0, y: 1 }}
-              end={{ x: 0, y: 0 }}
-              colors={["#df3ac4", "#3043ff"]}
-              style={styles.buttonStylel}
-            >
-              <Text style={styles.textDate}>Fecha de Nacimiento</Text>
-            </LinearGradient>
+            <Text style={styles.textDate}>{`${
+              birthDateDt
+                ? moment(birthDateDt).format("MM/DD/YYYY")
+                : "Fecha de Nacimiento"
+            }`}</Text>
           </TouchableOpacity>
-          <DatePicker
-            isVisible={isDatePickerVisible}
-            mode="date"
-            onConfirm={handleConfirm}
-            onCancel={hideDatePicker}
-          />
-
-          <TextInput
-            placeholder="Teléfono móvil"
-            value={contactNumber}
-            onChangeText={setContactNumber}
-            style={styles.text}
-            left={<TextInput.Icon icon="phone" />}
-          />
 
           <TouchableOpacity
             style={styles.containButtonStylel}
