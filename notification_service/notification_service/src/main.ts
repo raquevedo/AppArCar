@@ -8,7 +8,7 @@ async function bootstrap() {
     {
       transport: Transport.RMQ,
       options: {
-        urls: ['amqp://rabbitmq:5672'],
+        urls: ['amqp://guest:guest@rabbitmq:5672/'],
         queue: 'reservations',
         queueOptions: {
           durable: false

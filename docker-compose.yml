@@ -250,7 +250,9 @@ services:
     ports:
       - 3004:3004
     networks:
-      - kong-net
+      - rabbitmq_net
+    depends_on:
+      - rabbitmq
 
 secrets:
   kong_postgres_password:
