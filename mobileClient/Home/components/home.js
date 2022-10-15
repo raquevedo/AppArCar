@@ -7,15 +7,36 @@ import { SearchBar, Badge } from 'react-native-elements';
 import { GetCars } from "../controllers/car_controller";
 import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
+import host_instance from '../../host_instance.json';
+import { getCoordinates, getNearParkings } from "../controllers/map_controller";
+import { reserve } from "../controllers/reservation_controller";
 
 function HomeScreen({ navigation }) {
   //const { signOut } = useContext(AuthContext);
   const [location, setLocation] = useState(null);
-  const [search, setSearch] = useState("")
-  const [modalVisible, setModalVisible] = useState(false); 
+  const [regionMapLat, setRegionMapLat] = useState("");
+  const [regionMapLon, setRegionMapLon] = useState("");
+  const [nearParkings,setNearParkings] = useState([]);
+  const [search, setSearch] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalResVisible, setModalResVisible] = useState(false); 
   const [cars, setCars] = useState([]);
+  const [idParking, setIdParking] = useState("");
   const [patent,setPatent] = useState("Select patent");
   const focus = useIsFocused();
+
+  async function getSearchCoords(address){
+    const coordinates = await getCoordinates(address)
+    console.log(`Coordinates search is success. latitude:${coordinates.latitude} longitude:${coordinates.longitude}`);
+    setRegionMapLat(coordinates.latitude)
+    setRegionMapLon(coordinates.longitude)
+    getThisNearParkings(coordinates)
+  }
+  async function getThisNearParkings(coordinates){
+    const nearParkings = await getNearParkings(coordinates)
+    setNearParkings(nearParkings)
+    console.log(nearParkings)
+  }
 
   async function isExistentPatent(){
     const storedPatent = await SecureStore.getItemAsync("patent");
@@ -38,10 +59,11 @@ function HomeScreen({ navigation }) {
         if (status !== 'granted') {
           setErrorMsg('Permission to access location was denied');
         }
-
         let location = await Location.getCurrentPositionAsync({});
-        console.log(location)
+        setRegionMapLat(location.coords.latitude)
+        setRegionMapLon(location.coords.longitude)
         setLocation(location);
+        getThisNearParkings(location.coords)
     })();
     }, []);
     useEffect(() => {
@@ -85,16 +107,32 @@ function HomeScreen({ navigation }) {
         <MapView
             style={{ flex: 1, position: 'relative'}}
             initialRegion={{
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            latitudeDelta: 0.010,
-            longitudeDelta: 0.016
-          }}>
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+              latitudeDelta: 0.010,
+              longitudeDelta: 0.016
+            }}
+            region={{
+              latitude: regionMapLat,
+              longitude: regionMapLon,
+              latitudeDelta: 0.010,
+              longitudeDelta: 0.016
+            }}
+          >
           <MapView.Marker
-                  title="yo"
+                  title="conductor"
                   description="conductor"
-                  coordinate={{"latitude":location.coords.latitude,"longitude":location.coords.longitude}}
-                />
+                  coordinate={{"latitude":regionMapLat,"longitude":regionMapLon}}
+          />
+          {nearParkings.map((item) => 
+                  <MapView.Marker 
+                    key={item.id}
+                    title={"idParking:"+item.id}
+                    description={"cuit: "+item.cuitNumber}
+                    coordinate={{"latitude":item.latitude,"longitude":item.longitude}}
+                    onPress={() => setModalResVisible(!modalResVisible) & setIdParking(item.id)}
+                  />
+          )}
           {/*<MapView.Marker coordinate={{latitude:-34.633190, longitude:-58.455946}}/>*/}
         </MapView>
         <View style={styles.inputView}>
@@ -105,7 +143,7 @@ function HomeScreen({ navigation }) {
             platform="defaullt"
             round="true" 
             lightTheme="true"
-            onSubmitEditing={()=>console.log('busca', search)}
+            onSubmitEditing={()=> getSearchCoords(search)}
           />
           <Badge value={patent} status="primary" onPress={() => setModalVisible(true)} />
         </View>
@@ -130,6 +168,32 @@ function HomeScreen({ navigation }) {
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
                   onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>Close</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalResVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              setModalResVisible(!modalResVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => reserve(idParking) & setModalResVisible(!modalResVisible)}
+                >
+                  <Text style={styles.textStyle}>Reserve</Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalResVisible(!modalResVisible)}
                 >
                   <Text style={styles.textStyle}>Close</Text>
                 </Pressable>
