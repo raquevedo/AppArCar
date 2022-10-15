@@ -223,6 +223,7 @@ services:
       - ./parking_service:/usr/src/parking_service
     networks:
       - kong-net
+      - rabbitmq_net
     depends_on:
       - parkingDb
 

@@ -50,7 +50,7 @@ export class ParkingServiceApplication extends BootMixin(
     this.configure<RabbitmqComponentConfig>(RabbitmqBindings.COMPONENT).to({
       options: {
         protocol: 'amqp',
-        hostname: 'localhost',
+        hostname: 'rabbitmq',
         port: 5672, 
         username: 'guest',
         password: 'guest',

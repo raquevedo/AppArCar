@@ -59,6 +59,7 @@
     "@loopback/service-proxy": "^5.0.3",
     "amqplib": "^0.10.3",
     "loopback-connector-postgresql": "^5.5.1",
+    "loopback-rabbitmq": "^1.1.6-0",
     "node-fetch": "^2.6.6",
     "parse-bearer-token": "^1.0.1",
     "tslib": "^2.0.0"
