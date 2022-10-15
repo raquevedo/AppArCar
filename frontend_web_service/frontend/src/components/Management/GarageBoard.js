@@ -1,13 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react'
-import TimePicker from 'react-time-picker'
+import Hours from "react-hours";
 
 export default function GarageBoard() {
   /* Extracts the ID from the url */
   const { id } = useParams();
   const [toggleState, setToggleState] = useState(1);
-  const [value, onChange] = useState('10:00');
+  const [hour, setHour] = useState('');
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -61,7 +61,9 @@ export default function GarageBoard() {
         }
         { toggleState === 'hours' && 
           <div>
-            'hours'
+            <Hours>
+           <input value={hour} onChange={e => setHour(e.target.value)} /> 
+           </Hours> 
           </div>
         }
         { toggleState === 'settings' && 
