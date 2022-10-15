@@ -12,6 +12,14 @@ import {MySequence} from './sequence';
 import {AuthenticationComponent, registerAuthenticationStrategy} from '@loopback/authentication';
 import { AdministratorStragey } from './strategies/admin.strategy';
 import { JWTAuthenticationComponent } from '@loopback/authentication-jwt';
+import {
+  ConsumersBooter,
+  MessageHandlerErrorBehavior,
+  QueueComponent,
+  RabbitmqBindings,
+  RabbitmqComponent,
+  RabbitmqComponentConfig,
+} from 'loopback-rabbitmq';
 
 export {ApplicationConfig};
 
@@ -37,6 +45,41 @@ export class ParkingServiceApplication extends BootMixin(
     registerAuthenticationStrategy(this, AdministratorStragey);
     this.component(AuthenticationComponent);
 
+    this.configure
+
+    this.configure<RabbitmqComponentConfig>(RabbitmqBindings.COMPONENT).to({
+      options: {
+        protocol: 'amqp',
+        hostname: 'localhost',
+        port: 5672, 
+        username: 'guest',
+        password: 'guest',
+        vhost: '/',
+      },
+      producer:{
+        idleTimeoutMillis: 10000
+      },
+      consumer: {
+        retries: 0, 
+        interval: 1500,
+      },
+      defaultConsumerErrorBehavior: MessageHandlerErrorBehavior.ACK,
+      prefetchCount: 10,
+      exchanges: [
+        {
+          name: '',
+          type: 'direct',
+        }
+      ],
+    });
+
+    this.component(RabbitmqComponent);
+    
+    //Bind classes to listen Events
+  
+    this.booters(ConsumersBooter);
+    this.component(QueueComponent);
+
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
     this.bootOptions = {
@@ -46,6 +89,12 @@ export class ParkingServiceApplication extends BootMixin(
         extensions: ['.controller.js'],
         nested: true,
       },
+      consumers: {
+        dirs: ['consumers'],
+        extensions: ['.consumer.js'],
+        nested: true,
+      }
+      
     };
   }
 }

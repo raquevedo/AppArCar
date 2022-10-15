@@ -1,10 +1,6 @@
 import {
-  Count,
-  CountSchema,
-  Filter,
   FilterExcludingWhere,
   repository,
-  Where,
 } from '@loopback/repository';
 import {
   post,
@@ -20,6 +16,10 @@ import {PkgReservationRepository} from '../repositories';
 import { authenticate } from '@loopback/authentication';
 import { inject } from '@loopback/core';
 import {UserProfile, SecurityBindings} from '@loopback/security';
+import {
+  RabbitmqBindings,
+  RabbitmqProducer,
+} from 'loopback-rabbitmq';
 
 @authenticate('admin')
 export class ReservationController {
@@ -28,6 +28,8 @@ export class ReservationController {
     public currentUserProfile: UserProfile,
     @repository(PkgReservationRepository)
     public pkgReservationRepository : PkgReservationRepository,
+    @inject(RabbitmqBindings.RABBITMQ_PRODUCER)
+    private rabbitmqProducer: RabbitmqProducer
   ) {}
 
   @post('/reservation/create')
@@ -61,8 +63,10 @@ export class ReservationController {
     pkgReservation.sysCreatedAtDttm = Date()
     pkgReservation.sysUpdatedAtDttm = Date()
     
+    let data = await this.pkgReservationRepository.create(pkgReservation)
+    await this.rabbitmqProducer.publish('','reservations',Buffer.from(JSON.stringify(data)),)
 
-    return this.pkgReservationRepository.create(pkgReservation);
+    return data;
   }
 
   @get('/reservation/{id}')
