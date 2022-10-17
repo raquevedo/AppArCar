@@ -33,31 +33,31 @@ export class PkgReservation extends Entity {
   @property({
     type: 'date',
     required: true,
-    postgresql: {columnName: 'created_at_dttm', dataType: 'timestamp without time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {columnName: 'created_at_dttm', dataType: 'timestamp with time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   createdAtDttm: string;
 
   @property({
     type: 'date',
-    postgresql: {columnName: 'expiration_at_dttm', dataType: 'timestamp without time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {columnName: 'expiration_at_dttm', dataType: 'timestamp with time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
   expirationAtDttm?: string;
 
   @property({
     type: 'date',
-    postgresql: {columnName: 'cancelled_at_dttm', dataType: 'timestamp without time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {columnName: 'cancelled_at_dttm', dataType: 'timestamp with time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
   cancelledAtDttm?: string;
 
   @property({
     type: 'date',
-    postgresql: {columnName: 'checkin_at_dttm', dataType: 'timestamp without time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {columnName: 'checkin_at_dttm', dataType: 'timestamp with time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
   checkinAtDttm?: string;
 
   @property({
     type: 'date',
-    postgresql: {columnName: 'checkout_at_dttm', dataType: 'timestamp without time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {columnName: 'checkout_at_dttm', dataType: 'timestamp with time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
   checkoutAtDttm?: string;
 
@@ -91,14 +91,14 @@ export class PkgReservation extends Entity {
   @property({
     type: 'date',
     required: true,
-    postgresql: {columnName: 'sys_created_at_dttm', dataType: 'timestamp without time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {columnName: 'sys_created_at_dttm', dataType: 'timestamp with time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   sysCreatedAtDttm: string;
 
   @property({
     type: 'date',
     required: true,
-    postgresql: {columnName: 'sys_updated_at_dttm', dataType: 'timestamp without time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {columnName: 'sys_updated_at_dttm', dataType: 'timestamp with time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   sysUpdatedAtDttm: string;
 

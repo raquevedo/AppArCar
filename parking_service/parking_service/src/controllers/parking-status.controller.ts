@@ -48,7 +48,7 @@ export class ParkingStatusController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(PkgParkingStatus, {partial: true
-          ,exclude: ['idParking','status','qtyTotalSlots','qtyFreeSlots','qtyBussySlots','qtyReservedSlots','sysCreatedAtDttm','sysUpdatedAtDttm']
+          ,exclude: ['idParking','status','qtyTotalSlots','qtyFreeSlots','qtyBusySlots','qtyReservedSlots','sysCreatedAtDttm','sysUpdatedAtDttm']
         }),
         },
       },
@@ -75,24 +75,24 @@ export class ParkingStatusController {
     let currentStatus = await this.pkgParkingStatusRepository.findById(id);
     if (currentStatus.qtyFreeSlots >= 1 ){
       currentStatus.qtyFreeSlots -= 1
-      currentStatus.qtyBussySlots += 1
+      currentStatus.qtyBusySlots += 1
     } else {
       throw new Error("Parking is full, qtyFreeSlots = 0 ")
     }
     await this.pkgParkingStatusRepository.updateById(id, currentStatus);
   }
 
-  @patch('/parking-status/free-bussy-slot/{id}')
+  @patch('/parking-status/free-busy-slot/{id}')
   @response(204, {
     description: 'PkgParkingStatus PATCH success',
   })
-  async freeBussySlot(
+  async freeBusySlot(
     @param.path.number('id') id: number,
     @requestBody({
       content: {
         'application/json': {
           schema: getModelSchemaRef(PkgParkingStatus, {partial: true
-          ,exclude: ['idParking','status','qtyTotalSlots','qtyBlockedSlots','qtyBussySlots','qtyReservedSlots','sysCreatedAtDttm','sysUpdatedAtDttm']
+          ,exclude: ['idParking','status','qtyTotalSlots','qtyBlockedSlots','qtyBusySlots','qtyReservedSlots','sysCreatedAtDttm','sysUpdatedAtDttm']
         }),
         },
       },
@@ -100,11 +100,11 @@ export class ParkingStatusController {
     pkgParkingStatus: PkgParkingStatus,
   ): Promise<void> {
     let currentStatus = await this.pkgParkingStatusRepository.findById(id);
-    if (currentStatus.qtyBussySlots >= pkgParkingStatus.qtyFreeSlots ){
+    if (currentStatus.qtyBusySlots >= pkgParkingStatus.qtyFreeSlots ){
       currentStatus.qtyFreeSlots += pkgParkingStatus.qtyFreeSlots
-      currentStatus.qtyBussySlots -= pkgParkingStatus.qtyFreeSlots
+      currentStatus.qtyBusySlots -= pkgParkingStatus.qtyFreeSlots
     } else {
-      throw new Error("qtyFreeSlots is grather than qtyBussySlots or qtyBussySlots is 0")
+      throw new Error("qtyFreeSlots is grather than qtyBusySlots or qtyBusySlots is 0")
     }
     await this.pkgParkingStatusRepository.updateById(id, currentStatus);
   }
@@ -119,7 +119,7 @@ export class ParkingStatusController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(PkgParkingStatus, {partial: true
-          ,exclude: ['idParking','status','qtyTotalSlots','qtyBlockedSlots','qtyBussySlots','qtyReservedSlots','sysCreatedAtDttm','sysUpdatedAtDttm']
+          ,exclude: ['idParking','status','qtyTotalSlots','qtyBlockedSlots','qtyBusySlots','qtyReservedSlots','sysCreatedAtDttm','sysUpdatedAtDttm']
         }),
         },
       },

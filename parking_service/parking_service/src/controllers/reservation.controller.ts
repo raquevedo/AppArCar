@@ -1,10 +1,6 @@
 import {
-  Count,
-  CountSchema,
-  Filter,
   FilterExcludingWhere,
-  repository,
-  Where,
+  repository
 } from '@loopback/repository';
 import {
   post,
@@ -16,10 +12,13 @@ import {
   response,
 } from '@loopback/rest';
 import {PkgReservation} from '../models';
-import {PkgReservationRepository} from '../repositories';
+import {PkgReservationRepository, PkgParkingRepository, PkgParkingStatusRepository} from '../repositories';
 import { authenticate } from '@loopback/authentication';
 import { inject } from '@loopback/core';
 import {UserProfile, SecurityBindings} from '@loopback/security';
+import { addHours, diffHours } from '../utils/datetime';
+import { calculateTotalPrice } from '../utils/pricing';
+import { reserveFreeSlot, reservedToBusySlot, busyToFreeSlot, freeReserveSlot } from '../utils/parkingStatus'
 
 @authenticate('admin')
 export class ReservationController {
@@ -28,6 +27,10 @@ export class ReservationController {
     public currentUserProfile: UserProfile,
     @repository(PkgReservationRepository)
     public pkgReservationRepository : PkgReservationRepository,
+    @repository(PkgParkingRepository)
+    public pkgParkingRepository : PkgParkingRepository,
+    @repository(PkgParkingStatusRepository)
+    public pkgParkingStatusRepository: PkgParkingStatusRepository,
   ) {}
 
   @post('/reservation/create')
@@ -49,18 +52,17 @@ export class ReservationController {
     pkgReservation: Omit<PkgReservation, 'id'>,
   ): Promise<PkgReservation> {
 
-    let dt = new Date();
-    
     pkgReservation.idCarDriver = this.currentUserProfile.id!
-    pkgReservation.createdAtDttm = Date()
-    pkgReservation.expirationAtDttm = dt.setHours( dt.getHours() + 1 );
+    pkgReservation.createdAtDttm = Date()    
+    pkgReservation.expirationAtDttm = addHours(pkgReservation.createdAtDttm,1)
     pkgReservation.status = 'created'
     pkgReservation.paymentStatus = 'pending'
     pkgReservation.flgExtended = false 
-    pkgReservation.totalPrice = 200 //TODO Replace by hour price from pkg_parking_settings
+    pkgReservation.totalPrice = (await this.pkgParkingRepository.findById(pkgReservation.idParking)).priceHour
     pkgReservation.sysCreatedAtDttm = Date()
     pkgReservation.sysUpdatedAtDttm = Date()
     
+    await reserveFreeSlot(this.pkgParkingStatusRepository,pkgReservation.idParking)
 
     return this.pkgReservationRepository.create(pkgReservation);
   }
@@ -133,6 +135,9 @@ export class ReservationController {
     pkgReservation.cancelledAtDttm = Date()
     pkgReservation.status = 'cancelled'
     pkgReservation.sysUpdatedAtDttm = Date()
+    let idParking = await (await this.pkgReservationRepository.findById(id)).idParking
+
+    await freeReserveSlot(this.pkgParkingStatusRepository, idParking)
     await this.pkgReservationRepository.updateById(id, pkgReservation);
   }
 
@@ -157,11 +162,13 @@ export class ReservationController {
 
     if(pkgReservation.status != 'expired'){
       
+      let priceHour = (await this.pkgParkingRepository.findById(pkgReservation.idParking)).priceHour
       pkgReservation.status = 'extended'
       pkgReservation.flgExtended = true
-      pkgReservation.totalPrice = 200 + Number(pkgReservation.totalPrice) //TODO replace by hour price from pkg_parking_settings
+      pkgReservation.totalPrice = Number(priceHour) + Number(pkgReservation.totalPrice)
       pkgReservation.sysUpdatedAtDttm = Date()
-      //TODO ADD 1 HOUR TO expirationAtDttm 
+      pkgReservation.expirationAtDttm = String(addHours(String(pkgReservation.expirationAtDttm),1))
+
     }
     
     await this.pkgReservationRepository.updateById(id, pkgReservation);
@@ -184,9 +191,14 @@ export class ReservationController {
     })
     pkgReservation: PkgReservation,
   ): Promise<void> {
+
+    let idParking = await (await this.pkgReservationRepository.findById(id)).idParking
+
     pkgReservation.checkinAtDttm = Date()
     pkgReservation.status = 'parked'
     pkgReservation.sysUpdatedAtDttm = Date()
+    
+    await reservedToBusySlot(this.pkgParkingStatusRepository, idParking)
     await this.pkgReservationRepository.updateById(id, pkgReservation);
   }
 
@@ -207,9 +219,19 @@ export class ReservationController {
     })
     pkgReservation: PkgReservation,
   ): Promise<void> {
+    pkgReservation = await this.pkgReservationRepository.findById(id)
+
     pkgReservation.checkoutAtDttm = Date()
     pkgReservation.sysUpdatedAtDttm = Date()
     pkgReservation.status = 'completed'
+    
+    let pkg = await this.pkgParkingRepository.findById(pkgReservation.idParking)
+    let hours = diffHours(pkgReservation.checkoutAtDttm, String(pkgReservation.expirationAtDttm))
+    let total = calculateTotalPrice(hours, Number(pkg.priceHour), Number(pkg.price_6Hours), Number(pkg.price_12Hours), Number(pkg.price_24Hours))
+    pkgReservation.totalPrice = total + Number(pkgReservation.totalPrice)
+    //TODO SEND EVENT TO PENDING PAYMENTS QUEUE 
+
+    await busyToFreeSlot(this.pkgParkingStatusRepository, pkgReservation.idParking)
     await this.pkgReservationRepository.updateById(id, pkgReservation);
   }
 
