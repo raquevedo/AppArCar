@@ -10,22 +10,12 @@
 }*/
 
 .f-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  flex-flow: wrap;
   background: linear-gradient(#df3ac4ad, #3045ffc4);
 }
 
-.box-forms {
-  justify-content: center;
-  
-  margin-left: -0.9375rem;
-  margin-right: -0.9375rem;
+.init{
+  padding: 0;
+  margin: 0;
 }
-.form {
-  width: calc(50% - 1.875rem);
-  margin-left: 0.9375rem;
-  margin-right: 0.9375rem;
-}
+
+

@@ -7,23 +7,18 @@ import "./index.css";
 function SignIn() {
   const { token, setToken } = useToken();
   return (
-    <div className="f-container">
-    
-        
-        <div className="box-forms">
-         
-            <div className="form">
-              <Login setToken={setToken} />
-            </div>
-          
-          
-            <div className="form">
-              <Register />
-            </div>
-          
+    <div className="grid-container init">
+      <div className="f-container">
+      <div className="grid-x grid-margin-x grid-padding-x">
+        <div className="cell medium-6 small-12">
+          <Login setToken={setToken} />
+        </div>
+        <div className="cell medium-6 small-12">
+          <Register />
         </div>
       </div>
-   
+      </div>
+    </div>
   );
 }
 
