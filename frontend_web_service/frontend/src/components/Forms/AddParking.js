@@ -18,7 +18,7 @@ const schema = yup.object({
   priceMonth: yup.number(),
 })
 
-export default function AddParking({setShowModal}) {
+export default function AddParking(props) {
   const { register, handleSubmit, formState:{ errors } } = useForm({
     mode: 'onTouched',
     resolver: yupResolver(schema)
@@ -37,7 +37,7 @@ export default function AddParking({setShowModal}) {
     const priceWeek = data.priceWeek;
     const priceMonth = data.priceMonth;
 
-    await newParking({
+    const resp = await newParking({
       businessName,
       cuitNumber,
       streetName,
@@ -50,13 +50,18 @@ export default function AddParking({setShowModal}) {
       priceWeek,
       priceMonth
     });
-    setShowModal(false);
+
+    if (resp.status === 200) {
+      props.setShowModal(false);
+      let data = await resp.json();
+      props.setParkingData([...props.parkingData, ...[data]]);
+    }
   }
 
   return(
     <div className='grid-container'>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div class='grid-x align-center grid-padding-x'>
+        <div className='grid-x align-center grid-padding-x'>
           <div className='cell large-6 small-12'>
             <label>Business Name</label>
             <input type="text" {
