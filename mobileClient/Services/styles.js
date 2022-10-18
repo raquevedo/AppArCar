@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Alert, Dimensions } from "react-native";
 
 
+
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
@@ -133,8 +134,9 @@ const styles = StyleSheet.create({
     fontFamily: "LicensePlate",
     backgroundColor: "black",
     borderColor: "black",
+    color: "white",
     borderWidth: 3,
-    fontSize: 20,
+    fontSize: 30,
     
   },
   
@@ -247,6 +249,7 @@ const styles = StyleSheet.create({
     alignItems: "center", 
   },
   dropdown: {
+    
     width: 210,
     height: 50,
     borderBottomColor: 'gray',
@@ -362,6 +365,14 @@ const styles = StyleSheet.create({
     modalText: {
         marginBottom: 15,
         textAlign: "center"
+    },
+    placeholderStyles: {
+      color: "grey",
+    },
+    dropdownGender: {
+      marginHorizontal: 10,
+      width: "50%",
+      marginBottom: 15,
     },
 });
 export default styles;

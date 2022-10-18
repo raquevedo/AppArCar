@@ -42,10 +42,12 @@ function Profile({ navigation }) {
     setGender(respData.gender);
     console.log(respData);
   };
+
+  const [isFocus, setIsFocus] = React.useState(false);
   const data = [
-    { label: "Masculino", value: "1" },
-    { label: "Femenino", value: "2" },
-    { label: "Indefinido", value: "3" },
+    { label: "Masculino", value: "Masculino" },
+    { label: "Femenino", value: "Femenino" },
+    { label: "Indefinido", value: "Indefinido" },
   ];
   React.useEffect(() => {
     loadDataOnlyOnce();
@@ -96,21 +98,22 @@ function Profile({ navigation }) {
             left={<TextInput.Icon icon="phone" />}
           />
           <Dropdown
-            style={styles.dropdown}
+            style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
             placeholderStyle={styles.placeholderStyle}
             selectedTextStyle={styles.selectedTextStyle}
             inputSearchStyle={styles.inputSearchStyle}
             iconStyle={styles.iconStyle}
+            labelField="label"
             valueField="value"
             label="Genero"
             data={data}
-            search
-            labelField="label"
             placeholder="Seleccione Genero"
-            searchPlaceholder="Search..."
             value={gender}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
             onChange={(item) => {
-              setGender(item.label);
+              setGender(item.value);
+              setIsFocus(false);
             }}
           />
 

@@ -45,10 +45,11 @@ function FormReg({ navigation }) {
   const { register } = React.useContext(AuthContext);
   const { signOut } = React.useContext(AuthContext);
 
+  const [isFocus, setIsFocus] = React.useState(false);
   const data = [
-    { label: "Masculino", value: "1" },
-    { label: "Femenino", value: "2" },
-    { label: "Indefinido", value: "3" },
+    { label: "Masculino", value: "Masculino" },
+    { label: "Femenino", value: "Femenino" },
+    { label: "Indefinido", value: "Indefinido" },
   ];
   return (
     <ScrollView style={{ flex: 1 }}>
@@ -89,32 +90,33 @@ function FormReg({ navigation }) {
           />
 
           <Dropdown
-            style={styles.dropdown}
+            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
             placeholderStyle={styles.placeholderStyle}
             selectedTextStyle={styles.selectedTextStyle}
             inputSearchStyle={styles.inputSearchStyle}
             iconStyle={styles.iconStyle}
+            labelField="label"
             valueField="value"
             label="Genero"
             data={data}
-            search
-            labelField="label"
             placeholder="Seleccione Genero"
-            searchPlaceholder="Search..."
             value={gender}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
             onChange={(item) => {
-              setGender(item.label);
+              setGender(item.value);
+              setIsFocus(false);
             }}
           />
           <TouchableOpacity
             style={styles.containButtonStyleDate}
             onPress={showDatePicker}
           >
-            
-              <Text style={styles.textDate}>{`${
-            birthDateDt ? moment(birthDateDt).format("MM/DD/YYYY") : "Fecha de Nacimiento"
-          }`}</Text>
-           
+            <Text style={styles.textDate}>{`${
+              birthDateDt
+                ? moment(birthDateDt).format("MM/DD/YYYY")
+                : "Fecha de Nacimiento"
+            }`}</Text>
           </TouchableOpacity>
           <DatePicker
             isVisible={isDatePickerVisible}

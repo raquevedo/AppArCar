@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Button, ScrollView, Text, TouchableOpacity } from "react-native";
+import { View, Button, ScrollView, Text, TouchableOpacity,Image } from "react-native";
 import { GetUserInfo } from "../../Services/requests";
 import { LinearGradient } from "expo-linear-gradient";
 import { DeleteCar, GetCars, UpdateCar } from "../controllers/car_controller";
@@ -35,7 +35,7 @@ function EditCar({ route, navigation }) {
   return (
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
-        <View style={styles.space}></View>
+      <Image source={require("../../assets/logo.png")} style={styles.image} />
         <View style={styles.sectionLong}>
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>

@@ -1,5 +1,5 @@
 import {useContext, useState, useEffect} from "react";
-import { StyleSheet, View, Text, Modal, Pressable } from "react-native";
+import { StyleSheet, View, Text, Modal, Pressable,TouchableOpacity } from "react-native";
 import { AuthContext } from "../../Services/context";
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -9,13 +9,14 @@ import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
 import styles from "../../Services/styles";
 
+
 function HomeScreen({ navigation }) {
   //const { signOut } = useContext(AuthContext);
   const [location, setLocation] = useState(null);
   const [search, setSearch] = useState("")
   const [modalVisible, setModalVisible] = useState(false); 
   const [cars, setCars] = useState([]);
-  const [patent,setPatent] = useState("Select patent");
+  const [patent,setPatent] = useState("Add car");
   const focus = useIsFocused();
 
   async function isExistentPatent(){
@@ -65,7 +66,7 @@ function HomeScreen({ navigation }) {
         if(storedPatent != null && validPatent){
           setPatent(storedPatent);
         }else{
-          setPatent('Select patent');
+          setPatent('Add car');
         }
       };
       validatePatent();
@@ -109,8 +110,9 @@ function HomeScreen({ navigation }) {
             containerStyle={{height: 70, width:400}}
             onSubmitEditing={()=>console.log('busca', search)}
           />
-          
-          <Badge textStyle={styles.textPatent} containerStyle={styles.buttonPatent} value={patent} status="primary" onPress={() => setModalVisible(true)} />
+          <TouchableOpacity style={styles.buttonPatent} onPress={() => setModalVisible(true)}>
+            <Text style={styles.textPatent}>{patent}</Text>
+          </TouchableOpacity>
           
         </View>
         <View style={styles.centeredView}>
