@@ -232,7 +232,7 @@ export class ReservationController {
     let hours = diffHours(pkgReservation.checkoutAtDttm, String(pkgReservation.expirationAtDttm))
     let total = calculateTotalPrice(hours, Number(pkg.priceHour), Number(pkg.price_6Hours), Number(pkg.price_12Hours), Number(pkg.price_24Hours))
     pkgReservation.totalPrice = total + Number(pkgReservation.totalPrice)
-    
+
     await busyToFreeSlot(this.pkgParkingStatusRepository, pkgReservation.idParking)
     await this.pkgReservationRepository.updateById(id, pkgReservation);
     publishMessageIntoQueue(Buffer.from(JSON.stringify(pkgReservation)), 'pendingPayments')

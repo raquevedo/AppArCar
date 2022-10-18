@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import NoticeModal from '../NoticeModal/NoticeModal';
+import NoticeModal from '../Shared/NoticeModal';
 
 async function registerUser(credentials) {
   return fetch('http://localhost:8000/auth/signup', {
