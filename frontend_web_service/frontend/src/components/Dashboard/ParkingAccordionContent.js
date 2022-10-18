@@ -17,7 +17,7 @@ export default function ParkingAccordionContent(props) {
           Reserved slots: {props.garage.status.qtyReservedSlots}
         </div>
         <div className='cell small-3'>
-          Busy slots: {props.garage.status.qtyBussySlots}
+          Busy slots: {props.garage.status.qtyBusySlots}
         </div>
         <div className='cell small-3'>
           <Link classname='button' to={`manage/${props.garage.parkingInfo.id}`}>

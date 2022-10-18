@@ -44,9 +44,9 @@ export class PkgParkingStatus extends Entity {
     type: 'number',
     required: true,
     scale: 0,
-    postgresql: {columnName: 'qty_bussy_slots', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
+    postgresql: {columnName: 'qty_busy_slots', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
   })
-  qtyBussySlots: number;
+  qtyBusySlots: number;
 
   @property({
     type: 'number',

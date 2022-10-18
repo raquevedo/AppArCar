@@ -14,8 +14,8 @@ CREATE table if not exists public.pkg_parking (
     price_24_hours float, 
     price_week float, 
     price_month float,
-    sys_created_at_dttm timestamp NOT NULL,
-    sys_updated_at_dttm timestamp NOT NULL,
+    sys_created_at_dttm timestamptz NOT NULL,
+    sys_updated_at_dttm timestamptz NOT NULL,
   CONSTRAINT parking_id_pkey PRIMARY KEY (id)
 );
 
@@ -35,8 +35,8 @@ CREATE table if not exists public.pkg_parking_settings (
     end_saturday time,
     start_sunday time,
     end_sunday time,
-    sys_created_at_dttm timestamp NOT NULL,
-    sys_updated_at_dttm timestamp NOT NULL,
+    sys_created_at_dttm timestamptz NOT NULL,
+    sys_updated_at_dttm timestamptz NOT NULL,
   CONSTRAINT pkg_settings_parking_id_pkey PRIMARY KEY (id_parking)
 );
 
@@ -45,11 +45,11 @@ CREATE table if not exists public.pkg_parking_status (
     status varchar(50) NOT NULL,
     qty_total_slots integer NOT NULL ,
     qty_free_slots integer NOT NULL, 
-    qty_bussy_slots integer NOT NULL,
+    qty_busy_slots integer NOT NULL,
     qty_reserved_slots integer NOT NULL,
     qty_blocked_slots integer NOT NULL, 
-    sys_created_at_dttm timestamp NOT NULL,
-    sys_updated_at_dttm timestamp NOT NULL,
+    sys_created_at_dttm timestamptz NOT NULL,
+    sys_updated_at_dttm timestamptz NOT NULL,
   CONSTRAINT id_parking_pkey PRIMARY KEY (id_parking)
 );
 
@@ -57,34 +57,34 @@ CREATE table if not exists public.pkg_parking_status (
 CREATE INDEX IF NOT EXISTS parking_status_idx ON public.pkg_parking_status USING btree (status);
 
 
-CREATE table if not exists public.pkg_reservation (
-    id integer generated always as identity,
-    id_car_driver integer NOT NULL,
-    id_parking integer NOT null,
-    created_at_dttm timestamp not null, 
-    expiration_at_dttm timestamp,
-    cancelled_at_dttm timestamp,
-    checkin_at_dttm timestamp,
-    checkout_at_dttm timestamp,
-    status varchar(25),
-    payment_status varchar(25),
-    flg_extended bool,
-    total_price float,
-    sys_created_at_dttm timestamp NOT NULL,
-    sys_updated_at_dttm timestamp NOT NULL,
-  CONSTRAINT reservation_id_pkey PRIMARY KEY (id)
+CREATE TABLE public.pkg_reservation (
+	id int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
+	id_car_driver int4 NOT NULL,
+	id_parking int4 NOT NULL,
+	created_at_dttm timestamptz NOT NULL,
+	expiration_at_dttm timestamptz NULL,
+	cancelled_at_dttm timestamptz NULL,
+	checkin_at_dttm timestamptz NULL,
+	checkout_at_dttm timestamptz NULL,
+	status varchar(25) NULL,
+	payment_status varchar(25) NULL,
+	flg_extended bool NULL,
+	total_price float8 NULL,
+	sys_created_at_dttm timestamptz NOT NULL,
+	sys_updated_at_dttm timestamptz NOT NULL,
+	CONSTRAINT reservation_id_pkey PRIMARY KEY (id)
 );
 
-CREATE INDEX IF NOT EXISTS reservation_driver_idx ON public."pkg_reservation" USING btree (id_car_driver);
-CREATE INDEX IF NOT EXISTS reservation_parking_idx ON public."pkg_reservation" USING btree (id_parking);
+CREATE INDEX reservation_driver_idx ON public.pkg_reservation USING btree (id_car_driver);
+CREATE INDEX reservation_parking_idx ON public.pkg_reservation USING btree (id_parking);
 
 CREATE table if not exists public.pkg_parking_users (
     id integer generated always as identity,
     id_parking integer,
     id_parking_user integer,
     user_role VARCHAR(50), 
-    sys_created_at_dttm timestamp NOT NULL,
-    sys_updated_at_dttm timestamp NOT NULL,
+    sys_created_at_dttm timestamptz NOT NULL,
+    sys_updated_at_dttm timestamptz NOT NULL,
   CONSTRAINT parking_user_id_pkey PRIMARY KEY (id)
 );
 CREATE INDEX IF NOT EXISTS pu_parking_user_idx ON public."pkg_parking_users" USING btree (id_parking_user);
