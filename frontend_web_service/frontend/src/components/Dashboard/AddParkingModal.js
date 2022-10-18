@@ -1,5 +1,5 @@
 import React from "react";
-import AddParking from "../AddParking/AddParking";
+import AddParking from "../Forms/AddParking";
 
 function AddParkingModal(props) {
   const handleClose = () => {
