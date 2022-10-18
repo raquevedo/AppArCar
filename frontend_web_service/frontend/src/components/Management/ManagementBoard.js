@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react'
+import Settings from '../Forms/Settings';
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
@@ -63,7 +64,7 @@ export default function ManagementBoard() {
         }
         { toggleState === 'settings' && 
           <div>
-            'settings'
+            <Settings/>
           </div>
         }
         { toggleState === 'status' && 
