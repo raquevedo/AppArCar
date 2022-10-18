@@ -1,11 +1,37 @@
 import React from 'react';
 import { useState } from 'react'
 import Settings from '../Forms/Settings';
+import Switch from 'react-switch';
+import styled from 'styled-components';
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
   const [toggleState, setToggleState] = useState(1);
+  const Button1 = styled.button`
+  background-color: green;
+  color: white;
+  font-size: 20px;
+  padding: 10px 60px;
+  border-radius: 20px;
+  margin: 10px 60px;
+  cursor: pointer;
+  margin-left: 30%;
+  margin-bottom: 50%;
+`;
+const Button2 = styled.button`
+background-color: red;
+color: white;
+font-size: 20px;
+padding: 10px 60px;
+border-radius: 20px;
+margin: 10px 0px;
+cursor: pointer;
+`;
 
+
+    
+
+  
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -69,7 +95,8 @@ export default function ManagementBoard() {
         }
         { toggleState === 'status' && 
           <div>
-            'status'
+            <Button1>Set Parking Active</Button1>
+            <Button2>Set Parking Inactive</Button2>
           </div>
         }
         </div>

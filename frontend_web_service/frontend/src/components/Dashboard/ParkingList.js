@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import AddParkingModal from './AddParkingModal';
 import ParkingAccordion from './ParkingAccordion';
 
-const Button = styled.button`
+export const Button = styled.button`
 background-color: green;
 color: white;
 font-size: 20px;
