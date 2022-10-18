@@ -7,7 +7,7 @@ import "./index.css";
 function SignIn() {
   const { token, setToken } = useToken();
   return (
-    <div className="grid-container init">
+    <div className="grid-container">
       <div className="f-container">
       <div className="grid-x grid-margin-x grid-padding-x">
         <div className="cell medium-6 small-12">

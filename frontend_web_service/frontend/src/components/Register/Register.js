@@ -30,24 +30,28 @@ export default function Register() {
     <div className="login-box">
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          <p>Email</p>
-          <input type="text" onChange={e => setEmail(e.target.value)}/>
-        </label>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={e => setUsername(e.target.value)}/>
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)}/>
-        </label>
-        <label>
-          <p>Confirm Password</p>
+       
+        <div class="user-box">
+          <input type="text" onChange={(e) => setEmail(e.target.value)} />
+          <label>Email</label>
+        </div>
+        <div class="user-box">
+          <input type="text" onChange={(e) => setUsername(e.target.value)} />
+          <label>Username</label>
+        </div>
+        <div class="user-box">
+          <input type="text" onChange={(e) => setPassword(e.target.value)} />
+          <label>Password</label>
+        </div>
+        <div class="user-box">
           <input type="password" />
-        </label>
+          <label>Confirm Password</label>
+        </div>
+        
         <div>
-          <button type="submit" className="button">Submit</button>
+          <button type="submit" class="bn632-hover bn24">
+            Register
+          </button>
         </div>
       </form>
     </div>

@@ -14,7 +14,7 @@ function App() {
         <div className='cell small-12'>
           <Navbar />
         </div>
-        <div className='cell medium-6'>
+        <div className='cell'>
             <Routes>
               <Route path='/' element={<Homepage />} />
               <Route path='signin' element={<SignIn />} />
