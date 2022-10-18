@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Dashboard from '../Dashboard/Dashboard';
-import ProfileSetup from '../ProfileSetup/ProfileSetup';
+import Dashboard from './Dashboard';
+import ProfileSetup from './ProfileSetup';
 import { getPartnerData }  from '../../controllers/usersController';
 
 export default function DashboardWrapper() {
