@@ -234,17 +234,17 @@ export default function App({ navigation }) {
                     <Stack.Screen
                       name="Cars"
                       component={Cars}
-                      options={{ headerShown: false }}
+                      
                     />
                     <Stack.Screen
                       name="AddCar"
                       component={AddCar}
-                      options={{ headerShown: false }}
+                      
                     />
                     <Stack.Screen
                       name="EditCar"
                       component={EditCar}
-                      options={{ headerShown: false }}
+                      
                     />
                   </>
                 ) : (

@@ -32,7 +32,7 @@ function NavBar() {
     <View style={{ flex: 1 }}>
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} />}
-        screenOptions={{headerTintColor: '#FFFFFF'}}
+        
       >
         <Drawer.Screen name="Home" component={HomeScreen}/>
         <Drawer.Screen name="Cars" component={Cars} />
