@@ -19,6 +19,7 @@ import {UserProfile, SecurityBindings} from '@loopback/security';
 import { addHours, diffHours } from '../utils/datetime';
 import { calculateTotalPrice } from '../utils/pricing';
 import { reserveFreeSlot, reservedToBusySlot, busyToFreeSlot, freeReserveSlot } from '../utils/parkingStatus'
+import { publishMessageIntoQueue } from '../utils/queue'
 
 @authenticate('admin')
 export class ReservationController {
@@ -63,8 +64,10 @@ export class ReservationController {
     pkgReservation.sysUpdatedAtDttm = Date()
     
     await reserveFreeSlot(this.pkgParkingStatusRepository,pkgReservation.idParking)
+    let data = await this.pkgReservationRepository.create(pkgReservation)
+    publishMessageIntoQueue(Buffer.from(JSON.stringify(data)), 'reservations')
 
-    return this.pkgReservationRepository.create(pkgReservation);
+    return data
   }
 
   @get('/reservation/{id}')
@@ -229,10 +232,10 @@ export class ReservationController {
     let hours = diffHours(pkgReservation.checkoutAtDttm, String(pkgReservation.expirationAtDttm))
     let total = calculateTotalPrice(hours, Number(pkg.priceHour), Number(pkg.price_6Hours), Number(pkg.price_12Hours), Number(pkg.price_24Hours))
     pkgReservation.totalPrice = total + Number(pkgReservation.totalPrice)
-    //TODO SEND EVENT TO PENDING PAYMENTS QUEUE 
-
+    
     await busyToFreeSlot(this.pkgParkingStatusRepository, pkgReservation.idParking)
     await this.pkgReservationRepository.updateById(id, pkgReservation);
+    publishMessageIntoQueue(Buffer.from(JSON.stringify(pkgReservation)), 'pendingPayments')
   }
 
 }
