@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { registerUser, updateUser } from '../../controllers/usersController';
 import { get } from '../../utils/dictGet';
 
+
 export default function Settings({ setIsRegistered, values, buttonText, newUser }) {
   if (values === undefined) {
     values = {};
@@ -12,6 +13,7 @@ export default function Settings({ setIsRegistered, values, buttonText, newUser 
   if (newUser === undefined) {
     newUser = false;
   }
+
 
   const [businessName, setBusinessName] = useState(get(values, 'businessName', ''));
   const [cuitNumber, setCuitNumber] = useState(values['cuitNumber'] ?? '');

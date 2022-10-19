@@ -102,12 +102,3 @@ body{
   transform: translate(-50%,-50%);
 }
 
-.react-switch {
-    vertical-align: middle;
-    margin-left: 1000px;
-    zoom: 1000;
-  }
-.titleSwitch{
-    left: 20px;
-    right: 30px;
-}
