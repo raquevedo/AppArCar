@@ -1,5 +1,12 @@
 import * as React from "react";
-import { View, Button, ScrollView, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  Button,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { GetUserInfo } from "../../Services/requests";
 import { PersistProfile } from "../controllers/profile_controller";
 import { LinearGradient } from "expo-linear-gradient";
@@ -42,10 +49,12 @@ function Profile({ navigation }) {
     setGender(respData.gender);
     console.log(respData);
   };
+
+  const [isFocus, setIsFocus] = React.useState(false);
   const data = [
-    { label: "Masculino", value: "1" },
-    { label: "Femenino", value: "2" },
-    { label: "Indefinido", value: "3" },
+    { label: "Masculino", value: "Masculino" },
+    { label: "Femenino", value: "Femenino" },
+    { label: "Indefinido", value: "Indefinido" },
   ];
   React.useEffect(() => {
     loadDataOnlyOnce();
@@ -54,7 +63,8 @@ function Profile({ navigation }) {
   return (
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
-        <View style={styles.space}></View>
+        <Image source={require("../../assets/logo.png")} style={styles.image} />
+
         <View style={styles.sectionLong}>
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>Perfil</Text>
@@ -79,40 +89,7 @@ function Profile({ navigation }) {
             style={styles.text}
             left={<TextInput.Icon icon="book" />}
           />
-          <Dropdown
-            style={styles.dropdown}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
-            valueField="value"
-            label="Genero"
-            data={data}
-            search
-            labelField="label"
-            placeholder="Seleccione Genero"
-            searchPlaceholder="Search..."
-            value={gender}
-            onChange={(item) => {
-              setGender(item.label);
-            }}
-          />
-          <Text>{`Date:  ${
-            birthDateDt ? moment(birthDateDt).format("MM/DD/YYYY") : "--/--/--"
-          }`}</Text>
-          <TouchableOpacity
-            style={styles.containButtonStylel}
-            onPress={showDatePicker}
-          >
-            <LinearGradient
-              start={{ x: 0, y: 1 }}
-              end={{ x: 0, y: 0 }}
-              colors={["#df3ac4", "#3043ff"]}
-              style={styles.buttonStylel}
-            >
-              <Text style={styles.textDate}>Fecha de Nacimiento</Text>
-            </LinearGradient>
-          </TouchableOpacity>
+
           <DatePicker
             isVisible={isDatePickerVisible}
             mode="date"
@@ -127,6 +104,36 @@ function Profile({ navigation }) {
             style={styles.text}
             left={<TextInput.Icon icon="phone" />}
           />
+          <Dropdown
+            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            iconStyle={styles.iconStyle}
+            labelField="label"
+            valueField="value"
+            label="Genero"
+            data={data}
+            placeholder="Seleccione Genero"
+            value={gender}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={(item) => {
+              setGender(item.value);
+              setIsFocus(false);
+            }}
+          />
+
+          <TouchableOpacity
+            style={styles.containButtonStyleDate}
+            onPress={showDatePicker}
+          >
+            <Text style={styles.textDate}>{`${
+              birthDateDt
+                ? moment(birthDateDt).format("MM/DD/YYYY")
+                : "Fecha de Nacimiento"
+            }`}</Text>
+          </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.containButtonStylel}
