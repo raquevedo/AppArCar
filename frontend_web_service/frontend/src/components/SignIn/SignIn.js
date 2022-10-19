@@ -3,6 +3,7 @@ import Login from './Login';
 import Register from './Register';
 import useToken from '../../utils/useToken';
 import { Navigate, useLocation } from 'react-router-dom';
+import logo from '../../assets/img/logo p.png'
 
 function SignIn() {
   let location = useLocation();
@@ -13,14 +14,16 @@ function SignIn() {
   }
   return (
     <div className='grid-container'>
-      <div className='grid-x grid-margin-x grid-padding-x'>
-        <div className='cell medium-6 small-12'>
+      <div className='gasper'>Gasper</div>
+      <div className='grid-x grid-margin-x grid-padding-x grid-margin-y grid-padding-y'>
+        <div className='cell large-6 medium-12'>
           <Login setToken={setToken} />
         </div>
-        <div className='cell medium-6 small-12'>
+        <div className='cell large-6 medium-12'>
           <Register />
         </div>
       </div>
+      <div className='gasper'>Gasper</div>
     </div>
   );
 } 
