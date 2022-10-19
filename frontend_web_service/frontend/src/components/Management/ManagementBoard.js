@@ -6,6 +6,8 @@ import TextCard from './TotalSlots';
 import TotalSlots from './TotalSlots';
 import AvailableSlots from './AvailableSlots';
 import OccupiedSlots from './OccupiedSlots';
+import BookedSlots from './BookedSlots';
+import BlockedSlots from './BlockedSlots';
 
 
 export default function ManagementBoard() {
@@ -103,6 +105,8 @@ export default function ManagementBoard() {
             <TotalSlots/>
             <AvailableSlots/>
             <OccupiedSlots/>
+            <BookedSlots/>
+            <BlockedSlots/>
           </div>
         }
         </div>

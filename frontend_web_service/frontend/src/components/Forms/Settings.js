@@ -58,7 +58,7 @@ export default function Settings({ setIsRegistered, values, buttonText, newUser 
     <form onSubmit={handleSubmit}>
       <label>
         <p>Business Name</p>
-        <input type="text" value={businessName} onChange={e => setBusinessName(e.target.value)}/>
+        <input type="text" size='sm' value={businessName} onChange={e => setBusinessName(e.target.value)}/>
       </label>
       <label>
         <p>CUIT</p>
