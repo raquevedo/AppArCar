@@ -2,6 +2,10 @@ import React from 'react';
 import { useState } from 'react'
 import Settings from '../Forms/Settings';
 import styled from 'styled-components';
+import TextCard from './TotalSlots';
+import TotalSlots from './TotalSlots';
+import AvailableSlots from './AvailableSlots';
+import OccupiedSlots from './OccupiedSlots';
 
 
 export default function ManagementBoard() {
@@ -96,6 +100,9 @@ export default function ManagementBoard() {
           <div>
             <Button1>Set Parking Active</Button1>
             <Button2>Set Parking Inactive</Button2>
+            <TotalSlots/>
+            <AvailableSlots/>
+            <OccupiedSlots/>
           </div>
         }
         </div>

@@ -6,7 +6,6 @@ import SignIn from '../SignIn/SignIn';
 import DashboardWrapper from '../Dashboard/DashboardWrapper';
 import Navbar from '../Shared/Navbar';
 
-
 function App() {
   return (
     <BrowserRouter>
