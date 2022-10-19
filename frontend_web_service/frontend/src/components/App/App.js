@@ -5,6 +5,7 @@ import Homepage from '../Homepage/Homepage';
 import SignIn from '../SignIn/SignIn';
 import DashboardWrapper from '../DashboardWrapper/DashboardWrapper';
 import Navbar from '../Navbar/Navbar';
+import AboutUs from '../AboutUs/AboutUs';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <div className='cell'>
             <Routes>
               <Route path='/' element={<Homepage />} />
+              <Route path='aboutus' element={<AboutUs/>}/>
               <Route path='signin' element={<SignIn />} />
               <Route
                 path='dashboard/*'
