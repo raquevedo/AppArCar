@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Cover from "../Cover/index";
-import "./index.css";
+import "../../index.css";
 
 function Homepage() {
   return (

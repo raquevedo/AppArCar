@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/img/logo solo.png";
-import "./index.css";
+import "../../index.css";
 
 const Navbar = ({ isScrolling }) => {
   const toTheTop = () => {

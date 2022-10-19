@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css';
 import { useLocation, BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Homepage from '../Homepage/Homepage';
-import SignIn from '../SignIn/SignIn';
 import DashboardWrapper from '../DashboardWrapper/DashboardWrapper';
 import Navbar from '../Navbar/Navbar';
+import Lobby from '../Lobby/Lobby';
 
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
         <div className='cell'>
             <Routes>
               <Route path='/' element={<Homepage />} />
-              <Route path='signin' element={<SignIn />} />
+              <Route path='signin' element={<Lobby />} />
               <Route
                 path='dashboard/*'
                 element={

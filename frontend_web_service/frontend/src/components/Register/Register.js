@@ -28,7 +28,7 @@ export default function Register() {
 
   return(
     <div className="login-box">
-      <h1>Register</h1>
+      <h1 className="text-form">Register</h1>
       <form onSubmit={handleSubmit}>
        
         <div class="user-box">
@@ -40,7 +40,7 @@ export default function Register() {
           <label>Username</label>
         </div>
         <div class="user-box">
-          <input type="text" onChange={(e) => setPassword(e.target.value)} />
+          <input type="password" onChange={(e) => setPassword(e.target.value)} />
           <label>Password</label>
         </div>
         <div class="user-box">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import "./index.css";
+import "../../index.css";
 
 async function loginUser(credentials) {
   return fetch("http://0.0.0.0:8000/auth/users/login", {
@@ -30,19 +30,19 @@ export default function Login({ setToken }) {
 
   return (
     <div className="login-box">
-      <h1>Log In</h1>
+      <h1 className="text-form">Log In</h1>
       <form onSubmit={handleSubmit}>
         <div class="user-box">
           <input type="text" onChange={(e) => setEmail(e.target.value)} />
           <label>Username</label>
         </div>
         <div class="user-box">
-          <input type="text" onChange={(e) => setPassword(e.target.value)} />
+          <input type="password" onChange={(e) => setPassword(e.target.value)} />
           <label>Password</label>
         </div>
         <div>
           <button type="submit" class="bn632-hover bn24">
-            Submit
+            Login
           </button>
         </div>
       </form>
