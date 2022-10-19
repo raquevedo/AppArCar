@@ -84,7 +84,7 @@ export class ParkingController {
     pkgParkingStatus.status = 'active'
     pkgParkingStatus.qtyTotalSlots = currentParking.qtyTotalSlots
     pkgParkingStatus.qtyFreeSlots = currentParking.qtyTotalSlots
-    pkgParkingStatus.qtyBussySlots = 0
+    pkgParkingStatus.qtyBusySlots = 0
     pkgParkingStatus.qtyReservedSlots = 0
     pkgParkingStatus.qtyBlockedSlots =  0
     pkgParkingStatus.sysCreatedAtDttm = Date()

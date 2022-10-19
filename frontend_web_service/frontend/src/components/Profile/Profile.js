@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getPartnerData } from '../../controllers/usersController';
-import UserForm from '../UserForm/UserForm';
+import UserForm from '../Forms/UserForm';
 
 export default function Profile() {
   const [partnerData, setPartnerData] = useState({});

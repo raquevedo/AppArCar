@@ -3,9 +3,8 @@ import './App.css';
 import { useLocation, BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Homepage from '../Homepage/Homepage';
 import SignIn from '../SignIn/SignIn';
-import DashboardWrapper from '../DashboardWrapper/DashboardWrapper';
-import Navbar from '../Navbar/Navbar';
-import AboutUs from '../AboutUs/AboutUs';
+import DashboardWrapper from '../Dashboard/DashboardWrapper';
+import Navbar from '../Shared/Navbar';
 
 
 function App() {

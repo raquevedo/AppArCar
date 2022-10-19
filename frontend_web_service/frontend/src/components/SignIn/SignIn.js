@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from '../Login/Login';
-import Register from '../Register/Register';
+import Login from './Login';
+import Register from './Register';
 import useToken from '../../utils/useToken';
 import { Navigate, useLocation } from 'react-router-dom';
 
