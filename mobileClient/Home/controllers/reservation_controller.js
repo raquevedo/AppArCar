@@ -10,6 +10,7 @@ import host_instance from '../../host_instance.json';
         'idParking':parseInt(idParking)
     }
     fetchData.headers={
+        'accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization':'Bearer '+userToken
     }
