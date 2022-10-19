@@ -2,12 +2,12 @@ import React from 'react';
 import { useState } from 'react'
 import Settings from '../Forms/Settings';
 import styled from 'styled-components';
-import TextCard from './TotalSlots';
 import TotalSlots from './TotalSlots';
 import AvailableSlots from './AvailableSlots';
 import OccupiedSlots from './OccupiedSlots';
 import BookedSlots from './BookedSlots';
 import BlockedSlots from './BlockedSlots';
+import Hours from './Hours';
 
 
 export default function ManagementBoard() {
@@ -90,7 +90,7 @@ export default function ManagementBoard() {
         }
         { toggleState === 'hours' && 
           <div>
-          'hours'
+          <Hours/>
         </div>
         }
         { toggleState === 'settings' && 
