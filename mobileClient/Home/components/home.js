@@ -181,8 +181,7 @@ function HomeScreen({ navigation }) {
             round="true" 
             lightTheme="true"
             onSubmitEditing={()=> getSearchCoords(search)}
-            containerStyle={{height: 70, width:400} 
-          />
+            containerStyle={{height: 70, width:400}} />
           <TouchableOpacity style={styles.buttonPatent} onPress={() => setModalVisible(true)}>
             <Text style={styles.textPatent}>{patent}</Text>
           </TouchableOpacity>
