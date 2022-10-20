@@ -1,5 +1,12 @@
 import * as React from "react";
-import { View, Button, ScrollView, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  Button,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { GetUserInfo } from "../../Services/requests";
 import styles from "../../Services/styles";
 import { PersistCar } from "../controllers/car_controller";
@@ -16,7 +23,8 @@ function AddCar({ navigation }) {
   return (
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
-      <View style={styles.space}></View>
+        <Image source={require("../../assets/logo.png")} style={styles.image} />
+
         <View style={styles.sectionLong}>
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>
@@ -55,8 +63,13 @@ function AddCar({ navigation }) {
           <TouchableOpacity
             style={styles.containButtonStylel}
             onPress={async () =>
-              await PersistCar({ patentId, brand, model, color, productionYear }) &
-              navigation.goBack()
+              (await PersistCar({
+                patentId,
+                brand,
+                model,
+                color,
+                productionYear,
+              })) & navigation.goBack()
             }
           >
             <LinearGradient

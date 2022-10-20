@@ -1,5 +1,5 @@
 import {useContext, useState, useEffect, useCallback} from "react";
-import { StyleSheet, View, Text, Modal, Pressable, Button } from "react-native";
+import { StyleSheet, View, Text, Modal, Pressable, Button, TouchableOpacity } from "react-native";
 import { AuthContext } from "../../Services/context";
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -10,6 +10,7 @@ import * as SecureStore from "expo-secure-store";
 import host_instance from '../../host_instance.json';
 import { getCoordinates, getNearParkings } from "../controllers/map_controller";
 import {ModalPatent, ModalReserve} from "./mapModals";
+import styles from "../../Services/styles";
 
 function HomeScreen({ navigation }) {
   //const { signOut } = useContext(AuthContext);
@@ -23,6 +24,7 @@ function HomeScreen({ navigation }) {
   const [cars, setCars] = useState([]);
   const [idParking, setIdParking] = useState("");
   const [patent,setPatent] = useState("Select patent");
+
   const focus = useIsFocused();
 
   const wrapperSetModalState = useCallback(val => {
@@ -74,6 +76,32 @@ function HomeScreen({ navigation }) {
         getThisNearParkings(location.coords)
     })();
   }, []);
+
+    useEffect(() => {
+      console.log(focus);
+      const getCars = async () => {
+        const response = await GetCars();
+        const resData = await response.json();
+        console.log(resData);
+        setCars(resData);
+      };
+      if (focus) {
+        getCars();
+      }
+    }, [focus]);
+    
+    useEffect(() => {
+      const validatePatent = async () => {
+        const storedPatent = await SecureStore.getItemAsync("patent");
+        const validPatent= await isExistentPatent()
+        if(storedPatent != null && validPatent){
+          setPatent(storedPatent);
+        }else{
+          setPatent('Add car');
+        }
+      };
+      validatePatent();
+    }, [focus]);
 
   useEffect(() => {
     console.log(focus);
@@ -153,9 +181,11 @@ function HomeScreen({ navigation }) {
             round="true" 
             lightTheme="true"
             onSubmitEditing={()=> getSearchCoords(search)}
+            containerStyle={{height: 70, width:400} 
           />
-          <Badge value={patent} status="primary" onPress={() => setModalVisible(true)} />
-          
+          <TouchableOpacity style={styles.buttonPatent} onPress={() => setModalVisible(true)}>
+            <Text style={styles.textPatent}>{patent}</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.centeredView}>
           <ModalPatent 
@@ -172,101 +202,3 @@ function HomeScreen({ navigation }) {
 }
 
 export default HomeScreen;
-const styles = StyleSheet.create({
-  inputView: {
-    backgroundColor: 'rgba(0,0,0,0)',
-      position: 'absolute', 
-      top: 0,
-      left: 5,
-      right: 5,
-      marginTop: 40,
-      borderRadius: 20,
-  },
-    input: {
-        height: 48,
-        padding: 10,
-        marginTop: 60,
-        marginLeft: 10,
-        marginRight: 10,
-        fontSize: 18,
-        borderWidth: 1,
-        borderRadius: 10,
-        borderColor: '#48BBEC',
-        backgroundColor: 'white',
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22,
-        position: 'absolute', 
-    },
-    modalView: {
-        margin: 130,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-    },
-    buttonOpen: {
-        backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-        backgroundColor: "#2196F3",
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-    }
-});
-/*
-**********************Backup de botones flotantes.*******************************
-
-<View style={styles.containButtonHome}>
-          <TouchableOpacity
-            style={styles.imageContainer}
-            onPress={() => navigation.navigate("EditProfile")}
-           >
-            <Image
-              style={styles.imageButton}
-              source={require("../../assets/profile.png")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.imageContainer}
-            onPress={() => navigation.navigate("Cars")}
-           >
-            <Image
-              style={styles.imageButton}
-              source={require("../../assets/car.png")}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.imageContainer}
-            onPress={() => signOut({})}
-           >
-            <Image
-              style={styles.imageButton}
-              source={require("../../assets/signout.png")}
-            />
-          </TouchableOpacity>
-        </View>
-*/
