@@ -22,7 +22,7 @@ function HomeScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalResVisible, setModalResVisible] = useState(false); 
   const [cars, setCars] = useState([]);
-  const [idParking, setIdParking] = useState("");
+  const [parking, setParking] = useState({});
   const [patent,setPatent] = useState("Select patent");
 
   const focus = useIsFocused();
@@ -62,6 +62,15 @@ function HomeScreen({ navigation }) {
       return false
     }
   }
+  function carsFlow(){
+    if(cars.length!=0){
+      setModalVisible(true)
+    }else{
+      navigation.navigate('Cars')
+    }
+    
+    
+  }
 
   useEffect(() => {
     (async () => {
@@ -91,44 +100,18 @@ function HomeScreen({ navigation }) {
     }, [focus]);
     
     useEffect(() => {
-      const validatePatent = async () => {
-        const storedPatent = await SecureStore.getItemAsync("patent");
-        const validPatent= await isExistentPatent()
-        if(storedPatent != null && validPatent){
-          setPatent(storedPatent);
-        }else{
-          setPatent('Add car');
-        }
-      };
-      validatePatent();
-    }, [focus]);
-
-  useEffect(() => {
-    console.log(focus);
-    const getCars = async () => {
-      const response = await GetCars();
-      const resData = await response.json();
-      console.log(resData);
-      setCars(resData);
-    };
-    if (focus) {
-      getCars();
-    }
-  }, [focus]);
-    
-  useEffect(() => {
     const validatePatent = async () => {
       const storedPatent = await SecureStore.getItemAsync("patent");
       const validPatent= await isExistentPatent()
       if(storedPatent != null && validPatent){
         setPatent(storedPatent);
       }else{
-        setPatent('Select patent');
+        setPatent('Add-car');
       }
     };
     validatePatent();
   }, [focus]);
-
+  
   let text = 'Waiting..';
   if (location===null) {
     return (
@@ -164,10 +147,10 @@ function HomeScreen({ navigation }) {
           {nearParkings.map((item) => 
             <MapView.Marker 
               key={item.id}
-              title={"idParking:"+item.id}
+              title={"Parking:"+item.businessName}
               description={"cuit: "+item.cuitNumber}
               coordinate={{"latitude":item.latitude,"longitude":item.longitude}}
-              onPress={() => setModalResVisible(!modalResVisible) & setIdParking(item.id)}
+              onPress={() => setModalResVisible(!modalResVisible) & setParking(item)}
             />
           )}
           {/*<MapView.Marker coordinate={{latitude:-34.633190, longitude:-58.455946}}/>*/}
@@ -182,7 +165,7 @@ function HomeScreen({ navigation }) {
             lightTheme="true"
             onSubmitEditing={()=> getSearchCoords(search)}
             containerStyle={{height: 70, width:400}} />
-          <TouchableOpacity style={styles.buttonPatent} onPress={() => setModalVisible(true)}>
+          <TouchableOpacity style={styles.buttonPatent} onPress={() => carsFlow()}>
             <Text style={styles.textPatent}>{patent}</Text>
           </TouchableOpacity>
         </View>
@@ -192,7 +175,7 @@ function HomeScreen({ navigation }) {
             parentSetters={{wrapperSetModalState, wrapperSetPatent}}>
           </ModalPatent>
           <ModalReserve
-            parentStates={{modalResVisible,idParking}} 
+            parentStates={{modalResVisible,parking}} 
             parentSetters={{wrapperSetResModalState}}>
           </ModalReserve>
         </View>
