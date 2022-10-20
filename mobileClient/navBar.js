@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View } from "react-native";
+import { View,Image } from "react-native";
 import { AuthContext } from "./Services/context";
 import { 
   createDrawerNavigator,
@@ -32,8 +32,9 @@ function NavBar() {
     <View style={{ flex: 1 }}>
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} />}
+        
       >
-        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Home" component={HomeScreen}/>
         <Drawer.Screen name="Cars" component={Cars} />
         <Drawer.Screen name="Profile" component={Profile} />
       </Drawer.Navigator>
