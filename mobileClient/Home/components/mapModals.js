@@ -39,7 +39,8 @@ function ModalPatent({ navigation,parentStates,parentSetters }) {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               {cars.map((item) => 
-                <Text key={item.patentId} 
+                <Text style={styles.modalText} 
+                  key={item.patentId} 
                   onPress={async ()=> {
                   parentSetters.wrapperSetPatent(item.patentId) & 
                   await SecureStore.setItemAsync("patent", item.patentId) & 
@@ -77,7 +78,7 @@ function ModalReserve({parentStates,parentSetters}){
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Pressable
-                style={[styles.button, styles.buttonClose]}
+                style={styles.button}
                 onPress={() => reserve(parentStates.idParking) &
                   parentSetters.wrapperSetResModalState(!parentStates.modalResVisible)
                 }
@@ -85,7 +86,7 @@ function ModalReserve({parentStates,parentSetters}){
                 <Text style={styles.textStyle}>Reserve</Text>
               </Pressable>
               <Pressable
-                style={[styles.button, styles.buttonClose]}
+                style={styles.button}
                 onPress={() => parentSetters.wrapperSetResModalState(!parentStates.modalResVisible)}
               >
                 <Text style={styles.textStyle}>Close</Text>
@@ -105,14 +106,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22,
+        marginTop: 120,
         position: 'absolute', 
     },
     modalView: {
-        margin: 130,
+        margin: 60,
         backgroundColor: "white",
         borderRadius: 20,
-        padding: 35,
+        padding: 60,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -122,19 +123,26 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5
+        
     },
     button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
+      width: 150,
+      height: 30,
+      borderRadius: 20,
+      marginTop: 20,
+      marginBotton: 200,//posición boton en y
+      padding: 5,
+      elevation: 1,
+      color:"green"
     },
     textStyle: {
+        marginBottom: 1,
         color: "white",
         fontWeight: "bold",
         textAlign: "center"
     },
     modalText: {
-        marginBottom: 15,
+        marginTop: 10,
         textAlign: "center"
     }
 });

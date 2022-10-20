@@ -9,6 +9,7 @@ import host_instance from '../../host_instance.json';
     fetchData.body={
         'idParking':parseInt(idParking)
     }
+    fetchData.body=JSON.stringify(fetchData.body)
     fetchData.headers={
         'accept': 'application/json',
         'Content-Type': 'application/json',
