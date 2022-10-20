@@ -5,6 +5,7 @@ import Homepage from '../Homepage/Homepage';
 import SignIn from '../SignIn/SignIn';
 import DashboardWrapper from '../Dashboard/DashboardWrapper';
 import Navbar from '../Shared/Navbar';
+import AboutUs from '../AboutUs/AboutUs';
 
 
 function App() {
