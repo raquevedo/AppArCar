@@ -7,11 +7,6 @@ import { EventPattern } from '@nestjs/microservices';
 export class ReservationsController {
   constructor(private reservationService: ReservationsService) {}
 
-  @Get()
-  async readQueue(): Promise<Reservation[]> {
-    return this.reservationService.getQueue();
-  }
-
   @EventPattern()
   async sendReservation(data: string) {
     this.reservationService.notifyClient(data);
