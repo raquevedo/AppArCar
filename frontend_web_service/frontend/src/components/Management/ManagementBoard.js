@@ -1,10 +1,33 @@
 import React from 'react';
-import { useState } from 'react';
-import TextCards from './TextCards';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import TextCard from './TextCard';
+import { getParkingDataID } from '../../controllers/parkingController';
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
   const [toggleState, setToggleState] = useState(1);
+  const [totalSlots, setTotalSlots] = useState([]);
+  const [availableSlots, setAvailableSlots] = useState([]);
+  const [occupiedSlots, setOccupiedSlots] = useState([]);
+  const [bookedSlots, setBookedSlots] = useState([]);
+  const [blockedSlots, setBlockedSlots] = useState([]);
+
+  let params = useParams();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+const fetchData = async () => {
+    const data = await getParkingDataID(params.id)
+    setTotalSlots(data.qtyTotalSlots);
+    setAvailableSlots(data.qtyFreeSlots);
+    setOccupiedSlots(data.qtyBussySlots);
+    setBookedSlots(data.qtyReservedSlots);
+    setBlockedSlots(data.qtyBlockedSlots);
+}
+
   const toggleTab = (index) => {
     setToggleState(index);
   };
@@ -65,7 +88,11 @@ export default function ManagementBoard() {
         }
         { toggleState === 'status' && 
           <div>
-            <TextCards/>
+            <TextCard title='Total Slots:' value={totalSlots}/>
+            <TextCard title='Available Slots:' value={availableSlots}/>
+            <TextCard title='Occupied Slots:' value={occupiedSlots}/>
+            <TextCard title='Booked Slots:' value={bookedSlots}/>
+            <TextCard title='Blocked Slots:' value={blockedSlots}/>
           </div>
         }
         </div>
