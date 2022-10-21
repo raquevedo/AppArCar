@@ -8,19 +8,20 @@ import { getParkingDataID } from '../../controllers/parkingController';
 
 
 export default function TextCards() {
-    const [totalSlots, setTotalSlots] = useState([]);
+    const [parkingData, setParkingData] = useState([]);
   
     let params = useParams();
   
     useEffect(() => {
+        const fetchData = async () => {
+        const data = await getParkingDataID(params.id)
+        console.log(data);
+        setParkingData(data);
+          }
       fetchData();
-    }, []);
+    }, [params.id]);
   
-    const fetchData = async () => {
-      const data = await getParkingDataID(params.id)
-      console.log(data);
-      setTotalSlots(data);
-    }
+    
 
     return (
     <><div>
@@ -30,7 +31,7 @@ export default function TextCards() {
                         Total Slots:
                     </Typography>
                     <div className='custom-parkingcard'>
-                        {totalSlots.qtyTotalSlots}
+                        {parkingData.qtyTotalSlots}
                     </div>
                 </CardContent>
             </Card>
@@ -41,7 +42,7 @@ export default function TextCards() {
                             Available Slots:
                         </Typography>
                         <div className='custom-parkingcard'>
-                            {totalSlots.qtyFreeSlots}
+                            {parkingData.qtyFreeSlots}
                         </div>
                     </CardContent>
                 </Card>
@@ -51,7 +52,7 @@ export default function TextCards() {
                             Occupied Slots:
                         </Typography>
                         <div className='custom-parkingcard'>
-                            {totalSlots.qtyBussySlots}
+                            {parkingData.qtyBussySlots}
                         </div>
                     </CardContent>
                 </Card>
@@ -61,7 +62,7 @@ export default function TextCards() {
                             Booked Slots:
                         </Typography>
                         <div className='custom-parkingcard'>
-                            {totalSlots.qtyReservedSlots}
+                            {parkingData.qtyReservedSlots}
                         </div>
                     </CardContent>
                 </Card>
@@ -71,7 +72,7 @@ export default function TextCards() {
                             Blocked Slots:
                         </Typography>
                         <div className='custom-parkingcard'>
-                            {totalSlots.qtyBlockedSlots}
+                            {parkingData.qtyBlockedSlots}
                         </div>
                     </CardContent>
                 </Card>
