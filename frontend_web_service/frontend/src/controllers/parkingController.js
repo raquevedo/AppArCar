@@ -22,4 +22,14 @@ export async function getParkingData() {
   });
   return await data.json();
 }
+
+export async function getParkingDataID(id) {
+  let myHeaders = new Headers();
+  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
+  myHeaders.append('Content-Type', 'application/json');
+  const data = await fetch(`http://localhost:8000/parking/parking-status/${id}`, {
+    headers: myHeaders
+  });
+  return await data.json();
+}
   
