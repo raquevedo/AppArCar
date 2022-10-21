@@ -1,11 +1,6 @@
 import React from 'react';
-import { useState } from 'react'
-import TotalSlots from './TotalSlots';
-import AvailableSlots from './AvailableSlots';
-import OccupiedSlots from './OccupiedSlots';
-import BookedSlots from './BookedSlots';
-import BlockedSlots from './BlockedSlots';
-
+import { useState } from 'react';
+import TextCards from './TextCards';
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
@@ -70,11 +65,7 @@ export default function ManagementBoard() {
         }
         { toggleState === 'status' && 
           <div>
-            <TotalSlots/>
-            <AvailableSlots/>
-            <OccupiedSlots/>
-            <BookedSlots/>
-            <BlockedSlots/>
+            <TextCards/>
           </div>
         }
         </div>
