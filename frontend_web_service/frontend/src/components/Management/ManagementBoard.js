@@ -23,7 +23,7 @@ const fetchData = async () => {
     const data = await getParkingDataID(params.id)
     setTotalSlots(data.qtyTotalSlots);
     setAvailableSlots(data.qtyFreeSlots);
-    setOccupiedSlots(data.qtyBussySlots);
+    setOccupiedSlots(data.qtyBusySlots);
     setBookedSlots(data.qtyReservedSlots);
     setBlockedSlots(data.qtyBlockedSlots);
 }
