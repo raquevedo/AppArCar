@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import TextCard from "./TextCard";
-import { getParkingDataID } from "../../controllers/parkingController";
+import { getParkingStatusID} from "../../controllers/parkingController";
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
@@ -17,7 +17,7 @@ export default function ManagementBoard() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getParkingDataID(params.id);
+      const data = await getParkingStatusID(params.id);
       setTotalSlots(data.qtyTotalSlots);
       setAvailableSlots(data.qtyFreeSlots);
       setOccupiedSlots(data.qtyBusySlots);
