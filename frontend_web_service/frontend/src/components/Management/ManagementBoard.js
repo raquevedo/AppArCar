@@ -120,10 +120,12 @@ export default function ManagementBoard() {
                   <Hours title={"Saturday"} />
                   <Hours title={"Sunday"} />
                 </div>
-                <div class='grid-x align-center grid-padding-x'>
-                <div className="cell large-4 small-12">
-                <button className="button" type="submit">Submit</button>
-                </div>
+                <div class="grid-x align-center grid-padding-x">
+                  <div className="cell large-4 small-12">
+                    <button className="button" type="submit">
+                      Submit
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
