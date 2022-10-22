@@ -111,17 +111,17 @@ export default function ManagementBoard() {
           {toggleState === "settings" && (
             <div>
               <Settings
-                value1={businessName}
-                value2={cuitNumber}
-                value3={streetName}
-                value4={streetNumber}
-                value5={totalSlots}
-                value6={priceHour}
-                value7={price_6Hours}
-                value8={price_12Hours}
-                value9={price_24Hours}
-                value10={priceWeek}
-                value11={priceMonth}
+                value1={businessName} 
+                value2={cuitNumber} 
+                value3={streetName} 
+                value4={streetNumber} 
+                value5={totalSlots} 
+                value6={priceHour} 
+                value7={price_6Hours} 
+                value8={price_12Hours} 
+                value9={price_24Hours} 
+                value10={priceWeek} 
+                value11={priceMonth} 
               />
             </div>
           )}

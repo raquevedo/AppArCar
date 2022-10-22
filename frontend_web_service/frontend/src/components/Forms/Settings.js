@@ -61,35 +61,35 @@ export default function Settings(props) {
         <div class='grid-x align-center grid-padding-x'>
           <div className='cell large-6 small-12'>
             <label>Business Name</label>
-            <input placeholder={props.value1} type="text" {
+            <input defaultValue={props.value1} type="text" {
               ...register("businessName")
               }
             />
             { errors.businessName && <p>Name is invalid</p> }
 
             <label>Cuit</label>
-            <input placeholder={props.value2}type="text" {
+            <input defaultValue={props.value2} type="text" {
               ...register("cuitNumber")
               }
             />
             { errors.cuitNumber && <p>Cuit is invalid</p> }
 
             <label>Street Name</label>
-            <input placeholder={props.value3} type="text" {
+            <input defaultValue={props.value3} type="text" {
               ...register("streetName")
               }
             />
             { errors.streetName && <p>Street is invalid</p> }
 
             <label>Street Number</label>
-            <input placeholder={props.value4} type="text" {
+            <input defaultValue={props.value4} type="text" {
               ...register("streetNumber")
               }
             />
             { errors.streetNumber && <p>Street number is invalid</p> }
 
             <label>Capacity</label>
-            <input placeholder={props.value5} type="text" {
+            <input defaultValue={props.value5} type="text" {
               ...register("qtyTotalSlots")
               }
             />
@@ -97,42 +97,42 @@ export default function Settings(props) {
           </div>
           <div className='cell large-6 small-12'>
             <label>Price per Hour</label>
-            <input placeholder={props.value6} type="text" {
+            <input defaultValue={props.value6} type="text" {
               ...register("priceHour")
               }
             />
             { errors.priceHour && <p>Price is invalid</p> }
 
             <label>Price per 6 hours</label>
-            <input placeholder={props.value7} type="text" {
+            <input defaultValue={props.value7} type="text" {
               ...register("price_6Hours")
               }
             />
             { errors.price_6Hours && <p>Price is invalid</p> }
 
             <label>Price per 12 Hours</label>
-            <input placeholder={props.value8} type="text" {
+            <input defaultValue={props.value8} type="text" {
               ...register("price_12Hours")
               }
             />
             { errors.price_12Hours && <p>Price is invalid</p> }
 
             <label>Price per 24 Hours</label>
-            <input placeholder={props.value9} type="text" {
+            <input defaultValue={props.value9} type="text" {
               ...register("price_12Hours")
               }
             />
             { errors.price_24Hours && <p>Price is invalid</p> }
 
             <label>Price per Week</label>
-            <input placeholder={props.value10} type="text" {
+            <input defaultValue={props.value10} type="text" {
               ...register("priceWeek")
               }
             />
             { errors.priceWeek && <p>Price is invalid</p> }
 
             <label>Price per Month</label>
-            <input placeholder={props.value11} type="text" {
+            <input defaultValue={props.value11} type="text" {
               ...register("priceMonth")
               }
             />
