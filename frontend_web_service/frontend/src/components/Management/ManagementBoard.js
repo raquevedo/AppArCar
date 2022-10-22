@@ -16,17 +16,18 @@ export default function ManagementBoard() {
   let params = useParams();
 
   useEffect(() => {
+    const fetchData = async () => {
+      const data = await getParkingDataID(params.id);
+      setTotalSlots(data.qtyTotalSlots);
+      setAvailableSlots(data.qtyFreeSlots);
+      setOccupiedSlots(data.qtyBusySlots);
+      setBookedSlots(data.qtyReservedSlots);
+      setBlockedSlots(data.qtyBlockedSlots);
+    };
     fetchData();
   }, []);
 
-  const fetchData = async () => {
-    const data = await getParkingDataID(params.id);
-    setTotalSlots(data.qtyTotalSlots);
-    setAvailableSlots(data.qtyFreeSlots);
-    setOccupiedSlots(data.qtyBusySlots);
-    setBookedSlots(data.qtyReservedSlots);
-    setBlockedSlots(data.qtyBlockedSlots);
-  };
+  
 
   const toggleTab = (index) => {
     setToggleState(index);
