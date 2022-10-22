@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -19,12 +19,15 @@ const schema = yup.object({
 })
 
 export default function AddParking(props) {
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const { register, handleSubmit, formState:{ errors } } = useForm({
     mode: 'onTouched',
     resolver: yupResolver(schema)
   });
 
   const onSubmit = async (data) => {
+    setButtonDisabled(true);
+
     const businessName = data.businessName;
     const cuitNumber = data.cuitNumber;
     const streetName = data.streetName;
@@ -134,7 +137,7 @@ export default function AddParking(props) {
             />
             { errors.priceMonth && <p>Price is invalid</p> }
           </div>
-          <button className="button" type="submit">Submit</button>
+          <button className="button" disabled={buttonDisabled} type="submit">Submit</button>
         </div>
       </form>
     </div>
