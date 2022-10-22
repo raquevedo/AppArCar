@@ -1,8 +1,8 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import TextCard from './TextCard';
-import { getParkingDataID } from '../../controllers/parkingController';
+import React from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import TextCard from "./TextCard";
+import { getParkingDataID } from "../../controllers/parkingController";
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
@@ -19,84 +19,82 @@ export default function ManagementBoard() {
     fetchData();
   }, []);
 
-const fetchData = async () => {
-    const data = await getParkingDataID(params.id)
+  const fetchData = async () => {
+    const data = await getParkingDataID(params.id);
     setTotalSlots(data.qtyTotalSlots);
     setAvailableSlots(data.qtyFreeSlots);
     setOccupiedSlots(data.qtyBusySlots);
     setBookedSlots(data.qtyReservedSlots);
     setBlockedSlots(data.qtyBlockedSlots);
-}
+  };
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
 
-  return(
-    <div> 
+  return (
+    <div>
       <div className="container">
         <div className="bloc-tabs">
-          <div className='grid-x'>
-            <div className='cell small-3'>
+          <div className="grid-x">
+            <div className="cell small-3">
               <button
-                className={toggleState === 'notifications' ? "tabs active-tabs" : "tabs"}
-                onClick={() => toggleTab('notifications')}
+                className={
+                  toggleState === "notifications" ? "tabs active-tabs" : "tabs"
+                }
+                onClick={() => toggleTab("notifications")}
               >
                 Notifications
               </button>
             </div>
-            <div className='cell small-3'>
+            <div className="cell small-3">
               <button
-                className={toggleState === 'hours' ? "tabs active-tabs" : "tabs"}
-                onClick={() => toggleTab('hours')}
+                className={
+                  toggleState === "hours" ? "tabs active-tabs" : "tabs"
+                }
+                onClick={() => toggleTab("hours")}
               >
                 Hours
               </button>
             </div>
-            <div className='cell small-3'>
+            <div className="cell small-3">
               <button
-                className={toggleState === 'settings' ? "tabs active-tabs" : "tabs"}
-                onClick={() => toggleTab('settings')}
+                className={
+                  toggleState === "settings" ? "tabs active-tabs" : "tabs"
+                }
+                onClick={() => toggleTab("settings")}
               >
                 Settings
               </button>
             </div>
-            <div className='cell small-3'>
+            <div className="cell small-3">
               <button
-                className={toggleState === 'status' ? "tabs active-tabs" : "tabs"}
-                onClick={() => toggleTab('status')}
+                className={
+                  toggleState === "status" ? "tabs active-tabs" : "tabs"
+                }
+                onClick={() => toggleTab("status")}
               >
                 Status
               </button>
             </div>
+          </div>
         </div>
-      </div>
 
-      <div className="content-tabs">
-        { toggleState === 'notifications' && 
-          <div>
-            'notifications'
-          </div>
-        }
-        { toggleState === 'hours' && 
-          <div>
-        </div>
-        }
-        { toggleState === 'settings' && 
-          <div>
-          </div>
-        }
-        { toggleState === 'status' && 
-          <div>
-            <TextCard title='Total Slots:' value={totalSlots}/>
-            <TextCard title='Available Slots:' value={availableSlots}/>
-            <TextCard title='Occupied Slots:' value={occupiedSlots}/>
-            <TextCard title='Booked Slots:' value={bookedSlots}/>
-            <TextCard title='Blocked Slots:' value={blockedSlots}/>
-          </div>
-        }
+        <div className="content-tabs">
+          {toggleState === "notifications" && <div>'notifications'</div>}
+          {toggleState === "hours" && <div></div>}
+          {toggleState === "settings" && <div></div>}
+          {toggleState === "status" && (
+            <div>
+              <TextCard title="Total Slots:" value={totalSlots} />
+              <TextCard title="Available Slots:" value={availableSlots} />
+              <TextCard title="Occupied Slots:" value={occupiedSlots} />
+              <TextCard title="Booked Slots:" value={bookedSlots} />
+              <TextCard title="Blocked Slots:" value={blockedSlots} />
+            </div>
+          )}
         </div>
       </div>
-  </div>
- );
+    </div>
+  );
 }

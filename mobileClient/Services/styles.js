@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, Alert, Dimensions } from "react-native";
 
+
+
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
@@ -116,6 +118,29 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     borderRadius: 50,
   },
+  buttonPatent: {
+    borderWidth: 5,
+    borderColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    fontFamily: "LicensePlate",
+    width: 150,
+    height: 50,
+    backgroundColor: "black",
+    borderRadius: 50,
+  },
+  textPatent: {
+    
+    fontFamily: "LicensePlate",
+    backgroundColor: "black",
+    borderColor: "black",
+    color: "white",
+    marginTop: 5,
+    borderWidth: 3,
+    fontSize: 30,
+    
+  },
+  
   buttonStyleFlat: {
     flex: 1,
     borderWidth: 1,
@@ -136,6 +161,19 @@ const styles = StyleSheet.create({
     flex: 4,
     alignItems: "center",
     justifyContent: "center",
+    
+  },
+  containButtonStyleDate: {
+    flex: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "grey",
+    width: 200,
+    height: 50,
+    borderRadius: 50,
+    margin: 20,
   },
   buttonStylel: {
     flex: 4,
@@ -194,11 +232,11 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   textDate: {
-    fontSize: 12,
+    fontSize: 17,
     justifyContent: "center",
     fontFamily: "TTNorms-Regular",
     alignItems: "center",
-    color: "#ffffff",
+    color: "grey",
   },
   space: {
     flex: 1,
@@ -212,6 +250,7 @@ const styles = StyleSheet.create({
     alignItems: "center", 
   },
   dropdown: {
+    
     width: 210,
     height: 50,
     borderBottomColor: 'gray',
@@ -262,5 +301,79 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     height: 1,
   },
+  inputView: {
+    backgroundColor: 'rgba(0,0,0,0)',
+      position: 'absolute', 
+      top: 0,
+      left: 5,
+      right: 5,
+      marginTop: 40,
+      borderRadius: 20,
+      justifyContent: "center",
+        alignItems: "center",
+      
+  },
+    input: {
+        height: 48,
+        padding: 10,
+        marginTop: 60,
+        marginLeft: 10,
+        marginRight: 10,
+        fontSize: 18,
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#48BBEC',
+        backgroundColor: 'white',
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22,
+        position: 'absolute', 
+    },
+    modalView: {
+        margin: 130,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    buttonOpen: {
+        backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    },
+    placeholderStyles: {
+      color: "grey",
+    },
+    dropdownGender: {
+      marginHorizontal: 10,
+      width: "50%",
+      marginBottom: 15,
+    },
 });
 export default styles;

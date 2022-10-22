@@ -28,7 +28,6 @@ export async function freeReserveSlot(pkgParkingStatusRepository:PkgParkingStatu
 
 export async function reservedToBusySlot(pkgParkingStatusRepository:PkgParkingStatusRepository, parkingId:number){
     /**Check-in operation */
-    console.log("EN QUE FALLE?",parkingId)
     let currentStatus = await pkgParkingStatusRepository.findById(parkingId);
     if (currentStatus.qtyReservedSlots > 0){
       currentStatus.qtyReservedSlots -= 1
