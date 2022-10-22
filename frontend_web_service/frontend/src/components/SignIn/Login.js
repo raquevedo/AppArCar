@@ -42,25 +42,31 @@ export default function Login({ setToken }) {
   }
 
   return(
-    <div className="login-wrapper">
-      <h1>Log In</h1>
+    <div className="login-wrapper login-box">
+      <h1 className="text-form">Log In</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
 
-        <label>Email</label>
-        <input type="text" {
-          ...register("email")
+      <div class="user-box">
+        
+        <input type="text" placeholder="Email"{
+          ...register("email") 
           }
         />
+        </div>
         { errors.email && <p>Email is invalid</p> }
 
-        <label>Password</label>
-        <input type="password"{
+        <div class="user-box">
+        
+        <input type="password" placeholder="Password"{
           ...register("password")
           }
         />
+        </div>
         { errors.password && <p>Password is invalid</p> }
 
-        <button className="button" type="submit">Login</button>
+        <div>
+        <button className="bn632-hover bn24" type="submit">Login</button>
+        </div>
       </form>
     </div>
   );

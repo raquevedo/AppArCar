@@ -17,12 +17,14 @@ export default function ParkingAccordion(){
   }
 
   return (
-    <div className='custom-accordion'>
+    <div class="grid-container-full acordeon-main">
+    <div className='cell custom-accordion '>
       {parkingData.map((garage, index) => (
         <div key={index}>
           <ParkingAccordionItem garage={garage} index={index}/>
         </div>
       ))}
+    </div>
     </div>
   )
 }

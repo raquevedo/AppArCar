@@ -15,7 +15,7 @@ export default function Profile() {
 
   return(
     <div className='grid-container'>
-      <div className='grid-y'>
+      <div className='grid-y login-box'>
         <div className='cell'>
           <h1>Profile</h1>
         </div>

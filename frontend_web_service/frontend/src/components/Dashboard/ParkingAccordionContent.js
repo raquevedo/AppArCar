@@ -1,30 +1,43 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import Button from '@mui/material/Button';
+
+
+
+const linksidecell = {
+ 
+  textDecoration: "none",
+  color: 'white',
+  background: "transparent",
+  fontSize: "20px"
+
+};
 
 export default function ParkingAccordionContent(props) {
-
   const manageLink = (garageId) => {
-    return `manage/${props.garage.parkingInfo.id}`
-  }
-
-  return(
+    return `manage/${props.garage.parkingInfo.id}`;
+  };
+  
+  return (
     <div>
-      <div className='grid-x'>
-        <div className='cell small-3'>
-          Available slots: {props.garage.status.qtyFreeSlots}
+      <div className="grid-x   grid-margin-x grid-padding-x' acordeon-body">
+        <div className="cell large-2 small-3 manage-cell">
+          <h3>Available slots: {props.garage.status.qtyFreeSlots}</h3>
         </div>
-        <div className='cell small-3'>
-          Reserved slots: {props.garage.status.qtyReservedSlots}
+        <div className="cell large-2 small-3 manage-cell">
+          <h3>Reserved slots: {props.garage.status.qtyReservedSlots}</h3>
         </div>
-        <div className='cell small-3'>
-          Busy slots: {props.garage.status.qtyBusySlots}
+        <div className="cell large-2 small-3 manage-cell">
+        <h3>Busy slots: {props.garage.status.qtyBusySlots}</h3>
         </div>
-        <div className='cell small-3'>
-          <Link classname='button' to={`manage/${props.garage.parkingInfo.id}`}>
-            Manage
-          </Link>
+        <div className="cell small-3 align-center justify-center manage-cell">
+          
+          <Link style={linksidecell} className="button"  to={`manage/${props.garage.parkingInfo.id}`} >
+             <h3>Manage</h3>
+            </Link>
         </div>
       </div>
     </div>
-  )
+  );
 }

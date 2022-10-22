@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { newParking } from '../../controllers/parkingController';
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { newParking } from "../../controllers/parkingController";
 
 const schema = yup.object({
   businessName: yup.string().required(),
@@ -16,12 +16,16 @@ const schema = yup.object({
   price_24Hours: yup.number(),
   priceWeek: yup.number(),
   priceMonth: yup.number(),
-})
+});
 
-export default function AddParking({setShowModal}) {
-  const { register, handleSubmit, formState:{ errors } } = useForm({
-    mode: 'onTouched',
-    resolver: yupResolver(schema)
+export default function AddParking({ setShowModal }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onTouched",
+    resolver: yupResolver(schema),
   });
 
   const onSubmit = async (data) => {
@@ -48,88 +52,112 @@ export default function AddParking({setShowModal}) {
       price_12Hours,
       price_24Hours,
       priceWeek,
-      priceMonth
+      priceMonth,
     });
     setShowModal(false);
-  }
+  };
 
-  return(
-    <div className='grid-container'>
+  return (
+    <div className="grid-container grid-margin-x grid-padding-x login-box-modal-body">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div class='grid-x align-center grid-padding-x'>
-          <div className='cell large-6 small-12'>
-            <label>Business Name</label>
-            <input type="text" {
-              ...register("businessName")
-              }
-            />
-            { errors.businessName && <p>Name is invalid</p> }
+        <div class="grid-x align-center grid-margin-x grid-padding-x  grid-padding-y">
+          <div className="cell large-6 small-12">
+            <div class="user-box">
+              <input
+                type="text"
+                placeholder="Business Name"
+                {...register("businessName")}
+              />
+            </div>
 
-            <label>Cuit</label>
-            <input type="text" {
-              ...register("cuitNumber")
-              }
-            />
-            { errors.cuitNumber && <p>Cuit is invalid</p> }
+            {errors.businessName && <p>Name is invalid</p>}
+            <div class="user-box">
+              <input
+                type="text"
+                placeholder="Cuit"
+                {...register("cuitNumber")}
+              />
+            </div>
 
-            <label>Street Name</label>
-            <input type="text" {
-              ...register("streetName")
-              }
-            />
-            { errors.streetName && <p>Street is invalid</p> }
-
-            <label>Street Number</label>
-            <input type="text" {
-              ...register("streetNumber")
-              }
-            />
-            { errors.streetNumber && <p>Street number is invalid</p> }
-
-            <label>Capacity</label>
-            <input type="text" {
-              ...register("qtyTotalSlots")
-              }
-            />
-            { errors.qtyTotalSlots && <p>Capacity is invalid</p> }
+            {errors.cuitNumber && <p>Cuit is invalid</p>}
+            <div class="user-box">
+              <input
+                type="text"
+                placeholder="Street Name"
+                {...register("streetName")}
+              />
+            </div>
+            
+            {errors.streetName && <p>Street is invalid</p>}
+            <div class="user-box">
+              <input
+                type="text"
+                placeholder="Street Number"
+                {...register("streetNumber")}
+              />
+            </div>
+            
+            {errors.streetNumber && <p>Street number is invalid</p>}
+            <div class="user-box">
+              <input
+                type="text"
+                placeholder="Capacity"
+                {...register("qtyTotalSlots")}
+              />
+            </div>
+            
+            {errors.qtyTotalSlots && <p>Capacity is invalid</p>}
           </div>
-          <div className='cell large-6 small-12'>
-            <label>Price per Hour</label>
-            <input type="text" {
-              ...register("priceHour")
-              }
-            />
-            { errors.priceHour && <p>Price is invalid</p> }
-
-            <label>Price per 6 hours</label>
-            <input type="text" {
-              ...register("price_6hours")
-              }
-            />
-            { errors.price_6Hours && <p>Price is invalid</p> }
-
-            <label>Price per 12 Hours</label>
-            <input type="text" {
-              ...register("price_12Hours")
-              }
-            />
-            { errors.price_12Hours && <p>Price is invalid</p> }
-
-            <label>Price per Week</label>
-            <input type="text" {
-              ...register("priceWeek")
-              }
-            />
-            { errors.priceWeek && <p>Price is invalid</p> }
-
-            <label>Price per Month</label>
-            <input type="text" {
-              ...register("priceMonth")
-              }
-            />
-            { errors.priceMonth && <p>Price is invalid</p> }
+          <div className="cell large-6 small-12">
+          <div class="user-box">
+              <input
+                type="text"
+                placeholder="Price per Hour"
+                {...register("priceHour")}
+              />
+            </div>
+            
+            {errors.priceHour && <p>Price is invalid</p>}
+            <div class="user-box">
+              <input
+                type="text"
+                placeholder="Price per 6 hours"
+                {...register("price_6hours")}
+              />
+            </div>
+            
+            {errors.price_6Hours && <p>Price is invalid</p>}
+            <div class="user-box">
+              <input
+                type="text"
+                placeholder="Price per 12 Hours"
+                {...register("price_12Hours")}
+              />
+            </div>
+            
+            {errors.price_12Hours && <p>Price is invalid</p>}
+            <div class="user-box">
+              <input
+                type="text"
+                placeholder="Price per Week"
+                {...register("priceWeek")}
+              />
+            </div>
+            
+            {errors.priceWeek && <p>Price is invalid</p>}
+            <div class="user-box">
+              <input
+                type="text"
+                placeholder="Price per Month"
+                {...register("priceMonth")}
+              />
+            </div>
+            
+            {errors.priceMonth && <p>Price is invalid</p>}
           </div>
-          <button className="button" type="submit">Submit</button>
+          <div>
+        <button className="bn632-hover bn24" type="submit">Submit</button>
+        </div>
         </div>
       </form>
     </div>

@@ -13,7 +13,7 @@ function SignIn() {
   }
   return (
     <div className='grid-container'>
-      <div className='grid-x grid-margin-x grid-padding-x'>
+      <div className='grid-x grid-margin-x grid-padding-x grid-padding-y'>
         <div className='cell medium-6 small-12'>
           <Login setToken={setToken} />
         </div>
