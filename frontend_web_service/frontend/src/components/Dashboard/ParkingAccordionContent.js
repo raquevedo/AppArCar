@@ -2,11 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function ParkingAccordionContent(props) {
-
-  const manageLink = (garageId) => {
-    return `manage/${props.garage.parkingInfo.id}`
-  }
-
   return(
     <div>
       <div className='grid-x'>
@@ -20,7 +15,7 @@ export default function ParkingAccordionContent(props) {
           Busy slots: {props.garage.status.qtyBusySlots}
         </div>
         <div className='cell small-3'>
-          <Link classname='button' to={`manage/${props.garage.parkingInfo.id}`}>
+          <Link className='button' to={`manage/${props.garage.parkingInfo.id}`}>
             Manage
           </Link>
         </div>
