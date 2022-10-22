@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import TextCard from "./TextCard";
 import { getParkingDataID } from "../../controllers/parkingController";
+import Settings from "../Forms/Settings";
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
   const [toggleState, setToggleState] = useState(1);
+  
   const [totalSlots, setTotalSlots] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [occupiedSlots, setOccupiedSlots] = useState([]);
@@ -14,6 +16,7 @@ export default function ManagementBoard() {
   const [blockedSlots, setBlockedSlots] = useState([]);
 
   let params = useParams();
+  console.log(params)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,8 +29,6 @@ export default function ManagementBoard() {
     };
     fetchData();
   }, []);
-
-  
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -84,7 +85,7 @@ export default function ManagementBoard() {
         <div className="content-tabs">
           {toggleState === "notifications" && <div>'notifications'</div>}
           {toggleState === "hours" && <div></div>}
-          {toggleState === "settings" && <div></div>}
+          {toggleState === "settings" && <div><Settings/></div>}
           {toggleState === "status" && (
             <div>
               <TextCard title="Total Slots:" value={totalSlots} />
