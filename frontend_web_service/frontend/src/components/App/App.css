@@ -105,3 +105,8 @@ body{
 .callout.setup {
     max-width: 90%;
 }
+
+input::placeholder{
+    color: black;
+    opacity: 1;
+}
