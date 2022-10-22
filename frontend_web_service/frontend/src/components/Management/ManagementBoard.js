@@ -111,29 +111,22 @@ export default function ManagementBoard() {
           {toggleState === "hours" && (
             <div>
               <div className="grid-container">
-                <div class="grid-x align-center grid-padding-x">
-                    <Hours title={'Monday'} />
-                    <div className="grid-container">
-                      <Hours title={'Tuesday'} />
-                    </div>
-                    <div className="grid-container">
-                      <Hours title={'Wednesday'} />
-                    </div>
-                    <div className="grid-container">
-                      <Hours title={'Thursday'} />
-                    </div>
-                    <div className="grid-container">
-                      <Hours title={'Friday'} />
-                    </div>
-                    <div className="grid-container">
-                      <Hours title={'Saturday'} />
-                    </div>
-                    <div className="grid-container">
-                      <Hours title={'Sunday'} />
-                    </div>
-                  </div>
+                <div className="row small-up-2 medium-up-4 large-up-6">
+                  <Hours title={"Monday"} />
+                  <Hours title={"Tuesday"} />
+                  <Hours title={"Wednesday"} />
+                  <Hours title={"Thursday"} />
+                  <Hours title={"Friday"} />
+                  <Hours title={"Saturday"} />
+                  <Hours title={"Sunday"} />
+                </div>
+                <div class='grid-x align-center grid-padding-x'>
+                <div className="cell large-4 small-12">
+                <button className="button" type="submit">Submit</button>
+                </div>
                 </div>
               </div>
+            </div>
           )}
           {toggleState === "settings" && (
             <div>
