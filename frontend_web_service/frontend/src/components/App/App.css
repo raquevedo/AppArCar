@@ -102,3 +102,6 @@ body{
   transform: translate(-50%,-50%);
 }
 
+.callout.setup {
+    max-width: 90%;
+}

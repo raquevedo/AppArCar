@@ -1,17 +1,18 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
+import '../App/App.css'
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
 export default function TextCards(props) {
   return (
-    <Card variant="outlined">
+    <div className="callout setup">
       <CardContent>
+
         <Typography variant="h5" component="div">
           {props.title}
+          {props.value}
         </Typography>
-        <div className="custom-parkingcard">{props.value}</div>
       </CardContent>
-    </Card>
+   </div>
   );
 }
