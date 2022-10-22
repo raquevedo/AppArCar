@@ -7,6 +7,7 @@ import {
   getParkingDataID,
 } from "../../controllers/parkingController";
 import Settings from "../Forms/Settings";
+import Hours from "./Hours";
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
@@ -107,21 +108,47 @@ export default function ManagementBoard() {
 
         <div className="content-tabs">
           {toggleState === "notifications" && <div>'notifications'</div>}
-          {toggleState === "hours" && <div></div>}
+          {toggleState === "hours" && (
+            <div>
+              <div className="grid-container">
+                <div class="grid-x align-center grid-padding-x">
+                    <Hours title={'Monday'} />
+                    <div className="grid-container">
+                      <Hours title={'Tuesday'} />
+                    </div>
+                    <div className="grid-container">
+                      <Hours title={'Wednesday'} />
+                    </div>
+                    <div className="grid-container">
+                      <Hours title={'Thursday'} />
+                    </div>
+                    <div className="grid-container">
+                      <Hours title={'Friday'} />
+                    </div>
+                    <div className="grid-container">
+                      <Hours title={'Saturday'} />
+                    </div>
+                    <div className="grid-container">
+                      <Hours title={'Sunday'} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+          )}
           {toggleState === "settings" && (
             <div>
               <Settings
-                value1={businessName} 
-                value2={cuitNumber} 
-                value3={streetName} 
-                value4={streetNumber} 
-                value5={totalSlots} 
-                value6={priceHour} 
-                value7={price_6Hours} 
-                value8={price_12Hours} 
-                value9={price_24Hours} 
-                value10={priceWeek} 
-                value11={priceMonth} 
+                value1={businessName}
+                value2={cuitNumber}
+                value3={streetName}
+                value4={streetNumber}
+                value5={totalSlots}
+                value6={priceHour}
+                value7={price_6Hours}
+                value8={price_12Hours}
+                value9={price_24Hours}
+                value10={priceWeek}
+                value11={priceMonth}
               />
             </div>
           )}
