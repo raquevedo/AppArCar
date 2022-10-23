@@ -1,19 +1,23 @@
-/*
 import {
+  OnGatewayConnection,
+  OnGatewayDisconnect,
   OnGatewayInit,
   WebSocketGateway,
-  WsResponse,
   WebSocketServer,
-  OnGatewayConnection,
-  OnGatewayDisconnect
-} from "@nestjs/websockets";
-import { Server } from "http";
+  WsResponse,
+} from '@nestjs/websockets';
+import { Server, Socket } from 'socket.io';
 import { ReservationsService } from "./reservations.service";
 
-@WebSocketGateway(80, {namespace: 'reservations'})
+@WebSocketGateway({
+  transports: ['websocket'],
+  cors: {
+    origin: '*',
+  },
+})
 export class ReservationsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
-
-  @WebSocketServer() wss: Server;
+  @WebSocketServer()
+  server: Server;
   wsClients = [];
 
   private broadcast(event: any, message: any) {
@@ -32,16 +36,16 @@ export class ReservationsGateway implements OnGatewayInit, OnGatewayConnection, 
   }
 
   // When the client connects to the server
-  handleConnection(client: any, ...args: any[]): WsResponse<string> {
-    console.log(`Client subscribed ${client}`);
+  handleConnection(client: Socket, ...args: any[]): WsResponse<string> {
+    console.log(`Client subscribed ${client.id}`);
     this.wsClients.push(client);
 
     // client.emit('subscribe_confirmation', 'Hello');
     return {event:'connection' , data:'Hello'};
   }
 
-  handleDisconnect(client: any): void {
-    console.log(`Client disconnected ${client}`);
+  handleDisconnect(client: Socket): void {
+    console.log(`Client disconnected ${client.id}`);
   }
 
   // Emits a reservation event
@@ -50,41 +54,5 @@ export class ReservationsGateway implements OnGatewayInit, OnGatewayConnection, 
 
     // TODO: Send message only to the specified driver
     this.broadcast('reservation', data);
-  }
-}
-*/
-
-import {
-  MessageBody,
-  SubscribeMessage,
-  WebSocketGateway,
-  WebSocketServer,
-  WsResponse,
-} from '@nestjs/websockets';
-import { from, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Server } from 'socket.io';
-
-@WebSocketGateway({
-  cors: {
-    origin: '*',
-  },
-})
-export class ReservationsGateway {
-  @WebSocketServer()
-  server: Server;
-
-  @SubscribeMessage('events')
-  findAll(@MessageBody() data: any): Observable<WsResponse<number>> {
-    return from([1, 2, 3]).pipe(map(item => ({ event: 'events', data: item })));
-  }
-
-  @SubscribeMessage('identity')
-  async identity(@MessageBody() data: number): Promise<number> {
-    return data;
-  }
-
-  notifyClient(data): void {
-    console.log(`Reservation emitted ${data}`)
   }
 }

@@ -1,47 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import PendingReservation from './PendingReservation';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 
 export default function PendingReservations({reservations, setReservations, AcceptReservation}) {
-  const [socket, setSocket] = useState(null);
-  const [setSocketConnected] = useState(false);
+  const [socket, setSocket] = useState();
+  const [socketConnected, setSocketConnected] = useState(false);
 
   // Start connection with socket server
   useEffect(() => {
-    const socket = io('http://localhost:3004');
-    socket.on('connect', function() {
-      console.log('Connected');
-
-      socket.emit('events', { test: 'test' });
-      socket.emit('identity', 0, response =>
-        console.log('Identity:', response),
-      );
-    });
-    socket.on('events', function(data) {
-      console.log('event', data);
-    });
-    socket.on('exception', function(data) {
-      console.log('event', data);
-    });
-    socket.on('disconnect', function() {
-      console.log('Disconnected');
-    });
+    const newSocket = io(
+      'http://localhost:3004/',
+      {
+        transports: ['websocket']
+      }
+    );
+    setSocket(newSocket);
+    console.log('Connection to socket established')
   }, []);
 
-  /*
   // Subscribe to event once connection is established
   useEffect(() => {
+    console.log(socket);
     if (!socket) return;
  
     socket.on('connect', () => {
       setSocketConnected(socket.connected);
+      console.log(`Connected to socket, client id:${socket.id}`);
     });
+
     socket.on('disconnect', () => {
       setSocketConnected(socket.connected);
+      console.log('Disconnected from socket');
     });
+
+    socket.on('reservation', () => {
+      console.log('New reservation detected');
+    })
  
   }, [socket]);
-  */
 
   return(
     <div>
