@@ -1,3 +1,4 @@
+/*
 import {
   OnGatewayInit,
   WebSocketGateway,
@@ -49,5 +50,41 @@ export class ReservationsGateway implements OnGatewayInit, OnGatewayConnection, 
 
     // TODO: Send message only to the specified driver
     this.broadcast('reservation', data);
+  }
+}
+*/
+
+import {
+  MessageBody,
+  SubscribeMessage,
+  WebSocketGateway,
+  WebSocketServer,
+  WsResponse,
+} from '@nestjs/websockets';
+import { from, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Server } from 'socket.io';
+
+@WebSocketGateway({
+  cors: {
+    origin: '*',
+  },
+})
+export class ReservationsGateway {
+  @WebSocketServer()
+  server: Server;
+
+  @SubscribeMessage('events')
+  findAll(@MessageBody() data: any): Observable<WsResponse<number>> {
+    return from([1, 2, 3]).pipe(map(item => ({ event: 'events', data: item })));
+  }
+
+  @SubscribeMessage('identity')
+  async identity(@MessageBody() data: number): Promise<number> {
+    return data;
+  }
+
+  notifyClient(data): void {
+    console.log(`Reservation emitted ${data}`)
   }
 }
