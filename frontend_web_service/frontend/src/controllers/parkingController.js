@@ -1,9 +1,15 @@
 import fetchToken from '../utils/fetchToken';
 
-export async function newParking(parkingData) {
+function buildHeaders() {
   let myHeaders = new Headers();
   myHeaders.append('Authorization', 'Bearer ' + fetchToken());
   myHeaders.append('Content-Type', 'application/json');
+
+  return myHeaders;
+}
+
+export async function newParking(parkingData) {
+  const myHeaders = buildHeaders();
 
   return await fetch('http://localhost:8000/parking/parking/create', {
     method: 'POST',
@@ -13,11 +19,17 @@ export async function newParking(parkingData) {
 }
 
 export async function getParkingData() {
-  let myHeaders = new Headers();
-  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-  myHeaders.append('Content-Type', 'application/json');
+  const myHeaders = buildHeaders();
+
   return await fetch('http://localhost:8000/parking/parking', {
     headers: myHeaders
   });
 }
-  
+
+export async function getReservations(id) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:3003/reservation/parking/${id}`, {
+    headers: myHeaders
+  });
+}
