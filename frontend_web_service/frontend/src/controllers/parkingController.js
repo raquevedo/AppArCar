@@ -11,21 +11,19 @@ function buildHeaders() {
 export async function newParking(parkingData) {
   const myHeaders = buildHeaders();
 
-  const data = await fetch('http://localhost:8000/parking/parking/create', {
+  return await fetch('http://localhost:8000/parking/parking/create', {
     method: 'POST',
     headers: myHeaders,
     body: JSON.stringify(parkingData)
   })
-  return await data.json();
 }
 
 export async function getParkingData() {
   const myHeaders = buildHeaders();
 
-  const data = await fetch('http://localhost:8000/parking/parking', {
+  return await fetch('http://localhost:8000/parking/parking', {
     headers: myHeaders
   });
-  return await data.json();
 }
 
 export async function getReservations(id) {
