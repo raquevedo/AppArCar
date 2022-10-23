@@ -110,3 +110,21 @@ input::placeholder{
     color: black;
     opacity: 1;
 }
+
+.grid-y.days{
+    width:26%
+}
+
+.grid-y.hours-days{
+    width:26%
+}
+
+.grid-y.to{
+    width:10%
+}
+
+.grid-y.hours-to{
+    width:26%
+}
+
+
