@@ -1,58 +1,51 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { BsFillPersonFill, BsFillBarChartFill } from "react-icons/bs";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
 
-import styled from 'styled-components';
+import {
+  Children,
+  SidebarContainer,
+  SidebarWrapper,
+  SidebarLogoWrapper,
+  SidebarToggler,
+} from "./SideNarStyles";
 
 
-const StyledLink = styled(Link)`
-    color: red;
-    background: transparent;
-    margin: "1rem",
-    textDecoration: "none",
+import SidebarItems  from "./SidebarItems";
+
+const MOBILE_VIEW = window.innerWidth < 468;
+
+ function SideNav({ children }) {
+  const [displaySidebar, setDisplaySidebar] = useState(!MOBILE_VIEW);
+
+  const handleSidebarDisplay = (e) => {
+    e.preventDefault();
+    if (window.innerWidth > 468) {
+      setDisplaySidebar(!displaySidebar);
+    } else {
+      setDisplaySidebar(false);
     }
-`;
+  };
 
-const linksidecell = {
-  margin: "1rem",
-  textDecoration: "none",
-  color: 'white',
-  background: "transparent",
-  fontSize: "20px"
-
-};
-
-function SideNav() {
   return (
-    <div class="grid-y  grid-margin-y">
-      <div class="cell grid-padding-x grid-margin-x">
-        <div class="grid-x  grid-margin-x grid-padding-x side-cell">
-          <div class="cell ">
-            <BsFillBarChartFill />
-          </div>
-          <div class="cell">
-            
-            <Link style={linksidecell} className="item"  to="/dashboard" >
-              Dashboard
-            </Link>
-          </div>
-        </div>
-      </div>
-      <div class="cell grid-padding-x grid-margin-x">
-        <div class="grid-x  grid-margin-x grid-padding-x side-cell">
-          <div class="cell ">
-            <BsFillPersonFill />
-          </div>
-          <div class="cell">
-            
-            <Link style={linksidecell} className="item"  to="/dashboard/profile" >
-              Profile
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
+    <React.Fragment>
+      <SidebarContainer displaySidebar={displaySidebar}>
+        <SidebarWrapper>
+          <SidebarLogoWrapper displaySidebar={displaySidebar}>
+            <SidebarToggler
+              displaySidebar={displaySidebar}
+              onClick={handleSidebarDisplay}
+            >
+              <div className="outer__circle">
+                <div className="inner__circle" />
+              </div>
+            </SidebarToggler>
+          </SidebarLogoWrapper>
+            {/* Render the SidebarItems component */}
+          <SidebarItems displaySidebar={displaySidebar} />
+        </SidebarWrapper>
+      </SidebarContainer>
+            {/* Render the children */}
+      <Children displaySidebar={displaySidebar}>{children}</Children>
+    </React.Fragment>
   );
 }
 

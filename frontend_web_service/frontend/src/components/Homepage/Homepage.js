@@ -11,7 +11,7 @@ function Homepage() {
             <img src={logo} alt='Logo' className="home-logo"></img>
             
             <a href="/signin"><button class="bn632-hover bn24">Log In</button></a>
-            <p className='short'>Cercano, Economico y Rapido</p>
+            <p className='short'>Cercano, Disponible y Economico</p>
         </div>
     </div>
   );

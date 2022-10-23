@@ -60,11 +60,26 @@ code {
   box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
 }
 .acordeon-body {
-  background: whitesmoke;
+
   height: 100px;
 }
+
+.manage-link-cell {
+  background-image: linear-gradient(
+    to right,
+    #6253e1,
+    #852d91
+   
+  );
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+}
+
 .manage-cell {
-  background-image: linear-gradient(to right, #6253e1, #a3a1ff);
+  background: #a3a1ff;
   color: white;
   border-radius: 10px;
 
