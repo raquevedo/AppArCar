@@ -12,7 +12,13 @@ function Navbar() {
             </Link>
           </ul>
         </div>
-      <div className="top-bar-right"></div>
+        <div className="top-bar-right">
+          <ul className="dropdown menu" data-dropdown-menu>
+            <Link to='aboutus'>
+              <li className="menu-text">About Us</li>
+            </Link>
+          </ul>
+        </div>
       </div>
     </div>
   );
