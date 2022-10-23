@@ -13,7 +13,7 @@ export default function PendingReservations({reservations, setReservations, Acce
     setReservations([...reservations, ...[newReservation]])
   }
 
-  useEffect((id) => {
+  useEffect((id, setReservations) => {
     async function setReservationData(id) {
       const response = await getReservations(id);
   
@@ -35,7 +35,7 @@ export default function PendingReservations({reservations, setReservations, Acce
       }
     }
     setReservationData(id);
-  }, [id]);
+  }, [id, setReservations]);
 
   // Start connection with socket server
   useEffect(() => {
