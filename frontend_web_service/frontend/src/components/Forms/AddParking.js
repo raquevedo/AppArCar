@@ -1,4 +1,6 @@
-import React from "react";
+
+import React, { useState } from 'react';
+
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -18,17 +20,18 @@ const schema = yup.object({
   priceMonth: yup.number(),
 });
 
-export default function AddParking({ setShowModal }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    mode: "onTouched",
-    resolver: yupResolver(schema),
+
+export default function AddParking(props) {
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const { register, handleSubmit, formState:{ errors } } = useForm({
+    mode: 'onTouched',
+    resolver: yupResolver(schema)
+
   });
 
   const onSubmit = async (data) => {
+    setButtonDisabled(true);
+
     const businessName = data.businessName;
     const cuitNumber = data.cuitNumber;
     const streetName = data.streetName;
@@ -41,7 +44,7 @@ export default function AddParking({ setShowModal }) {
     const priceWeek = data.priceWeek;
     const priceMonth = data.priceMonth;
 
-    await newParking({
+    const resp = await newParking({
       businessName,
       cuitNumber,
       streetName,
@@ -54,12 +57,19 @@ export default function AddParking({ setShowModal }) {
       priceWeek,
       priceMonth,
     });
-    setShowModal(false);
-  };
+
+
+    if (resp.status === 200) {
+      props.setShowModal(false);
+      let data = await resp.json();
+      props.setParkingData([...props.parkingData, ...[data]]);
+    }
+  }
 
   return (
     <div className="grid-container grid-margin-x grid-padding-x login-box-modal-body">
       <form onSubmit={handleSubmit(onSubmit)}>
+
         <div class="grid-x align-center grid-margin-x grid-padding-x  grid-padding-y">
           <div className="cell large-6 small-12">
             <div class="user-box">
@@ -69,6 +79,7 @@ export default function AddParking({ setShowModal }) {
                 {...register("businessName")}
               />
             </div>
+
 
             {errors.businessName && <p>Name is invalid</p>}
             <div class="user-box">
@@ -155,9 +166,11 @@ export default function AddParking({ setShowModal }) {
             
             {errors.priceMonth && <p>Price is invalid</p>}
           </div>
+
           <div>
         <button className="bn632-hover bn24" type="submit">Submit</button>
         </div>
+
         </div>
       </form>
     </div>

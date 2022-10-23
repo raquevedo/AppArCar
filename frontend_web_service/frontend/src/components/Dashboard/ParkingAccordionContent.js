@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 
 
 
+
 const linksidecell = {
  
   textDecoration: "none",
@@ -20,6 +21,7 @@ export default function ParkingAccordionContent(props) {
   };
   
   return (
+
     <div>
       <div className="grid-x   grid-margin-x grid-padding-x' acordeon-body">
         <div className="cell large-2 small-3 align-center justify-center manage-cell">
@@ -36,6 +38,7 @@ export default function ParkingAccordionContent(props) {
           <Link style={linksidecell} className="button"  to={`manage/${props.garage.parkingInfo.id}`} >
              <h3>Manage</h3>
             </Link>
+
         </div>
       </div>
     </div>

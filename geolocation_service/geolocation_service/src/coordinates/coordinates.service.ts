@@ -7,7 +7,7 @@ export class PositionStackService {
 
   async getCoordinates(address: string): Promise<CoordinatesInterface> {
     const baseUrl = 'http://api.positionstack.com/v1/';
-    const accessKey = '2e9115a21f9865097b39441ab4acc4a8';
+    const accessKey = '';
     const endpoint = 'forward';
     const fullUrl = baseUrl + endpoint + '?access_key=' + accessKey + '&query=' + address + '&country=AR';
     const encodedUrl = encodeURI(fullUrl);
