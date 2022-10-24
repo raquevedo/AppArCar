@@ -9,15 +9,13 @@ import {
   Image
 } from "react-native";
 import { GetUserInfo } from "../../Services/requests";
-import { GetCars } from "../controllers/car_controller";
-import { PersistProfile } from "../controllers/profile_controller";
+import { getPaymentMethods, deleteCreditCard } from "../controllers/payments_methods_controller";
 import { useIsFocused } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "../../Services/styles";
 
-
 function Payments({ navigation }) {
-  const [cars, setCars] = React.useState([]);
+  const [paymentsMethods, setPaymentsMethods] = React.useState([]);
   const focus = useIsFocused();
 
   emptyListView = () => {
@@ -36,14 +34,14 @@ function Payments({ navigation }) {
 
   React.useEffect(() => {
     console.log(focus);
-    const getCars = async () => {
-      const response = await GetCars();
+    const thisGetPaymentMethods = async () => {
+      const response = await getPaymentMethods();
       const resData = await response.json();
       console.log(resData);
-      setCars(resData);
+      setPaymentsMethods(resData);
     };
     if (focus) {
-      getCars();
+      thisGetPaymentMethods();
     }
   }, [focus]);
 
@@ -58,20 +56,24 @@ function Payments({ navigation }) {
           <FlatList
             ListEmptyComponent={emptyListView}
             ItemSeparatorComponent={renderSeparator}
-            data={cars}
+            data={paymentsMethods}
             renderItem={({ item }) => (
               <TouchableOpacity>
                 <View style={styles.flatlist}>
                   <Text
                     style={styles.textFlatList}
-                    onPress={() =>
-                      navigation.navigate("EditCar", { idCar: item.id })
-                    }
+                  
                   >
                     <View style={styles.containTextFlatList}>
-                    <Text style={styles.heading2}>{item.brand}</Text>
+                    <Text style={styles.heading2}>{item.cardName}</Text>
                     
-                    <Text style={styles.subheading}>{item.model}</Text>
+                    <Text style={styles.subheading}>{item.cardNumber}</Text>
+                    <Text 
+                      style={styles.subheading2}
+                      onPress={async () =>
+                        await deleteCreditCard(item.id) & alert('Seccefull erased')
+                      }
+                    >Borrar</Text>
                     </View>
                   </Text>
                 </View>

@@ -7,9 +7,8 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { GetUserInfo } from "../../Services/requests";
+import { persistCreditCard } from "../controllers/payments_methods_controller";
 import styles from "../../Services/styles";
-import { PersistCar } from "../controllers/car_controller";
 import { LinearGradient } from "expo-linear-gradient";
 import { TextInput } from "react-native-paper";
 import DatePicker from "react-native-modal-datetime-picker";
@@ -18,8 +17,7 @@ import moment from "moment";
 function AddCreditCard({ navigation }) {
   const [cardNumber, setCardNumber] = React.useState("");
   const [cardName, setCardName] = React.useState("");
-  const [cardUserName, setCardUserName] = React.useState("");
-  const [expiredDate, setExpiredDate] = React.useState("");
+  const [expireDate, setExpireDate] = React.useState("");
   const [isDatePickerVisible, setIsDatePickerVisibility] = React.useState(false);
 
   const showDatePicker = () => {
@@ -31,7 +29,7 @@ function AddCreditCard({ navigation }) {
   };
 
   const handleConfirm = (expiredDateDt) => {
-    setExpiredDate(expiredDateDt);
+    setExpireDate(expiredDateDt);
     hideDatePicker();
   };
   return (
@@ -56,12 +54,7 @@ function AddCreditCard({ navigation }) {
             style={styles.text}
             onChangeText={setCardName}
           />
-          <TextInput
-            placeholder="Names"
-            value={cardUserName}
-            style={styles.text}
-            onChangeText={setCardUserName}
-          />
+          
           <DatePicker
             isVisible={isDatePickerVisible}
             mode="date"
@@ -73,20 +66,18 @@ function AddCreditCard({ navigation }) {
             onPress={showDatePicker}
           >
             <Text style={styles.textDate}>{`${
-              expiredDate
-                ? moment(expiredDate).format("MM/DD/YYYY")
-                : "Expired date"
+              expireDate
+                ? moment(expireDate).format("MM/DD/YYYY")
+                : "Expire date"
             }`}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.containButtonStylel}
             onPress={async () =>
-              (await PersistCar({
-                patentId,
-                brand,
-                model,
-                color,
-                productionYear,
+              (await persistCreditCard({
+                cardNumber,
+                cardName,
+                expireDate,
               })) & navigation.goBack()
             }
           >
