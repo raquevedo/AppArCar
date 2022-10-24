@@ -5,6 +5,7 @@ import Homepage from '../Homepage/Homepage';
 import SignIn from '../SignIn/SignIn';
 import DashboardWrapper from '../Dashboard/DashboardWrapper';
 import Navbar from '../Shared/Navbar';
+import AboutUs from '../AboutUs/AboutUs';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Homepage />} />
               <Route path='signin' element={<SignIn />} />
+              <Route path='aboutus' element={<AboutUs/>} />
               <Route
                 path='dashboard/*'
                 element={
