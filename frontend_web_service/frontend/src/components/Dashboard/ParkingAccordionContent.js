@@ -2,11 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function ParkingAccordionContent(props) {
-
-  const manageLink = (garageId) => {
-    return `manage/${props.garage.parkingInfo.id}`
-  }
-
   return(
     <div>
       <div className='grid-x'>

@@ -22,7 +22,7 @@ function AddParkingModal(props) {
               </div>
             </div>
             <div className="cell">
-              <AddParking setShowModal={props.setShowModal} />
+              <AddParking parkingData={props.parkingData} setShowModal={props.setShowModal} setParkingData={props.setParkingData}/>
             </div>
           </div>
         </div>

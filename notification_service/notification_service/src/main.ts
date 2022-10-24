@@ -1,10 +1,12 @@
 import { NestFactory } from '@nestjs/core';
-import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { AppModule } from './app.module';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule,
+  const app = await NestFactory.create(AppModule);
+
+  const microservice = app.connectMicroservice<MicroserviceOptions>(
     {
       transport: Transport.RMQ,
       options: {
@@ -16,6 +18,8 @@ async function bootstrap() {
       },
     }
   );
-  await app.listen();
+  await app.startAllMicroservices();
+  await app.listen(3004);
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();

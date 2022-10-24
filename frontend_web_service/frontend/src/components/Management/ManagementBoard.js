@@ -1,11 +1,14 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import TextCard from "./TextCard";
 import { getParkingStatusID} from "../../controllers/parkingController";
+import ReservationsTab from './Reservations/ReservationsTab';
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
+  const { id } = useParams();
+  const [toggleState, setToggleState] = useState('reservations');
+
   const [toggleState, setToggleState] = useState(1);
   const [totalSlots, setTotalSlots] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
@@ -41,11 +44,11 @@ export default function ManagementBoard() {
             <div className="cell small-3">
               <button
                 className={
-                  toggleState === "notifications" ? "tabs active-tabs" : "tabs"
+                  toggleState === "reservations" ? "tabs active-tabs" : "tabs"
                 }
-                onClick={() => toggleTab("notifications")}
+                onClick={() => toggleTab("reservations")}
               >
-                Notifications
+                Reservations
               </button>
             </div>
             <div className="cell small-3">
@@ -79,6 +82,16 @@ export default function ManagementBoard() {
               </button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="content-tabs">
+        { toggleState === 'reservations' && 
+          <ReservationsTab id={id}/>
+        }
+        { toggleState === 'hours' && 
+          <div>
+          'hours'
         </div>
 
         <div className="content-tabs">
