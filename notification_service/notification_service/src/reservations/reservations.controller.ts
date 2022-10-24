@@ -6,9 +6,19 @@ import { ReservationsGateway } from './reservations.gateway';
 export class ReservationsController {
   constructor(private reservationGateway: ReservationsGateway) {}
 
-  // Checks RabbitMQ for any reservation events and notifies the respective client in the frontend
-  @EventPattern()
+  // Checks RabbitMQ for any created reservation events and notifies the respective client in the frontend
+  @EventPattern('created')
   async sendReservation(data: string) {
-    this.reservationGateway.notifyClient(data);
+    this.reservationGateway.notifyClient('reservation_created', data);
+  }
+
+  @EventPattern('accepted')
+  async notifyAcceptedReservation(data: string) {
+    this.reservationGateway.notifyClient('reservation_accepted', data);
+  }
+
+  @EventPattern('rejected')
+  async notifyRejectedReservation(data: string) {
+    this.reservationGateway.notifyClient('reservation_rejected', data);
   }
 }

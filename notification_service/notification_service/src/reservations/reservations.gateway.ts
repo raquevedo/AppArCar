@@ -10,6 +10,7 @@ import { Server, Socket } from 'socket.io';
 import { ReservationsService } from "./reservations.service";
 
 @WebSocketGateway({
+  namespace: 'reservations',
   transports: ['websocket'],
   cors: {
     origin: '*',
@@ -49,10 +50,10 @@ export class ReservationsGateway implements OnGatewayInit, OnGatewayConnection, 
   }
 
   // Emits a reservation event
-  notifyClient(data): void {
-    console.log(`Reservation emitted ${data}`)
+  notifyClient(event: string, data: string): void {
+    console.log(`${event} event emitted with data: ${data}`)
 
     // TODO: Send message only to the specified driver
-    this.broadcast('reservation', data);
+    this.broadcast(event, data);
   }
 }

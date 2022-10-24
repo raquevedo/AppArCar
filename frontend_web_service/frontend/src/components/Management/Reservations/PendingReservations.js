@@ -64,7 +64,7 @@ export default function PendingReservations({reservations, setReservations, Acce
       console.log('Disconnected from socket');
     });
 
-    socket.on('reservation', (data) => {
+    socket.on('reservation_created', (data) => {
       console.log(`New reservation detected ${data}`);
       updateReservations(JSON.parse(data));
     })
