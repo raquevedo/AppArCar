@@ -39,3 +39,12 @@ services:
     - name: parking
       paths:
       - /parking
+
+  - host: payments_service
+    port: 3005
+    name: payments_service
+    protocol: http
+    routes:
+    - name: payments
+      paths:
+      - /payments
