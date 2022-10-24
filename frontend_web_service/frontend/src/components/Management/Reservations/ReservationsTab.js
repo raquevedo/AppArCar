@@ -9,7 +9,7 @@ export default function ReservationsTab(props) {
   let [acceptedReservations, setAcceptedReservations] = useState([]);
 
   useEffect(() => {
-    async function setNotificationData(id) {
+    async function setReservationData(id) {
       const response = await getReservations(id);
   
       if (response.status === 200) {
@@ -33,7 +33,7 @@ export default function ReservationsTab(props) {
         console.log(`Error when fetching reservation data: ${response.status}`)
       }
     }
-    setNotificationData(props.id);
+    setReservationData(props.id);
   }, [props.id])
 
   async function AcceptReservation(id) {
