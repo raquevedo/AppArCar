@@ -177,7 +177,7 @@ export class ReservationController {
     
     await this.pkgReservationRepository.updateById(id, pkgReservation);
   }
-  
+
   @post('/reservation/checkin/{id}')
   @response(204, {
     description: 'PkgReservation PATCH success',
@@ -239,6 +239,37 @@ export class ReservationController {
     publishMessageIntoQueue(Buffer.from(JSON.stringify(pkgReservation)), 'pendingPayments')
   }
 
+  @post('/reservation/accept/{id}')
+  @response(204, {
+    description: 'PkgReservation PATCH success',
+  })
+  async acceptlById(
+    @param.path.number('id') id: number,
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(PkgReservation, {partial: true, 
+            exclude: ['id','idParking','idCarDriver','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
+          }),
+        },
+      },
+    })
+    pkgReservation: PkgReservation,
+  ): Promise<void> {
+    pkgReservation = await this.pkgReservationRepository.findById(id)
+
+    if(pkgReservation.status == 'created'){
+      
+      pkgReservation.status = 'accepted'
+      pkgReservation.sysUpdatedAtDttm = Date()
+    } else {
+      throw new Error("We can only accept reservations with status = created. Reservation: "+id+" has status: "+pkgReservation.status)
+    }
+    
+    await this.pkgReservationRepository.updateById(id, pkgReservation);
+    publishMessageIntoQueue(Buffer.from(JSON.stringify(pkgReservation)), 'acceptedReservations')
+  }
+
   @post('/reservation/reject/{id}')
   @response(204, {
     description: 'PkgReservation PATCH success',
@@ -259,7 +290,6 @@ export class ReservationController {
     pkgReservation = await this.pkgReservationRepository.findById(id)
 
     if(pkgReservation.status == 'created'){
-
       pkgReservation.status = 'rejected'
       pkgReservation.sysUpdatedAtDttm = Date()
     } else {
@@ -269,5 +299,4 @@ export class ReservationController {
     await this.pkgReservationRepository.updateById(id, pkgReservation);
     publishMessageIntoQueue(Buffer.from(JSON.stringify(pkgReservation)), 'rejectedReservations')
   }
-
 }

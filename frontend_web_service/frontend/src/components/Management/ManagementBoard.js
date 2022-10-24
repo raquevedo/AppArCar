@@ -1,9 +1,11 @@
-import React from 'react';
-import { useState } from 'react'
+import React, { useState }  from 'react';
+import { useParams } from 'react-router-dom';
+import ReservationsTab from './Reservations/ReservationsTab';
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
-  const [toggleState, setToggleState] = useState(1);
+  const { id } = useParams();
+  const [toggleState, setToggleState] = useState('reservations');
 
 
   const toggleTab = (index) => {
@@ -17,10 +19,10 @@ export default function ManagementBoard() {
           <div className='grid-x'>
             <div className='cell small-3'>
               <button
-                className={toggleState === 'notifications' ? "tabs active-tabs" : "tabs"}
-                onClick={() => toggleTab('notifications')}
+                className={toggleState === 'reservations' ? "tabs active-tabs" : "tabs"}
+                onClick={() => toggleTab('reservations')}
               >
-                Notifications
+                Reservations
               </button>
             </div>
             <div className='cell small-3'>
@@ -51,10 +53,8 @@ export default function ManagementBoard() {
       </div>
 
       <div className="content-tabs">
-        { toggleState === 'notifications' && 
-          <div>
-            'notifications'
-          </div>
+        { toggleState === 'reservations' && 
+          <ReservationsTab id={id}/>
         }
         { toggleState === 'hours' && 
           <div>
