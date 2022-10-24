@@ -19,7 +19,7 @@ export class ReservationsController {
     }
 
     if (eventData['status'] === 'cancelled') {
-      this.reservationGateway.notifyClient('reservation_canceled', data);
+      this.reservationGateway.notifyClient('reservation_cancelled', data);
     }
   }
 }
