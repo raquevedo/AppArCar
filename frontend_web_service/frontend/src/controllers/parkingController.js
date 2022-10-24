@@ -1,14 +1,10 @@
-import fetchToken from "../utils/fetchToken";
+import fetchToken from '../utils/fetchToken';
 
 function buildHeaders() {
   let myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer " + fetchToken());
-  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
+  myHeaders.append('Content-Type', 'application/json');
 
-  const data = await fetch("http://localhost:8000/parking/parking/create", {
-    method: "POST",
-    headers: myHeaders,
-    body: JSON.stringify(parkingData),
   return myHeaders;
 }
 
@@ -22,6 +18,14 @@ export async function newParking(parkingData) {
   })
 }
 
+export async function updateParking(id) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/parking/update/${id}`, {
+    headers: myHeaders, 
+  })
+}
+
 export async function getParkingData() {
   const myHeaders = buildHeaders();
 
@@ -30,61 +34,25 @@ export async function getParkingData() {
   });
 }
 
-export async function updateParking(id, parkingData) {
-  let myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer " + fetchToken());
-  myHeaders.append("Content-Type", "application/json");
-
-  const data = await fetch(`http://localhost:8000/parking/parking/update/${id}`, {
-    method: "PATCH",
-    headers: myHeaders,
-    body: JSON.stringify(parkingData),
-  });
-  return await data.json();
-}
-
-
-export async function getParkingData() {
-  let myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer " + fetchToken());
-  myHeaders.append("Content-Type", "application/json");
-  const data = await fetch("http://localhost:8000/parking/parking", {
-    headers: myHeaders,
-  });
-  return await data.json();
-}
-
 export async function getParkingStatusID(id) {
-  let myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer " + fetchToken());
-  myHeaders.append("Content-Type", "application/json");
-  let response = await fetch(
-    `http://localhost:8000/parking/parking-status/${id}`,
-    {
-      headers: myHeaders,
-    }
-  );
-  if (!response.ok) {
-    const message = `An error has occured: ${response.status}`;
-    throw new Error(message);
-  }
-  response = await response.json();
-  return response
-}
+  const myHeaders = buildHeaders();
 
+  return await fetch(`http://localhost:8000/parking/parking-status/${id}`, {
+    headers: myHeaders
+  });
+}
 
 export async function getParkingDataID(id) {
-  let myHeaders = new Headers();
-  myHeaders.append("Authorization", "Bearer " + fetchToken());
-  myHeaders.append("Content-Type", "application/json");
-  const data = await fetch(
-    `http://localhost:8000/parking/parking/${id}`,
-    {
-      headers: myHeaders,
-    }
-  );
-  return await data.json();
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/parking/${id}`, {
+    headers: myHeaders
+  });
 }
+
+
+
+
 export async function getReservations(id) {
   const myHeaders = buildHeaders();
 

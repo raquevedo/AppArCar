@@ -1,6 +1,3 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import TextCard from "./TextCard";
 import {
   getParkingStatusID,
@@ -8,7 +5,7 @@ import {
 } from "../../controllers/parkingController";
 import Settings from "../Forms/Settings";
 import Hours from "./Hours";
-import React, { useState }  from 'react';
+import React, { useState, useEffect }  from 'react';
 import { useParams } from 'react-router-dom';
 import ReservationsTab from './Reservations/ReservationsTab';
 
@@ -70,10 +67,8 @@ export default function ManagementBoard() {
             <div className="cell small-3">
               <button
                 className={
-                  toggleState === "notifications" ? "tabs active-tabs" : "tabs"
+                  toggleState === "reservations" ? "tabs active-tabs" : "tabs"
                 }
-                onClick={() => toggleTab("notifications")}
-                className={toggleState === 'reservations' ? "tabs active-tabs" : "tabs"}
                 onClick={() => toggleTab('reservations')}
               >
                 Reservations
@@ -183,6 +178,7 @@ export default function ManagementBoard() {
         }
         </div>
       </div>
+    </div>
     </div>
   );
 }
