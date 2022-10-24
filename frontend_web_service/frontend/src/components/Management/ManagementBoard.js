@@ -8,10 +8,14 @@ import {
 } from "../../controllers/parkingController";
 import Settings from "../Forms/Settings";
 import Hours from "./Hours";
+import React, { useState }  from 'react';
+import { useParams } from 'react-router-dom';
+import ReservationsTab from './Reservations/ReservationsTab';
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
-  const [toggleState, setToggleState] = useState(1);
+  const { id } = useParams();
+  const [toggleState, setToggleState] = useState('reservations');
 
   const [totalSlots, setTotalSlots] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
@@ -69,8 +73,10 @@ export default function ManagementBoard() {
                   toggleState === "notifications" ? "tabs active-tabs" : "tabs"
                 }
                 onClick={() => toggleTab("notifications")}
+                className={toggleState === 'reservations' ? "tabs active-tabs" : "tabs"}
+                onClick={() => toggleTab('reservations')}
               >
-                Notifications
+                Reservations
               </button>
             </div>
             <div className="cell small-3">
@@ -156,6 +162,25 @@ export default function ManagementBoard() {
               <TextCard title="Blocked Slots:" value={blockedSlots} />
             </div>
           )}
+      <div className="content-tabs">
+        { toggleState === 'reservations' && 
+          <ReservationsTab id={id}/>
+        }
+        { toggleState === 'hours' && 
+          <div>
+          'hours'
+        </div>
+        }
+        { toggleState === 'settings' && 
+          <div>
+            'settings'
+          </div>
+        }
+        { toggleState === 'status' && 
+          <div>
+            'status'
+          </div>
+        }
         </div>
       </div>
     </div>

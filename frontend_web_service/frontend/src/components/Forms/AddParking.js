@@ -1,4 +1,5 @@
 import React from "react";
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -27,10 +28,17 @@ export default function AddParking({ setShowModal }) {
   } = useForm({
     mode: "onTouched",
     resolver: yupResolver(schema),
+export default function AddParking(props) {
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const { register, handleSubmit, formState:{ errors } } = useForm({
+    mode: 'onTouched',
+    resolver: yupResolver(schema)
   });
 
   
   const onSubmit = async (data) => {
+    setButtonDisabled(true);
+
     const businessName = data.businessName;
     const cuitNumber = data.cuitNumber;
     const streetName = data.streetName;
@@ -43,7 +51,7 @@ export default function AddParking({ setShowModal }) {
     const priceWeek = data.priceWeek;
     const priceMonth = data.priceMonth;
 
-    await newParking({
+    const resp = await newParking({
       businessName,
       cuitNumber,
       streetName,
@@ -59,11 +67,20 @@ export default function AddParking({ setShowModal }) {
     setShowModal(false);
   };
 
+    if (resp.status === 200) {
+      props.setShowModal(false);
+      let data = await resp.json();
+      props.setParkingData([...props.parkingData, ...[data]]);
+    }
+  }
+
   return (
     <div className="grid-container">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div class="grid-x align-center grid-padding-x">
           <div className="cell large-6 small-12">
+        <div className='grid-x align-center grid-padding-x'>
+          <div className='cell large-6 small-12'>
             <label>Business Name</label>
             <input type="text" {...register("businessName")} />
             {errors.businessName && <p>Name is invalid</p>}
@@ -112,6 +129,7 @@ export default function AddParking({ setShowModal }) {
           <button className="button" type="submit">
             Submit
           </button>
+          <button className="button" disabled={buttonDisabled} type="submit">Submit</button>
         </div>
       </form>
     </div>
