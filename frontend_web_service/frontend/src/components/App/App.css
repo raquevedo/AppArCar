@@ -109,3 +109,8 @@ body{
   transform: translate(-50%,-50%);
 }
 
+html{
+    background: radial-gradient(circle at 85%,#5741f2 35%,#df3ac4 75%) no-repeat center center fixed;
+    
+}
+
