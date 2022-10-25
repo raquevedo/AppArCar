@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 
 async function bootstrap() {
@@ -19,18 +18,6 @@ async function bootstrap() {
     }
   );
 
-  const acceptedReservations = app.connectMicroservice<MicroserviceOptions>(
-    {
-      transport: Transport.RMQ,
-      options: {
-        urls: ['amqp://guest:guest@rabbitmq:5672/'],
-        queue: 'acceptedReservations',
-        queueOptions: {
-          durable: false
-        },
-      },
-    }
-  );
   await app.startAllMicroservices();
   await app.listen(3004);
   console.log(`Application is running on: ${await app.getUrl()}`);
