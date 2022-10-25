@@ -236,27 +236,22 @@ export default function App({ navigation }) {
                     <Stack.Screen
                       name="Cars"
                       component={Cars}
-        
                     />
                     <Stack.Screen
                       name="AddCar"
                       component={AddCar}
-                      
                     />
                     <Stack.Screen
                       name="Payments"
                       component={Payments}
-        
                     />
                     <Stack.Screen
                       name="Add Credit Card"
                       component={AddCreditCard}
-                      
                     />
                     <Stack.Screen
                       name="EditCar"
                       component={EditCar}
-                      
                     />
                   </>
                 ) : (
