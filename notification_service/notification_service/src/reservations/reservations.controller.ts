@@ -1,19 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
-import { ReservationsService } from './reservations.service';
-import { Reservation } from './rservations.interface';
+import { Controller } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
+import { ReservationsGateway } from './reservations.gateway';
 
 @Controller('reservations')
 export class ReservationsController {
-  constructor(private reservationService: ReservationsService) {}
+  constructor(private reservationGateway: ReservationsGateway) {}
 
-  @Get()
-  async readQueue(): Promise<Reservation[]> {
-    return this.reservationService.getQueue();
-  }
-
+  // Checks RabbitMQ for any reservation events and notifies the respective client in the frontend
   @EventPattern()
   async sendReservation(data: string) {
-    this.reservationService.notifyClient(data);
+    this.reservationGateway.notifyClient(data);
   }
 }

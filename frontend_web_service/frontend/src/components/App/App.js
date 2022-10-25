@@ -12,6 +12,7 @@ import SignIn from "../SignIn/SignIn";
 import DashboardWrapper from "../Dashboard/DashboardWrapper";
 import Navbar from "../Shared/Navbar";
 import "../../index.css";
+import AboutUs from '../AboutUs/AboutUs';
 
 function App() {
   return (
@@ -25,8 +26,9 @@ function App() {
           
           <div className="cell large-12">
             <Routes>
-              <Route path="/" element={<Homepage />} />
-              <Route path="signin" element={<SignIn />} />
+              <Route path='/' element={<Homepage />} />
+              <Route path='signin' element={<SignIn />} />
+              <Route path='aboutus' element={<AboutUs/>} />
               <Route
                 path="dashboard/*"
                 element={

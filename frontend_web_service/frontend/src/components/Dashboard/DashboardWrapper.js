@@ -7,12 +7,13 @@ export default function DashboardWrapper() {
   const [isRegistered, setIsRegistered] = useState();
   const [partnerData, setPartnerData] = useState({});
 
+  async function assignPartnerData() {
+    const partner = await getPartnerData();
+    setIsRegistered(partner['isRegister']);
+    setPartnerData(partner['data'])
+  }
+
   useEffect(() => {
-    async function assignPartnerData() {
-      const partner = await getPartnerData();
-      setIsRegistered(partner['isRegister']);
-      setPartnerData(partner['data'])
-    }
     assignPartnerData();
   }, [])
 
