@@ -12,10 +12,11 @@ export default function ParkingAccordionItem(props) {
           <div className='cell small-6 '>
             <h2>{props.garage.parkingInfo.businessName}</h2>
           </div>
-          <div className='cell small-5'>
-            Status: {props.garage.status.status}
+          <div className='cell small-5 center'>
+            Status: {props.garage.status.status == "active" ? <h4 className="active"> active</h4> : <h4 className="disabled"> disabled</h4>}
+            
           </div>
-          <div className='cell small-1'>
+          <div className='cell small-1 center'>
             <h2>{isActive ? '-' : '+'}</h2>
           </div>
         </div>

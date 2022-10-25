@@ -22,10 +22,23 @@ code {
   font-size: 20px;
 
 }
+.active{
+  color: rgb(99, 235, 99);
+}
 
+.disabled{
+  color: red;
+}
+.center-taps{
+  
+  text-align: center;
+  display: absolute;
+
+}
 .center{
   align-items: center;
-  justify-items: center;
+  
+  
   display: flex;
 }
 .acordeon {

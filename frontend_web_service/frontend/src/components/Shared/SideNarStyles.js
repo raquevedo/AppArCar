@@ -66,14 +66,14 @@ export const ItemContainer = styled.li`
     background: #eaeced;
   }
   &.active {
-    background-color: #dbe4f3;
+    background-color: #915bbc;
   }
 `;
 
 export const ItemWrapper = styled.div`
   display: flex;
   align-items: center;
-  color: #7c7788;
+  color: white;
 `;
 
 export const ItemName = styled.span`
@@ -89,7 +89,7 @@ export const SidebarContainer = styled.div`
   width: ${({ displaySidebar }) => (displaySidebar ? "15rem" : "5rem")};
   height: 100vh;
   padding: 0.75rem;
-  background: #f3f4f4;
+  background: #773db2;
   transition: width 350ms ease;
   border-right: 1px solid #d4d8dd;
   overflow-x: hidden;
@@ -135,7 +135,7 @@ export const SidebarContainer = styled.div`
     border-radius: 10px;
     background: #eaeced;
     &:hover {
-      background: #d5e0f3;
+      background: #915bbc;
     }
   }
   @media (max-width: 468px) {
