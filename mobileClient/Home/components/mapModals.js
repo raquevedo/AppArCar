@@ -4,6 +4,7 @@ import { reserve } from "../controllers/reservation_controller";
 import { GetCars } from "../controllers/car_controller";
 import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
+import { io } from "socket.io-client";
 
 function ModalPatent({ navigation,parentStates,parentSetters }) {
   
@@ -63,6 +64,42 @@ function ModalPatent({ navigation,parentStates,parentSetters }) {
   );
 }
 function ModalReserve({parentStates,parentSetters}){
+  
+  const [socket, setSocket] = useState();
+  const [socketConnected, setSocketConnected] = useState(false);
+
+  useEffect(() => {
+    const newSocket = io(
+      'http://192.168.0.19:3004/',
+      {
+        transports: ['websocket']
+      }
+    );
+    setSocket(newSocket);
+    console.log(socket)
+    console.log('Connection to socket established')
+  }, []);
+
+  if (socket) {
+    console.log(socket);
+    if (!socket) return;
+ 
+    socket.on('connect', () => {
+      setSocketConnected(socket.connected);
+      console.log(`Connected to socket, client id:${socket.id}`);
+    });
+
+    socket.on('disconnect', () => {
+      setSocketConnected(socket.connected);
+      console.log('Disconnected from socket');
+    });
+
+    socket.on('reservation', (data) => {
+      console.log(`New reservation detected ${data}`);
+      updateReservations(JSON.parse(data));
+    })
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.centeredView}>
