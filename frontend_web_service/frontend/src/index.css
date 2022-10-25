@@ -22,8 +22,29 @@ code {
   font-size: 20px;
 
 }
+
+.test{
+  margin: 50px;
+}
+
+.wrapper-status{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.circle-online{
+  background: rgb(99, 235, 99);
+  color: transparent;
+  border-radius: 50px;
+  box-sizing: border-box;
+  width: 15px;
+  height: 15px;
+}
 .active{
   color: rgb(99, 235, 99);
+  font-size: 20px;
+  margin: 10px;
 }
 
 .disabled{
