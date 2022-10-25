@@ -16,7 +16,13 @@ function Navbar() {
             </Link>
           </ul>
         </div>
-      <div className="top-bar-right bar"></div>
+        <div className="top-bar-right bar">
+          <ul className="dropdown menu" data-dropdown-menu>
+            <Link to='aboutus'>
+              <li className="menu-text ">About Us</li>
+            </Link>
+          </ul>
+        </div>
       </div>
     </div>
     

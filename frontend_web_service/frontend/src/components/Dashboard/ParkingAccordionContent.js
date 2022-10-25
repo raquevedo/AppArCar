@@ -15,11 +15,7 @@ const linksidecell = {
 };
 
 export default function ParkingAccordionContent(props) {
-  const manageLink = (garageId) => {
-    return `manage/${props.garage.parkingInfo.id}`;
-  };
-  
-  return (
+  return(
     <div>
       <div className="grid-x   grid-margin-x grid-padding-x' acordeon-body">
         <div className="cell large-2 small-3 align-center justify-center manage-cell">
@@ -31,11 +27,10 @@ export default function ParkingAccordionContent(props) {
         <div className="cell large-2 small-3 align-center justify-center manage-cell">
         <h3>Busy slots: {props.garage.status.qtyBusySlots}</h3>
         </div>
-        <div className="cell large-2 small-3 align-center justify-center manage-link-cell">
-          
-          <Link style={linksidecell} className="button"  to={`manage/${props.garage.parkingInfo.id}`} >
-             <h3>Manage</h3>
-            </Link>
+        <div className='cell large-2 small-3 align-center justify-center manage-link-cell'>
+          <Link style={linksidecell} className='button' to={`manage/${props.garage.parkingInfo.id}`}>
+          <h3>Manage</h3>
+          </Link>
         </div>
       </div>
     </div>

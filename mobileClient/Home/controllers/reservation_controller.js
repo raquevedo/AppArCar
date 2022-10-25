@@ -18,6 +18,11 @@ import host_instance from '../../host_instance.json';
     const response = await fetch(host_instance.path+'/parking/reservation/create',fetchData)
     //const response = await fetch(host_instance.path+'/parking/parking/nearest/latitude='+parseFloat(coordinates.latitude)+'/longitude='+parseFloat(coordinates.longitude)+'/kilometers=1',fetchData)
     console.log(response)
+    if(response.status === 200){
+      alert("Waiting for parking confirmation to make a payment.")
+    }else{
+      alert("Reservation error.")
+    }
     return response.json()
   }
 export { reserve }

@@ -77,9 +77,10 @@ function ModalReserve({parentStates,parentSetters}){
           >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
+              <Text >You will be reserving at {parentStates.parking.businessName}. Location: {parentStates.parking.streetName}{parentStates.parking.streetNumber}</Text>
               <Pressable
                 style={styles.button}
-                onPress={() => reserve(parentStates.idParking) &
+                onPress={() => reserve(parentStates.parking.id) &
                   parentSetters.wrapperSetResModalState(!parentStates.modalResVisible)
                 }
               >

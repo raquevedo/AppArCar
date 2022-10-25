@@ -242,7 +242,42 @@ services:
       POSTGRES_DB: parkingDb
     networks:
       - kong-net
-  
+
+  paymentsDb:
+    image: postgres:14.1
+    container_name: paymentsDb
+    ports:
+      - 5436:5432
+    volumes:
+      - "./payments_service/db/scripts/init_payments_db.sql:/docker-entrypoint-initdb.d/init_payments_db.sql"
+      - ./payments_service/payments_database_vol:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST: paymentshost
+      POSTGRES_USER: ms_payments_app
+      POSTGRES_PASSWORD: pwdpaymentsapp
+      POSTGRES_DB: paymentsDb
+    networks:
+      - kong-net
+
+  payments_service:
+    build:
+      context: ./payments_service/payments_service
+      dockerfile: Dockerfile
+    container_name: payments_service_api
+    environment:
+      POSTGRES_USER: ms_payments_app
+      POSTGRES_PASSWORD: pwdapaymentsapp
+      POSTGRES_DB: paymentsDb
+    ports:
+      - 3005:3005
+    volumes:
+      - ./payments_service:/usr/src/payments_service
+    networks:
+      - kong-net
+      - rabbitmq_net
+    depends_on:
+      - paymentsDb
+
   notification_service:
     build:
       context: ./notification_service/notification_service

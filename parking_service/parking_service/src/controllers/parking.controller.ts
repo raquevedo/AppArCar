@@ -50,7 +50,7 @@ export class ParkingController {
       },
     })
     pkgParking: PkgParking,
-  ): Promise<PkgParking> {
+  ) {
        
     let address = pkgParking.streetName + ' ' + pkgParking.streetNumber
     let response = await getCoordinates(address)
@@ -89,9 +89,9 @@ export class ParkingController {
     pkgParkingStatus.qtyBlockedSlots =  0
     pkgParkingStatus.sysCreatedAtDttm = Date()
     pkgParkingStatus.sysUpdatedAtDttm = Date()
-    this.pkgParkingStatusRepository.create(pkgParkingStatus);
+    let currentStatus = await this.pkgParkingStatusRepository.create(pkgParkingStatus);
 
-    return currentParking
+    return {'parkingInfo':currentParking, 'status':currentStatus}
   }
 
 

@@ -12,7 +12,6 @@ async function registerUser(credentials) {
     },
     body: JSON.stringify(credentials)
   })
-    .then(data => data.json())
  }
 
 const schema = yup.object({
@@ -41,7 +40,7 @@ export default function Register() {
       username,
       password
     });
-    if (res.status === '200'){
+    if (res.status === 200){
       modalHeader = 'Success'
       modalBody = 'Account successfully registered'
       reset({

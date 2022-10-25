@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+  payments_service:
+    build:
+      context: ./payments_service
+      dockerfile: Dockerfile
+    container_name: payments_service_api-dev
+    environment:
+      POSTGRES_USER: ms_payments_app
+      POSTGRES_PASSWORD: pwdpaymentsapp
+      POSTGRES_DB: paymentsDb
+    ports:
+      - 3011:3011
+    depends_on:
+      - paymentsDb
+
+  paymentsDb:
+    image: postgres:14.1
+    container_name: paymentsDb-dev
+    ports:
+      - 5436:5432
+    volumes:
+      - "./db/scripts/init_payments_db.sql:/docker-entrypoint-initdb.d/init_payments_db.sql"
+      - "./payments_database_vol:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_HOST: paymentshost
+      POSTGRES_USER: ms_payments_app
+      POSTGRES_PASSWORD: pwdpaymentsapp
+      POSTGRES_DB: paymentsDb
