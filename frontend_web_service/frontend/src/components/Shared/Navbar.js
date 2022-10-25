@@ -8,18 +8,19 @@ function Navbar() {
     
     <div  >
       
-      <div >
+      <div className='grid-x bar '>
         <div >
-          <ul className="dropdown menu bar" data-dropdown-menu>
+          <ul className="dropdown menu " data-dropdown-menu>
             <Link to='/'>
             <img src={logo} alt="Logo" className="navbar-logo" ></img>
             </Link>
           </ul>
+          
         </div>
-        <div className="top-bar-right bar">
+        <div className="top-bar-right center">
           <ul className="dropdown menu" data-dropdown-menu>
             <Link to='aboutus'>
-              <li className="menu-text ">About Us</li>
+              <li className="text-nav ">About Us</li>
             </Link>
           </ul>
         </div>

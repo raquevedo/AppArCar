@@ -17,8 +17,17 @@ code {
   font-family: "Roboto", sans-serif;
 }
 
+.text-nav{
+  color: white;
+  font-size: 20px;
 
+}
 
+.center{
+  align-items: center;
+  justify-items: center;
+  display: flex;
+}
 .acordeon {
   font-size: 16px;
   font-weight: 600;
