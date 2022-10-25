@@ -6,7 +6,8 @@ import {
   FlatList,
   SafeAreaView,
   TouchableOpacity,
-  Image
+  Image,
+  Alert
 } from "react-native";
 import { GetUserInfo } from "../../Services/requests";
 import { getPaymentMethods, deleteCreditCard } from "../controllers/payments_methods_controller";
@@ -17,6 +18,7 @@ import styles from "../../Services/styles";
 function Payments({ navigation }) {
   const [paymentsMethods, setPaymentsMethods] = React.useState([]);
   const focus = useIsFocused();
+  const [deleteFlag, setDeleteFlag] = React. useState();
 
   emptyListView = () => {
     return (
@@ -32,6 +34,34 @@ function Payments({ navigation }) {
     return <View style={styles.itemSeparator}></View>;
   };
 
+  async function eraseCreditCard (itemId){
+    
+    const erase = async (itemId) => {
+      const response = await deleteCreditCard(itemId)
+      setDeleteFlag(Date.now()+response.status);
+    }
+
+    Alert.alert(
+      "Hey!",
+      "Your credit card will be deleted",
+      [
+        {
+          text: "Accept",
+          onPress: () => erase(itemId),
+          style: "accept",
+        },
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+      ],
+    /*if (confirm("Yoy will delete this credit card") == true) {
+      await deleteCreditCard(itemId)
+      navigation.navigate('Payments')
+
+    }*/)
+  }
+
   React.useEffect(() => {
     console.log(focus);
     const thisGetPaymentMethods = async () => {
@@ -43,7 +73,7 @@ function Payments({ navigation }) {
     if (focus) {
       thisGetPaymentMethods();
     }
-  }, [focus]);
+  }, [focus,deleteFlag]);
 
   return (
     <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
@@ -70,8 +100,8 @@ function Payments({ navigation }) {
                     <Text style={styles.subheading}>{item.cardNumber}</Text>
                     <Text 
                       style={styles.subheading2}
-                      onPress={async () =>
-                        await deleteCreditCard(item.id) & alert('Seccefull erased')
+                      onPress={() =>
+                        eraseCreditCard(item.id)
                       }
                     >Borrar</Text>
                     </View>
