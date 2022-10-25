@@ -8,4 +8,6 @@ session.headers = {
 }
 res = session.get("https://www.google.com.ar/maps/place/"+sys.argv[1],verify=False)
 response={'latitude':res.text.split("ll=")[1].split("\"")[0].split(",")[0],'longitude':res.text.split("ll=")[1].split("\"")[0].split(",")[1]}
-print(json.dumps(response))
+
+print(response)
+sys.stdout.flush()
