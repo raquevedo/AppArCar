@@ -9,11 +9,12 @@ import React, { useState, useEffect }  from 'react';
 import { useParams } from 'react-router-dom';
 import ReservationsTab from './Reservations/ReservationsTab';
 
+
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
   const { id } = useParams();
   const [toggleState, setToggleState] = useState('reservations');
-
+  
   const [totalSlots, setTotalSlots] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [occupiedSlots, setOccupiedSlots] = useState([]);
@@ -34,9 +35,13 @@ export default function ManagementBoard() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getParkingStatusID(params.id);
-      const data2 = await getParkingDataID(params.id);
+      
+      let data = await getParkingStatusID(params.id);
+      let data2 = await getParkingDataID(params.id);
+      data = await data.json()
+      data2 = await data2.json()
       setTotalSlots(data.qtyTotalSlots);
+      setTotalSlots(data2.qtyTotalSlots);
       setAvailableSlots(data.qtyFreeSlots);
       setOccupiedSlots(data.qtyBusySlots);
       setBookedSlots(data.qtyReservedSlots);
@@ -54,6 +59,8 @@ export default function ManagementBoard() {
     };
     fetchData();
   }, []);
+
+  
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -106,79 +113,54 @@ export default function ManagementBoard() {
             </div>
           </div>
         </div>
-
         <div className="content-tabs">
-          {toggleState === "notifications" && <div>'notifications'</div>}
-          {toggleState === "hours" && (
+          { toggleState === 'reservations' && 
+             
+            <ReservationsTab id={id}/>
+             
+          }
+          { toggleState === 'hours' && 
             <div>
-              <div className="grid-container">
-                <div className="row small-up-2 medium-up-4 large-up-6">
-                  <Hours title={"Monday"} />
-                  <Hours title={"Tuesday"} />
-                  <Hours title={"Wednesday"} />
-                  <Hours title={"Thursday"} />
-                  <Hours title={"Friday"} />
-                  <Hours title={"Saturday"} />
-                  <Hours title={"Sunday"} />
-                </div>
-                <div class="grid-x align-center grid-padding-x">
-                  <div className="cell large-4 small-12">
-                    <button className="button" type="submit">
-                      Submit
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <Hours title={"Monday"} />
+              <Hours title={"Tuesday"} />
+              <Hours title={"Wednesday"} />
+              <Hours title={"Thursday"} />
+              <Hours title={"Friday"} />
+              <Hours title={"Saturday"} />
+              <Hours title={"Sunday"} />
             </div>
-          )}
-          {toggleState === "settings" && (
+          }
+          { toggleState === 'settings' && 
             <div>
               <Settings
-                value1={businessName}
-                value2={cuitNumber}
-                value3={streetName}
-                value4={streetNumber}
-                value5={totalSlots}
-                value6={priceHour}
-                value7={price_6Hours}
-                value8={price_12Hours}
-                value9={price_24Hours}
-                value10={priceWeek}
-                value11={priceMonth}
-              />
+                  value1={businessName}
+                  value2={cuitNumber}
+                  value3={streetName}
+                  value4={streetNumber}
+                  value5={totalSlots}
+                  value6={priceHour}
+                  value7={price_6Hours}
+                  value8={price_12Hours}
+                  value9={price_24Hours}
+                  value10={priceWeek}
+                  value11={priceMonth}
+                />
             </div>
-          )}
-          {toggleState === "status" && (
-            <div>
+          }
+        { toggleState === 'status' && 
+          
+          <div>
               <TextCard title="Total Slots:" value={totalSlots} />
               <TextCard title="Available Slots:" value={availableSlots} />
               <TextCard title="Occupied Slots:" value={occupiedSlots} />
               <TextCard title="Booked Slots:" value={bookedSlots} />
               <TextCard title="Blocked Slots:" value={blockedSlots} />
-            </div>
-          )}
-      <div className="content-tabs">
-        { toggleState === 'reservations' && 
-          <ReservationsTab id={id}/>
-        }
-        { toggleState === 'hours' && 
-          <div>
-          'hours'
-        </div>
-        }
-        { toggleState === 'settings' && 
-          <div>
-            'settings'
           </div>
-        }
-        { toggleState === 'status' && 
-          <div>
-            'status'
-          </div>
+          
         }
         </div>
       </div>
     </div>
-    </div>
+    
   );
 }

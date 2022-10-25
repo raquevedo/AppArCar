@@ -3,7 +3,7 @@ import '../App/App.css'
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-export default function TextCards(props) {
+export default function TextCard(props) {
   return (
     <div className="callout setup">
       <CardContent>

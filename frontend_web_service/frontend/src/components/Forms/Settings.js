@@ -119,7 +119,7 @@ export default function Settings(props) {
 
             <label>Price per 24 Hours</label>
             <input defaultValue={props.value9} type="text" {
-              ...register("price_12Hours")
+              ...register("price_24Hours")
               }
             />
             { errors.price_24Hours && <p>Price is invalid</p> }

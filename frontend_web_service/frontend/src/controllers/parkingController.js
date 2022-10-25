@@ -18,12 +18,15 @@ export async function newParking(parkingData) {
   })
 }
 
-export async function updateParking(id) {
-  const myHeaders = buildHeaders();
-
-  return await fetch(`http://localhost:8000/parking/parking/update/${id}`, {
-    headers: myHeaders, 
-  })
+export async function updateParking(id, parkingData) {
+  
+  let myHeaders = new buildHeaders();
+  const data = await fetch(`http://localhost:8000/parking/parking/update/${id}`, {
+    method: "PATCH",
+    headers: myHeaders,
+    body: JSON.stringify(parkingData),
+  });
+  return data.json();
 }
 
 export async function getParkingData() {
@@ -38,8 +41,9 @@ export async function getParkingStatusID(id) {
   const myHeaders = buildHeaders();
 
   return await fetch(`http://localhost:8000/parking/parking-status/${id}`, {
-    headers: myHeaders
-  });
+  
+  headers: myHeaders
+  })
 }
 
 export async function getParkingDataID(id) {
@@ -50,13 +54,10 @@ export async function getParkingDataID(id) {
   });
 }
 
-
-
-
 export async function getReservations(id) {
   const myHeaders = buildHeaders();
 
   return await fetch(`http://localhost:3003/reservation/parking/${id}`, {
     headers: myHeaders
-  });
+  })
 }
