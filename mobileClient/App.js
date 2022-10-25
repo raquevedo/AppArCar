@@ -238,7 +238,7 @@ export default function App({ navigation }) {
                       component={Cars}
         
                     />
-                     <Stack.Screen
+                    <Stack.Screen
                       name="AddCar"
                       component={AddCar}
                       
