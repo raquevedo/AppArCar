@@ -40,7 +40,7 @@ export default function PendingReservations({reservations, setReservations, Acce
   // Start connection with socket server
   useEffect(() => {
     const newSocket = io(
-      'http://localhost:3004/',
+      'http://localhost:3004/reservations',
       {
         transports: ['websocket']
       }
