@@ -9,16 +9,15 @@ export class ReservationsController {
   // Checks RabbitMQ for any new reservation events and notifies the respective client in the frontend
   @EventPattern()
   async sendReservation(data: string) {
-    const eventData = JSON.parse(data);
-    if (eventData['status'] === 'created') {
+    if (data['status'] === 'created') {
       this.reservationGateway.notifyClient('reservation_created', data);
     }
 
-    if (eventData['status'] === 'accepted') {
+    if (data['status'] === 'accepted') {
       this.reservationGateway.notifyClient('reservation_accepted', data);
     }
 
-    if (eventData['status'] === 'cancelled') {
+    if (data['status'] === 'cancelled') {
       this.reservationGateway.notifyClient('reservation_cancelled', data);
     }
   }
