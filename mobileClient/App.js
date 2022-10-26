@@ -12,6 +12,8 @@ import FormReg from "./Login/components/registry";
 import Profile from "./Home/components/profile";
 import Cars from "./Home/components/cars";
 import AddCar from "./Home/components/addCar";
+import Payments from "./Home/components/payments";
+import AddCreditCard from "./Home/components/addCreditCard";
 import EditCar from "./Home/components/editCar";
 import { AuthContext } from "./Services/context";
 import host_instance from "./host_instance.json";
@@ -234,17 +236,22 @@ export default function App({ navigation }) {
                     <Stack.Screen
                       name="Cars"
                       component={Cars}
-                      
                     />
                     <Stack.Screen
                       name="AddCar"
                       component={AddCar}
-                      
+                    />
+                    <Stack.Screen
+                      name="Payments"
+                      component={Payments}
+                    />
+                    <Stack.Screen
+                      name="Add Credit Card"
+                      component={AddCreditCard}
                     />
                     <Stack.Screen
                       name="EditCar"
                       component={EditCar}
-                      
                     />
                   </>
                 ) : (

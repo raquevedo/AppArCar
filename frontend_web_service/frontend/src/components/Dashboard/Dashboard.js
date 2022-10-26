@@ -7,11 +7,11 @@ import ManagementBoard from '../Management/ManagementBoard';
 
 export default function Dashboard({ partnerData }) {
   return(
-    <div className='grid-x'>
-      <div className='cell small-2'>
+    <div className='grid-x  grid-margin-x grid-padding-x'>
+      <div className='cell small-2 '>
         <SideNav />
       </div>
-      <div className='cell small-10'>
+      <div className='grid-y test small-10 large-8 '>
         <Routes>
           <Route
             path='/'

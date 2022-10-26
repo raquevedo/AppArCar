@@ -1,19 +1,51 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { BsFillPersonFill, BsFillBarChartFill } from 'react-icons/bs'
+import React, { useState } from "react";
 
-function SideNav() {
+import {
+  Children,
+  SidebarContainer,
+  SidebarWrapper,
+  SidebarLogoWrapper,
+  SidebarToggler,
+} from "./SideNarStyles";
+
+
+import SidebarItems  from "./SidebarItems";
+
+const MOBILE_VIEW = window.innerWidth < 468;
+
+ function SideNav({ children }) {
+  const [displaySidebar, setDisplaySidebar] = useState(!MOBILE_VIEW);
+
+  const handleSidebarDisplay = (e) => {
+    e.preventDefault();
+    if (window.innerWidth > 468) {
+      setDisplaySidebar(!displaySidebar);
+    } else {
+      setDisplaySidebar(false);
+    }
+  };
+
   return (
-    <div className="icon-bar vertical four-up">
-      <Link to='/dashboard' className="item">
-        <BsFillBarChartFill />
-        <label>Dashboard</label>
-      </Link>
-      <Link to='/dashboard/profile' className="item">
-        <BsFillPersonFill />
-        <label>Profile</label>
-      </Link>
-    </div>
+    <React.Fragment>
+      <SidebarContainer displaySidebar={displaySidebar}>
+        <SidebarWrapper>
+          <SidebarLogoWrapper displaySidebar={displaySidebar}>
+            <SidebarToggler
+              displaySidebar={displaySidebar}
+              onClick={handleSidebarDisplay}
+            >
+              <div className="outer__circle">
+                <div className="inner__circle" />
+              </div>
+            </SidebarToggler>
+          </SidebarLogoWrapper>
+            {/* Render the SidebarItems component */}
+          <SidebarItems displaySidebar={displaySidebar} />
+        </SidebarWrapper>
+      </SidebarContainer>
+            {/* Render the children */}
+      <Children displaySidebar={displaySidebar}>{children}</Children>
+    </React.Fragment>
   );
 }
 

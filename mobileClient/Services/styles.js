@@ -297,6 +297,11 @@ const styles = StyleSheet.create({
     color: 'grey',
     fontFamily: "TTNorms-Regular",
   },
+  subheading2: {
+    fontSize: 18,
+    color: 'red',
+    fontFamily: "TTNorms-Regular",
+  },
   itemSeparator: {
     backgroundColor: 'grey',
     height: 1,

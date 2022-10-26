@@ -33,7 +33,7 @@ export class ReservationsGateway implements OnGatewayInit, OnGatewayConnection, 
   
   // Once Web Socket initializes
   afterInit(): void {
-    console.log('Web Socket initialized')
+    console.log('Reservations WebSockets server initialized')
   }
 
   // When the client connects to the server
