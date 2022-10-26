@@ -1,14 +1,7 @@
 import {
     HomeIcon,
-    LayoutIcon,
-    CalendarIcon,
-    InvoiceIcon,
     UserIcon,
-    RolesIcon,
-    PagesIcon,
-    AuthIcon,
-    WizardIcon,
-    ModalIcon,
+    
   } from "./Icons.js";
   
   export const dummyData = [
