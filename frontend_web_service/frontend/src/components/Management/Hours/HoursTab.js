@@ -19,7 +19,23 @@ export default function HoursTab(props) {
   const [toSunday, setToSunday] = useState();
 
   async function updateParkingSettings() {
-    console.log('Test')
+    const newSettings = {
+      "startMonday": fromMonday,
+      "endMonday": toMonday,
+      "startTuesday": fromTuesday,
+      "endTuesday": toTuesday,
+      "startWednesday": fromWednesday,
+      "endWednesday": toWednesday,
+      "startThursday": fromThursday,
+      "endThursday": toThursday,
+      "startFriday": fromFriday,
+      "endFriday": toFriday,
+      "startSaturday": fromSaturday,
+      "endSaturday": toSaturday,
+      "startSunday": fromSunday,
+      "endSunday": toSunday,
+    }
+    patchParkingSettings(props.id, newSettings)
   }
 
   useEffect(() => {
@@ -107,7 +123,7 @@ export default function HoursTab(props) {
           />
         </tbody>
       </table>
-      <button onClick={updateParkingSettings}>Update</button>
+      <button class='button' onClick={updateParkingSettings}>Update</button>
     </div>
   );
 }

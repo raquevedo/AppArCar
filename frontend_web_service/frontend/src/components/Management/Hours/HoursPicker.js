@@ -13,9 +13,10 @@ export default function HoursPicker({ day, fromHour, setFromHour, toHour, setToH
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <TimePicker
             label="From"
-            value={dayjs(fromHour, 'HH:mm:ss')}
+            value={dayjs(fromHour, 'HH:mm:ss.SSS')}
             onChange={(newValue) => {
-            setFromHour(newValue);
+              newValue = dayjs(newValue).format();
+              setFromHour(newValue);
             }}
             renderInput={(params) => <TextField {...params} />}
           />
@@ -25,9 +26,10 @@ export default function HoursPicker({ day, fromHour, setFromHour, toHour, setToH
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <TimePicker
             label="To"
-            value={dayjs(toHour, 'HH:mm:ss')}
+            value={dayjs(toHour, 'HH:mm:ss.SSS')}
             onChange={(newValue) => {
-            setToHour(newValue);
+              newValue = dayjs(newValue).format();
+              setToHour(newValue);
             }}
             renderInput={(params) => <TextField {...params} />}
           />
