@@ -13,8 +13,8 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {PkgParking, PkgParkingUsers, PkgParkingStatus, PkgParkingRelations} from '../models';
-import {PkgParkingRepository, PkgParkingUsersRepository, PkgParkingStatusRepository} from '../repositories';
+import {PkgParking, PkgParkingUsers, PkgParkingStatus, PkgParkingRelations, PkgParkingSettings} from '../models';
+import {PkgParkingRepository, PkgParkingUsersRepository, PkgParkingStatusRepository, PkgParkingSettingsRepository} from '../repositories';
 import { authenticate } from '@loopback/authentication';
 import { inject } from '@loopback/core';
 import {UserProfile, SecurityBindings} from '@loopback/security';
@@ -31,6 +31,8 @@ export class ParkingController {
     public pkgParkingRepository : PkgParkingRepository,
     @repository(PkgParkingUsersRepository)
     public pkgParkingUsersRepository : PkgParkingUsersRepository,
+    @repository(PkgParkingSettingsRepository)
+    public pkgParkingSettingsRepository : PkgParkingSettingsRepository
   ) {}
 
   @post('/parking/create')
@@ -77,6 +79,13 @@ export class ParkingController {
     pkgParkingUsers.sysCreatedAtDttm = Date()
     pkgParkingUsers.sysUpdatedAtDttm = Date()
     this.pkgParkingUsersRepository.create(pkgParkingUsers);
+
+    //Create initial settings-hours 
+    let pkgParkingSettings = await new PkgParkingSettings() 
+    pkgParkingSettings.idParking = currentParking.id
+    pkgParkingSettings.sysCreatedAtDttm = Date()
+    pkgParkingSettings.sysUpdatedAtDttm = Date()
+    this.pkgParkingSettingsRepository.create(pkgParkingSettings);
 
     //Create initial status for Parking
     let pkgParkingStatus = await new PkgParkingStatus()
