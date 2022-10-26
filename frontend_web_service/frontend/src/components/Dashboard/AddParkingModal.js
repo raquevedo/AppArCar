@@ -7,14 +7,14 @@ function AddParkingModal(props) {
   }
 
   return(
-    <div className="modal ">
-      <div className="modal-main gasper">
+    <div className="modal center">
+     
         <div className="grid-container login-box-modal">
           <div className="grid-y">
             <div className="cell">
-              <div className="grid-x align-justify">
+              <div className="grid-x center">
                 <div className="cell small-10">
-                  <h1 children="modal-title">New Parking Garage</h1>
+                  <h1 className="text-form" children="modal-title">New Parking Garage</h1>
                 </div>
                 <div className="cell small-1">
                   <button className="button-pop bn24" onClick={handleClose}>X</button>
@@ -26,7 +26,7 @@ function AddParkingModal(props) {
             </div>
           </div>
         </div>
-      </div>
+      
     </div>
   );
 }
