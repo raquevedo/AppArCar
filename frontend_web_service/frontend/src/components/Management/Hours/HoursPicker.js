@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import * as dayjs from 'dayjs'
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
@@ -13,7 +13,7 @@ export default function HoursPicker({ day, fromHour, setFromHour, toHour, setToH
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <TimePicker
             label="From"
-            value={dayjs(fromHour, 'HH:mm:ss.SSS')}
+            value={fromHour}
             onChange={(newValue) => {
               newValue = dayjs(newValue).format();
               setFromHour(newValue);
@@ -26,7 +26,7 @@ export default function HoursPicker({ day, fromHour, setFromHour, toHour, setToH
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <TimePicker
             label="To"
-            value={dayjs(toHour, 'HH:mm:ss.SSS')}
+            value={toHour}
             onChange={(newValue) => {
               newValue = dayjs(newValue).format();
               setToHour(newValue);

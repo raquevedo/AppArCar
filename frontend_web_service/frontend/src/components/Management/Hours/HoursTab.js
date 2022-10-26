@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import HoursPicker from './HoursPicker';
+import * as dayjs from 'dayjs'
 import { getParkingSettings, patchParkingSettings } from '../../../controllers/parkingController';
 
 export default function HoursTab(props) {
@@ -43,23 +44,23 @@ export default function HoursTab(props) {
       let res = await getParkingSettings(props.id)
       if (res.status === 200) {
         let data = await res.json();
-        setFromMonday(data['startMonday']);
-        setToMonday(data['endMonday']);
-        setFromTuesday(data['startTuesday']);
-        setToTuesday(data['endTuesday']);
-        setFromWednesday(data['startWednesday']);
-        setToWednesday(data['endWednesday']);
-        setFromThursday(data['startThursday']);
-        setToThursday(data['endThursday']);
-        setFromFriday(data['startFriday']);
-        setToFriday(data['endFriday']);
-        setFromSaturday(data['startSaturday']);
-        setToSaturday(data['endSaturday']);
-        setFromSunday(data['startSunday']);
-        setToSunday(data['endSunday'])
+        setFromMonday(dayjs(data['startMonday'], 'HH:mm:ss.SSS'));
+        setToMonday(dayjs(data['endMonday'], 'HH:mm:ss.SSS'));
+        setFromTuesday(dayjs(data['startTuesday'], 'HH:mm:ss.SSS'));
+        setToTuesday(dayjs(data['endTuesday'], 'HH:mm:ss.SSS'));
+        setFromWednesday(dayjs(data['startWednesday'], 'HH:mm:ss.SSS'));
+        setToWednesday(dayjs(data['endWednesday'], 'HH:mm:ss.SSS'));
+        setFromThursday(dayjs(data['startThursday'], 'HH:mm:ss.SSS'));
+        setToThursday(dayjs(data['endThursday'], 'HH:mm:ss.SSS'));
+        setFromFriday(dayjs(data['startFriday'], 'HH:mm:ss.SSS'));
+        setToFriday(dayjs(data['endFriday'], 'HH:mm:ss.SSS'));
+        setFromSaturday(dayjs(data['startSaturday'], 'HH:mm:ss.SSS'));
+        setToSaturday(dayjs(data['endSaturday'], 'HH:mm:ss.SSS'));
+        setFromSunday(dayjs(data['startSunday'], 'HH:mm:ss.SSS'));
+        setToSunday(dayjs(data['endSunday'], 'HH:mm:ss.SSS'));
     }}
     fetchParkingSettings();
-  }, []);
+  }, [props.id]);
 
   return(
     <div>
