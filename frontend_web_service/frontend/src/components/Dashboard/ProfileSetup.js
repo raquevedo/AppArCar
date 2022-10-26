@@ -4,12 +4,12 @@ import UserForm from '../Forms/UserForm';
 export default function ProfileSetup({ setIsRegistered }) {
   return(
     <div className="setup-wrapper">
-      <div class='grid-container'>
-        <div class='grid-y'>
+      <div class='grid-container '>
+        <div class='grid-y  profile-box grid-margin-y grid-padding-y'>
           <div className='cell shrink'>
             <div className='grid-x align-center'>
               <div className='cell shrink'>
-                <h1>Tell us about you</h1>
+                <h1 className="text-form">Tell us about you</h1>
               </div>
             </div>
             

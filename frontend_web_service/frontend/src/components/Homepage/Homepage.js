@@ -1,25 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import "../../index.css";
+import coverVideo from "../../assets/mp4/trafico.mp4"
+import logo from '../../assets/img/logo p.png'
 
 function Homepage() {
   return (
-    <div className='grid-container'>
-      <div className='grid-y'>
-        <div className='cell'>
-          <div className='grid-x align-center'>
-            <div className='cell shrink'>
-              <h1>AppArCar</h1>
-            </div>
-          </div>
+    <div className='container-grid'>
+      <div className="cover-container">
+            <video className="video" src={coverVideo} autoPlay loop muted />
+            <img src={logo} alt='Logo' className="home-logo"></img>
+            
+            <a href="/signin"><button class="bn632-hover bn24">Log In</button></a>
+            <p className='short'>Cercano, Disponible y Economico</p>
         </div>
-        <div className='cell'>
-          <div className='grid-x align-center'>
-            <div className='cell shrink'>
-              <Link className='button large button-primary' to='/signin'>Log In</Link>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

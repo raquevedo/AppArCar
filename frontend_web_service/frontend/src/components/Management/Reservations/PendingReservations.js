@@ -7,7 +7,7 @@ import { io } from 'socket.io-client';
 export default function PendingReservations({reservations, setReservations, AcceptReservation}) {
   const { id } = useParams();
   const [socket, setSocket] = useState();
-  const [socketConnected, setSocketConnected] = useState(false);
+  const [, setSocketConnected] = useState(false);
 
   function updateReservations(newReservation) {
     setReservations([...reservations, ...[newReservation]])
@@ -40,7 +40,7 @@ export default function PendingReservations({reservations, setReservations, Acce
   // Start connection with socket server
   useEffect(() => {
     const newSocket = io(
-      'http://localhost:3004/',
+      'http://localhost:3004/reservations',
       {
         transports: ['websocket']
       }

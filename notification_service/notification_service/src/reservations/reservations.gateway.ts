@@ -10,6 +10,7 @@ import { Server, Socket } from 'socket.io';
 import { ReservationsService } from "./reservations.service";
 
 @WebSocketGateway({
+  namespace: 'reservations',
   transports: ['websocket'],
   cors: {
     origin: '*',
@@ -32,7 +33,7 @@ export class ReservationsGateway implements OnGatewayInit, OnGatewayConnection, 
   
   // Once Web Socket initializes
   afterInit(): void {
-    console.log('Web Socket initialized')
+    console.log('Reservations WebSockets server initialized')
   }
 
   // When the client connects to the server

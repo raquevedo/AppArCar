@@ -1,4 +1,4 @@
-import react from 'react';
+
 import '../MemberInformation/MemberInformation.css';
 
 function MemberInformation(props){
@@ -11,7 +11,7 @@ function MemberInformation(props){
             <img 
               className="photo-member" 
               src={require(`../../assets/img/${props.image}.png`)}
-              alt="Photo"
+              alt="member"
             />
             <div className="container-message">
               <p className="name-message"><strong>{props.name}</strong></p>

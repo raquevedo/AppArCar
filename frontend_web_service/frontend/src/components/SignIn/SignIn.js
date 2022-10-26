@@ -13,11 +13,11 @@ function SignIn() {
   }
   return (
     <div className='grid-container'>
-      <div className='grid-x grid-margin-x grid-padding-x'>
-        <div className='cell medium-6 small-12'>
+      <div className='grid-x grid-margin-x grid-padding-x grid-padding-y'>
+        <div className='cell large-6 medium-12'>
           <Login setToken={setToken} />
         </div>
-        <div className='cell medium-6 small-12'>
+        <div className='cell large-6 medium-12'>
           <Register />
         </div>
       </div>

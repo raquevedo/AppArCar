@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import AddParkingModal from './AddParkingModal';
 import ParkingAccordion from './ParkingAccordion';
 import { getParkingData } from '../../controllers/parkingController';
 
-const Button = styled.button`
-background-color: green;
-color: white;
-font-size: 20px;
-padding: 10px 60px;
-border-radius: 5px;
-margin: 10px 0px;
-cursor: pointer;
-`;
 
 export default function ParkingList() {
   const [parkingData, setParkingData] = useState([])
@@ -28,19 +18,19 @@ export default function ParkingList() {
   }
   const [showModal, setShowModal] = useState(false);
   return(
-    <div className='grid-y'>
-      <div className='cell'>
-        <div className='grid-x'>
+    <div className='grid-y grid-margin-x grid-padding-x conterneitorParking'>
+      <div className='cell '>
+        <div className='grid-x align-center'>
           <div className='cell large-9 small-12'>
-            <h1> Your Parkings: </h1>
+            <h1 className="text-form"> Your Parkings: </h1>
           </div>
           <div className='cell large-3 small-6'>
-            <Button onClick={() => setShowModal(true)}>+ Add Parking</Button>
+          <button className='bn632-hover bn24' onClick={() => setShowModal(true)}>+ Add Parking</button>
             { showModal && <AddParkingModal parkingData={parkingData} setShowModal={setShowModal} setParkingData={setParkingData}/> }
           </div>
         </div>
       </div>
-      <div className='cell'>
+      <div className='cell large-3 small-6'>
         <ParkingAccordion parkingData={parkingData}/>
       </div>
     </div>
