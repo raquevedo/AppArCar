@@ -7,7 +7,7 @@ import { io } from 'socket.io-client';
 export default function PendingReservations({reservations, setReservations, AcceptReservation}) {
   const { id } = useParams();
   const [socket, setSocket] = useState();
-  const [socketConnected, setSocketConnected] = useState(false);
+  const [, setSocketConnected] = useState(false);
 
   function updateReservations(newReservation) {
     setReservations([...reservations, ...[newReservation]])

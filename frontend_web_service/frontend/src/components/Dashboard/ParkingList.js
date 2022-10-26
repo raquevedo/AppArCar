@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import AddParkingModal from './AddParkingModal';
 import ParkingAccordion from './ParkingAccordion';
 import { getParkingData } from '../../controllers/parkingController';

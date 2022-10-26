@@ -9,7 +9,7 @@ export default function ProfileSetup({ setIsRegistered }) {
           <div className='cell shrink'>
             <div className='grid-x align-center'>
               <div className='cell shrink'>
-                <h1>Tell us about you</h1>
+                <h1 className="text-form">Tell us about you</h1>
               </div>
             </div>
             

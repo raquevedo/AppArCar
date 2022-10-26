@@ -1,4 +1,4 @@
-import react from 'react';
+
 import MemberInformation from '../MemberInformation/MemberInformation';
 
 
