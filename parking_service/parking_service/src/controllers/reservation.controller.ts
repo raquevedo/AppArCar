@@ -86,7 +86,7 @@ export class ReservationController {
     return this.pkgReservationRepository.findById(id, filter);
   }
 
-  @get('/reservation/parking/{parkingId}/{status}')
+  @get('/reservation/parking/{parkingId}')
   @response(200, {
     description: 'PkgReservation model instance',
     content: {
@@ -96,6 +96,22 @@ export class ReservationController {
     },
   })
   async findByParkingId(
+    @param.path.number('parkingId') parkingId: number,
+    filter = {where: {idParking: parkingId} }
+  ): Promise<PkgReservation[]> {
+    return this.pkgReservationRepository.find(filter);
+  }
+
+  @get('/reservation/parking/{parkingId}/{status}')
+  @response(200, {
+    description: 'PkgReservation model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(PkgReservation, {includeRelations: true}),
+      },
+    },
+  })
+  async findByParkingIdStatus(
     @param.path.number('parkingId') parkingId: number,
     @param.path.string('status') status: string,
     filter = {where: {idParking: parkingId, status: status} }
