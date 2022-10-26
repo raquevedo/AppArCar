@@ -46,28 +46,24 @@ export default function UserForm({ setIsRegistered, values, buttonText, newUser 
 
   return(
     <form onSubmit={handleSubmit}>
-      <label>
-        <p>Business Name</p>
-        <input type="text" value={businessName} onChange={e => setBusinessName(e.target.value)}/>
-      </label>
-      <label>
-        <p>CUIT</p>
-        <input type="text" value={cuitNumber} onChange={e => setCuitNumber(e.target.value)}/>
-      </label>
-      <label>
-        <p>Street Name</p>
-        <input type="text" value={streetName} onChange={e => setStreetName(e.target.value)}/>
-      </label>
-      <label>
-        <p>Street Number</p>
-        <input type="text" value={streetNumber} onChange={e => setStreetNumber(parseInt(e.target.value))}/>
-      </label>
-      <label>
-        <p>Phone Number</p>
-        <input type="text" value={contactNumber} onChange={e => setContactNumber(parseInt(e.target.value))} />
-      </label>
+      <div class="user-box">
+          <input type="text" value={businessName} placeholder="Business Name" onChange={e => setBusinessName(e.target.value)} />
+        </div>
+        <div class="user-box">
+          <input type="text" value={cuitNumber} placeholder="CUIT" onChange={e => setCuitNumber(e.target.value)} />
+        </div>
+        <div class="user-box">
+          <input type="text" value={streetName} placeholder="Street Name" onChange={e => setStreetName(e.target.value)} />
+        </div>
+        <div class="user-box">
+          <input type="text" value={streetNumber} placeholder="Street Number" onChange={e => setStreetNumber(parseInt(e.target.value))} />
+        </div>
+        <div class="user-box">
+          <input type="text" value={contactNumber} placeholder="Phone Number" onChange={e => setContactNumber(parseInt(e.target.value))} />
+        </div>
+      
       <div>
-        <button type="submit" class="button">{buttonText}</button>
+        <button type="submit" className="bn632-hover bn24">{buttonText}</button>
       </div>
     </form>
   );

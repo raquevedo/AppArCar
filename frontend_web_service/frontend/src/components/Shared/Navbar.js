@@ -1,26 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from "../../assets/img/logo solo.png";
+import "../../index.css";
 
 function Navbar() {
   return (
-    <div className="navbar">
-      <div className="top-bar">
-        <div className="top-bar-left">
-          <ul className="dropdown menu" data-dropdown-menu>
+    
+    <div  >
+      
+      <div className='grid-x bar '>
+        <div >
+          <ul className="dropdown menu " data-dropdown-menu>
             <Link to='/'>
-              <li className="menu-text">AppArCar</li>
+            <img src={logo} alt="Logo" className="navbar-logo" ></img>
             </Link>
           </ul>
+          
         </div>
-        <div className="top-bar-right">
+        <div className="top-bar-right center">
           <ul className="dropdown menu" data-dropdown-menu>
             <Link to='aboutus'>
-              <li className="menu-text">About Us</li>
+              <li className="text-nav ">About Us</li>
             </Link>
           </ul>
         </div>
       </div>
     </div>
+    
+    
   );
 }
 

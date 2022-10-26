@@ -1,27 +1,36 @@
-import React from 'react';
-import './App.css';
-import { useLocation, BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Homepage from '../Homepage/Homepage';
-import SignIn from '../SignIn/SignIn';
-import DashboardWrapper from '../Dashboard/DashboardWrapper';
-import Navbar from '../Shared/Navbar';
+import React from "react";
+import "./App.css";
+import {
+  useLocation,
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Homepage from "../Homepage/Homepage";
+import SignIn from "../SignIn/SignIn";
+import DashboardWrapper from "../Dashboard/DashboardWrapper";
+import Navbar from "../Shared/Navbar";
+import "../../index.css";
 import AboutUs from '../AboutUs/AboutUs';
-
 
 function App() {
   return (
     <BrowserRouter>
-      <div className='grid-y'>
-        <div className='cell small-12'>
-          <Navbar />
-        </div>
-        <div className='cell'>
+   
+        <div className="grid-y">
+         
+            <div className="cell small-12">
+              <Navbar />
+            </div>
+          
+          <div className="cell large-12">
             <Routes>
               <Route path='/' element={<Homepage />} />
               <Route path='signin' element={<SignIn />} />
               <Route path='aboutus' element={<AboutUs/>} />
               <Route
-                path='dashboard/*'
+                path="dashboard/*"
                 element={
                   <RequireAuth>
                     <DashboardWrapper />
@@ -29,8 +38,9 @@ function App() {
                 }
               />
             </Routes>
+          </div>
         </div>
-      </div>
+    
     </BrowserRouter>
   );
 }
@@ -38,7 +48,7 @@ function App() {
 function RequireAuth({ children }) {
   let location = useLocation();
 
-  if(sessionStorage.getItem('token')) {
+  if (sessionStorage.getItem("token")) {
     return children;
   }
   return <Navigate to="/signin" state={{ from: location }} replace />;

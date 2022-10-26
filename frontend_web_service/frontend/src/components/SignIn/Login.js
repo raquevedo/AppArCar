@@ -1,33 +1,38 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 async function loginUser(credentials) {
-
-  return fetch('http://localhost:8000/auth/users/login', {
-    method: 'POST',
+  return fetch("http://localhost:8000/auth/users/login", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(credentials)
-  })
-    .then(data => data.json())
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
 }
 
 const schema = yup.object({
-  email: yup.string().required().matches('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-  password: yup.string().required().matches('^(.{0,8})(.*)$'),
-})
+  email: yup
+    .string()
+    .required()
+    .matches("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"),
+  password: yup.string().required().matches("^(.{0,8})(.*)$"),
+});
 
 export default function Login({ setToken }) {
-  const { register, handleSubmit, formState:{ errors } } = useForm({
-    mode: 'onTouched',
-    resolver: yupResolver(schema)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onTouched",
+    resolver: yupResolver(schema),
   });
- 
+
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
@@ -35,37 +40,41 @@ export default function Login({ setToken }) {
     const password = data.password;
     const token = await loginUser({
       email,
-      password
+      password,
     });
     setToken(token);
-    navigate('/dashboard');
-  }
+    navigate("/dashboard");
+  };
 
-  return(
-    <div className="login-wrapper">
-      <h1>Log In</h1>
+  return (
+    <div className="login-wrapper login-box">
+      <h1 className="text-form">Log In</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
 
-        <label>Email</label>
-        <input type="text" {
-          ...register("email")
-          }
-        />
-        { errors.email && <p>Email is invalid</p> }
+        <div class="user-box">
+          <input type="text" placeholder="Email" {...register("email")} />
+        </div>
+        {errors.email && <p>Email is invalid</p>}
 
-        <label>Password</label>
-        <input type="password"{
-          ...register("password")
-          }
-        />
-        { errors.password && <p>Password is invalid</p> }
+        <div class="user-box">
+          <input
+            type="password"
+            placeholder="Password"
+            {...register("password")}
+          />
+        </div>
+        {errors.password && <p>Password is invalid</p>}
 
-        <button className="button" type="submit">Login</button>
+        <div>
+          <button className="bn632-hover bn24" type="submit">
+            Login
+          </button>
+        </div>
       </form>
     </div>
   );
 }
 
 Login.propTypes = {
-  setToken: PropTypes.func.isRequired
-}
+  setToken: PropTypes.func.isRequired,
+};
