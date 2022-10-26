@@ -33,3 +33,21 @@ export async function getReservations(id) {
     headers: myHeaders
   });
 }
+
+export async function acceptReservation(id) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:3003/reservation/accept/${id}`, {
+    method: 'POST',
+    headers: myHeaders
+  });
+}
+
+export async function rejectReservation(id) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:3003/reservation/reject/${id}`, {
+    method: 'POST',
+    headers: myHeaders
+  });
+}
