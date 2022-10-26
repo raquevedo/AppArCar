@@ -22,7 +22,9 @@ export default function ReservationsTab(props) {
         for (let reservationKey in data) {
           if (data[reservationKey]['status'] === 'created') {
             pendings.push(data[reservationKey]);
-          } else if (data[reservationKey]['status'] === 'accepted') {
+          } else if (
+            data[reservationKey]['status'] === 'accepted' ||
+            data[reservationKey]['status'] === 'parked') {
             accepteds.push(data[reservationKey]);
           }
         }

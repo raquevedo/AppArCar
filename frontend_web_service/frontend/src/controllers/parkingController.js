@@ -33,3 +33,21 @@ export async function getReservations(id) {
     headers: myHeaders
   });
 }
+
+export async function postCheckIn(id) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/reservation/checkin/${id}`, {
+    method: 'POST',
+    headers: myHeaders
+  })
+}
+
+export async function postCheckOut(id) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/reservation/checkout/${id}`, {
+    method: 'POST',
+    headers: myHeaders
+  })
+}
