@@ -50,10 +50,10 @@ export class ReservationsGateway implements OnGatewayInit, OnGatewayConnection, 
   }
 
   // Emits a reservation event
-  notifyClient(data): void {
-    console.log(`Reservation emitted ${data}`)
+  notifyClient(event: string, data: string): void {
+    console.log(`${event} event emitted`)
 
     // TODO: Send message only to the specified driver
-    this.broadcast('reservation', data);
+    this.broadcast(event, data);
   }
 }
