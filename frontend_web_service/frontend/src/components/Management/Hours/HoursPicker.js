@@ -15,7 +15,7 @@ export default function HoursPicker({ day, fromHour, setFromHour, toHour, setToH
             label="From"
             value={fromHour}
             onChange={(newValue) => {
-              newValue = dayjs(newValue).format();
+              newValue = dayjs(newValue);
               setFromHour(newValue);
             }}
             renderInput={(params) => <TextField {...params} />}
@@ -28,7 +28,7 @@ export default function HoursPicker({ day, fromHour, setFromHour, toHour, setToH
             label="To"
             value={toHour}
             onChange={(newValue) => {
-              newValue = dayjs(newValue).format();
+              newValue = dayjs(newValue);
               setToHour(newValue);
             }}
             renderInput={(params) => <TextField {...params} />}

@@ -1,40 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import HoursPicker from './HoursPicker';
-import * as dayjs from 'dayjs'
+import * as dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import { getParkingSettings, patchParkingSettings } from '../../../controllers/parkingController';
 
 export default function HoursTab(props) {
-  const [fromMonday, setFromMonday] = useState();
-  const [toMonday, setToMonday] = useState();
-  const [fromTuesday, setFromTuesday] = useState();
-  const [toTuesday, setToTuesday] = useState();
-  const [fromWednesday, setFromWednesday] = useState();
-  const [toWednesday, setToWednesday] = useState();
-  const [fromThursday, setFromThursday] = useState();
-  const [toThursday, setToThursday] = useState();
-  const [fromFriday, setFromFriday] = useState();
-  const [toFriday, setToFriday] = useState();
-  const [fromSaturday, setFromSaturday] = useState();
-  const [toSaturday, setToSaturday] = useState();
-  const [fromSunday, setFromSunday] = useState();
-  const [toSunday, setToSunday] = useState();
+  dayjs.extend(utc);
+
+  const [fromMonday, setFromMonday] = useState(dayjs());
+  const [toMonday, setToMonday] = useState(dayjs());
+  const [fromTuesday, setFromTuesday] = useState(dayjs());
+  const [toTuesday, setToTuesday] = useState(dayjs());
+  const [fromWednesday, setFromWednesday] = useState(dayjs());
+  const [toWednesday, setToWednesday] = useState(dayjs());
+  const [fromThursday, setFromThursday] = useState(dayjs());
+  const [toThursday, setToThursday] = useState(dayjs());
+  const [fromFriday, setFromFriday] = useState(dayjs());
+  const [toFriday, setToFriday] = useState(dayjs());
+  const [fromSaturday, setFromSaturday] = useState(dayjs());
+  const [toSaturday, setToSaturday] = useState(dayjs());
+  const [fromSunday, setFromSunday] = useState(dayjs());
+  const [toSunday, setToSunday] = useState(dayjs());
 
   async function updateParkingSettings() {
     const newSettings = {
-      "startMonday": fromMonday,
-      "endMonday": toMonday,
-      "startTuesday": fromTuesday,
-      "endTuesday": toTuesday,
-      "startWednesday": fromWednesday,
-      "endWednesday": toWednesday,
-      "startThursday": fromThursday,
-      "endThursday": toThursday,
-      "startFriday": fromFriday,
-      "endFriday": toFriday,
-      "startSaturday": fromSaturday,
-      "endSaturday": toSaturday,
-      "startSunday": fromSunday,
-      "endSunday": toSunday,
+      "startMonday": fromMonday.add(dayjs().utcOffset(), 'minute'),
+      "endMonday": toMonday.add(dayjs().utcOffset(), 'minute'),
+      "startTuesday": fromTuesday.add(dayjs().utcOffset(), 'minute'),
+      "endTuesday": toTuesday.add(dayjs().utcOffset(), 'minute'),
+      "startWednesday": fromWednesday.add(dayjs().utcOffset(), 'minute'),
+      "endWednesday": toWednesday.add(dayjs().utcOffset(), 'minute'),
+      "startThursday": fromThursday.add(dayjs().utcOffset(), 'minute'),
+      "endThursday": toThursday.add(dayjs().utcOffset(), 'minute'),
+      "startFriday": fromFriday.add(dayjs().utcOffset(), 'minute'),
+      "endFriday": toFriday.add(dayjs().utcOffset(), 'minute'),
+      "startSaturday": fromSaturday.add(dayjs().utcOffset(), 'minute'),
+      "endSaturday": toSaturday.add(dayjs().utcOffset(), 'minute'),
+      "startSunday": fromSunday.add(dayjs().utcOffset(), 'minute'),
+      "endSunday": toSunday.add(dayjs().utcOffset(), 'minute'),
     }
     patchParkingSettings(props.id, newSettings)
   }
@@ -44,20 +47,20 @@ export default function HoursTab(props) {
       let res = await getParkingSettings(props.id)
       if (res.status === 200) {
         let data = await res.json();
-        setFromMonday(dayjs(data['startMonday'], 'HH:mm:ss.SSS'));
-        setToMonday(dayjs(data['endMonday'], 'HH:mm:ss.SSS'));
-        setFromTuesday(dayjs(data['startTuesday'], 'HH:mm:ss.SSS'));
-        setToTuesday(dayjs(data['endTuesday'], 'HH:mm:ss.SSS'));
-        setFromWednesday(dayjs(data['startWednesday'], 'HH:mm:ss.SSS'));
-        setToWednesday(dayjs(data['endWednesday'], 'HH:mm:ss.SSS'));
-        setFromThursday(dayjs(data['startThursday'], 'HH:mm:ss.SSS'));
-        setToThursday(dayjs(data['endThursday'], 'HH:mm:ss.SSS'));
-        setFromFriday(dayjs(data['startFriday'], 'HH:mm:ss.SSS'));
-        setToFriday(dayjs(data['endFriday'], 'HH:mm:ss.SSS'));
-        setFromSaturday(dayjs(data['startSaturday'], 'HH:mm:ss.SSS'));
-        setToSaturday(dayjs(data['endSaturday'], 'HH:mm:ss.SSS'));
-        setFromSunday(dayjs(data['startSunday'], 'HH:mm:ss.SSS'));
-        setToSunday(dayjs(data['endSunday'], 'HH:mm:ss.SSS'));
+        setFromMonday(dayjs.utc(data['startMonday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        setToMonday(dayjs.utc(data['endMonday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        setFromTuesday(dayjs.utc(data['startTuesday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        setToTuesday(dayjs.utc(data['endTuesday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        setFromWednesday(dayjs.utc(data['startWednesday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        setToWednesday(dayjs.utc(data['endWednesday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        setFromThursday(dayjs.utc(data['startThursday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        setToThursday(dayjs.utc(data['endThursday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        setFromFriday(dayjs.utc(data['startFriday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        setToFriday(dayjs.utc(data['endFriday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        setFromSaturday(dayjs.utc(data['startSaturday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        setToSaturday(dayjs.utc(data['endSaturday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        setFromSunday(dayjs.utc(data['startSunday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        setToSunday(dayjs.utc(data['endSunday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
     }}
     fetchParkingSettings();
   }, [props.id]);
@@ -124,7 +127,7 @@ export default function HoursTab(props) {
           />
         </tbody>
       </table>
-      <button class='button' onClick={updateParkingSettings}>Update</button>
+      <button className='button' onClick={updateParkingSettings}>Update</button>
     </div>
   );
 }
