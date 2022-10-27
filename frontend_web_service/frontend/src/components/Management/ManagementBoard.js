@@ -1,5 +1,6 @@
 import React, { useState }  from 'react';
 import { useParams } from 'react-router-dom';
+import HoursTab from './Hours/HoursTab';
 import ReservationsTab from './Reservations/ReservationsTab';
 
 export default function ManagementBoard() {
@@ -57,9 +58,7 @@ export default function ManagementBoard() {
           <ReservationsTab id={id}/>
         }
         { toggleState === 'hours' && 
-          <div>
-          'hours'
-        </div>
+          <HoursTab id={id}/>
         }
         { toggleState === 'settings' && 
           <div>
