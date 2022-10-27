@@ -58,7 +58,7 @@ export async function registerParking(parkingData) {
   myHeaders.append('Authorization', 'Bearer ' + fetchToken());
   myHeaders.append('Content-Type', 'application/json');
 
-  return fetch('http://localhost:8000/parking-user/create', {
+  return fetch('http://localhost:8000/user/parking-user/create', {
     method: 'POST',
     headers: myHeaders,
     body: JSON.stringify(parkingData)

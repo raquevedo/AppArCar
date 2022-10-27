@@ -49,7 +49,7 @@ export default function UserForm({ setIsRegistered, values, buttonText, newUser 
     <form onSubmit={handleSubmit}>
       
         <div class="user-box">
-          <input type="text" value={name} placeholder="Name" onChange={e => setName(e.target.value)} />
+          <input type="text" value={name} placeholder='Name' onChange={e => setName(e.target.value)} />
         </div>
         <div class="user-box">
           <input type="text" value={lastName} placeholder="Lastname" onChange={e => setLastName(e.target.value)} />

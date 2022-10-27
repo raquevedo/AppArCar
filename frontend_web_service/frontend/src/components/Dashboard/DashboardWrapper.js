@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import Dashboard from './Dashboard';
 import ProfileSetup from './ProfileSetup';
-import { getPartnerData }  from '../../controllers/usersController';
+import { getParkingData }  from '../../controllers/usersController';
 
 export default function DashboardWrapper() {
   const [isRegistered, setIsRegistered] = useState();
-  const [partnerData, setPartnerData] = useState({});
+  const [parkingData, setParkingData] = useState({});
 
-  async function assignPartnerData() {
-    const partner = await getPartnerData();
+  async function assignParkingData() {
+    const partner = await getParkingData();
     setIsRegistered(partner['isRegister']);
-    setPartnerData(partner['data'])
+    setParkingData(partner['data'])
   }
 
   useEffect(() => {
-    assignPartnerData();
+    assignParkingData();
   }, [])
 
   return(
     <div>
-      {isRegistered && <Dashboard partnerData={partnerData}/>}
+      {isRegistered && <Dashboard partnerData={parkingData}/>}
       {isRegistered === false && <ProfileSetup setIsRegistered={setIsRegistered}/>}
     </div>
   );
