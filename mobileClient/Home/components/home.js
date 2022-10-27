@@ -1,5 +1,5 @@
 import {useContext, useState, useEffect, useCallback} from "react";
-import { StyleSheet, View, Text, Modal, Pressable, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Modal, Pressable, Button, TouchableOpacity,Image } from "react-native";
 import { AuthContext } from "../../Services/context";
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -24,6 +24,7 @@ function HomeScreen({ navigation }) {
   const [cars, setCars] = useState([]);
   const [parking, setParking] = useState({});
   const [patent,setPatent] = useState("Select patent");
+  const [reserveData, setReserveData]= useState({'visible':false})
 
   const focus = useIsFocused();
 
@@ -32,6 +33,7 @@ function HomeScreen({ navigation }) {
   }, [setModalVisible]);
   const wrapperSetResModalState = useCallback(val => {
     setModalResVisible(val);
+
   }, [setModalResVisible]);
   const wrapperSetPatent = useCallback(val => {
     setPatent(val);
@@ -68,10 +70,11 @@ function HomeScreen({ navigation }) {
     }else{
       navigation.navigate('Cars')
     }
-    
-    
   }
-
+  function centerRegion(coordinates){
+    setRegionMapLat(coordinates.latitude)
+    setRegionMapLon(coordinates.longitude)
+  }
   useEffect(() => {
     (async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -142,15 +145,18 @@ function HomeScreen({ navigation }) {
           <MapView.Marker
             title="conductor"
             description="conductor"
-            coordinate={{"latitude":regionMapLat,"longitude":regionMapLon}}
+            coordinate={{"latitude":location.coords.latitude,"longitude":location.coords.longitude}}
+            onPress={() => setReserveData((prevState)=>({...prevState,'visible':false})) & centerRegion({'latitude':location.coords.latitude,'longitude':location.coords.longitude})}
+            icon={require('../../assets/auto.png')}
           />
+         
           {nearParkings.map((item) => 
             <MapView.Marker 
               key={item.id}
               title={"Parking:"+item.businessName}
               description={"cuit: "+item.cuitNumber}
               coordinate={{"latitude":item.latitude,"longitude":item.longitude}}
-              onPress={() => setModalResVisible(!modalResVisible) & setParking(item)}
+              onPress={() => centerRegion(item) & setReserveData((prevState)=>({...prevState,'visible':true})) & {/*setModalResVisible(!modalResVisible)*/} & setParking(item)}
             />
           )}
           {/*<MapView.Marker coordinate={{latitude:-34.633190, longitude:-58.455946}}/>*/}
@@ -168,6 +174,11 @@ function HomeScreen({ navigation }) {
           <TouchableOpacity style={styles.buttonPatent} onPress={() => carsFlow()}>
             <Text style={styles.textPatent}>{patent}</Text>
           </TouchableOpacity>
+          { reserveData.visible ? (
+          <TouchableOpacity style={styles.buttonPatent} onPress={() => setModalResVisible(!modalResVisible) }>
+            <Text style={styles.textPatent}>Reservar</Text>
+          </TouchableOpacity>):<></>
+          }
         </View>
         <View style={styles.centeredView}>
           <ModalPatent 
