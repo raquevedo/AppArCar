@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { registerUser, updateUser } from '../../controllers/usersController';
+import { registerUser, updateUser,registerParking,updateParking } from '../../controllers/usersController';
 import { get } from '../../utils/dictGet';
 
 export default function UserForm({ setIsRegistered, values, buttonText, newUser }) {
@@ -13,29 +13,29 @@ export default function UserForm({ setIsRegistered, values, buttonText, newUser 
     newUser = false;
   }
 
-  const [businessName, setBusinessName] = useState(get(values, 'businessName', ''));
-  const [cuitNumber, setCuitNumber] = useState(values['cuitNumber'] ?? '');
-  const [streetName, setStreetName] = useState(values['streetName'] ?? '');
-  const [streetNumber, setStreetNumber] = useState(values['streetNumber'] ?? '');
-  const [contactNumber, setContactNumber] = useState(values['contactNumber'] ?? '');
+  const [username, setUsername] = useState(get(values, 'username', ''));
+  const [name, setName] = useState(values['name'] ?? '');
+  const [lastName, setLastName] = useState(values['lastName'] ?? '');
+  const [documentNumber, setDocumentNumber] = useState(values['documentNumber'] ?? '');
+  const [email, setEmail] = useState(values['email'] ?? '');
 
   const handleSubmit = async e => {
     e.preventDefault();
     if (newUser) {
-      await registerUser({
-        businessName,
-        cuitNumber,
-        streetName,
-        streetNumber,
-        contactNumber
+      await registerParking({
+        username,
+        name,
+        lastName,
+        documentNumber,
+        email
       });
     } else {
-      await updateUser({
-        businessName,
-        cuitNumber,
-        streetName,
-        streetNumber,
-        contactNumber
+      await updateParking({
+        username,
+        name,
+        lastName,
+        documentNumber,
+        email
       });
     }
     
@@ -43,23 +43,24 @@ export default function UserForm({ setIsRegistered, values, buttonText, newUser 
       setIsRegistered(true);
     }
   }
+  console.log(values)
 
   return(
     <form onSubmit={handleSubmit}>
       <div class="user-box">
-          <input type="text" value={businessName} placeholder="Business Name" onChange={e => setBusinessName(e.target.value)} />
+          <input type="text" value={values.username} placeholder='Username' onChange={e => setUsername(e.target.value)} />
         </div>
         <div class="user-box">
-          <input type="text" value={cuitNumber} placeholder="CUIT" onChange={e => setCuitNumber(e.target.value)} />
+          <input type="text" value={name} placeholder="Name" onChange={e => setName(e.target.value)} />
         </div>
         <div class="user-box">
-          <input type="text" value={streetName} placeholder="Street Name" onChange={e => setStreetName(e.target.value)} />
+          <input type="text" value={lastName} placeholder="Lastname" onChange={e => setLastName(e.target.value)} />
         </div>
         <div class="user-box">
-          <input type="text" value={streetNumber} placeholder="Street Number" onChange={e => setStreetNumber(parseInt(e.target.value))} />
+          <input type="text" value={documentNumber} placeholder="Document Number" onChange={e => setDocumentNumber(parseInt(e.target.value))} />
         </div>
         <div class="user-box">
-          <input type="text" value={contactNumber} placeholder="Phone Number" onChange={e => setContactNumber(parseInt(e.target.value))} />
+          <input type="text" value={email} placeholder="Email" onChange={e => setEmail((e.target.value))} />
         </div>
       
       <div>
