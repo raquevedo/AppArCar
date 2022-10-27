@@ -13,21 +13,21 @@ export default function UserForm({ setIsRegistered, values, buttonText, newUser 
     newUser = false;
   }
 
-  const [username, setUsername] = useState(get(values, 'username', ''));
-  const [name, setName] = useState(values['name'] ?? '');
-  const [lastName, setLastName] = useState(values['lastName'] ?? '');
-  const [documentNumber, setDocumentNumber] = useState(values['documentNumber'] ?? '');
-  const [email, setEmail] = useState(values['email'] ?? '');
+  const [username, setUsername] = useState();
+  const [name, setName] = useState();
+  const [lastName, setLastName] = useState();
+  const [documentNumber, setDocumentNumber] = useState();
+  const [email, setEmail] = useState();
 
   const handleSubmit = async e => {
     e.preventDefault();
     if (newUser) {
       await registerParking({
-        username,
+        
         name,
         lastName,
         documentNumber,
-        email
+       
       });
     } else {
       await updateParking({
@@ -43,13 +43,11 @@ export default function UserForm({ setIsRegistered, values, buttonText, newUser 
       setIsRegistered(true);
     }
   }
-  console.log(values)
+  
 
   return(
     <form onSubmit={handleSubmit}>
-      <div class="user-box">
-          <input type="text" value={values.username} placeholder='Username' onChange={e => setUsername(e.target.value)} />
-        </div>
+      
         <div class="user-box">
           <input type="text" value={name} placeholder="Name" onChange={e => setName(e.target.value)} />
         </div>
@@ -59,9 +57,7 @@ export default function UserForm({ setIsRegistered, values, buttonText, newUser 
         <div class="user-box">
           <input type="text" value={documentNumber} placeholder="Document Number" onChange={e => setDocumentNumber(parseInt(e.target.value))} />
         </div>
-        <div class="user-box">
-          <input type="text" value={email} placeholder="Email" onChange={e => setEmail((e.target.value))} />
-        </div>
+        
       
       <div>
         <button type="submit" className="bn632-hover bn24">{buttonText}</button>

@@ -7,12 +7,7 @@ export default function Profile() {
   const [parkingData, setParkingData] = useState({});
 
   useEffect(() => {
-    // async function assignPartnerData() {
-    //   const partner = await getPartnerData();
-    //   setPartnerData(partner['data'])
-    // }
-    // assignPartnerData();
-
+    
     async function assignParkingData() {
         const parking = await getParkingData();
         setParkingData(parking['data'])
