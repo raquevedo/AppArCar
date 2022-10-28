@@ -1,10 +1,11 @@
 import {useState, useEffect} from "react";
-import { StyleSheet, View, Text, Modal, Pressable, Button } from "react-native";
+import { StyleSheet, View, Text, Modal, Pressable, Button, Alert } from "react-native";
 import { reserve } from "../controllers/reservation_controller";
 import { GetCars } from "../controllers/car_controller";
 import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
 import { io } from "socket.io-client";
+import host_instance from '../../host_instance.json';
 
 function ModalPatent({ navigation,parentStates,parentSetters }) {
   
@@ -69,8 +70,9 @@ function ModalReserve({parentStates,parentSetters}){
   const [socketConnected, setSocketConnected] = useState(false);
 
   useEffect(() => {
+    const conectionPath = host_instance.path.slice(0,host_instance.path.length-4)+'3004/reservations'
     const newSocket = io(
-      'http://192.168.0.19:3004/',
+      conectionPath,
       {
         transports: ['websocket']
       }
@@ -80,25 +82,41 @@ function ModalReserve({parentStates,parentSetters}){
     console.log('Connection to socket established')
   }, []);
 
-  if (socket) {
-    console.log(socket);
-    if (!socket) return;
- 
-    socket.on('connect', () => {
-      setSocketConnected(socket.connected);
-      console.log(`Connected to socket, client id:${socket.id}`);
-    });
+  
+  useEffect(()=>{
+    if (socket) {
+      console.log(socket);
+      if (!socket) return;
+      socket.on('connect', () => {
+        setSocketConnected(socket.connected);
+        console.log(`Connected to socket, client id:${socket.id}`);
+      });
 
-    socket.on('disconnect', () => {
+      socket.on('reservation_accepted', (data) => {
+        console.log(data)
+        Alert.alert('Your reservation has been accepted.', 'Parking is awaiting your arriving. Thanks.')
+      })
+
+      socket.on('reservation_rejected', (data) => {
+      
+        Alert.alert('Your reservation has been rejected.', 'Please find other parking.')
+      })
+
+      return () => {
+        socket.off("receive-message");
+        const a= socket;
+      };
+    }
+  },[socket])
+    
+
+    /*socket.on('disconnect', () => {
       setSocketConnected(socket.connected);
       console.log('Disconnected from socket');
-    });
+    });*/
 
-    socket.on('reservation', (data) => {
-      console.log(`New reservation detected ${data}`);
-      updateReservations(JSON.parse(data));
-    })
-  }
+    
+  //}
 
   return (
     <View style={{ flex: 1 }}>
