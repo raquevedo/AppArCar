@@ -77,11 +77,11 @@ export default function UserForm({ setIsRegistered, buttonText, newUser }) {
       </div>
       { errors.name && <p>Name is invalid</p> }
       <div class="user-box">
-        <input type="text" placeholder="Lastname" {...register("lastName")} value={lastName} onChange={e => {setLastName(e.target.value)}}/>
+        <input type="text" placeholder="Lastname" {...register("lastName")} value={lastName} onChange={e => {setLastName(e.target.value)}} />
       </div>
       { errors.lastName && <p>Lastname is invalid</p> }
       <div class="user-box">
-        <input type="text" placeholder="Document Number" {...register("documentNumber")} value={documentNumber} onChange={e => {setDocumentNumber(e.target.value)}}/>
+        <input type="text" placeholder="Document Number" {...register("documentNumber")} value={documentNumber} onChange={e => {setDocumentNumber(e.target.value)}} />
       </div>
       { errors.documentNumber && <p>Document Number is invalid</p> }
       
