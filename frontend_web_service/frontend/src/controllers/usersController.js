@@ -63,18 +63,18 @@ export async function registerParking(parkingData) {
     headers: myHeaders,
     body: JSON.stringify(parkingData)
   })
-    .then(data => data.json())
+    
 } 
 
 export async function updateParking(parkingData) {
   let myHeaders = new Headers();
   myHeaders.append('Authorization', 'Bearer ' + fetchToken());
   myHeaders.append('Content-Type', 'application/json');
-
+    
   return fetch('http://localhost:8000/user/parking-user/update-profile', {
     method: 'PATCH',
     headers: myHeaders,
     body: JSON.stringify(parkingData)
   })
-    .then(data => data.json())
+    
 }

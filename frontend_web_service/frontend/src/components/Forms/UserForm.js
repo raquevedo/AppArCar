@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { registerUser, updateUser,registerParking,updateParking } from '../../controllers/usersController';
+import React, { useState, useEffect} from 'react';
+import { registerParking, updateParking, getParkingData } from '../../controllers/usersController';
 import { get } from '../../utils/dictGet';
 
 export default function UserForm({ setIsRegistered, values, buttonText, newUser }) {
@@ -12,12 +12,23 @@ export default function UserForm({ setIsRegistered, values, buttonText, newUser 
   if (newUser === undefined) {
     newUser = false;
   }
-
-  const [username, setUsername] = useState();
-  const [name, setName] = useState();
+ 
+  console.log(values);
+  const [name, setName] = useState([]);
   const [lastName, setLastName] = useState();
   const [documentNumber, setDocumentNumber] = useState();
-  const [email, setEmail] = useState();
+
+  useEffect(() => {
+    
+    async function assignParkingData() {
+        const parking = await getParkingData();
+        setName(parking.data.name)
+        setLastName(parking.data.lastName)
+        setDocumentNumber(parking.data.documentNumber)
+        
+      }
+      assignParkingData();
+  }, [])
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -26,16 +37,16 @@ export default function UserForm({ setIsRegistered, values, buttonText, newUser 
         
         name,
         lastName,
-        documentNumber,
-       
+        documentNumber
+      
       });
     } else {
       await updateParking({
-        username,
+        
         name,
         lastName,
-        documentNumber,
-        email
+        documentNumber
+        
       });
     }
     
@@ -43,7 +54,6 @@ export default function UserForm({ setIsRegistered, values, buttonText, newUser 
       setIsRegistered(true);
     }
   }
-  
 
   return(
     <form onSubmit={handleSubmit}>

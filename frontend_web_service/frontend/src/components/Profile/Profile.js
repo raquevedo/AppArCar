@@ -14,8 +14,7 @@ export default function Profile() {
       }
       assignParkingData();
   }, [])
-
-  console.log()
+  
   return(
     <div className='grid-container'>
       <div className='grid-y login-box'>
