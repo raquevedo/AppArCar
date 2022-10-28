@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import ReservationsTab from "./Reservations/ReservationsTab";
+import React, { useState }  from 'react';
+import { useParams } from 'react-router-dom';
+import HoursTab from './Hours/HoursTab';
+import ReservationsTab from './Reservations/ReservationsTab';
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
@@ -70,7 +71,7 @@ export default function ManagementBoard() {
 
           <div className="cell tab-body">
             {toggleState === "reservations" && <ReservationsTab id={id} />}
-            {toggleState === "hours" && <div>'hours'</div>}
+            {toggleState === "hours" && <HoursTab id={id}/>}
             {toggleState === "settings" && <div>'settings'</div>}
             {toggleState === "status" && <div>'status'</div>}
           </div>

@@ -48,7 +48,7 @@ export class PaymentsController {
     pmtPayments.sysCreatedAtDttm = Date()
     pmtPayments.sysUpdatedAtDttm = Date()
     //TODO Call function to update status = paid into "reservations table"
-    publishMessageIntoQueue(Buffer.from(JSON.stringify(pmtPayments)), 'paidReservations')
+    publishMessageIntoQueue(Buffer.from(JSON.stringify(pmtPayments)), 'payments')
     return this.pmtPaymentsRepository.create(pmtPayments);
   }
 
