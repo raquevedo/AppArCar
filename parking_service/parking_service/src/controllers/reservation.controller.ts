@@ -252,7 +252,7 @@ export class ReservationController {
 
     await busyToFreeSlot(this.pkgParkingStatusRepository, pkgReservation.idParking)
     await this.pkgReservationRepository.updateById(id, pkgReservation);
-    publishMessageIntoQueue(Buffer.from(JSON.stringify(pkgReservation)), 'pendingPayments')
+    publishMessageIntoQueue(Buffer.from(JSON.stringify(pkgReservation)), 'payments')
   }
 
   @post('/reservation/accept/{id}')
@@ -283,7 +283,7 @@ export class ReservationController {
     }
     
     await this.pkgReservationRepository.updateById(id, pkgReservation);
-    publishMessageIntoQueue(Buffer.from(JSON.stringify(pkgReservation)), 'acceptedReservations')
+    publishMessageIntoQueue(Buffer.from(JSON.stringify(pkgReservation)), 'reservations')
   }
 
   @post('/reservation/reject/{id}')

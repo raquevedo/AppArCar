@@ -62,5 +62,5 @@ sys_created_at_dttm timestamp NOT NULL,
 sys_updated_at_dttm timestamp NOT NULL,
 CONSTRAINT usr_parking_pkey PRIMARY KEY (id)
 ) ; 
-CREATE UNIQUE INDEX IF NOT EXISTS parking_user_role_idx ON public."usr_parking_user" USING btree (role);
+CREATE INDEX IF NOT EXISTS parking_user_role_idx ON public."usr_parking_user" USING btree (role);
 
