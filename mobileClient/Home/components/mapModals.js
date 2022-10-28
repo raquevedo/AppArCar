@@ -94,12 +94,12 @@ function ModalReserve({parentStates,parentSetters}){
 
       socket.on('reservation_accepted', (data) => {
         console.log(data)
-        Alert.alert('Your reserv has been accepted.', 'Parcking is awaiting your arriving. Thanks.')
+        Alert.alert('Your reservation has been accepted.', 'Parking is awaiting your arriving. Thanks.')
       })
 
       socket.on('reservation_rejected', (data) => {
       
-        Alert.alert('Your reserv has been rejected.', 'Please find other parcking.')
+        Alert.alert('Your reservation has been rejected.', 'Please find other parking.')
       })
 
       return () => {
