@@ -1,11 +1,11 @@
 import React, { useState, useEffect} from 'react';
 import { registerParking, updateParking, getParkingData } from '../../controllers/usersController';
-import { get } from '../../utils/dictGet';
+import * as yup from 'yup';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
 
-export default function UserForm({ setIsRegistered, values, buttonText, newUser }) {
-  if (values === undefined) {
-    values = {};
-  }
+export default function UserForm({ setIsRegistered, buttonText, newUser }) {
+  
   if (buttonText === undefined) {
     buttonText = 'Submit';
   }
@@ -13,61 +13,77 @@ export default function UserForm({ setIsRegistered, values, buttonText, newUser 
     newUser = false;
   }
  
-  console.log(values);
-  const [name, setName] = useState([]);
+  const [name, setName] = useState();
   const [lastName, setLastName] = useState();
   const [documentNumber, setDocumentNumber] = useState();
 
   useEffect(() => {
     
     async function assignParkingData() {
-        const parking = await getParkingData();
-        setName(parking.data.name)
-        setLastName(parking.data.lastName)
-        setDocumentNumber(parking.data.documentNumber)
+      const parking = await getParkingData();
+      setName(parking.data.name)
+      setLastName(parking.data.lastName)
+      setDocumentNumber(parking.data.documentNumber)
         
-      }
-      assignParkingData();
+    }
+    assignParkingData();
   }, [])
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    if (newUser) {
-      await registerParking({
-        
-        name,
-        lastName,
-        documentNumber
-      
-      });
-    } else {
-      await updateParking({
-        
-        name,
-        lastName,
-        documentNumber
-        
-      });
-    }
+  const schema = yup.object({
     
-    if (!(setIsRegistered === undefined)) {
-      setIsRegistered(true);
+    name: yup.string().required().min(3),
+    lastName: yup.string().required().min(3),
+    documentNumber: yup.number().required().min(0)
+  })
+
+  const { register,handleSubmit,formState:{ errors } } = useForm({
+    mode: 'onTouched',
+    resolver: yupResolver(schema)
+  });
+
+  const onSubmit = async (data) => {
+    
+    const name = data.name
+    const lastName = data.lastName
+    const documentNumber = data.documentNumber
+    
+  if (newUser) {
+    await registerParking({
+        
+      name,
+      lastName,
+      documentNumber
+      
+    });
+  } else {
+    await updateParking({
+        
+      name,
+      lastName,
+      documentNumber
+    });
+  }
+    
+  if (!(setIsRegistered === undefined)) {
+    setIsRegistered(true);
     }
   }
-
+  
   return(
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       
-        <div class="user-box">
-          <input type="text" value={name} placeholder='Name' onChange={e => setName(e.target.value)} />
-        </div>
-        <div class="user-box">
-          <input type="text" value={lastName} placeholder="Lastname" onChange={e => setLastName(e.target.value)} />
-        </div>
-        <div class="user-box">
-          <input type="text" value={documentNumber} placeholder="Document Number" onChange={e => setDocumentNumber(parseInt(e.target.value))} />
-        </div>
-        
+      <div class="user-box">
+        <input type="text" placeholder='Name' {...register("name")} value={name} onChange={e => {setName(e.target.value)}}/>
+      </div>
+      { errors.name && <p>Name is invalid</p> }
+      <div class="user-box">
+        <input type="text" placeholder="Lastname" {...register("lastName")} value={lastName} onChange={e => {setLastName(e.target.value)}}/>
+      </div>
+      { errors.lastName && <p>Lastname is invalid</p> }
+      <div class="user-box">
+        <input type="text" placeholder="Document Number" {...register("documentNumber")} value={documentNumber} onChange={e => {setDocumentNumber(e.target.value)}}/>
+      </div>
+      { errors.documentNumber && <p>Document Number is invalid</p> }
       
       <div>
         <button type="submit" className="bn632-hover bn24">{buttonText}</button>
