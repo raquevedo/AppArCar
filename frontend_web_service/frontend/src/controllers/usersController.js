@@ -1,10 +1,10 @@
 import fetchToken from '../utils/fetchToken';
+import {buildHeaders} from './parkingController';
 
-export async function getPartnerData() {
-  let myHeaders = new Headers();
-  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-  myHeaders.append('Content-Type', 'application/json');
-
+export async function getPartnerUser() {
+  
+  const myHeaders = buildHeaders();
+  
   let response = await fetch('http://localhost:8000/user/partners/user-info', {
     method: 'GET',
     headers: myHeaders
@@ -13,11 +13,10 @@ export async function getPartnerData() {
   return response
 }
 
-export async function registerUser(partnerData) {
-  let myHeaders = new Headers();
-  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-  myHeaders.append('Content-Type', 'application/json');
-
+export async function registerPartnerUser(partnerData) {
+  
+  const myHeaders = buildHeaders();
+  
   return fetch('http://localhost:8000/user/partners/create-user', {
     method: 'POST',
     headers: myHeaders,
@@ -26,11 +25,10 @@ export async function registerUser(partnerData) {
     .then(data => data.json())
 }
 
-export async function updateUser(partnerData) {
-  let myHeaders = new Headers();
-  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-  myHeaders.append('Content-Type', 'application/json');
-
+export async function updatePartnerUser(partnerData) {
+  
+  const myHeaders = buildHeaders();
+  
   return fetch('http://localhost:8000/user/partners/update-user', {
     method: 'POST',
     headers: myHeaders,
@@ -40,11 +38,10 @@ export async function updateUser(partnerData) {
 }
 
 //ParkingUser
-export async function getParkingData() {
-  let myHeaders = new Headers();
-  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-  myHeaders.append('Content-Type', 'application/json');
-
+export async function getParkingUser() {
+  
+  const myHeaders = buildHeaders();
+  
   let response = await fetch('http://localhost:8000/user/parking-user/user-info', {
     method: 'GET',
     headers: myHeaders
@@ -53,11 +50,10 @@ export async function getParkingData() {
   return response
 }
 
-export async function registerParking(parkingData) {
-  let myHeaders = new Headers();  
-  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-  myHeaders.append('Content-Type', 'application/json');
-
+export async function registerParkingUser(parkingData) {
+  
+  const myHeaders = buildHeaders();
+  
   return fetch('http://localhost:8000/user/parking-user/create', {
     method: 'POST',
     headers: myHeaders,
@@ -66,11 +62,10 @@ export async function registerParking(parkingData) {
     
 } 
 
-export async function updateParking(parkingData) {
-  let myHeaders = new Headers();
-  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-  myHeaders.append('Content-Type', 'application/json');
-    
+export async function updateParkingUser(parkingData) {
+  
+  const myHeaders = buildHeaders();
+  
   return fetch('http://localhost:8000/user/parking-user/update-profile', {
     method: 'PATCH',
     headers: myHeaders,

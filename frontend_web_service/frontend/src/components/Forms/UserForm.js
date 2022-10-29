@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { registerParking, updateParking, getParkingData } from '../../controllers/usersController';
+import { registerParkingUser, updateParkingUser, getParkingUser } from '../../controllers/usersController';
 import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -20,13 +20,14 @@ export default function UserForm({ setIsRegistered, buttonText, newUser }) {
   useEffect(() => {
     
     async function assignParkingData() {
-      const parking = await getParkingData();
+      const parking = await getParkingUser();
       setName(parking.data.name)
       setLastName(parking.data.lastName)
       setDocumentNumber(parking.data.documentNumber)
-        
     }
-    assignParkingData();
+    if(!newUser){
+      assignParkingData();
+    }
   }, [])
 
   const schema = yup.object({
@@ -42,22 +43,18 @@ export default function UserForm({ setIsRegistered, buttonText, newUser }) {
   });
 
   const onSubmit = async (data) => {
-    
     const name = data.name
     const lastName = data.lastName
     const documentNumber = data.documentNumber
     
   if (newUser) {
-    await registerParking({
-        
+    await registerParkingUser({
       name,
       lastName,
       documentNumber
-      
     });
   } else {
-    await updateParking({
-        
+    await updateParkingUser({
       name,
       lastName,
       documentNumber
@@ -73,21 +70,22 @@ export default function UserForm({ setIsRegistered, buttonText, newUser }) {
     <form onSubmit={handleSubmit(onSubmit)}>
       
       <div class="user-box">
-        <input type="text" placeholder='Name' {...register("name")} value={name} onChange={e => {setName(e.target.value)}}/>
+        <input type="text" placeholder='Name' {...register("name")} value ={name} onChange={e => {setName(e.target.value)}}/>
       </div>
       { errors.name && <p>Name is invalid</p> }
       <div class="user-box">
-        <input type="text" placeholder="Lastname" {...register("lastName")} value={lastName} onChange={e => {setLastName(e.target.value)}} />
+        <input type="text" placeholder="Lastname" {...register("lastName")} value ={lastName} onChange={e => {setLastName(e.target.value)}} />
       </div>
       { errors.lastName && <p>Lastname is invalid</p> }
       <div class="user-box">
-        <input type="text" placeholder="Document Number" {...register("documentNumber")} value={documentNumber} onChange={e => {setDocumentNumber(e.target.value)}} />
+        <input type="text" placeholder="Document Number" {...register("documentNumber")} value ={documentNumber} onChange={e => {setDocumentNumber(e.target.value)}} />
       </div>
       { errors.documentNumber && <p>Document Number is invalid</p> }
       
       <div>
         <button type="submit" className="bn632-hover bn24">{buttonText}</button>
       </div>
+      
     </form>
   );
 }
