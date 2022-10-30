@@ -6,28 +6,34 @@ const { once } = require('events');
 
 @Injectable()
 export class PositionStackService {
-	
-    async getCoordinates(address: string){
+    async getCoordinates(address: string): Promise<CoordinatesInterface> {
     	const spawn = require("child_process").spawn;
-	const pythonProcess = spawn('python3',["coords.py",address]);
-	let output = '';
-	
-	pythonProcess.stdout.on('data', (data) => {
-		console.log(data.toString())
-		output += data.toString()
-	});
-    	// Handle error output
-   	pythonProcess.stderr.on('data', (data) => {
-    	// As said before, convert the Uint8Array to a readable string.
-      		console.log('error:' + data);
-   	});
-    	pythonProcess.stdout.on('end', async function(code){
-     		console.log('output: ' + output);
-     		console.log(`Exit code is: ${code}`);
-   	});
+		const pythonProcess = spawn('python3',["coords.py",address]);
+		let output = '';
+		
+		pythonProcess.stdout.on('data', (data) => {
+			console.log(data.toString())
+			output += data.toString()
+		});
+			// Handle error output
+		pythonProcess.stderr.on('data', (data) => {
+			// As said before, convert the Uint8Array to a readable string.
+			console.log('error:' + data);
+		});
+		pythonProcess.stdout.on('end', async function(){
+			//console.log('output: ' + output);
+			console.log('Python socket event: end');
+		});
     	
-    	await once(pythonProcess, 'close')
-    	return output;
+    	await once(pythonProcess, 'close');
+		
+		const output2 = JSON.parse(output);
+    	const coordinates = {
+			latitude: output2['latitude'],
+			longitude: output2['longitude']
+		};
+		console.log(coordinates);
+		return coordinates;
     }
   /*async getCoordinates(address: string): Promise<CoordinatesInterface> {
     const baseUrl = 'http://api.positionstack.com/v1/';
