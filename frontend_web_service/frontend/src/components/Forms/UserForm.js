@@ -16,6 +16,7 @@ export default function UserForm({ setIsRegistered, buttonText, newUser }) {
   const [name, setName] = useState();
   const [lastName, setLastName] = useState();
   const [documentNumber, setDocumentNumber] = useState();
+  const [userData,setUserData] = useState({});
 
   useEffect(() => {
     
@@ -24,6 +25,7 @@ export default function UserForm({ setIsRegistered, buttonText, newUser }) {
       setName(parking.data.name)
       setLastName(parking.data.lastName)
       setDocumentNumber(parking.data.documentNumber)
+      setUserData(parking.data);
     }
     if(!newUser){
       assignParkingData();
@@ -65,25 +67,34 @@ export default function UserForm({ setIsRegistered, buttonText, newUser }) {
     setIsRegistered(true);
     }
   }
+
+  //funcion que soluciona el bug de validacion
+  function Focusinput(){
+    document.getElementById("name").focus();
+    document.getElementById("lastName").focus();
+    document.getElementById("document-number").focus();
+    document.getElementById("document-number").blur();
+    document.getElementById("button-update-submit").click()
+  }
   
   return(
     <form onSubmit={handleSubmit(onSubmit)}>
       
       <div class="user-box">
-        <input type="text" placeholder='Name' {...register("name")} value ={name} onChange={e => {setName(e.target.value)}}/>
+        <input id="name" type="text" placeholder='Name' {...register("name")} value={name} onChange={e => {setName(e.target.value)}}/>
       </div>
-      { errors.name && <p>Name is invalid</p> }
+      { name !== userData.name && errors.name && <p>Name is invalid</p> }
       <div class="user-box">
-        <input type="text" placeholder="Lastname" {...register("lastName")} value ={lastName} onChange={e => {setLastName(e.target.value)}} />
+        <input id="lastName" type="text" placeholder="Lastname" {...register("lastName")} value={lastName} onChange={e => {setLastName(e.target.value)}}/>
       </div>
-      { errors.lastName && <p>Lastname is invalid</p> }
+      { lastName !== userData.lastName && errors.lastName && <p>Lastname is invalid</p> }
       <div class="user-box">
-        <input type="text" placeholder="Document Number" {...register("documentNumber")} value ={documentNumber} onChange={e => {setDocumentNumber(e.target.value)}} />
+        <input id="document-number" type="text" placeholder="Document Number" {...register("documentNumber")} value={documentNumber} onChange={e => {setDocumentNumber(e.target.value)}}/>
       </div>
-      { errors.documentNumber && <p>Document Number is invalid</p> }
+      { documentNumber !== userData.documentNumber && errors.documentNumber && <p>Document Number is invalid</p> }
       
       <div>
-        <button type="submit" className="bn632-hover bn24">{buttonText}</button>
+        <button id="button-update-submit" type="submit" className="bn632-hover bn24" onClick={()=>{Focusinput()}}>{buttonText}</button>
       </div>
       
     </form>
