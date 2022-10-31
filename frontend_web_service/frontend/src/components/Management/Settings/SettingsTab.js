@@ -3,7 +3,7 @@ import ParkingForm from '../../Forms/ParkingForm';
 import { getParkingById, updateParking } from '../../../controllers/parkingController';
 
 export default function SettingsTab(props) {
-  const [parkingData, setParkingData] = useState({});
+  const [parkingData, setParkingData] = useState();
 
   useEffect(() => {
     const fetchData = async (id) => {
@@ -15,6 +15,7 @@ export default function SettingsTab(props) {
   }, [props.id]);
 
   const onSubmit = async (data) => {
+    console.log('Updating settings');
     const businessName = data.businessName;
     const cuitNumber = data.cuitNumber;
     const streetName = data.streetName;
@@ -46,11 +47,17 @@ export default function SettingsTab(props) {
     }
   }
 
-  return(
-    <ParkingForm
-      onSubmit={onSubmit}
-      currentData={parkingData}
-      validationMode='onSubmit'
-    />
-  );
+  if (parkingData === undefined) {
+    return(
+      <div>Loading</div>
+    );
+  } else {
+    return (
+      <ParkingForm
+        onSubmit={onSubmit}
+        currentData={parkingData}
+        validationMode='onTouched'
+      />
+    );
+  }
 }

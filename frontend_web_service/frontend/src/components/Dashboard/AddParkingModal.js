@@ -20,19 +20,19 @@ function AddParkingModal(props) {
     const priceWeek = data.priceWeek;
     const priceMonth = data.priceMonth;
 
-      const resp = await newParking({
-        businessName,
-        cuitNumber,
-        streetName,
-        streetNumber,
-        qtyTotalSlots,
-        priceHour,
-        price_6Hours,
-        price_12Hours,
-        price_24Hours,
-        priceWeek,
-        priceMonth,
-      });
+    const resp = await newParking({
+      businessName,
+      cuitNumber,
+      streetName,
+      streetNumber,
+      qtyTotalSlots,
+      priceHour,
+      price_6Hours,
+      price_12Hours,
+      price_24Hours,
+      priceWeek,
+      priceMonth,
+    });
 
     if (resp.status === 200) {
       props.setShowModal(false);
