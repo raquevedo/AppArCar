@@ -1,9 +1,44 @@
 import React from "react";
-import AddParking from "../Forms/AddParking";
+import ParkingForm from "../Forms/ParkingForm";
+import { newParking } from "../../controllers/parkingController";
 
 function AddParkingModal(props) {
   const handleClose = () => {
     props.setShowModal(false)
+  }
+
+  const onSubmit = async (data) => {
+    const businessName = data.businessName;
+    const cuitNumber = data.cuitNumber;
+    const streetName = data.streetName;
+    const streetNumber = data.streetNumber;
+    const qtyTotalSlots = data.qtyTotalSlots;
+    const priceHour = data.priceHour;
+    const price_6Hours = data.price_6Hours;
+    const price_12Hours = data.price_12Hours;
+    const price_24Hours = data.price_24Hours;
+    const priceWeek = data.priceWeek;
+    const priceMonth = data.priceMonth;
+
+      const resp = await newParking({
+        businessName,
+        cuitNumber,
+        streetName,
+        streetNumber,
+        qtyTotalSlots,
+        priceHour,
+        price_6Hours,
+        price_12Hours,
+        price_24Hours,
+        priceWeek,
+        priceMonth,
+      });
+
+    if (resp.status === 200) {
+      props.setShowModal(false);
+      let data = await resp.json();
+      props.setParkingData([...props.parkingData, ...[data]]);
+    }
   }
 
   return(
@@ -22,7 +57,7 @@ function AddParkingModal(props) {
               </div>
             </div>
             <div className="cell">
-              <AddParking parkingData={props.parkingData} setShowModal={props.setShowModal} setParkingData={props.setParkingData}/>
+              <ParkingForm onSubmit={onSubmit} currentData={{}}/>
             </div>
           </div>
         </div>

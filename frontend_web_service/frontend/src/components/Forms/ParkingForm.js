@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { newParking } from "../../controllers/parkingController";
+import { get } from '../../utils/dictGet';
 
 const schema = yup.object({
   businessName: yup.string().required(),
@@ -18,7 +18,7 @@ const schema = yup.object({
   priceMonth: yup.number(),
 });
 
-export default function AddParking(props) {
+export default function ParkingForm(props) {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const { register, handleSubmit, formState:{ errors } } = useForm({
     mode: 'onTouched',
@@ -27,49 +27,19 @@ export default function AddParking(props) {
 
   const onSubmit = async (data) => {
     setButtonDisabled(true);
-
-    const businessName = data.businessName;
-    const cuitNumber = data.cuitNumber;
-    const streetName = data.streetName;
-    const streetNumber = data.streetNumber;
-    const qtyTotalSlots = data.qtyTotalSlots;
-    const priceHour = data.priceHour;
-    const price_6Hours = data.price_6Hours;
-    const price_12Hours = data.price_12Hours;
-    const price_24Hours = data.price_24Hours;
-    const priceWeek = data.priceWeek;
-    const priceMonth = data.priceMonth;
-
-    const resp = await newParking({
-      businessName,
-      cuitNumber,
-      streetName,
-      streetNumber,
-      qtyTotalSlots,
-      priceHour,
-      price_6Hours,
-      price_12Hours,
-      price_24Hours,
-      priceWeek,
-      priceMonth,
-    });
-
-    if (resp.status === 200) {
-      props.setShowModal(false);
-      let data = await resp.json();
-      props.setParkingData([...props.parkingData, ...[data]]);
-    }
+    props.onSubmit(data);
   }
 
   return (
     <div className="grid-container grid-margin-x grid-padding-x login-box-modal-body">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div class="grid-x align-center grid-margin-x grid-padding-x  grid-padding-y">
+        <div class="grid-x align-center grid-margin-x grid-padding-x grid-padding-y">
           <div className="cell large-6 small-12">
             <div class="user-box">
               <input
                 type="text"
                 placeholder="Business Name"
+                default={get(props.currentData, 'businessName', '')}
                 {...register("businessName")}
               />
             </div>
@@ -79,6 +49,7 @@ export default function AddParking(props) {
               <input
                 type="text"
                 placeholder="Cuit"
+                default={get(props.currentData, 'cuitNumber', '')}
                 {...register("cuitNumber")}
               />
             </div>
@@ -88,6 +59,7 @@ export default function AddParking(props) {
               <input
                 type="text"
                 placeholder="Street Name"
+                default={get(props.currentData, 'streetName', '')}
                 {...register("streetName")}
               />
             </div>
@@ -97,6 +69,7 @@ export default function AddParking(props) {
               <input
                 type="text"
                 placeholder="Street Number"
+                default={get(props.currentData, 'streetNumber', '')}
                 {...register("streetNumber")}
               />
             </div>
@@ -106,6 +79,7 @@ export default function AddParking(props) {
               <input
                 type="text"
                 placeholder="Capacity"
+                default={get(props.currentData, 'qtyTotalSlots', '')}
                 {...register("qtyTotalSlots")}
               />
             </div>
@@ -113,10 +87,11 @@ export default function AddParking(props) {
             {errors.qtyTotalSlots && <p>Capacity is invalid</p>}
           </div>
           <div className="cell large-6 small-12">
-          <div class="user-box">
+            <div class="user-box">
               <input
                 type="text"
                 placeholder="Price per Hour"
+                default={get(props.currentData, 'priceHour', '')}
                 {...register("priceHour")}
               />
             </div>
@@ -126,6 +101,7 @@ export default function AddParking(props) {
               <input
                 type="text"
                 placeholder="Price per 6 hours"
+                default={get(props.currentData, 'price_6hours', '')}
                 {...register("price_6hours")}
               />
             </div>
@@ -135,6 +111,7 @@ export default function AddParking(props) {
               <input
                 type="text"
                 placeholder="Price per 12 Hours"
+                default={get(props.currentData, 'price_12hours', '')}
                 {...register("price_12Hours")}
               />
             </div>
@@ -144,6 +121,7 @@ export default function AddParking(props) {
               <input
                 type="text"
                 placeholder="Price per Week"
+                default={get(props.currentData, 'priceWeek', '')}
                 {...register("priceWeek")}
               />
             </div>
@@ -153,6 +131,7 @@ export default function AddParking(props) {
               <input
                 type="text"
                 placeholder="Price per Month"
+                default={get(props.currentData, 'priceMonth', '')}
                 {...register("priceMonth")}
               />
             </div>

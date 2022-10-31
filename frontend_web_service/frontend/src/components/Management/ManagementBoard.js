@@ -2,6 +2,7 @@ import React, { useState }  from 'react';
 import { useParams } from 'react-router-dom';
 import HoursTab from './Hours/HoursTab';
 import ReservationsTab from './Reservations/ReservationsTab';
+import SettingsTab from './Settings/SettingsTab';
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
@@ -61,9 +62,7 @@ export default function ManagementBoard() {
           <HoursTab id={id}/>
         }
         { toggleState === 'settings' && 
-          <div>
-            'settings'
-          </div>
+          <SettingsTab />
         }
         { toggleState === 'status' && 
           <div>
