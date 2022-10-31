@@ -2,11 +2,12 @@ import React, { useEffect }  from 'react';
 import { useParams } from 'react-router-dom';
 import HoursTab from './Hours/HoursTab';
 import ReservationsTab from './Reservations/ReservationsTab';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
   const { id, tab } = useParams();
+  console.log(tab);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,6 +16,14 @@ export default function ManagementBoard() {
       navigate('reservations');
     }
   }, [tab, navigate])
+
+  const renderTab = () => {
+    switch (tab) {
+      case 'reservations': return <ReservationsTab id={id}/>;
+      case 'hours': return <HoursTab id={id}/>;
+      default: return <ReservationsTab id={id}/>
+    }
+  }
 
   const baseUrl = `/dashboard/manage/${id}`
   return(
@@ -56,32 +65,7 @@ export default function ManagementBoard() {
         </div>
       </div>
       <div className="content-tabs">
-        <Routes>
-          <Route
-            path='reservations'
-            element={
-              <ReservationsTab id={id}/>
-            }
-          />
-          <Route
-            path='hours'
-            element={
-              <HoursTab id={id}/>
-            }
-          />
-          <Route
-            path='status'
-            element={
-              <div>Status</div>
-            }
-          />
-          <Route
-            path='settings'
-            element={
-              <div>Settings</div>
-            }
-          />
-        </Routes>
+        {renderTab()}
       </div>
     </div>
   );
