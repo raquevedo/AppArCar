@@ -212,13 +212,18 @@ export class ReservationController {
     pkgReservation: PkgReservation,
   ): Promise<void> {
 
-    let idParking = await (await this.pkgReservationRepository.findById(id)).idParking
-
-    pkgReservation.checkinAtDttm = Date()
-    pkgReservation.status = 'parked'
-    pkgReservation.sysUpdatedAtDttm = Date()
+    pkgReservation = await this.pkgReservationRepository.findById(id)
     
-    await reservedToBusySlot(this.pkgParkingStatusRepository, idParking)
+    if(pkgReservation.status == 'accepted'){
+      
+      pkgReservation.status = 'parked'
+      pkgReservation.checkinAtDttm = Date()
+      pkgReservation.sysUpdatedAtDttm = Date()
+    } else {
+      throw new Error("We can only check-in reservations with status = accepted. Reservation: "+id+" has status: "+pkgReservation.status)
+    }
+    
+    await reservedToBusySlot(this.pkgParkingStatusRepository, pkgReservation.idParking)
     await this.pkgReservationRepository.updateById(id, pkgReservation);
   }
 
