@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import ParkingForm from '../../Forms/ParkingForm';
 import { getParkingById, updateParking } from '../../../controllers/parkingController';
 
-export default function SettingsTab() {
-  const { id } = useParams();
+export default function SettingsTab(props) {
   const [parkingData, setParkingData] = useState({});
 
   useEffect(() => {
@@ -13,8 +11,8 @@ export default function SettingsTab() {
       data = await data.json();
       setParkingData(data);
     }
-    fetchData(id);
-  }, [id]);
+    fetchData(props.id);
+  }, [props.id]);
 
   const onSubmit = async (data) => {
     const businessName = data.businessName;
@@ -30,7 +28,7 @@ export default function SettingsTab() {
     const priceMonth = data.priceMonth;
 
     const resp = await updateParking(
-      id, {
+      props.id, {
       businessName,
       cuitNumber,
       streetName,
@@ -52,6 +50,7 @@ export default function SettingsTab() {
     <ParkingForm
       onSubmit={onSubmit}
       currentData={parkingData}
+      validationMode='onSubmit'
     />
   );
 }

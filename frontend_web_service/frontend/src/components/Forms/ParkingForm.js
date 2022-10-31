@@ -21,7 +21,7 @@ export default function ParkingForm(props) {
 
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const { register, handleSubmit, formState:{ errors } } = useForm({
-    mode: 'onTouched',
+    mode: props.validationMode,
     resolver: yupResolver(schema)
   });
 

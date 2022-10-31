@@ -57,6 +57,7 @@ export async function acceptReservation(id) {
 
   return await fetch(`http://localhost:8000/parking/reservation/accept/${id}`, {
     method: 'POST',
+    headers: myHeaders
   });
 }
 

@@ -57,7 +57,7 @@ function AddParkingModal(props) {
               </div>
             </div>
             <div className="cell">
-              <ParkingForm onSubmit={onSubmit} currentData={{}}/>
+              <ParkingForm onSubmit={onSubmit} currentData={{}} validationMode='onTouched'/>
             </div>
           </div>
         </div>
