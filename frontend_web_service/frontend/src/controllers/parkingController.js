@@ -52,6 +52,23 @@ export async function getReservations(id) {
   });
 }
 
+export async function acceptReservation(id) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/reservation/accept/${id}`, {
+    method: 'POST',
+  });
+}
+
+export async function rejectReservation(id) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/reservation/reject/${id}`, {
+    method: 'POST',
+    headers: myHeaders
+  });
+}
+
 export async function getParkingSettings(id) {
   const myHeaders = buildHeaders();
 

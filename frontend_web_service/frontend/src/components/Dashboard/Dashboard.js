@@ -26,7 +26,7 @@ export default function Dashboard({ partnerData }) {
             }
           />
           <Route
-            path='manage/:id'
+            path='manage/:id/*'
             element={
               <ManagementBoard />
             }
