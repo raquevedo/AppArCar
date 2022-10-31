@@ -2,11 +2,8 @@ import React, { useEffect }  from 'react';
 import { useParams } from 'react-router-dom';
 import HoursTab from './Hours/HoursTab';
 import ReservationsTab from './Reservations/ReservationsTab';
-<<<<<<< HEAD
 import SettingsTab from './Settings/SettingsTab';
-=======
 import { Route, Routes, useNavigate } from 'react-router-dom';
->>>>>>> 2687d53d24986bc97745febb15a1cd868c3e6f47
 
 export default function ManagementBoard() {
   /* Extracts the ID from the url */
