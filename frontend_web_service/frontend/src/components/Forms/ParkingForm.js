@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { get } from '../../utils/dictGet';
 
 export default function ParkingForm(props) {
   const schema = yup.object({
@@ -12,34 +11,32 @@ export default function ParkingForm(props) {
     streetNumber: yup.number().required(),
     qtyTotalSlots: yup.number().required(),
     priceHour: yup.number().required(),
-    price_6Hours: yup.number(),
-    price_12Hours: yup.number(),
-    price_24Hours: yup.number(),
-    priceWeek: yup.number(),
-    priceMonth: yup.number(),
+    price_6Hours: yup.number().required(),
+    price_12Hours: yup.number().required(),
+    price_24Hours: yup.number().required(),
+    priceWeek: yup.number().required(),
+    priceMonth: yup.number().required(),
   });
 
-  const [buttonDisabled, setButtonDisabled] = useState(false);
   const { register, handleSubmit, formState:{ errors } } = useForm({
     mode: props.validationMode,
     defaultValues: {
-      businessName: get(props.currentData, 'businessName', ''),
-      cuitNumber: get(props.currentData, 'cuitNumber', ''),
-      streetName: get(props.currentData, 'streetName', ''),
-      streetNumber: get(props.currentData, 'streetNumber', ''),
-      qtyTotalSlots: get(props.currentData, 'qtyTotalSlots', ''),
-      priceHour: get(props.currentData, 'priceHour', ''),
-      price_6Hours: get(props.currentData, 'price_6Hours', ''),
-      price_12Hours: get(props.currentData, 'price_12Hours', ''),
-      price_24Hours: get(props.currentData, 'price_24Hours', ''),
-      priceWeek: get(props.currentData, 'priceWeek', ''),
-      priceMonth: get(props.currentData, 'priceMonth', '')
+      businessName: props.currentData['businessName'],
+      cuitNumber: props.currentData['cuitNumber'],
+      streetName: props.currentData['streetName'],
+      streetNumber: props.currentData['streetNumber'],
+      qtyTotalSlots: props.currentData['qtyTotalSlots'],
+      priceHour: props.currentData['priceHour'],
+      price_6Hours: props.currentData['price_6Hours'],
+      price_12Hours: props.currentData['price_12Hours'],
+      price_24Hours: props.currentData['price_24Hours'],
+      priceWeek: props.currentData['priceWeek'],
+      priceMonth: props.currentData['priceMonth']
     },
     resolver: yupResolver(schema)
   });
 
   const onSubmit = async (data) => {
-    setButtonDisabled(true);
     props.onSubmit(data);
   }
 
@@ -125,6 +122,15 @@ export default function ParkingForm(props) {
             <div className="user-box">
               <input
                 type="text"
+                placeholder="Price per 24 Hours"
+                {...register("price_24Hours")}
+              />
+            </div>            
+            {errors.price_24Hours && <p>Price is invalid</p>}
+
+            <div className="user-box">
+              <input
+                type="text"
                 placeholder="Price per Week"
                 {...register("priceWeek")}
               />
@@ -141,7 +147,9 @@ export default function ParkingForm(props) {
             {errors.priceMonth && <p>Price is invalid</p>}
 
           </div>
-          <button className="bn632-hover bn24" disabled={buttonDisabled} type="submit">Submit</button>
+          <div>
+            <button className="bn632-hover bn24" disabled={props.buttonDisabled} type="submit">Submit</button>
+          </div>
         </div>
       </form>
     </div>

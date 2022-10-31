@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ParkingForm from "../Forms/ParkingForm";
 import { newParking } from "../../controllers/parkingController";
 
@@ -7,7 +7,12 @@ function AddParkingModal(props) {
     props.setShowModal(false)
   }
 
+  const defaultValues = {};
+  const [buttonDisabled, setButtonDisabled] = useState(false)
+
   const onSubmit = async (data) => {
+    setButtonDisabled(true);
+
     const businessName = data.businessName;
     const cuitNumber = data.cuitNumber;
     const streetName = data.streetName;
@@ -57,7 +62,12 @@ function AddParkingModal(props) {
               </div>
             </div>
             <div className="cell">
-              <ParkingForm onSubmit={onSubmit} currentData={{}} validationMode='onTouched'/>
+              <ParkingForm
+                onSubmit={onSubmit}
+                currentData={defaultValues}
+                validationMode='onTouched'
+                buttonDisabled={buttonDisabled}
+              />
             </div>
           </div>
         </div>
