@@ -41,10 +41,14 @@ function HomeScreen({ navigation }) {
   
   async function getSearchCoords(address){
     const coordinates = await getCoordinates(address)
-    console.log(`Coordinates search is success. latitude:${coordinates.latitude} longitude:${coordinates.longitude}`);
-    setRegionMapLat(coordinates.latitude)
-    setRegionMapLon(coordinates.longitude)
-    getThisNearParkings(coordinates)
+    if(coordinates===-1){
+      Alert.alert("Pay atention","The suministred coordinates are invalid.");
+    }else{
+      console.log(`Coordinates search is success. latitude:${coordinates.latitude} longitude:${coordinates.longitude}`);
+      setRegionMapLat(coordinates.latitude)
+      setRegionMapLon(coordinates.longitude)
+      getThisNearParkings(coordinates)
+    }
   }
   async function getThisNearParkings(coordinates){
     const nearParkings = await getNearParkings(coordinates)
