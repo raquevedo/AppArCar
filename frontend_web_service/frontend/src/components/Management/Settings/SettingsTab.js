@@ -53,11 +53,13 @@ export default function SettingsTab(props) {
     );
   } else {
     return (
+      <div className="background-settings">
       <ParkingForm
         onSubmit={onSubmit}
         currentData={parkingData}
         validationMode='onTouched'
       />
+      </div>
     );
   }
 }
