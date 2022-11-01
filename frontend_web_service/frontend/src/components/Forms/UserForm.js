@@ -46,19 +46,19 @@ export default function UserForm({ setIsRegistered, values, buttonText, newUser 
 
   return(
     <form onSubmit={handleSubmit}>
-      <div class="user-box">
+      <div className="user-box">
           <input type="text" value={businessName} placeholder="Business Name" onChange={e => setBusinessName(e.target.value)} />
         </div>
-        <div class="user-box">
+        <div className="user-box">
           <input type="text" value={cuitNumber} placeholder="CUIT" onChange={e => setCuitNumber(e.target.value)} />
         </div>
-        <div class="user-box">
+        <div className="user-box">
           <input type="text" value={streetName} placeholder="Street Name" onChange={e => setStreetName(e.target.value)} />
         </div>
-        <div class="user-box">
+        <div className="user-box">
           <input type="text" value={streetNumber} placeholder="Street Number" onChange={e => setStreetNumber(parseInt(e.target.value))} />
         </div>
-        <div class="user-box">
+        <div className="user-box">
           <input type="text" value={contactNumber} placeholder="Phone Number" onChange={e => setContactNumber(parseInt(e.target.value))} />
         </div>
       
