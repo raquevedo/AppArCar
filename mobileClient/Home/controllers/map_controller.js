@@ -7,7 +7,7 @@ async function getCoordinates(address){
     fetchData.headers={
         'Content-Type': 'application/json'
         }
-    const response = await fetch(host_instance.path+'/geo/coordinates/address='+address,fetchData)
+    const response = await fetch(host_instance.path+'/geo/coordinates/'+address,fetchData)
     return response.json()
     /*console.log(respData)
     setRegionMapLat(respData.latitude)
