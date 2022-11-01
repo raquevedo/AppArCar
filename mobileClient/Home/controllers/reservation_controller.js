@@ -1,5 +1,6 @@
 import * as SecureStore from 'expo-secure-store';
 import host_instance from '../../host_instance.json';
+import { Alert } from "react-native";
 
 
   async function reserve(idParking){
@@ -19,9 +20,9 @@ import host_instance from '../../host_instance.json';
     //const response = await fetch(host_instance.path+'/parking/parking/nearest/latitude='+parseFloat(coordinates.latitude)+'/longitude='+parseFloat(coordinates.longitude)+'/kilometers=1',fetchData)
     console.log(response)
     if(response.status === 200){
-      alert("Waiting for parking confirmation to make a payment.")
+      Alert.alert('Great', 'Parking is proccesing your reservation, please wait.');
     }else{
-      alert("Reservation error.")
+      Alert.alert("Reservation error.")
     }
     return response.json()
   }
