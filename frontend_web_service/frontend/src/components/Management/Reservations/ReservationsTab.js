@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
-import { getReservations } from '../../../controllers/parkingController';
+import { getReservations, acceptReservation } from '../../../controllers/parkingController';
 import AcceptedReservations from './AcceptedReservations';
 import PendingReservations from './PendingReservations';
 
@@ -22,7 +22,9 @@ export default function ReservationsTab(props) {
         for (let reservationKey in data) {
           if (data[reservationKey]['status'] === 'created') {
             pendings.push(data[reservationKey]);
-          } else if (data[reservationKey]['status'] === 'accepted') {
+          } else if (
+            data[reservationKey]['status'] === 'accepted' ||
+            data[reservationKey]['status'] === 'parked') {
             accepteds.push(data[reservationKey]);
           }
         }
@@ -37,24 +39,29 @@ export default function ReservationsTab(props) {
   }, [props.id])
 
   async function AcceptReservation(id) {
-    // TODO: Add call to the backend to accept reservation
-    let newPendingReservations = [];
-    let acceptedReservation = {};
+    const res = await acceptReservation(id);
+    if (res.status === 200 || res.status ===204) {
+      let newPendingReservations = [];
+      let acceptedReservation = {};
 
-    for (let index in pendingReservations) {
-      if (id === pendingReservations[index]['id']) {
-        acceptedReservation = pendingReservations[index];
-      } else {
-        newPendingReservations.push(pendingReservations[index]);
+      for (let index in pendingReservations) {
+        if (id === pendingReservations[index]['id']) {
+          acceptedReservation = pendingReservations[index];
+        } else {
+          newPendingReservations.push(pendingReservations[index]);
+        }
       }
-    }
 
     setPendingReservations(newPendingReservations);
     setAcceptedReservations([...acceptedReservations, ...[acceptedReservation]]);
+    } else {
+      console.log('Error accepting reservation');
+      // TODO: Show error message in the interface
+    }
   }
 
   return(
-    <div className='grid-x grid-padding-x grid-margin-x'>
+    <div className='grid-x grid-padding-x grid-margin-x background-reservations'>
       <div className='cell large-6 small-12'>
         <PendingReservations
           reservations={pendingReservations}

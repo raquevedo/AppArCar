@@ -70,7 +70,8 @@ export default function PendingReservations({reservations, setReservations, Acce
     })
   }
   return(
-    <div>
+    <div className="table-main">
+      <div className="table-body">
       <h2>Pending Reservations</h2>
       <table>
         <thead>
@@ -93,6 +94,7 @@ export default function PendingReservations({reservations, setReservations, Acce
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   )
 }

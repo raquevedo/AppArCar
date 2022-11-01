@@ -4,7 +4,7 @@ import AcceptedReservation from './AcceptedReservation';
 export default function AcceptedReservations({ reservations, setReservations }) {
   
   return(
-    <div>
+    <div className="table-body">
       <h2>Accepted Reservations</h2>
       <table>
         <thead>

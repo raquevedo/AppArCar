@@ -1,13 +1,19 @@
 import React from 'react';
 import { removeById } from '../../../utils/removeById';
+import { rejectReservation } from '../../../controllers/parkingController';
 
 export default function PendingReservation({reservation, reservations, setReservations, AcceptReservation}) {
   const expirationDate = new Date(reservation.expirationAtDttm)
 
   async function RejectReservation(reservations, id) {
-    // TODO: Send request to the backend to reject the reservation
-    const newReservations = removeById(reservations, id);
+    const res = await rejectReservation(id);
+    if (res.status === 200 || res.status === 204) {
+      const newReservations = removeById(reservations, id);
     setReservations(newReservations);
+    } else {
+      console.log('Error rejecting the reservation')
+      // TODO: Show error message in the user interface
+    } 
   }
 
   return(
@@ -19,10 +25,10 @@ export default function PendingReservation({reservation, reservations, setReserv
         {expirationDate.getHours()}:{expirationDate.getMinutes()}
       </td>
       <td>
-        <button className='button' onClick={() => AcceptReservation(reservation.id)}>Approve</button>
+        <button className='status-paid' onClick={() => AcceptReservation(reservation.id)}>Approve</button>
       </td>
       <td>
-        <button className='button' onClick={() => RejectReservation(reservations, reservation.id)}>Reject</button>
+        <button className='status-unpaid' onClick={() => RejectReservation(reservations, reservation.id)}>Reject</button>
       </td>
     </tr>
   )
