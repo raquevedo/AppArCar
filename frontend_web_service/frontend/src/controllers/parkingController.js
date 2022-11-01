@@ -18,10 +18,28 @@ export async function newParking(parkingData) {
   });
 }
 
+export async function updateParking(parkingId, parkingData) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/parking/update/${parkingId}`, {
+    method: 'PATCH',
+    headers: myHeaders,
+    body: JSON.stringify(parkingData)
+  })
+}
+
 export async function getParkingData() {
   const myHeaders = buildHeaders();
 
   return await fetch('http://localhost:8000/parking/parking', {
+    headers: myHeaders
+  });
+}
+
+export async function getParkingById(parkingId) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/parking/${parkingId}`, {
     headers: myHeaders
   });
 }
