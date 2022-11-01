@@ -83,7 +83,7 @@ function ModalReserve({parentStates,parentSetters}){
     console.log(socket)
     console.log('Connection to payment socket established')
   }
-
+  
   useEffect(() => {
     const conectionPath = host_instance.path.slice(0,host_instance.path.length-4)+'3004/reservations'
     const newSocket = io(
@@ -107,7 +107,7 @@ function ModalReserve({parentStates,parentSetters}){
       });
 
       socket.on('reservation_accepted', (data) => {
-        if(reserveState === "pending_reserveation"){
+        if(reserveState === "unreserved"){
           setReserveState("accepted")
         }
       })
@@ -145,15 +145,20 @@ function ModalReserve({parentStates,parentSetters}){
   },[socketPayment])
 
   useEffect(() => {
-    switch (reserveState) {
+    switch (reserveState) { 
+      
       case "accepted":
         Alert.alert('Your reservation has been accepted.', 'Parking is awaiting your arriving. Thanks.');
         upPaymentSocket();
         break;
       case "payment_pending":
-        Alert.alert('Many thanks','Now make the payment.')
+        Alert.alert('Many thanks','Now your payment has been make from your credit card. See you latter.')
         setReserveState("unreserved");  
         break;
+      /*case "pending_reservation":
+        setReserveState("pending_reservation");
+        Alert.alert('Great', 'Parking is proccesing your reservation, please wait.');
+        break;*/
       }
     console.log("Estado actualizado a:",reserveState)
   },[reserveState]);
@@ -167,7 +172,7 @@ function ModalReserve({parentStates,parentSetters}){
           transparent={true}
           visible={parentStates.modalResVisible}
           onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
+            //Alert.alert("Modal has been closed.");
             parentSetters.wrapperSetResModalState(!parentStates.modalResVisible);
           }}
           >
@@ -176,7 +181,7 @@ function ModalReserve({parentStates,parentSetters}){
               <Text >You will be reserving at {parentStates.parking.businessName}. Location: {parentStates.parking.streetName}{parentStates.parking.streetNumber}</Text>
               <Pressable
                 style={styles.button}
-                onPress={() => setReserveState("pending_reserveation") &
+                onPress={() => 
                   reserve(parentStates.parking.id) &
                   parentSetters.wrapperSetResModalState(!parentStates.modalResVisible)
                 }
