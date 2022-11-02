@@ -1,10 +1,10 @@
-import React, { useState, useEffect} from 'react';
-import { registerParkingUser, updateParkingUser, getParkingUser } from '../../controllers/usersController';
+import React, { useState,useEffect } from 'react';
+import { registerParkingUser, updateParkingUser} from '../../controllers/usersController';
 import * as yup from 'yup';
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
-export default function UserForm({ setIsRegistered, buttonText, newUser }) {
+export default function UserForm({ setIsRegistered, buttonText, newUser, valuesData }) {
   
   if (buttonText === undefined) {
     buttonText = 'Submit';
@@ -12,37 +12,27 @@ export default function UserForm({ setIsRegistered, buttonText, newUser }) {
   if (newUser === undefined) {
     newUser = false;
   }
- 
-  const [name, setName] = useState();
-  const [lastName, setLastName] = useState();
-  const [documentNumber, setDocumentNumber] = useState();
-  const [userData,setUserData] = useState({});
-
-  useEffect(() => {
-    
-    async function assignParkingData() {
-      const parking = await getParkingUser();
-      setName(parking.data.name)
-      setLastName(parking.data.lastName)
-      setDocumentNumber(parking.data.documentNumber)
-      setUserData(parking.data);
-    }
-    if(!newUser){
-      assignParkingData();
-    }
-  }, [])
-
+  
   const schema = yup.object({
     
     name: yup.string().required().min(3),
     lastName: yup.string().required().min(3),
     documentNumber: yup.number().required().min(0)
   })
-
+  
   const { register,handleSubmit,formState:{ errors } } = useForm({
     mode: 'onTouched',
+    defaultValues: {
+
+      name: valuesData['name'],
+      lastName: valuesData['lastName'],
+      documentNumber:valuesData['documentNumber'] 
+    },
+
     resolver: yupResolver(schema)
   });
+
+  console.log(valuesData);
 
   const onSubmit = async (data) => {
     const name = data.name
@@ -68,33 +58,24 @@ export default function UserForm({ setIsRegistered, buttonText, newUser }) {
     }
   }
 
-  //funcion que soluciona el bug de validacion
-  function Focusinput(){
-    document.getElementById("name").focus();
-    document.getElementById("lastName").focus();
-    document.getElementById("document-number").focus();
-    document.getElementById("document-number").blur();
-    document.getElementById("button-update-submit").click()
-  }
-  
   return(
     <form onSubmit={handleSubmit(onSubmit)}>
       
       <div class="user-box">
-        <input id="name" type="text" placeholder='Name' {...register("name")} value={name} onChange={e => {setName(e.target.value)}}/>
+        <input type="text" placeholder='Name' {...register("name")}/>
       </div>
-      { name !== userData.name && errors.name && <p>Name is invalid</p> }
+      { errors.name && <p>Name is invalid</p> }
       <div class="user-box">
-        <input id="lastName" type="text" placeholder="Lastname" {...register("lastName")} value={lastName} onChange={e => {setLastName(e.target.value)}}/>
+        <input type="text" placeholder="Lastname" {...register("lastName")}/>
       </div>
-      { lastName !== userData.lastName && errors.lastName && <p>Lastname is invalid</p> }
+      { errors.lastName && <p>Lastname is invalid</p> }
       <div class="user-box">
-        <input id="document-number" type="text" placeholder="Document Number" {...register("documentNumber")} value={documentNumber} onChange={e => {setDocumentNumber(e.target.value)}}/>
+        <input type="text" placeholder="Document Number" {...register("documentNumber")}/>
       </div>
-      { documentNumber !== userData.documentNumber && errors.documentNumber && <p>Document Number is invalid</p> }
+      { errors.documentNumber && <p>Document Number is invalid</p> }
       
       <div>
-        <button id="button-update-submit" type="submit" className="bn632-hover bn24" onClick={()=>{Focusinput()}}>{buttonText}</button>
+        <button id="button-update-submit" type="submit" className="bn632-hover bn24">{buttonText}</button>
       </div>
       
     </form>
