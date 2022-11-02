@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PendingReservation from './PendingReservation';
 import { getReservations } from '../../../controllers/parkingController';
 import { useParams } from 'react-router-dom';
-import { io } from 'socket.io-client';
 
-export default function PendingReservations({reservations, setReservations, AcceptReservation}) {
+export default function PendingReservations({socket, reservations, setReservations, AcceptReservation}) {
   const { id } = useParams();
-  const [socket, setSocket] = useState();
-  const [, setSocketConnected] = useState(false);
 
   function updateReservations(newReservation) {
     setReservations([...reservations, ...[newReservation]])
@@ -37,38 +34,16 @@ export default function PendingReservations({reservations, setReservations, Acce
     setReservationData(id);
   }, [id, setReservations]);
 
-  // Start connection with socket server
-  useEffect(() => {
-    const newSocket = io(
-      'http://localhost:3004/reservations',
-      {
-        transports: ['websocket']
-      }
-    );
-    setSocket(newSocket);
-    console.log('Connection to socket established')
-  }, []);
-
   // Subscribe to event once connection is established
   if (socket) {
-    console.log(socket);
     if (!socket) return;
- 
-    socket.on('connect', () => {
-      setSocketConnected(socket.connected);
-      console.log(`Connected to socket, client id:${socket.id}`);
-    });
-
-    socket.on('disconnect', () => {
-      setSocketConnected(socket.connected);
-      console.log('Disconnected from socket');
-    });
 
     socket.on('reservation_created', (data) => {
       console.log(`New reservation detected ${data}`);
       updateReservations(JSON.parse(data));
     })
   }
+
   return(
     <div>
       <h2>Pending Reservations</h2>

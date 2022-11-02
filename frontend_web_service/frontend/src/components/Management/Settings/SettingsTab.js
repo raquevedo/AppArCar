@@ -11,7 +11,9 @@ export default function SettingsTab(props) {
       data = await data.json();
       setParkingData(data);
     }
-    fetchData(props.id);
+    if (props.id !== undefined) {
+      fetchData(props.id);
+    };
   }, [props.id]);
 
   const onSubmit = async (data) => {

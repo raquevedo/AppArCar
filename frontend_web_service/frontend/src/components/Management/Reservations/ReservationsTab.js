@@ -35,7 +35,9 @@ export default function ReservationsTab(props) {
         console.log(`Error when fetching reservation data: ${response.status}`)
       }
     }
-    setReservationData(props.id);
+    if (props.id !== undefined){
+      setReservationData(props.id);
+    };
   }, [props.id])
 
   async function AcceptReservation(id) {
@@ -64,6 +66,7 @@ export default function ReservationsTab(props) {
     <div className='grid-x grid-padding-x grid-margin-x'>
       <div className='cell large-6 small-12'>
         <PendingReservations
+          socket={props.socket}
           reservations={pendingReservations}
           setReservations={setPendingReservations}
           AcceptReservation={AcceptReservation}
