@@ -72,7 +72,7 @@ export default function PendingReservations({reservations, setReservations, Acce
   return(
     <div className="table-main">
       <div className="table-body">
-      <h2>Pending Reservations</h2>
+      <h2 className='text-reservations'>Pending Reservations</h2>
       <table>
         <thead>
           <tr>

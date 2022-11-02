@@ -231,8 +231,12 @@ code {
   cursor: pointer;
 }
 
+.text-reservations{
+  font-size: 30px;
+}
+
 .tab-active-tabs {
-  font-size: 40px;
+  font-size: 30px;
   color: white;
   cursor: pointer;
   

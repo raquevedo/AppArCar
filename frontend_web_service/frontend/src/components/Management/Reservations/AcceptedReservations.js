@@ -5,7 +5,7 @@ export default function AcceptedReservations({ reservations, setReservations }) 
   
   return(
     <div className="table-body">
-      <h2>Accepted Reservations</h2>
+      <h2 className='text-reservations'>Accepted Reservations</h2>
       <table>
         <thead>
           <tr>
