@@ -41,10 +41,10 @@ export default function ManagementBoard() {
                 ? "cell large-3 small-3 center cell-active-tabs"
                 : "cell cell-tabs bn24 center large-3 small-3"
             }
-          >
+            onClick={() => navigate(`${baseUrl}/reservations`)}>
             <button
               className={tab === "reservations" ? "tab-active-tabs" : "tab"}
-              onClick={() => navigate(`${baseUrl}/reservations`)}
+              
             >
               Reservations
             </button>
@@ -55,10 +55,10 @@ export default function ManagementBoard() {
                 ? "cell large-3 small-3 center cell-active-tabs"
                 : "cell cell-tabs bn24 center large-3 small-3"
             }
-          >
+            onClick={() => navigate(`${baseUrl}/hours`)}>
             <button
               className={tab === "hours" ? "tab-active-tabs" : "tab"}
-              onClick={() => navigate(`${baseUrl}/hours`)}
+              
             >
               Hours
             </button>
@@ -69,10 +69,10 @@ export default function ManagementBoard() {
                 ? "cell large-3 small-3 center cell-active-tabs"
                 : "cell cell-tabs bn24 center large-3 small-3"
             }
-          >
+            onClick={() => navigate(`${baseUrl}/status`)}>
             <button
               className={tab === "status" ? "tab-active-tabs" : "tab"}
-              onClick={() => navigate(`${baseUrl}/status`)}
+              
             >
               Status
             </button>
@@ -83,10 +83,10 @@ export default function ManagementBoard() {
                 ? "cell large-3 small-3 center cell-active-tabs"
                 : "cell cell-tabs bn24 center large-3 small-3"
             }
-          >
+            onClick={() => navigate(`${baseUrl}/settings`)}>
             <button
               className={tab === "settings" ? "tab-active-tabs" : "tab"}
-              onClick={() => navigate(`${baseUrl}/settings`)}
+              
             >
               Settings
             </button>
