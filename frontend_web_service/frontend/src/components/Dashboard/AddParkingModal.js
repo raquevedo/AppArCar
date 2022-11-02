@@ -4,11 +4,11 @@ import { newParking } from "../../controllers/parkingController";
 
 function AddParkingModal(props) {
   const handleClose = () => {
-    props.setShowModal(false)
-  }
+    props.setShowModal(false);
+  };
 
   const defaultValues = {};
-  const [buttonDisabled, setButtonDisabled] = useState(false)
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const onSubmit = async (data) => {
     setButtonDisabled(true);
@@ -44,31 +44,33 @@ function AddParkingModal(props) {
       let data = await resp.json();
       props.setParkingData([...props.parkingData, ...[data]]);
     }
-  }
+  };
 
-  return(
-    <div className="modal ">
-      <div className="modal-main gasper">
-        <div className="grid-container login-box-modal">
-          <div className="grid-y">
-            <div className="cell">
-              <div className="grid-x align-justify">
-                <div className="cell small-10">
-                  <h1 children="modal-title">New Parking Garage</h1>
-                </div>
-                <div className="cell small-1">
-                  <button className="button-pop bn24" onClick={handleClose}>X</button>
-                </div>
+  return (
+    <div className="modal center">
+      <div className="grid-container login-box-modal">
+        <div className="grid-y">
+          <div className="cell">
+            <div className="grid-x center">
+              <div className="cell small-10">
+                <h1 className="text-form" children="modal-title">
+                  New Parking Garage
+                </h1>
+              </div>
+              <div className="cell small-1">
+                <button className="button-pop bn24" onClick={handleClose}>
+                  X
+                </button>
               </div>
             </div>
-            <div className="cell">
-              <ParkingForm
-                onSubmit={onSubmit}
-                currentData={defaultValues}
-                validationMode='onTouched'
-                buttonDisabled={buttonDisabled}
-              />
-            </div>
+          </div>
+          <div className="cell">
+            <ParkingForm
+              onSubmit={onSubmit}
+              currentData={defaultValues}
+              validationMode="onTouched"
+              buttonDisabled={buttonDisabled}
+            />
           </div>
         </div>
       </div>
