@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import ParkingForm from '../../Forms/ParkingForm';
-import { getParkingById, updateParking } from '../../../controllers/parkingController';
+import React, { useState, useEffect } from "react";
+import ParkingForm from "../../Forms/ParkingForm";
+import {
+  getParkingById,
+  updateParking,
+} from "../../../controllers/parkingController";
 
 export default function SettingsTab(props) {
   const [parkingData, setParkingData] = useState();
@@ -10,12 +13,12 @@ export default function SettingsTab(props) {
       let data = await getParkingById(id);
       data = await data.json();
       setParkingData(data);
-    }
+    };
     fetchData(props.id);
   }, [props.id]);
 
   const onSubmit = async (data) => {
-    console.log('Updating settings');
+    console.log("Updating settings");
     const businessName = data.businessName;
     const cuitNumber = data.cuitNumber;
     const streetName = data.streetName;
@@ -28,8 +31,7 @@ export default function SettingsTab(props) {
     const priceWeek = data.priceWeek;
     const priceMonth = data.priceMonth;
 
-    const resp = await updateParking(
-      props.id, {
+    const resp = await updateParking(props.id, {
       businessName,
       cuitNumber,
       streetName,
@@ -43,22 +45,20 @@ export default function SettingsTab(props) {
       priceMonth,
     });
     if (resp.status === 200 || resp.status === 204) {
-      console.log('Updated successfully');
+      console.log("Updated successfully");
     }
-  }
+  };
 
   if (parkingData === undefined) {
-    return(
-      <div>Loading</div>
-    );
+    return <div>Loading</div>;
   } else {
     return (
       <div className="background-settings">
-      <ParkingForm
-        onSubmit={onSubmit}
-        currentData={parkingData}
-        validationMode='onTouched'
-      />
+        <ParkingForm
+          onSubmit={onSubmit}
+          currentData={parkingData}
+          validationMode="onTouched"
+        />
       </div>
     );
   }

@@ -35,23 +35,41 @@ export default function ManagementBoard() {
     <div className="grid-y">
       <div className="cell tab-head grid-margin-y grid-padding-y">
         <div className="grid-x grid-margin-x grid-padding-x grid-margin-y grid-padding-y">
-          <div className={tab === "reservations" ? "cell large-3 small-3 center cell-active-tabs" : "cell cell-tabs bn24 center large-3 small-3"}>
+          <div
+            className={
+              tab === "reservations"
+                ? "cell large-3 small-3 center cell-active-tabs"
+                : "cell cell-tabs bn24 center large-3 small-3"
+            }
+          >
             <button
-              className={tab === 'reservations' ? "tab-active-tabs" : "tab"}
+              className={tab === "reservations" ? "tab-active-tabs" : "tab"}
               onClick={() => navigate(`${baseUrl}/reservations`)}
             >
               Reservations
             </button>
           </div>
-          <div className={tab === "hours" ? "cell large-3 small-3 center cell-active-tabs" : "cell cell-tabs bn24 center large-3 small-3"}>
+          <div
+            className={
+              tab === "hours"
+                ? "cell large-3 small-3 center cell-active-tabs"
+                : "cell cell-tabs bn24 center large-3 small-3"
+            }
+          >
             <button
-              className={tab === 'hours' ? "tab-active-tabs" : "tab"}
+              className={tab === "hours" ? "tab-active-tabs" : "tab"}
               onClick={() => navigate(`${baseUrl}/hours`)}
             >
               Hours
             </button>
           </div>
-          <div className={tab === "status" ? "cell large-3 small-3 center cell-active-tabs" : "cell cell-tabs bn24 center large-3 small-3"}>
+          <div
+            className={
+              tab === "status"
+                ? "cell large-3 small-3 center cell-active-tabs"
+                : "cell cell-tabs bn24 center large-3 small-3"
+            }
+          >
             <button
               className={tab === "status" ? "tab-active-tabs" : "tab"}
               onClick={() => navigate(`${baseUrl}/status`)}
@@ -59,7 +77,13 @@ export default function ManagementBoard() {
               Status
             </button>
           </div>
-          <div className={tab === "settings" ? "cell large-3 small-3 center cell-active-tabs" : "cell cell-tabs bn24 center large-3 small-3"}>
+          <div
+            className={
+              tab === "settings"
+                ? "cell large-3 small-3 center cell-active-tabs"
+                : "cell cell-tabs bn24 center large-3 small-3"
+            }
+          >
             <button
               className={tab === "settings" ? "tab-active-tabs" : "tab"}
               onClick={() => navigate(`${baseUrl}/settings`)}

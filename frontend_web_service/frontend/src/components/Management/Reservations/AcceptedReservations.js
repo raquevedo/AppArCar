@@ -1,11 +1,13 @@
-import React from 'react';
-import AcceptedReservation from './AcceptedReservation';
+import React from "react";
+import AcceptedReservation from "./AcceptedReservation";
 
-export default function AcceptedReservations({ reservations, setReservations }) {
-  
-  return(
+export default function AcceptedReservations({
+  reservations,
+  setReservations,
+}) {
+  return (
     <div className="table-body">
-      <h2 className='text-reservations'>Accepted Reservations</h2>
+      <h2 className="text-reservations">Accepted Reservations</h2>
       <table>
         <thead>
           <tr>
@@ -15,7 +17,7 @@ export default function AcceptedReservations({ reservations, setReservations }) 
           </tr>
         </thead>
         <tbody>
-          { reservations.map((reservation, index) => (
+          {reservations.map((reservation, index) => (
             <AcceptedReservation
               key={index}
               reservation={reservation}
@@ -26,5 +28,5 @@ export default function AcceptedReservations({ reservations, setReservations }) 
         </tbody>
       </table>
     </div>
-  )
+  );
 }

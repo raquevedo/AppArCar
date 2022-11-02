@@ -94,7 +94,7 @@ export default function HoursTab(props) {
   return (
     <div className="background-hours">
       <div>
-      <div className="table-body-hours">
+        <div className="table-body-hours">
           <table>
             <thead>
               <tr>

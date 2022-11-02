@@ -1,8 +1,11 @@
-import React from 'react';
-import { useState, useEffect } from 'react'
-import { getReservations, acceptReservation } from '../../../controllers/parkingController';
-import AcceptedReservations from './AcceptedReservations';
-import PendingReservations from './PendingReservations';
+import React from "react";
+import { useState, useEffect } from "react";
+import {
+  getReservations,
+  acceptReservation,
+} from "../../../controllers/parkingController";
+import AcceptedReservations from "./AcceptedReservations";
+import PendingReservations from "./PendingReservations";
 
 export default function ReservationsTab(props) {
   let [pendingReservations, setPendingReservations] = useState([]);
@@ -11,20 +14,21 @@ export default function ReservationsTab(props) {
   useEffect(() => {
     async function setReservationData(id) {
       const response = await getReservations(id);
-  
+
       if (response.status === 200) {
         const data = await response.json();
-  
+
         // Checks each reservation status to assign to hook
         let pendings = [];
         let accepteds = [];
-  
+
         for (let reservationKey in data) {
-          if (data[reservationKey]['status'] === 'created') {
+          if (data[reservationKey]["status"] === "created") {
             pendings.push(data[reservationKey]);
           } else if (
-            data[reservationKey]['status'] === 'accepted' ||
-            data[reservationKey]['status'] === 'parked') {
+            data[reservationKey]["status"] === "accepted" ||
+            data[reservationKey]["status"] === "parked"
+          ) {
             accepteds.push(data[reservationKey]);
           }
         }
@@ -32,49 +36,52 @@ export default function ReservationsTab(props) {
         setPendingReservations(pendings);
         setAcceptedReservations(accepteds);
       } else {
-        console.log(`Error when fetching reservation data: ${response.status}`)
+        console.log(`Error when fetching reservation data: ${response.status}`);
       }
     }
     setReservationData(props.id);
-  }, [props.id])
+  }, [props.id]);
 
   async function AcceptReservation(id) {
     const res = await acceptReservation(id);
-    if (res.status === 200 || res.status ===204) {
+    if (res.status === 200 || res.status === 204) {
       let newPendingReservations = [];
       let acceptedReservation = {};
 
       for (let index in pendingReservations) {
-        if (id === pendingReservations[index]['id']) {
+        if (id === pendingReservations[index]["id"]) {
           acceptedReservation = pendingReservations[index];
         } else {
           newPendingReservations.push(pendingReservations[index]);
         }
       }
 
-    setPendingReservations(newPendingReservations);
-    setAcceptedReservations([...acceptedReservations, ...[acceptedReservation]]);
+      setPendingReservations(newPendingReservations);
+      setAcceptedReservations([
+        ...acceptedReservations,
+        ...[acceptedReservation],
+      ]);
     } else {
-      console.log('Error accepting reservation');
+      console.log("Error accepting reservation");
       // TODO: Show error message in the interface
     }
   }
 
-  return(
-    <div className='grid-x grid-padding-x grid-margin-x background-reservations'>
-      <div className='cell large-6 small-12'>
+  return (
+    <div className="grid-x grid-padding-x grid-margin-x background-reservations">
+      <div className="cell large-6 small-12">
         <PendingReservations
           reservations={pendingReservations}
           setReservations={setPendingReservations}
           AcceptReservation={AcceptReservation}
         />
       </div>
-      <div className='cell large-6 small-12'>
+      <div className="cell large-6 small-12">
         <AcceptedReservations
           reservations={acceptedReservations}
           setReservations={setAcceptedReservations}
         />
       </div>
     </div>
-  )
+  );
 }
