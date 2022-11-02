@@ -1,13 +1,11 @@
-import {useContext, useState, useEffect, useCallback} from "react";
-import { StyleSheet, View, Text, Modal, Pressable, Button, TouchableOpacity,Image } from "react-native";
-import { AuthContext } from "../../Services/context";
+import { useState, useEffect, useCallback } from "react";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
-import { SearchBar, Badge } from 'react-native-elements';
+import { SearchBar} from 'react-native-elements';
 import { GetCars } from "../controllers/car_controller";
 import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
-import host_instance from '../../host_instance.json';
 import { getCoordinates, getNearParkings } from "../controllers/map_controller";
 import {ModalPatent, ModalReserve} from "./mapModals";
 import styles from "../../Services/styles";
@@ -41,10 +39,14 @@ function HomeScreen({ navigation }) {
   
   async function getSearchCoords(address){
     const coordinates = await getCoordinates(address)
-    console.log(`Coordinates search is success. latitude:${coordinates.latitude} longitude:${coordinates.longitude}`);
-    setRegionMapLat(coordinates.latitude)
-    setRegionMapLon(coordinates.longitude)
-    getThisNearParkings(coordinates)
+    if(coordinates==-1){
+      Alert.alert("Pay atention","The suministred coordinates are invalid.");
+    }else{
+      console.log(`Coordinates search is success. latitude:${coordinates.latitude} longitude:${coordinates.longitude}`);
+      setRegionMapLat(coordinates.latitude)
+      setRegionMapLon(coordinates.longitude)
+      getThisNearParkings(coordinates)
+    }
   }
   async function getThisNearParkings(coordinates){
     const nearParkings = await getNearParkings(coordinates)

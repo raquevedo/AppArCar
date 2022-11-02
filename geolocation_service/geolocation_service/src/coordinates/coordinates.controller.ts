@@ -9,7 +9,7 @@ export class CoordinatesController {
   constructor(private coordinatesService: PositionStackService) {}
 
   @Get(':address')
-  async getCoordinates(@Param('address') params:string): Promise<CoordinatesInterface> {
-    return await this.coordinatesService.getCoordinates(params);
+  getCoordinates(@Param('address') params:string){
+    return this.coordinatesService.getCoordinates(params);
   }
 }
