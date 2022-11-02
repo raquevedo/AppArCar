@@ -57,7 +57,6 @@ export default function UserForm({ setIsRegistered, buttonText, newUser, valuesD
     setIsRegistered(true);
     }
   }
-
   return(
     <form onSubmit={handleSubmit(onSubmit)}>
       

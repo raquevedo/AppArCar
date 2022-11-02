@@ -4,7 +4,7 @@ import { getParkingUser } from '../../controllers/usersController';
 
 export default function Profile() {
   
-  const [userData,setUserData] = useState({});
+  const [userData,setUserData] = useState();
   
   useEffect(() => {
     async function assignParkingData() {
@@ -15,16 +15,24 @@ export default function Profile() {
     
   }, [])
   
-  return(
-    <div className='grid-container'>
-      <div className='grid-y login-box'>
-        <div className='cell'>
-          <h1 className="text-form">Profile</h1>
+  if (userData === undefined) {
+    
+    return(
+      <div>Loading</div>
+    );
+  }
+  else{
+      return(
+        <div className='grid-container'>
+          <div className='grid-y login-box'>
+            <div className='cell'>
+              <h1 className="text-form">Profile</h1>
+            </div>
+            <div className='cell'>
+              <UserForm buttonText={'Update'} valuesData={userData}/>
+            </div>
+          </div>
         </div>
-        <div className='cell'>
-          <UserForm buttonText={'Update'} valuesData={userData}/>
-        </div>
-      </div>
-    </div>
-  );
-}
+      );
+    }
+  }
