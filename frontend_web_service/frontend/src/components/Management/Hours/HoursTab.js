@@ -7,20 +7,20 @@ import { getParkingSettings, patchParkingSettings } from '../../../controllers/p
 export default function HoursTab(props) {
   dayjs.extend(utc);
 
-  const [fromMonday, setFromMonday] = useState(dayjs());
-  const [toMonday, setToMonday] = useState(dayjs());
-  const [fromTuesday, setFromTuesday] = useState(dayjs());
-  const [toTuesday, setToTuesday] = useState(dayjs());
-  const [fromWednesday, setFromWednesday] = useState(dayjs());
-  const [toWednesday, setToWednesday] = useState(dayjs());
-  const [fromThursday, setFromThursday] = useState(dayjs());
-  const [toThursday, setToThursday] = useState(dayjs());
-  const [fromFriday, setFromFriday] = useState(dayjs());
-  const [toFriday, setToFriday] = useState(dayjs());
-  const [fromSaturday, setFromSaturday] = useState(dayjs());
-  const [toSaturday, setToSaturday] = useState(dayjs());
-  const [fromSunday, setFromSunday] = useState(dayjs());
-  const [toSunday, setToSunday] = useState(dayjs());
+  const [fromMonday, setFromMonday] = useState(dayjs(0));
+  const [toMonday, setToMonday] = useState(dayjs(0));
+  const [fromTuesday, setFromTuesday] = useState(dayjs(0));
+  const [toTuesday, setToTuesday] = useState(dayjs(0));
+  const [fromWednesday, setFromWednesday] = useState(dayjs(0));
+  const [toWednesday, setToWednesday] = useState(dayjs(0));
+  const [fromThursday, setFromThursday] = useState(dayjs(0));
+  const [toThursday, setToThursday] = useState(dayjs(0));
+  const [fromFriday, setFromFriday] = useState(dayjs(0));
+  const [toFriday, setToFriday] = useState(dayjs(0));
+  const [fromSaturday, setFromSaturday] = useState(dayjs(0));
+  const [toSaturday, setToSaturday] = useState(dayjs(0));
+  const [fromSunday, setFromSunday] = useState(dayjs(0));
+  const [toSunday, setToSunday] = useState(dayjs(0));
 
   async function updateParkingSettings() {
     const newSettings = {
@@ -47,20 +47,48 @@ export default function HoursTab(props) {
       let res = await getParkingSettings(props.id)
       if (res.status === 200) {
         let data = await res.json();
-        setFromMonday(dayjs.utc(data['startMonday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
-        setToMonday(dayjs.utc(data['endMonday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
-        setFromTuesday(dayjs.utc(data['startTuesday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
-        setToTuesday(dayjs.utc(data['endTuesday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
-        setFromWednesday(dayjs.utc(data['startWednesday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
-        setToWednesday(dayjs.utc(data['endWednesday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
-        setFromThursday(dayjs.utc(data['startThursday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
-        setToThursday(dayjs.utc(data['endThursday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
-        setFromFriday(dayjs.utc(data['startFriday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
-        setToFriday(dayjs.utc(data['endFriday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
-        setFromSaturday(dayjs.utc(data['startSaturday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
-        setToSaturday(dayjs.utc(data['endSaturday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
-        setFromSunday(dayjs.utc(data['startSunday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
-        setToSunday(dayjs.utc(data['endSunday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        if (data['startMonday'] !== null) {
+          setFromMonday(dayjs.utc(data['startMonday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }
+        if (data['endMonday'] !== null) {
+          setToMonday(dayjs.utc(data['endMonday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }
+        if (data['startTuesday'] !== null) {
+          setFromTuesday(dayjs.utc(data['startTuesday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }
+        if (data['endTuesday'] !== null) {
+          setToTuesday(dayjs.utc(data['endTuesday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }
+        if (data['startWednesday'] !== null) {
+          setFromWednesday(dayjs.utc(data['startWednesday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }
+        if (data['endWednesday'] !== null) {
+          setToWednesday(dayjs.utc(data['endWednesday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }
+        if (data['startThursday'] !== null) {
+          setFromThursday(dayjs.utc(data['startThursday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }
+        if (data['endThursday'] !== null) {
+          setToThursday(dayjs.utc(data['endThursday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }
+        if (data['startFriday'] !== null) {
+          setFromFriday(dayjs.utc(data['startFriday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }
+        if (data['endFriday'] !== null) {
+          setToFriday(dayjs.utc(data['endFriday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }
+        if (data['startSaturday'] !== null) {
+          setFromSaturday(dayjs.utc(data['startSaturday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }
+        if (data['endSaturday'] !== null) {
+          setToSaturday(dayjs.utc(data['endSaturday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }
+        if (data['startSunday'] !== null) {
+          setFromSunday(dayjs.utc(data['startSunday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }
+        if (data['endSunday'] !== null) {
+          setToSunday(dayjs.utc(data['endSunday'], ['HH:mm:ss', 'HH:mm:ss:SSS']));
+        }   
     }}
     fetchParkingSettings();
   }, [props.id]);
