@@ -7,7 +7,8 @@ import { GetCars } from "../controllers/car_controller";
 import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
 import { getCoordinates, getNearParkings } from "../controllers/map_controller";
-import {ModalPatent, ModalReserve} from "./mapModals";
+import {ModalReserve, ModalPatent} from "./mapModals";
+import Reservations from "./reservations";
 import styles from "../../Services/styles";
 
 function HomeScreen({ navigation }) {
@@ -182,6 +183,7 @@ function HomeScreen({ navigation }) {
           </TouchableOpacity>):<></>
           }
         </View>
+        <Reservations/>
         <View style={styles.centeredView}>
           <ModalPatent 
             parentStates={{modalVisible}} 
