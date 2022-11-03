@@ -7,11 +7,12 @@ async function getCoordinates(address){
     fetchData.headers={
         'Content-Type': 'application/json'
         }
-    const response = await fetch(host_instance.path+'/geo/coordinates/address='+address,fetchData)
-    return response.json()
-    /*console.log(respData)
-    setRegionMapLat(respData.latitude)
-    setRegionMapLon(respData.longitude)*/
+    const response = await fetch(host_instance.path+'/geo/coordinates/'+address,fetchData)
+    if(response.status === 200){
+      return response.json();
+    }else{
+      return -1;
+    }
   }
   async function getNearParkings(coordinates){
     const userToken = await SecureStore.getItemAsync('tk');

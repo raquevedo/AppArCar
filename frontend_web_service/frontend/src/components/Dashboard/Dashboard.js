@@ -11,7 +11,7 @@ export default function Dashboard({ partnerData }) {
       <div className='cell small-2 '>
         <SideNav />
       </div>
-      <div className='grid-y test small-10 large-8 '>
+      <div className='grid-y grid-margin-x grid-padding-x main small-10 large-8 '>
         <Routes>
           <Route
             path='/'
