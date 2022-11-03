@@ -1,7 +1,7 @@
-import React, { useState,useEffect } from 'react';
+import React from 'react';
 import { registerParkingUser, updateParkingUser} from '../../controllers/usersController';
 import * as yup from 'yup';
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
 export default function UserForm({ setIsRegistered, buttonText, newUser, valuesData }) {
@@ -31,9 +31,7 @@ export default function UserForm({ setIsRegistered, buttonText, newUser, valuesD
 
     resolver: yupResolver(schema)
   });
-
-  console.log(valuesData);
-
+  
   const onSubmit = async (data) => {
     const name = data.name
     const lastName = data.lastName
