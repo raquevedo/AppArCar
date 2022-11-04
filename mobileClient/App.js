@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import NavBar from "./navBar";
 import HomeScreen from "./Home/components/home";
+import ReservationsScreen from "./Home/components/reservations";
 import SignInScreen from "./Login/components/signin";
 import SignUpScreen from "./SignUp/components/signup";
 import FormReg from "./Login/components/registry";
@@ -227,6 +228,11 @@ export default function App({ navigation }) {
                       name="Home"
                       component={HomeScreen}
                       options={{ headerShown: false }}
+                    />
+                     <Stack.Screen
+                      name="Reservation"
+                      component={ReservationsScreen}
+                      options={{ headerShown: true }}
                     />
                     <Stack.Screen
                       name="EditProfile"

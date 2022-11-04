@@ -5,6 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { DeleteCar, GetCars, UpdateCar } from "../controllers/car_controller";
 import styles from "../../Services/styles";
 import { TextInput } from "react-native-paper";
+
 function EditCar({ route, navigation }) {
   const { idCar } = route.params;
   const [id, setIdCar] = React.useState("");

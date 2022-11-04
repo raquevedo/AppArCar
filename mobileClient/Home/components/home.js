@@ -8,7 +8,7 @@ import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
 import { getCoordinates, getNearParkings } from "../controllers/map_controller";
 import {ModalReserve, ModalPatent} from "./mapModals";
-import Reservations from "./reservations";
+import ReservationsSocket from "./reservationsSocket";
 import styles from "../../Services/styles";
 
 function HomeScreen({ navigation }) {
@@ -159,9 +159,10 @@ function HomeScreen({ navigation }) {
               title={"Parking:"+item.businessName}
               description={"cuit: "+item.cuitNumber}
               coordinate={{"latitude":item.latitude,"longitude":item.longitude}}
-              onPress={() => centerRegion(item) & setReserveData((prevState)=>({...prevState,'visible':true})) & {/*setModalResVisible(!modalResVisible)*/} & setParking(item)}
+              onPress={() => navigation.navigate("Reservation",{parking:item})}
             />
-          )}
+            
+          )}{/*onPress={() => centerRegion(item) & setReserveData((prevState)=>({...prevState,'visible':true})) & setParking(item)}*/}
           {/*<MapView.Marker coordinate={{latitude:-34.633190, longitude:-58.455946}}/>*/}
         </MapView>
         <View style={styles.inputView}>
@@ -183,7 +184,7 @@ function HomeScreen({ navigation }) {
           </TouchableOpacity>):<></>
           }
         </View>
-        <Reservations/>
+        <ReservationsSocket/>
         <View style={styles.centeredView}>
           <ModalPatent 
             parentStates={{modalVisible}} 
