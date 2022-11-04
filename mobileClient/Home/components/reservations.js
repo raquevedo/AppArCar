@@ -1,14 +1,12 @@
 import {useState, useEffect} from "react";
-import { StyleSheet, View, Text, Modal, Pressable, Alert } from "react-native";
-import { reserve } from "../controllers/reservation_controller";
+import { Alert } from "react-native";
 import { io } from "socket.io-client";
 import host_instance from '../../host_instance.json';
 
-function Reservation({parentStates,parentSetters}){
+function Reservation(){
   
   const [socket, setSocket] = useState();
   const [socketPayment, setSocketPayment] = useState();
-  const [socketConnected, setSocketConnected] = useState(false);
   const [reserveState, setReserveState] = useState("unreserved");
   
   function upPaymentSocket(){
@@ -42,7 +40,7 @@ function Reservation({parentStates,parentSetters}){
       console.log(socket);
       if (!socket) return;
       socket.on('connect', () => {
-        setSocketConnected(socket.connected);
+        //setSocketConnected(socket.connected);
         console.log(`Connected to socket, client id:${socket.id}`);
       });
 
@@ -67,7 +65,7 @@ function Reservation({parentStates,parentSetters}){
       console.log(socketPayment);
       if (!socketPayment) return;
       socketPayment.on('connect', () => {
-        setSocketConnected(socketPayment.connected);
+        //setSocketConnected(socketPayment.connected);
         console.log(`Connected to payment socket, client id:${socketPayment.id}`);
       });
 

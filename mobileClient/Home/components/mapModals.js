@@ -1,11 +1,9 @@
 import {useState, useEffect} from "react";
-import { StyleSheet, View, Text, Modal, Pressable, Button, Alert } from "react-native";
+import { StyleSheet, View, Text, Modal, Pressable, Alert } from "react-native";
 import { reserve } from "../controllers/reservation_controller";
 import { GetCars } from "../controllers/car_controller";
 import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
-import { io } from "socket.io-client";
-import host_instance from '../../host_instance.json';
 
 function ModalPatent({ navigation,parentStates,parentSetters }) {
   
