@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import styles from "../../Services/styles";
 import { LinearGradient } from "expo-linear-gradient";
+import CardsCarousel from "./cardsCarousel";
 
 function ReservationsScreen({ navigation, route }){ 
   const [text, onChangeText] = React.useState("");
@@ -23,7 +24,8 @@ function ReservationsScreen({ navigation, route }){
         <Text style={styles.heading2}>{route.params.parking.businessName}</Text>
         <Text style={styles.subheading}>{route.params.parking.streetName+" "+route.params.parking.streetNumber}</Text>
         <Text style={styles.subheading}>{"Cuit:"+route.params.parking.cuitNumber}</Text>
-        <View style={styles.space}></View>
+        <CardsCarousel/>
+        
         <TouchableOpacity
           style={styles.containButtonStyleFlat}
           onPress={() => console.log(route.params.parking)}
