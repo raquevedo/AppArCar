@@ -159,6 +159,7 @@ function HomeScreen({ navigation }) {
               description={"cuit: "+item.cuitNumber}
               coordinate={{"latitude":item.latitude,"longitude":item.longitude}}
               onPress={() => centerRegion(item) & setReserveData((prevState)=>({...prevState,'visible':true})) & {/*setModalResVisible(!modalResVisible)*/} & setParking(item)}
+              icon={require('../../assets/gasperavailaible.png')}
             />
           )}
           {/*<MapView.Marker coordinate={{latitude:-34.633190, longitude:-58.455946}}/>*/}
