@@ -160,6 +160,7 @@ function HomeScreen({ navigation }) {
               description={"cuit: "+item.cuitNumber}
               coordinate={{"latitude":item.latitude,"longitude":item.longitude}}
               onPress={() => navigation.navigate("Reservation",{parking:item})}
+              icon={require('../../assets/gasperavailaible.png')}
             />
             
           )}{/*onPress={() => centerRegion(item) & setReserveData((prevState)=>({...prevState,'visible':true})) & setParking(item)}*/}
