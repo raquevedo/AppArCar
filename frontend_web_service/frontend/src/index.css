@@ -476,6 +476,13 @@ code {
   align-items: center;
 }
 
+.required{
+  color: red;
+  font-size: 30px;
+  height: 30px;
+  width:30px;
+}
+
 .video {
   object-fit: cover;
   width: 100%;
