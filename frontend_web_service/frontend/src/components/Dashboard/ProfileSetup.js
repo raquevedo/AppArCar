@@ -16,7 +16,7 @@ export default function ProfileSetup({ setIsRegistered }) {
           <div className='cell'>
             <div className='grid-x align-center'>
               <div className='cell small-8'>
-                <UserForm setIsRegistered={setIsRegistered} newUser={true}/>
+                <UserForm setIsRegistered={setIsRegistered} newUser={true} valuesData={{}}/>
               </div>
             </div>
           </div>
