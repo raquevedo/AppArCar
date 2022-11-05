@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,10 +10,28 @@ import {
 import styles from "../../Services/styles";
 import { LinearGradient } from "expo-linear-gradient";
 import CardsCarousel from "./cardsCarousel";
+import { getPaymentMethods } from "../controllers/payments_methods_controller";
+import { useIsFocused } from "@react-navigation/native";
+
+
 
 function ReservationsScreen({ navigation, route }){ 
-  const [text, onChangeText] = React.useState("");
+  const [text, onChangeText] = useState("");
+  const [paymentsMethods, setPaymentsMethods] = useState();
+  const focus = useIsFocused();
 
+  useEffect(() => {
+    console.log(focus);
+    const thisGetPaymentMethods = async () => {
+      const response = await getPaymentMethods();
+      const resData = await response.json();
+      console.log(resData);
+      setPaymentsMethods(resData);
+    };
+    if (focus) {
+      thisGetPaymentMethods();
+    }
+  }, [focus]);
  
   return (
     <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
@@ -24,7 +42,7 @@ function ReservationsScreen({ navigation, route }){
         <Text style={styles.heading2}>{route.params.parking.businessName}</Text>
         <Text style={styles.subheading}>{route.params.parking.streetName+" "+route.params.parking.streetNumber}</Text>
         <Text style={styles.subheading}>{"Cuit:"+route.params.parking.cuitNumber}</Text>
-        <CardsCarousel/>
+        <CardsCarousel payMethod={paymentsMethods}/>
         
         <TouchableOpacity
           style={styles.containButtonStyleFlat}

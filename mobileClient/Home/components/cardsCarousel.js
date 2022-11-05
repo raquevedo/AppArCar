@@ -1,20 +1,20 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { Text, View, Image } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import styles from "../../Services/styles";
 const exampleItems = [
   {
     numberCard: "98273746682837737",
-    imageName: "visa.jpeg",
+    imageName: "visa",
   },
   {
     numberCard: "9923482734667737",
-    imageName: "master.jpeg",
+    imageName: "master",
   },
 ];
-const CardsCarousel = () => {
+function CardsCarousel ({payMethod}){
   const [activeIndex, setActiveIndex] = useState(0);
-  const [carouselItems, setCarouselItems] = useState(exampleItems);
+  const [carouselItems, setCarouselItems] = useState([]);
   const ref = useRef(null);
   const renderItem = useCallback(
     ({ item, index }) => (
@@ -30,12 +30,18 @@ const CardsCarousel = () => {
           marginBottom: 50
         }}
       >
-        <Text style={{ fontSize: 17, color:"white" }}>{item.numberCard}</Text>
-        <Image source={require("../../assets/master.png")} style={styles.imageCard}/>
+        <Text style={{ fontSize: 17, color:"white" }}>{item.cardNumber}</Text>
+        {item.imageName=="visa" && <Image source={require("../../assets/visa.png")} style={styles.imageCard}/>}
+        {item.imageName=="master" && <Image source={require("../../assets/master.png")} style={styles.imageCard}/>}
       </View>
     ),
     []
   );
+
+  useEffect(()=>{
+    setCarouselItems(payMethod)
+  },[payMethod]);
+  
   return (
       <Carousel
         layout="default"
