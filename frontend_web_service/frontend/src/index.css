@@ -481,6 +481,8 @@ code {
   font-size: 30px;
   height: 30px;
   width:30px;
+  margin-left: auto; 
+margin-right: 0;
 }
 
 .video {
