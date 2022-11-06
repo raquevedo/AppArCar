@@ -1,10 +1,24 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import { registerParkingUser, updateParkingUser} from '../../controllers/usersController';
 import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
+import NoticeModal from '../Shared/NoticeModal';
 
 export default function UserForm({ setIsRegistered, buttonText, newUser, valuesData }) {
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalHeader, setModalHeader] = useState('Error');
+  const [modalBody, setModalBody] = useState('There was an unknown error when processing the request.');
+
+  function modalOn(){
+
+    setModalHeader('Success');
+    setModalBody('Profile successfully updated');
+    setShowModal(true);
+
+    return showModal;
+  }
   
   if (buttonText === undefined) {
     buttonText = 'Submit';
@@ -38,12 +52,14 @@ export default function UserForm({ setIsRegistered, buttonText, newUser, valuesD
     const documentNumber = data.documentNumber
     
   if (newUser) {
+    modalOn();
     await registerParkingUser({
       name,
       lastName,
       documentNumber
     });
   } else {
+    modalOn();
     await updateParkingUser({
       name,
       lastName,
@@ -56,25 +72,28 @@ export default function UserForm({ setIsRegistered, buttonText, newUser, valuesD
     }
   }
   return(
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
       
-      <div class="user-box">
-        <input type="text" placeholder='Name' {...register("name")}/>
-      </div>
-      { errors.name && <p>Name is invalid</p> }
-      <div class="user-box">
-        <input type="text" placeholder="Lastname" {...register("lastName")}/>
-      </div>
-      { errors.lastName && <p>Lastname is invalid</p> }
-      <div class="user-box">
-        <input type="text" placeholder="Document Number" {...register("documentNumber")}/>
-      </div>
-      { errors.documentNumber && <p>Document Number is invalid</p> }
+        <div class="user-box">
+          <input type="text" placeholder='Name' {...register("name")}/>
+        </div>
+        { errors.name && <p>Name is invalid</p> }
+        <div class="user-box">
+          <input type="text" placeholder="Lastname" {...register("lastName")}/>
+        </div>
+        { errors.lastName && <p>Lastname is invalid</p> }
+        <div class="user-box">
+          <input type="text" placeholder="Document Number" {...register("documentNumber")}/>
+        </div>
+        { errors.documentNumber && <p>Document Number is invalid</p> }
       
-      <div>
-        <button id="button-update-submit" type="submit" className="bn632-hover bn24">{buttonText}</button>
-      </div>
+        <div>
+          <button id="button-update-submit" type="submit" className="bn632-hover bn24">{buttonText}</button>
+        </div>
       
-    </form>
+      </form>
+      { showModal && <NoticeModal header={modalHeader} body={modalBody} setShowModal={setShowModal}/> }
+    </div>
   );
 }

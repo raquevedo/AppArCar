@@ -20,7 +20,7 @@ function Homepage() {
         <Link to={redirectButtonPath}>
           <button className="bn632-hover bn24">{redirectButtonText}</button>
         </Link>
-        <p className='short'>Cercano, Disponible y Economico</p>
+        <p className='short'>Close, Available and Cheap</p>
       </div>
     </div>
   );

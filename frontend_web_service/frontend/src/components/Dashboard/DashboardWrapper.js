@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Dashboard from './Dashboard';
 import ProfileSetup from './ProfileSetup';
 import { getParkingUser }  from '../../controllers/usersController';
+import UserForm from '../Forms/UserForm';
 
 export default function DashboardWrapper() {
   const [isRegistered, setIsRegistered] = useState();
@@ -19,7 +20,7 @@ export default function DashboardWrapper() {
 
   return(
     <div>
-      {isRegistered && <Dashboard partnerData={parkingData}/>}
+      {isRegistered && UserForm.modalOn === undefined && <Dashboard partnerData={parkingData}/>}
       {isRegistered === false && <ProfileSetup setIsRegistered={setIsRegistered}/>}
     </div>
   );
