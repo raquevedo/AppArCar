@@ -1,4 +1,3 @@
-import fetchToken from '../utils/fetchToken';
 import {buildHeaders} from './parkingController';
 
 export async function getPartnerUser() {
