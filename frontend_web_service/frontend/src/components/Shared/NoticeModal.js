@@ -2,30 +2,34 @@ import React from "react";
 
 function NoticeModal(props) {
   const handleClose = () => {
-    props.setShowModal(false)
-  }
+    props.setShowModal(false);
+  };
 
-  return(
-    <div className="modal">
-      <div className="modal-main">
-        <div className="grid-container">
-          <div className="grid-y">
-            <div className="cell">
-              <div className="grid-x align-justify">
-                <div className="cell small-10">
-                  <h1 children="modal-title">{props.header}</h1>
-                </div>
-                <div className="cell small-1">
-                  <button className="button" onClick={handleClose}>X</button>
-                </div>
+  return (
+    <div className="modal center">
+      <div className="grid-container login-box-modal">
+        <div className="grid-y grid-margin-x grid-padding-x">
+          <div className="cell">
+            <div className="grid-x align-justify center">
+              <div className="cell small-8">
+                <h1 className="text-form" children="modal-title">
+                  {props.header}
+                </h1>
+              </div>
+              <div className="cell small-2">
+                <button className="button-pop bn24" onClick={handleClose}>
+                  X
+                </button>
               </div>
             </div>
-            <div className="cell">
-              <p className="modal-text">{props.body}</p>
-            </div>
-            <div className="cell">
-              <button type="" className="button" onClick={handleClose}>Continue</button>
-            </div>
+          </div>
+          <div className="cell">
+            <p className="modal-text">{props.body}</p>
+          </div>
+          <div className="cell">
+            <button type="" className="bn632-hover bn24" onClick={handleClose}>
+              Continue
+            </button>
           </div>
         </div>
       </div>
