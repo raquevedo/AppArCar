@@ -145,7 +145,7 @@ export class ReservationController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(PkgReservation, {partial: true, 
-            exclude: ['id','idParking','idCarDriver','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
+            exclude: ['id','idParking','idCarDriver','patentId','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
           }),
         },
       },
@@ -171,7 +171,7 @@ export class ReservationController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(PkgReservation, {partial: true, 
-            exclude: ['id','idParking','idCarDriver','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
+            exclude: ['id','idParking','idCarDriver','patentId','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
           }),
         },
       },
@@ -204,7 +204,7 @@ export class ReservationController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(PkgReservation, {partial: true, 
-            exclude: ['id','idParking','idCarDriver','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
+            exclude: ['id','idParking','idCarDriver','patentId','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
           }),
         },
       },
@@ -237,7 +237,7 @@ export class ReservationController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(PkgReservation, {partial: true, 
-            exclude: ['id','idParking','idCarDriver','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
+            exclude: ['id','idParking','idCarDriver','patentId','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
           }),
         },
       },
@@ -270,7 +270,7 @@ export class ReservationController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(PkgReservation, {partial: true, 
-            exclude: ['id','idParking','idCarDriver','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
+            exclude: ['id','idParking','idCarDriver','patentId','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
           }),
         },
       },
@@ -301,7 +301,7 @@ export class ReservationController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(PkgReservation, {partial: true, 
-            exclude: ['id','idParking','idCarDriver','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
+            exclude: ['id','idParking','idCarDriver','patentId','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
           }),
         },
       },
@@ -316,7 +316,8 @@ export class ReservationController {
     } else {
       throw new Error("We can only reject reservations with status = created. Reservation: "+id+" has status: "+pkgReservation.status)
     }
-
+    
+    await freeReserveSlot(this.pkgParkingStatusRepository, pkgReservation.idParking)
     await this.pkgReservationRepository.updateById(id, pkgReservation);
     publishMessageIntoQueue(Buffer.from(JSON.stringify(pkgReservation)), 'rejectedReservations')
   }
