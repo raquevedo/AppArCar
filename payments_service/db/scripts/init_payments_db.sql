@@ -16,6 +16,7 @@ CREATE table if not exists public.pmt_payments (
     id_reservation int4 NOT NULL,
     id_car_driver int4 NOT NULL,
 	  id_parking int4 NOT NULL,
+    card_number varchar(20) NOT NULL,
     total float8 NULL,
     status VARCHAR(50),
     paid_at_dttm timestamptz NOT NULL,

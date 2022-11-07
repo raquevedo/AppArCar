@@ -38,6 +38,13 @@ export class PmtPayments extends Entity {
   idParking: number;
 
   @property({
+    type: 'string',
+    length: 20,
+    postgresql: {columnName: 'card_number', dataType: 'character varying', dataLength: 20, dataPrecision: null, dataScale: null, nullable: 'NO'},
+  })
+  cardNumber?: string;
+
+  @property({
     type: 'number',
     precision: 53,
     postgresql: {columnName: 'total', dataType: 'float', dataLength: null, dataPrecision: 53, dataScale: null, nullable: 'YES'},
