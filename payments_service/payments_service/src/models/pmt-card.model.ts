@@ -38,6 +38,22 @@ export class PmtCard extends Entity {
   cardName: string;
 
   @property({
+    type: 'string',
+    required: true,
+    length: 100,
+    postgresql: {columnName: 'company', dataType: 'character varying', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'NO'},
+  })
+  company: string;
+  
+  @property({
+    type: 'string',
+    required: true,
+    length: 50,
+    postgresql: {columnName: 'type', dataType: 'character varying', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'NO'},
+  })
+  type: string;
+
+  @property({
     type: 'number',
     required: true,
     scale: 0,
