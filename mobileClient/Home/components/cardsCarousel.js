@@ -2,19 +2,22 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import { Text, View, Image } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import styles from "../../Services/styles";
-const exampleItems = [
-  {
-    numberCard: "98273746682837737",
-    imageName: "visa",
-  },
-  {
-    numberCard: "9923482734667737",
-    imageName: "master",
-  },
-];
+import { PaymentContext } from "../../Services/paymentContext";
+
 function CardsCarousel ({payMethod}){
   const [activeIndex, setActiveIndex] = useState(0);
   const [carouselItems, setCarouselItems] = useState([]);
+  const { setSelectedPayment } = React.useContext(PaymentContext);
+
+
+  function getActiveItem(index){
+    if(carouselItems.length != 0){
+      return carouselItems[index]
+    }else{
+      return {}
+    }
+  }
+
   const ref = useRef(null);
   const renderItem = useCallback(
     ({ item, index }) => (
@@ -50,7 +53,8 @@ function CardsCarousel ({payMethod}){
         sliderWidth={300}
         itemWidth={300}
         renderItem={renderItem}
-        onSnapToItem={(index) => setActiveIndex(index)}
+        onSnapToItem={(index) => setActiveIndex(index) & 
+          setSelectedPayment(getActiveItem(index).cardNumber)}
       />
   );
 };

@@ -1,13 +1,16 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
 import { Alert } from "react-native";
 import { io } from "socket.io-client";
 import host_instance from '../../host_instance.json';
+import { payOut } from "../controllers/payment_controller";
+import { PaymentContext } from "../../Services/paymentContext";
 
 function ReservationsSocket(){
   
   const [socket, setSocket] = useState();
   const [socketPayment, setSocketPayment] = useState();
   const [reserveState, setReserveState] = useState("unreserved");
+  const { getSelectedPayment, setSelectedPayment } = useContext(PaymentContext);
   
   function upPaymentSocket(){
     const conectionPath = host_instance.path.slice(0,host_instance.path.length-4)+'3004/payments'
@@ -46,7 +49,8 @@ function ReservationsSocket(){
 
       socket.on('reservation_accepted', (data) => {
         if(reserveState === "unreserved"){
-          setReserveState("accepted")
+          setReserveState("accepted");
+          setSelectedPayment(data.id);
         }
       })
       socket.on('reservation_rejected', (data) => {
@@ -90,7 +94,8 @@ function ReservationsSocket(){
         upPaymentSocket();
         break;
       case "payment_pending":
-        Alert.alert('Many thanks','Now your payment has been make from your credit card. See you latter.')
+        Alert.alert('Many thanks','Now your payment will be make with your credit card. See you later.')
+        payOut();
         setReserveState("unreserved");  
         break;
       /*case "pending_reservation":

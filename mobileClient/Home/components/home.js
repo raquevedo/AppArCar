@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -23,7 +23,7 @@ function HomeScreen({ navigation }) {
   const [cars, setCars] = useState([]);
   const [parking, setParking] = useState({});
   const [patent,setPatent] = useState("Select patent");
-  const [reserveData, setReserveData]= useState({'visible':false})
+  const [reserveData, setReserveData]= useState({'visible':false});
 
   const focus = useIsFocused();
 

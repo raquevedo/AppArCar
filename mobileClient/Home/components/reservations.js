@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  FlatList,
   SafeAreaView,
   TouchableOpacity,
   Image
@@ -12,13 +11,15 @@ import { LinearGradient } from "expo-linear-gradient";
 import CardsCarousel from "./cardsCarousel";
 import { getPaymentMethods } from "../controllers/payments_methods_controller";
 import { useIsFocused } from "@react-navigation/native";
-
+import { PaymentContext } from "../../Services/paymentContext";
+import { reserve } from "../controllers/reservation_controller";
 
 
 function ReservationsScreen({ navigation, route }){ 
-  const [text, onChangeText] = useState("");
-  const [paymentsMethods, setPaymentsMethods] = useState();
+  //const [text, onChangeText] = useState("");
+  const [paymentsMethods, setPaymentsMethods] = useState([]);
   const focus = useIsFocused();
+  const { getSelectedPayment, setSelectedPayment } = React.useContext(PaymentContext);
 
   useEffect(() => {
     console.log(focus);
@@ -32,6 +33,15 @@ function ReservationsScreen({ navigation, route }){
       thisGetPaymentMethods();
     }
   }, [focus]);
+  useEffect(()=>{
+    if(paymentsMethods.length!=0){
+      setSelectedPayment(paymentsMethods[0].cardNumber);
+      const a = getSelectedPayment();
+      console.log(a);
+    }else{
+      setSelectedPayment('');
+    }
+  },[paymentsMethods]);
  
   return (
     <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
@@ -46,7 +56,10 @@ function ReservationsScreen({ navigation, route }){
         
         <TouchableOpacity
           style={styles.containButtonStyleFlat}
-          onPress={() => console.log(route.params.parking)}
+          onPress={() => console.log(route.params.parking) & 
+            console.log(getSelectedPayment()) &
+            reserve(route.params.parking.id) // salvar idParking
+          }
         >
           <LinearGradient
             start={{ x: 1, y: 0 }}
@@ -78,5 +91,14 @@ function ReservationsScreen({ navigation, route }){
   );
 };
 
-
 export default ReservationsScreen;
+
+/**
+ * Casos de uso para payment
+ * -Querer reservar sin medio de pago cargado -> se consulta medios de pago y se procede si existe algún método.
+ * -Querer reservar un estacionamiento sin elegir alguna tarjeta -> se procede a utilizar la primera de la lista, el front persiste en cache el id de la tarjeta.
+ * -Querer reservar un estacionamiento sin elegir alguna tarjeta -> el front persiste en cache el id de la tarjeta.
+ * 
+ * -Llegada de evento checkout -> El front procede a utilizar el id de tarjeta persistido. 
+ *  
+ */
