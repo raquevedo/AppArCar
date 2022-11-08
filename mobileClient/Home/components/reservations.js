@@ -19,10 +19,11 @@ function ReservationsScreen({ navigation, route }){
   //const [text, onChangeText] = useState("");
   const [paymentsMethods, setPaymentsMethods] = useState([]);
   const focus = useIsFocused();
-  const { getSelectedPayment, setSelectedPayment } = React.useContext(PaymentContext);
+  const { getSelectedPayment, setSelectedPayment, setIdParking } = React.useContext(PaymentContext);
 
   useEffect(() => {
     console.log(focus);
+    setIdParking(route.params.parking.id);
     const thisGetPaymentMethods = async () => {
       const response = await getPaymentMethods();
       const resData = await response.json();

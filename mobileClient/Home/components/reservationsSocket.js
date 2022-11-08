@@ -10,8 +10,8 @@ function ReservationsSocket(){
   const [socket, setSocket] = useState();
   const [socketPayment, setSocketPayment] = useState();
   const [reserveState, setReserveState] = useState("unreserved");
-  const { getSelectedPayment, setSelectedPayment } = useContext(PaymentContext);
-  
+  const { getSelectedPayment, getIdParking, getIdReservation, setIdReservation} = useContext(PaymentContext);
+
   function upPaymentSocket(){
     const conectionPath = host_instance.path.slice(0,host_instance.path.length-4)+'3004/payments'
     const newSocket = io(
@@ -49,8 +49,9 @@ function ReservationsSocket(){
 
       socket.on('reservation_accepted', (data) => {
         if(reserveState === "unreserved"){
+          const dataObj=JSON.parse(data)
           setReserveState("accepted");
-          setSelectedPayment(data.id);
+          setIdReservation(dataObj.id);
         }
       })
       socket.on('reservation_rejected', (data) => {
@@ -95,7 +96,13 @@ function ReservationsSocket(){
         break;
       case "payment_pending":
         Alert.alert('Many thanks','Now your payment will be make with your credit card. See you later.')
-        payOut();
+        const paymentObj = {
+          "idReservation": getIdReservation(),
+          "idCardNumber":getSelectedPayment(),
+          "idParking": getIdParking(),
+          "total": 1
+        }
+        payOut(paymentObj);
         setReserveState("unreserved");  
         break;
       /*case "pending_reservation":
