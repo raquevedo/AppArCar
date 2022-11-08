@@ -43,7 +43,6 @@ function ReservationsSocket(){
       console.log(socket);
       if (!socket) return;
       socket.on('connect', () => {
-        //setSocketConnected(socket.connected);
         console.log(`Connected to socket, client id:${socket.id}`);
       });
 
@@ -60,7 +59,6 @@ function ReservationsSocket(){
 
       return () => {
         socket.off("receive-message");
-        //const a= socket;
       };
     }
   },[socket])
@@ -70,7 +68,6 @@ function ReservationsSocket(){
       console.log(socketPayment);
       if (!socketPayment) return;
       socketPayment.on('connect', () => {
-        //setSocketConnected(socketPayment.connected);
         console.log(`Connected to payment socket, client id:${socketPayment.id}`);
       });
 
@@ -80,9 +77,7 @@ function ReservationsSocket(){
         }
       })
       return () => {
-        socketPayment.off("receive-message2");
         socketPayment.disconnect();
-        //const a = socketPayment;
       };
     }
   },[socketPayment])
@@ -96,23 +91,23 @@ function ReservationsSocket(){
         break;
       case "payment_pending":
         Alert.alert('Many thanks','Now your payment will be make with your credit card. See you later.')
+        setReserveState("unreserved");
+        socketPayment.close();
         const paymentObj = {
           "idReservation": getIdReservation(),
-          "idCardNumber":getSelectedPayment(),
           "idParking": getIdParking(),
-          "total": 1
+          "cardNumber":getSelectedPayment(),
+          "total": 100
         }
         payOut(paymentObj);
-        setReserveState("unreserved");  
         break;
-      /*case "pending_reservation":
-        setReserveState("pending_reservation");
-        Alert.alert('Great', 'Parking is proccesing your reservation, please wait.');
-        break;*/
+      default:
+        console.log('Corte');
+      
       }
     console.log("Estado actualizado a:",reserveState)
   },[reserveState]);
-
+ 
   return (
     <></>
   );

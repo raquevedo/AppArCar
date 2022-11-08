@@ -3,13 +3,7 @@ import host_instance from '../../host_instance.json';
 
 async function payOut(data){
     
-    //console.log(data);
-    //const idCardNumber=getSelectedPayment()
- 
-    console.log(data);
-    //clearPaymentContext();
-    /*const userToken = await SecureStore.getItemAsync('tk');
-    data.expireDate=parseInt((data.expireDate.getMonth()+1).toString()+data.expireDate.getFullYear().toString())
+    const userToken = await SecureStore.getItemAsync('tk');
     const fetchData={}
     fetchData.method= 'POST'
     fetchData.body= JSON.stringify(data)
@@ -18,17 +12,15 @@ async function payOut(data){
         'Content-Type': 'application/json',
         'Authorization':'Bearer '+userToken
         }
-    return fetch(host_instance.path+'/payments/card',fetchData)
+    return fetch(host_instance.path+'/payments/payments',fetchData)
     .then(async function(response){
         if(response.status != 200){
         console.log("Error")
-        alert("Error, please check data inputs")
+        alert("Transaction error. Please contact with AppArCar call center.")
         }else{
-        console.log('Create car is success')
-        alert('Your credit card was registered.')
-        
+        console.log('Payment success')
         }
-    })*/
+    })
 }
 
 export { payOut }
