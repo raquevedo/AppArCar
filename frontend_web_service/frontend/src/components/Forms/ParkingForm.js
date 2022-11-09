@@ -45,7 +45,7 @@ export default function ParkingForm(props) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid-x align-center grid-margin-x grid-padding-x grid-padding-y">
           <div className="cell large-6 small-12">
-            <div className="user-box">
+            <div className="user-box-settings">
               <input
                 type="text"
                 placeholder="Business Name"
@@ -54,7 +54,7 @@ export default function ParkingForm(props) {
             </div>
             {errors.businessName && <p>Name is invalid</p>}
 
-            <div className="user-box">
+            <div className="user-box-settings">
               <input
                 type="text"
                 placeholder="Cuit"
@@ -63,7 +63,7 @@ export default function ParkingForm(props) {
             </div>
             {errors.cuitNumber && <p>Cuit is invalid</p>}
 
-            <div className="user-box">
+            <div className="user-box-settings">
               <input
                 type="text"
                 placeholder="Street Name"
@@ -72,7 +72,7 @@ export default function ParkingForm(props) {
             </div>            
             {errors.streetName && <p>Street is invalid</p>}
 
-            <div className="user-box">
+            <div className="user-box-settings">
               <input
                 type="text"
                 placeholder="Street Number"
@@ -81,7 +81,7 @@ export default function ParkingForm(props) {
             </div>            
             {errors.streetNumber && <p>Street number is invalid</p>}
 
-            <div className="user-box">
+            <div className="user-box-settings">
               <input
                 type="text"
                 placeholder="Capacity"
@@ -92,7 +92,7 @@ export default function ParkingForm(props) {
 
           </div>
           <div className="cell large-6 small-12">
-            <div className="user-box">
+            <div className="user-box-settings">
               <input
                 type="text"
                 placeholder="Price per Hour"
@@ -101,7 +101,7 @@ export default function ParkingForm(props) {
             </div>            
             {errors.priceHour && <p>Price is invalid</p>}
 
-            <div className="user-box">
+            <div className="user-box-settings">
               <input
                 type="text"
                 placeholder="Price per 6 hours"
@@ -110,7 +110,7 @@ export default function ParkingForm(props) {
             </div>
             {errors.price_6Hours && <p>Price is invalid</p>}
 
-            <div className="user-box">
+            <div className="user-box-settings">
               <input
                 type="text"
                 placeholder="Price per 12 Hours"
@@ -119,7 +119,7 @@ export default function ParkingForm(props) {
             </div>            
             {errors.price_12Hours && <p>Price is invalid</p>}
 
-            <div className="user-box">
+            <div className="user-box-settings">
               <input
                 type="text"
                 placeholder="Price per 24 Hours"
@@ -128,7 +128,7 @@ export default function ParkingForm(props) {
             </div>            
             {errors.price_24Hours && <p>Price is invalid</p>}
 
-            <div className="user-box">
+            <div className="user-box-settings">
               <input
                 type="text"
                 placeholder="Price per Week"
@@ -137,7 +137,7 @@ export default function ParkingForm(props) {
             </div>
             {errors.priceWeek && <p>Price is invalid</p>}
 
-            <div className="user-box">
+            <div className="user-box-settings">
               <input
                 type="text"
                 placeholder="Price per Month"
