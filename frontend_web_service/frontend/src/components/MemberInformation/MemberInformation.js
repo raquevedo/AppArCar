@@ -1,4 +1,3 @@
-
 import '../MemberInformation/MemberInformation.css';
 
 function MemberInformation(props){
