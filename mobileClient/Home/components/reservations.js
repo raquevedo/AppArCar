@@ -1,109 +1,105 @@
-import {useState, useEffect} from "react";
-import { Alert } from "react-native";
-import { io } from "socket.io-client";
-import host_instance from '../../host_instance.json';
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Image
+} from "react-native";
+import styles from "../../Services/styles";
+import { LinearGradient } from "expo-linear-gradient";
+import CardsCarousel from "./cardsCarousel";
+import { getPaymentMethods } from "../controllers/payments_methods_controller";
+import { useIsFocused } from "@react-navigation/native";
+import { PaymentContext } from "../../Services/paymentContext";
+import { reserve } from "../controllers/reservation_controller";
 
-function Reservation(){
-  
-  const [socket, setSocket] = useState();
-  const [socketPayment, setSocketPayment] = useState();
-  const [reserveState, setReserveState] = useState("unreserved");
-  
-  function upPaymentSocket(){
-    const conectionPath = host_instance.path.slice(0,host_instance.path.length-4)+'3004/payments'
-    const newSocket = io(
-      conectionPath,
-      {
-        transports: ['websocket']
-      }
-    );
-    setSocketPayment(newSocket);
-    console.log(socket)
-    console.log('Connection to payment socket established')
-  }
-  
-  useEffect(() => {
-    const conectionPath = host_instance.path.slice(0,host_instance.path.length-4)+'3004/reservations'
-    const newSocket = io(
-      conectionPath,
-      {
-        transports: ['websocket']
-      }
-    );
-    setSocket(newSocket);
-    console.log(socket)
-    console.log('Connection to socket established')
-  }, []);
 
-  useEffect(()=>{
-    if (socket) {
-      console.log(socket);
-      if (!socket) return;
-      socket.on('connect', () => {
-        //setSocketConnected(socket.connected);
-        console.log(`Connected to socket, client id:${socket.id}`);
-      });
-
-      socket.on('reservation_accepted', (data) => {
-        if(reserveState === "unreserved"){
-          setReserveState("accepted")
-        }
-      })
-      socket.on('reservation_rejected', (data) => {
-        Alert.alert('Your reservation has been rejected.', 'Please find other parking.')
-      })
-
-      return () => {
-        socket.off("receive-message");
-        //const a= socket;
-      };
-    }
-  },[socket])
-  
-  useEffect(()=>{
-    if (socketPayment) {
-      console.log(socketPayment);
-      if (!socketPayment) return;
-      socketPayment.on('connect', () => {
-        //setSocketConnected(socketPayment.connected);
-        console.log(`Connected to payment socket, client id:${socketPayment.id}`);
-      });
-
-      socketPayment.on('payment_pending', (data) => {
-        if(reserveState === "accepted"){
-          setReserveState("payment_pending");          
-        }
-      })
-      return () => {
-        socketPayment.off("receive-message2");
-        socketPayment.disconnect();
-        //const a = socketPayment;
-      };
-    }
-  },[socketPayment])
+function ReservationsScreen({ navigation, route }){ 
+  //const [text, onChangeText] = useState("");
+  const [paymentsMethods, setPaymentsMethods] = useState([]);
+  const focus = useIsFocused();
+  const { getSelectedPayment, setSelectedPayment, setIdParking } = React.useContext(PaymentContext);
 
   useEffect(() => {
-    switch (reserveState) { 
-      
-      case "accepted":
-        Alert.alert('Your reservation has been accepted.', 'Parking is awaiting your arriving. Thanks.');
-        upPaymentSocket();
-        break;
-      case "payment_pending":
-        Alert.alert('Many thanks','Now your payment has been make from your credit card. See you latter.')
-        setReserveState("unreserved");  
-        break;
-      /*case "pending_reservation":
-        setReserveState("pending_reservation");
-        Alert.alert('Great', 'Parking is proccesing your reservation, please wait.');
-        break;*/
-      }
-    console.log("Estado actualizado a:",reserveState)
-  },[reserveState]);
-
+    console.log(focus);
+    setIdParking(route.params.parking.id);
+    const thisGetPaymentMethods = async () => {
+      const response = await getPaymentMethods();
+      const resData = await response.json();
+      console.log(resData);
+      setPaymentsMethods(resData);
+    };
+    if (focus) {
+      thisGetPaymentMethods();
+    }
+  }, [focus]);
+  useEffect(()=>{
+    if(paymentsMethods.length!=0){
+      setSelectedPayment(paymentsMethods[0].cardNumber);
+      const a = getSelectedPayment();
+      console.log(a);
+    }else{
+      setSelectedPayment('');
+    }
+  },[paymentsMethods]);
+ 
   return (
-    <></>
+    <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
+      <Image source={require("../../assets/logo.png")} style={styles.image} />
+      <SafeAreaView style={styles.sectionLong}>
+        <View style={styles.space}></View>
+        <Text style={styles.themeTextFlat}>Reservation</Text>
+        <Text style={styles.heading2}>{route.params.parking.businessName}</Text>
+        <Text style={styles.subheading}>{route.params.parking.streetName+" "+route.params.parking.streetNumber}</Text>
+        <Text style={styles.subheading}>{"Cuit:"+route.params.parking.cuitNumber}</Text>
+        <CardsCarousel payMethod={paymentsMethods}/>
+        
+        <TouchableOpacity
+          style={styles.containButtonStyleFlat}
+          onPress={() => console.log(route.params.parking) & 
+            console.log(getSelectedPayment()) &
+            reserve(route.params.parking.id) // salvar idParking
+          }
+        >
+          <LinearGradient
+            start={{ x: 1, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            colors={["#df3ac4", "#3043ff"]}
+            style={styles.buttonStyleFlat}
+          >
+            <Text style={styles.buttonText}>Reserve</Text>
+          </LinearGradient>
+        </TouchableOpacity>
+        <View style={styles.space}></View>
+      </SafeAreaView>
+      <View style={styles.space}>
+        <TouchableOpacity
+          style={styles.containButtonStyle}
+          onPress={() => navigation.navigate("Home")}
+        >
+          <LinearGradient
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 0 }}
+            colors={["#3043ff", "#df3ac4"]}
+            style={styles.buttonStyle}
+          >
+            <Text style={styles.buttonText}>Back</Text>
+          </LinearGradient>
+        </TouchableOpacity>
+      </View>
+    </LinearGradient>
   );
-}
+};
 
-export default Reservation;
+export default ReservationsScreen;
+
+/**
+ * Casos de uso para payment
+ * -Querer reservar sin medio de pago cargado -> se consulta medios de pago y se procede si existe algún método.
+ * -Querer reservar un estacionamiento sin elegir alguna tarjeta -> se procede a utilizar la primera de la lista, el front persiste en cache el id de la tarjeta.
+ * -Querer reservar un estacionamiento sin elegir alguna tarjeta -> el front persiste en cache el id de la tarjeta.
+ * 
+ * -Llegada de evento checkout -> El front procede a utilizar el id de tarjeta persistido. 
+ *  
+ */

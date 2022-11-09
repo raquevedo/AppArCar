@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import NavBar from "./navBar";
 import HomeScreen from "./Home/components/home";
+import ReservationsScreen from "./Home/components/reservations";
 import SignInScreen from "./Login/components/signin";
 import SignUpScreen from "./SignUp/components/signup";
 import FormReg from "./Login/components/registry";
@@ -16,6 +17,7 @@ import Payments from "./Home/components/payments";
 import AddCreditCard from "./Home/components/addCreditCard";
 import EditCar from "./Home/components/editCar";
 import { AuthContext } from "./Services/context";
+import { PaymentContext } from "./Services/paymentContext";
 import host_instance from "./host_instance.json";
 import { IsRegisteredFunc } from "./Services/requests";
 import * as Font  from "expo-font";
@@ -26,6 +28,9 @@ const Stack = createNativeStackNavigator();
 export default function App({ navigation }) {
   const [fontsLoaded, setFontsLoaded] = React.useState(false);
   const [isRegistered, setIsRegistered] = React.useState(false);
+  const [paymentSelected, setPaymentSelected] = React.useState("");
+  const [idParking, setIdParking] = React.useState("");
+  const [idReservation, setIdReservation] = React.useState("");
   const getFonts = () =>
   Font.loadAsync({
     "TTNorms-Light": require("./assets/fonts/TTNorms-Light.otf"),
@@ -196,73 +201,89 @@ export default function App({ navigation }) {
       });
     },
   }));
+  const paymentContext = React.useMemo(() => ({
+    getSelectedPayment: () => paymentSelected,
+    setSelectedPayment: (cardNumber) => setPaymentSelected(cardNumber),
+    getIdParking:() => idParking,
+    setIdParking: (idParking) => setIdParking(idParking),
+    getIdReservation:() => idReservation,
+    setIdReservation:(idReservation) => setIdReservation(idReservation),
+    clearPaymentContext: () => {setPaymentSelected("") & setIdParking("") & setIdReservation("")}
+  }));
   if (fontsLoaded) {
     return (
       <AuthContext.Provider value={authContext}>
-        <NavigationContainer>
-          <Stack.Navigator>
-            {state.userToken == null ? (
-              <>
-                <Stack.Screen
-                  name="SignIn"
-                  component={SignInScreen}
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                  name="SignUp"
-                  component={SignUpScreen}
-                  options={{ headerShown: false }}
-                />
-              </>
-            ) : (
-              <>
-                {isRegistered ? (
-                  <>
-                    <Stack.Screen
-                      name="NavBar"
-                      component={NavBar}
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="Home"
-                      component={HomeScreen}
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="EditProfile"
-                      component={Profile}
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="Cars"
-                      component={Cars}
-                    />
-                    <Stack.Screen
-                      name="AddCar"
-                      component={AddCar}
-                    />
-                    <Stack.Screen
-                      name="Payments"
-                      component={Payments}
-                    />
-                    <Stack.Screen
-                      name="Add Credit Card"
-                      component={AddCreditCard}
-                    />
-                    <Stack.Screen
-                      name="EditCar"
-                      component={EditCar}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <Stack.Screen name="Registrar" component={FormReg} options={{ headerShown: false }}/>
-                  </>
-                )}
-              </>
-            )}
-          </Stack.Navigator>
-        </NavigationContainer>
+        <PaymentContext.Provider value={paymentContext}>
+          <NavigationContainer>
+            <Stack.Navigator>
+              {state.userToken == null ? (
+                <>
+                  <Stack.Screen
+                    name="SignIn"
+                    component={SignInScreen}
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="SignUp"
+                    component={SignUpScreen}
+                    options={{ headerShown: false }}
+                  />
+                </>
+              ) : (
+                <>
+                  {isRegistered ? (
+                    <>
+                      <Stack.Screen
+                        name="NavBar"
+                        component={NavBar}
+                        options={{ headerShown: false }}
+                      />
+                      <Stack.Screen
+                        name="Home"
+                        component={HomeScreen}
+                        options={{ headerShown: false }}
+                      />
+                      <Stack.Screen
+                        name="Reservation"
+                        component={ReservationsScreen}
+                        options={{ headerShown: true }}
+                      />
+                      <Stack.Screen
+                        name="EditProfile"
+                        component={Profile}
+                        options={{ headerShown: false }}
+                      />
+                      <Stack.Screen
+                        name="Cars"
+                        component={Cars}
+                      />
+                      <Stack.Screen
+                        name="AddCar"
+                        component={AddCar}
+                      />
+                      <Stack.Screen
+                        name="Payments"
+                        component={Payments}
+                      />
+                      <Stack.Screen
+                        name="Add Credit Card"
+                        component={AddCreditCard}
+                      />
+                      <Stack.Screen
+                        name="EditCar"
+                        component={EditCar}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <Stack.Screen name="Registrar" component={FormReg} options={{ headerShown: false }}/>
+                    </>
+                  )}
+                </>
+              )}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </PaymentContext.Provider>
       </AuthContext.Provider>
     );
   } else {
