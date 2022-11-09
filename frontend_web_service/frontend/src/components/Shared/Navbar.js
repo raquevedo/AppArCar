@@ -20,7 +20,7 @@ function Navbar(){
           <ul className="dropdown menu" data-dropdown-menu>
             <li className="text-nav ">
               <a href = "https://github.com/raquevedo/AppArCar" target="blank"> 
-                <img src={logoGithub} alt="Github" className="navbar-logo" ></img>
+                <img src={logoGithub} alt="Github" className="github-logo" ></img>
               </a>
             </li>
           </ul>
@@ -29,7 +29,7 @@ function Navbar(){
           <ul className="dropdown menu" data-dropdown-menu>
             <li className="text-nav ">
               <a href = "https://www.ucaece.edu.ar/es/" target="blank">
-                <img src={logoCaece} alt="Caece" className="navbar-logo" ></img>
+                <img src={logoCaece} alt="Caece" className="caece-logo" ></img>
               </a>
             </li>
           </ul>

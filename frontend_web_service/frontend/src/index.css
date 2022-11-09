@@ -545,6 +545,29 @@ code {
   color: white;
   cursor: pointer;
   position: relative;
+  margin-right: 900px;
+  line-height: 50px;
+  display: inline-block;
+  text-align: center;
+}
+
+.github-logo {
+  height: 60px;
+  line-height: 80px;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  line-height: 50px;
+  display: inline-block;
+  text-align: center;
+}
+
+.caece-logo {
+  height: 60px;
+  line-height: 80px;
+  color: white;
+  cursor: pointer;
+  position: relative;
   line-height: 50px;
   display: inline-block;
   text-align: center;
