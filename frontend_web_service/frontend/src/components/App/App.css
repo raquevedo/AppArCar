@@ -109,5 +109,41 @@ body{
   transform: translate(-50%,-50%);
 }
 
+.container-member{
+    width: 1170px;
+    height: 368px;
+    margin: 10px 10px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 95%,#5641f2b2 25%,#df3ac4ab 65%);
+    box-shadow: 1px 1px 13px 1px rgb(0,0,0,9% );
+
+}
+
+.photo-member{
+    height: 100%;
+    width: auto; 
+}
+
+.container-message{
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    padding: 40px;
+    font-family: Lato,sans-serif;
+    font-weight: 400;
+    line-height: 1.5rem;
+    
+}
+
+.name-message{
+    font-size: 1.3rem;
+}
+
+.text-message{
+    font-size: 1.1rem;
+    text-align: justify;
+}
 
 
