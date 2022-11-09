@@ -1,5 +1,4 @@
-
-import '../MemberInformation/MemberInformation.css';
+import '../App/App.css';
 
 function MemberInformation(props){
   
