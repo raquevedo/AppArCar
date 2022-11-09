@@ -3,16 +3,13 @@ import { Link } from 'react-router-dom';
 import logo from "../../assets/img/logo solo.png";
 import logoGithub from "../../assets/img/github-mark.svg";
 import logoCaece from "../../assets/img/logo-ucaece.png"
-
 import "../../index.css";
 
-function Navbar() {
-  return (
-    
-    <div  >
-      
-      <div className='grid-x bar '>
-        <div >
+function Navbar(){
+  return(
+    <div>
+      <div className='grid-x bar'>
+        <div>
           <ul className="dropdown menu " data-dropdown-menu>
             <Link to='/'>
             <img src={logo} alt="Logo" className="navbar-logo" ></img>
@@ -22,7 +19,7 @@ function Navbar() {
         <div className="top-bar-right center">
           <ul className="dropdown menu" data-dropdown-menu>
             <li className="text-nav ">
-              <a href = "https://github.com/raquevedo/AppArCar" target="_blank"> 
+              <a href = "https://github.com/raquevedo/AppArCar" target="blank"> 
                 <img src={logoGithub} alt="Github" className="navbar-logo" ></img>
               </a>
             </li>
@@ -31,7 +28,7 @@ function Navbar() {
         <div className="top-bar-right center">
           <ul className="dropdown menu" data-dropdown-menu>
             <li className="text-nav ">
-              <a href = "https://www.ucaece.edu.ar/es/" target="_blank">
+              <a href = "https://www.ucaece.edu.ar/es/" target="blank">
                 <img src={logoCaece} alt="Caece" className="navbar-logo" ></img>
               </a>
             </li>
@@ -46,9 +43,6 @@ function Navbar() {
         </div>
       </div>
     </div>
-    
-    
   );
 }
-
 export default Navbar;
