@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -7,7 +7,8 @@ import { GetCars } from "../controllers/car_controller";
 import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
 import { getCoordinates, getNearParkings } from "../controllers/map_controller";
-import {ModalPatent, ModalReserve} from "./mapModals";
+import {ModalReserve, ModalPatent} from "./mapModals";
+import ReservationsSocket from "./reservationsSocket";
 import styles from "../../Services/styles";
 
 function HomeScreen({ navigation }) {
@@ -22,7 +23,7 @@ function HomeScreen({ navigation }) {
   const [cars, setCars] = useState([]);
   const [parking, setParking] = useState({});
   const [patent,setPatent] = useState("Select patent");
-  const [reserveData, setReserveData]= useState({'visible':false})
+  const [reserveData, setReserveData]= useState({'visible':false});
 
   const focus = useIsFocused();
 
@@ -158,9 +159,11 @@ function HomeScreen({ navigation }) {
               title={"Parking:"+item.businessName}
               description={"cuit: "+item.cuitNumber}
               coordinate={{"latitude":item.latitude,"longitude":item.longitude}}
-              onPress={() => centerRegion(item) & setReserveData((prevState)=>({...prevState,'visible':true})) & {/*setModalResVisible(!modalResVisible)*/} & setParking(item)}
+              onPress={() => navigation.navigate("Reservation",{parking:item})}
+              icon={require('../../assets/gasperavailaible.png')}
             />
-          )}
+            
+          )}{/*onPress={() => centerRegion(item) & setReserveData((prevState)=>({...prevState,'visible':true})) & setParking(item)}*/}
           {/*<MapView.Marker coordinate={{latitude:-34.633190, longitude:-58.455946}}/>*/}
         </MapView>
         <View style={styles.inputView}>
@@ -182,6 +185,7 @@ function HomeScreen({ navigation }) {
           </TouchableOpacity>):<></>
           }
         </View>
+        <ReservationsSocket/>
         <View style={styles.centeredView}>
           <ModalPatent 
             parentStates={{modalVisible}} 

@@ -105,3 +105,11 @@ export async function patchParkingSettings(id, settings) {
     body: JSON.stringify(settings)
   });
 }
+
+export async function getParkingStatusById(parkingId) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/parking-status/${parkingId}`, {
+    headers: myHeaders
+  });
+}

@@ -1,9 +1,15 @@
 import fetchToken from '../utils/fetchToken';
 
-export async function getPartnerData() {
+function buildHeaders() {
   let myHeaders = new Headers();
   myHeaders.append('Authorization', 'Bearer ' + fetchToken());
   myHeaders.append('Content-Type', 'application/json');
+
+  return myHeaders;
+}
+
+export async function getPartnerData() {
+  const myHeaders = buildHeaders();
 
   let response = await fetch('http://localhost:8000/user/partners/user-info', {
     method: 'GET',
@@ -14,9 +20,7 @@ export async function getPartnerData() {
 }
 
 export async function registerUser(partnerData) {
-  let myHeaders = new Headers();
-  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-  myHeaders.append('Content-Type', 'application/json');
+  const myHeaders = buildHeaders();
 
   return fetch('http://localhost:8000/user/partners/create-user', {
     method: 'POST',
@@ -27,9 +31,7 @@ export async function registerUser(partnerData) {
 }
 
 export async function updateUser(partnerData) {
-  let myHeaders = new Headers();
-  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-  myHeaders.append('Content-Type', 'application/json');
+  const myHeaders = buildHeaders();
 
   return fetch('http://localhost:8000/user/partners/update-user', {
     method: 'POST',

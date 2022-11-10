@@ -1,6 +1,4 @@
-import { StyleSheet, Text, View, Alert, Dimensions } from "react-native";
-
-
+import { StyleSheet, Dimensions } from "react-native";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -225,6 +223,11 @@ const styles = StyleSheet.create({
     width: 380,
     height: 120,
     resizeMode: "contain",
+  },
+  imageCard: {
+    flex: 1,
+    width: 200,
+    height: 100,
   },
   
   imageGoogle: {
