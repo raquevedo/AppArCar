@@ -609,11 +609,16 @@ code {
 }
 
 .login-box-modal {
-  background: #a3a1ff;
+  background: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   border-radius: 10px;
+}
+
+.modal-text-alert{
+  color: white;
+  font-size: 20px;
 }
 
 .profile-box {

@@ -16,15 +16,10 @@ function NoticeModal(props) {
                   {props.header}
                 </h1>
               </div>
-              <div className="cell small-2">
-                <button className="button-pop bn24" onClick={handleClose}>
-                  X
-                </button>
-              </div>
             </div>
           </div>
           <div className="cell">
-            <p className="modal-text">{props.body}</p>
+            <p className="modal-text-alert">{props.body}</p>
           </div>
           <div className="cell">
             <button type="" className="bn632-hover bn24" onClick={handleClose}>
