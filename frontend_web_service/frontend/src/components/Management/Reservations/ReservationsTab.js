@@ -1,46 +1,10 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import {
-  getReservations,
-  acceptReservation,
-} from "../../../controllers/parkingController";
+import { acceptReservation, postCheckIn } from "../../../controllers/parkingController";
 import AcceptedReservations from "./AcceptedReservations";
+import ParkedCars from "./ParkedCars";
 import PendingReservations from "./PendingReservations";
 
 export default function ReservationsTab(props) {
-  let [pendingReservations, setPendingReservations] = useState([]);
-  let [acceptedReservations, setAcceptedReservations] = useState([]);
-
-  useEffect(() => {
-    async function setReservationData(id) {
-      const response = await getReservations(id);
-
-      if (response.status === 200) {
-        const data = await response.json();
-
-        // Checks each reservation status to assign to hook
-        let pendings = [];
-        let accepteds = [];
-
-        for (let reservationKey in data) {
-          if (data[reservationKey]["status"] === "created") {
-            pendings.push(data[reservationKey]);
-          } else if (
-            data[reservationKey]["status"] === "accepted" ||
-            data[reservationKey]["status"] === "parked"
-          ) {
-            accepteds.push(data[reservationKey]);
-          }
-        }
-
-        setPendingReservations(pendings);
-        setAcceptedReservations(accepteds);
-      } else {
-        console.log(`Error when fetching reservation data: ${response.status}`);
-      }
-    }
-    setReservationData(props.id);
-  }, [props.id]);
 
   async function AcceptReservation(id) {
     const res = await acceptReservation(id);
@@ -48,17 +12,16 @@ export default function ReservationsTab(props) {
       let newPendingReservations = [];
       let acceptedReservation = {};
 
-      for (let index in pendingReservations) {
-        if (id === pendingReservations[index]["id"]) {
-          acceptedReservation = pendingReservations[index];
+      for (let index in props.pendingReservations) {
+        if (id === props.pendingReservations[index]["id"]) {
+          acceptedReservation = props.pendingReservations[index];
         } else {
-          newPendingReservations.push(pendingReservations[index]);
+          newPendingReservations.push(props.pendingReservations[index]);
         }
       }
-
-      setPendingReservations(newPendingReservations);
-      setAcceptedReservations([
-        ...acceptedReservations,
+      props.setPendingReservations(newPendingReservations);
+      props.setAcceptedReservations([
+        ...props.acceptedReservations,
         ...[acceptedReservation],
       ]);
     } else {
@@ -67,21 +30,49 @@ export default function ReservationsTab(props) {
     }
   }
 
+  async function checkCustomerIn(reservationId) {
+    let res = await postCheckIn(reservationId);
+    if (res.status === 200 || res.status === 204) {
+      let newAcceptedReservations = [];
+      let parkedCar = {};
+      console.log(reservationId);
+
+      for (let index in props.acceptedReservations) {
+        if (reservationId === props.acceptedReservations[index]["id"]) {
+          parkedCar = props.acceptedReservations[index];
+        } else {
+          newAcceptedReservations.push(props.acceptedReservations[index]);
+        }
+      }
+      console.log(parkedCar);
+      props.setAcceptedReservations(newAcceptedReservations);
+      props.setParkedCars([...props.parkedCars, ...[parkedCar]]);
+    }
+  }
+
   return (
-    <div className="grid-x grid-padding-x grid-margin-x background-reservations">
-      <div className="cell large-6 small-12">
-        <PendingReservations
-          reservations={pendingReservations}
-          setReservations={setPendingReservations}
-          AcceptReservation={AcceptReservation}
-        />
+    <div className="reservations">
+      <div className="grid-x grid-padding-x grid-margin-x background-reservations">
+        <div className="cell large-6 small-12">
+          <PendingReservations
+            socket={props.socket}
+            reservations={props.pendingReservations}
+            setReservations={props.setPendingReservations}
+            AcceptReservation={AcceptReservation}
+          />
+        </div>
+        <div className="cell large-6 small-12">
+          <AcceptedReservations
+            reservations={props.acceptedReservations}
+            setReservations={props.setAcceptedReservations}
+            checkCustomerIn={checkCustomerIn}
+          />
+        </div>
       </div>
-      <div className="cell large-6 small-12">
-        <AcceptedReservations
-          reservations={acceptedReservations}
-          setReservations={setAcceptedReservations}
-        />
-      </div>
+      <ParkedCars
+        parkedCars={props.parkedCars}
+        setParkedCars={props.setParkedCars}
+      />
     </div>
   );
 }
