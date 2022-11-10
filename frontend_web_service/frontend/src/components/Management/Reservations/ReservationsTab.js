@@ -5,6 +5,7 @@ import ParkedCars from "./ParkedCars";
 import PendingReservations from "./PendingReservations";
 
 export default function ReservationsTab(props) {
+  console.log(props.pendingReservations)
 
   async function AcceptReservation(id) {
     const res = await acceptReservation(id);

@@ -101,26 +101,26 @@ export default function ManagementBoard(props) {
     setAvailableSlots(totalSlots - reservedSlots - occupiedSlots);
   }, [occupiedSlots, reservedSlots, totalSlots]);
 
-
   const renderTab = () => {
+    const reservationsTab = <ReservationsTab
+      socket={socket}
+      id={id}
+      pendingReservations={pendingReservations}
+      setPendingReservations={setPendingReservations}
+      acceptedReservations={acceptedReservations}
+      setAcceptedReservations={setAcceptedReservations}
+      parkedCars={parkedCars}
+      setParkedCars={setParkedCars}
+    />;
     switch (tab) {
       case "reservations":
-        return <ReservationsTab
-          socket={socket}
-          id={id}
-          pendingReservations={pendingReservations}
-          setPendingReservations={setPendingReservations}
-          acceptedReservations={acceptedReservations}
-          setAcceptedReservations={setAcceptedReservations}
-          parkedCars={parkedCars}
-          setParkedCars={setParkedCars}
-        />;
+        return reservationsTab
       case "hours":
         return <HoursTab id={id} />;
       case "settings":
         return <SettingsTab id={id} />;
       default:
-        return <ReservationsTab id={id} />;
+        return reservationsTab
     }
   };
 
