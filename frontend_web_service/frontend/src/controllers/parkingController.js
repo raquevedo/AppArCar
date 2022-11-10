@@ -1,6 +1,6 @@
 import fetchToken from '../utils/fetchToken';
 
-export function buildHeaders() {
+function buildHeaders() {
   let myHeaders = new Headers();
   myHeaders.append('Authorization', 'Bearer ' + fetchToken());
   myHeaders.append('Content-Type', 'application/json');
@@ -103,5 +103,13 @@ export async function patchParkingSettings(id, settings) {
     method: 'PATCH',
     headers: myHeaders,
     body: JSON.stringify(settings)
+  });
+}
+
+export async function getParkingStatusById(parkingId) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/parking-status/${parkingId}`, {
+    headers: myHeaders
   });
 }

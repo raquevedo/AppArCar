@@ -18,6 +18,8 @@ function AddCreditCard({ navigation }) {
   const [cardNumber, setCardNumber] = React.useState("");
   const [cardName, setCardName] = React.useState("");
   const [expireDate, setExpireDate] = React.useState("");
+  const [company, setCompany] = React.useState("");
+  const [type, setType] = React.useState("");
   const [isDatePickerVisible, setIsDatePickerVisibility] = React.useState(false);
 
   const showDatePicker = () => {
@@ -49,12 +51,23 @@ function AddCreditCard({ navigation }) {
             onChangeText={setCardNumber}
           />
           <TextInput
-            placeholder="Card brand"
+            placeholder="Card Name"
             value={cardName}
             style={styles.text}
             onChangeText={setCardName}
           />
-          
+          <TextInput
+            placeholder="Company"
+            value={company}
+            style={styles.text}
+            onChangeText={setCompany}
+          />
+          <TextInput
+            placeholder="Type"
+            value={type}
+            style={styles.text}
+            onChangeText={setType}
+          />
           <DatePicker
             isVisible={isDatePickerVisible}
             mode="date"
@@ -77,6 +90,8 @@ function AddCreditCard({ navigation }) {
               (await persistCreditCard({
                 cardNumber,
                 cardName,
+                company,
+                type,
                 expireDate,
               })) & navigation.goBack()
             }
