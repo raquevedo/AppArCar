@@ -21,7 +21,7 @@ function NoticeModal(props) {
           <div className="cell">
             <p className="modal-text-alert">{props.body}</p>
           </div>
-          <div className="cell">
+          <div className="cell center">
             <button type="" className="bn632-hover bn24" onClick={handleClose}>
               Continue
             </button>
