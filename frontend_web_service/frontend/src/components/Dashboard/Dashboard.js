@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Profile from '../Profile/Profile';
 import SideNav from '../Shared/SideNav';
 import ManagementBoard from '../Management/ManagementBoard';
+import HistoryView from '../PaymentHistory/HistoryView';
 
 export default function Dashboard({ partnerData }) {
   return(
@@ -35,6 +36,12 @@ export default function Dashboard({ partnerData }) {
             path='manage/:id/*'
             element={
               <ManagementBoard />
+            }
+          />
+          <Route
+            path='history'
+            element={
+              <HistoryView />
             }
           />
         </Routes>

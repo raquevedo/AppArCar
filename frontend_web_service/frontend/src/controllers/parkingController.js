@@ -52,6 +52,14 @@ export async function getReservations(id) {
   });
 }
 
+export async function getAllReservations() {
+  const myHeaders = buildHeaders();
+
+  return await fetch('http://localhost:8000/parking/reservation/parking-user', {
+    headers: myHeaders
+  });
+}
+
 export async function postCheckIn(id) {
   const myHeaders = buildHeaders();
 
