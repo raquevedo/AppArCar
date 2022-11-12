@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import {
   useLocation,
@@ -13,34 +13,33 @@ import DashboardWrapper from "../Dashboard/DashboardWrapper";
 import Navbar from "../Shared/Navbar";
 import "../../index.css";
 import AboutUs from '../AboutUs/AboutUs';
+import { isLoggedIn } from '../../utils/isLoggedIn';
 
 function App() {
+  const [userLoggedIn, setUserLoggedIn] = useState(isLoggedIn())
+
   return (
     <BrowserRouter>
-   
-        <div className="grid-y">
-         
-            <div className="cell small-12">
-              <Navbar />
-            </div>
-          
-          <div className="cell large-12">
-            <Routes>
-              <Route path='/' element={<Homepage />} />
-              <Route path='signin' element={<SignIn />} />
-              <Route path='aboutus' element={<AboutUs/>} />
-              <Route
-                path="dashboard/*"
-                element={
-                  <RequireAuth>
-                    <DashboardWrapper />
-                  </RequireAuth>
-                }
-              />
-            </Routes>
-          </div>
+      <div className="grid-y">
+        <div className="cell small-12">
+          <Navbar userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn}/>
         </div>
-    
+        <div className="cell large-12">
+          <Routes>
+            <Route path='/' element={<Homepage />} />
+            <Route path='signin' element={<SignIn setUserLoggedIn={setUserLoggedIn}/>} />
+            <Route path='aboutus' element={<AboutUs/>} />
+            <Route
+              path="dashboard/*"
+              element={
+                <RequireAuth>
+                  <DashboardWrapper />
+                </RequireAuth>
+              }
+            />
+          </Routes>
+        </div>
+      </div>
     </BrowserRouter>
   );
 }
