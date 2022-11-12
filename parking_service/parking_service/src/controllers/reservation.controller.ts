@@ -137,7 +137,7 @@ export class ReservationController {
     return this.pkgReservationRepository.find(filter);
   }
 
-  @get('/reservation/parking-user/{idParkingUser}')
+  @get('/reservation/parking-user')
   @response(200, {
     description: 'PkgReservation model instance',
     content: {
@@ -146,12 +146,9 @@ export class ReservationController {
       },
     },
   })
-  async findByParkingUserId(
-    @param.path.number('idParkingUser') idParkingUser: number,
-    filter = {where: {idParkingUser: idParkingUser} }
+  async findByParkingUserId(   
   ) {
-
-    let parkings = await this.pkgParkingUsersRepository.find(filter);
+    let parkings = await this.pkgParkingUsersRepository.find({where: {idParkingUser: this.currentUserProfile.id!} });
     let parksIds: any[] = [];
     let response : any[] = [];
     parkings.forEach(element => parksIds.push(element.idParking) );  
