@@ -23,7 +23,7 @@ const schema = yup.object({
   password: yup.string().required().matches("^(.{0,8})(.*)$"),
 });
 
-export default function Login({ setToken }) {
+export default function Login({ setToken, setUserLoggedIn }) {
   const {
     register,
     handleSubmit,
@@ -43,6 +43,7 @@ export default function Login({ setToken }) {
       password,
     });
     setToken(token);
+    setUserLoggedIn(true);
     navigate("/dashboard");
   };
 

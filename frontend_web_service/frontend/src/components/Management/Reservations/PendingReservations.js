@@ -37,7 +37,7 @@ export default function PendingReservations({
         <table>
           <thead>
             <tr>
-              <th>Driver</th>
+              <th>License Plate</th>
               <th>Expiration Date</th>
               <th>Approve</th>
               <th>Reject</th>
