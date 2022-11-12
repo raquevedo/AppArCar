@@ -5,6 +5,18 @@ table {
   text-align: left;
   overflow: hidden;
 }
+
+.label-column{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+}
+
+.label-text{
+  font-weight: bold;
+  color: white;
+}
 .background-hours{
   background: #f9fbff;
   height: 650px;
