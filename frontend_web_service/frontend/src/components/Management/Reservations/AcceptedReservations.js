@@ -8,7 +8,7 @@ export default function AcceptedReservations(props) {
       <table>
         <thead>
           <tr>
-            <th>Driver</th>
+            <th>License Plate</th>
             <th>Expiration Date</th>
             <th>Check In</th>
           </tr>

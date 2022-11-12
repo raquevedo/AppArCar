@@ -8,7 +8,7 @@ export default function ParkedCars(props) {
       <table>
         <thead>
           <tr>
-            <th>Driver</th>
+            <th>License Plate</th>
             <th>Expiration Date</th>
             <th>Check Out</th>
           </tr>
