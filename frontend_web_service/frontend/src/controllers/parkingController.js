@@ -52,6 +52,12 @@ export async function getReservations(id) {
   });
 }
 
+export async function getAllReservations() {
+  const myHeaders = buildHeaders();
+
+  return
+}
+
 export async function postCheckIn(id) {
   const myHeaders = buildHeaders();
 
