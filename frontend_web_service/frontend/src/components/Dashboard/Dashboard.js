@@ -39,7 +39,7 @@ export default function Dashboard({ partnerData }) {
             }
           />
           <Route
-            path='income'
+            path='history'
             element={
               <HistoryView />
             }
