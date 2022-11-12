@@ -12,7 +12,7 @@ import {
   response,
 } from '@loopback/rest';
 import {PkgReservation} from '../models';
-import {PkgReservationRepository, PkgParkingRepository, PkgParkingStatusRepository} from '../repositories';
+import {PkgReservationRepository, PkgParkingRepository, PkgParkingStatusRepository, PkgParkingUsersRepository} from '../repositories';
 import { authenticate } from '@loopback/authentication';
 import { inject } from '@loopback/core';
 import {UserProfile, SecurityBindings} from '@loopback/security';
@@ -30,6 +30,8 @@ export class ReservationController {
     public pkgReservationRepository : PkgReservationRepository,
     @repository(PkgParkingRepository)
     public pkgParkingRepository : PkgParkingRepository,
+    @repository(PkgParkingUsersRepository)
+    public pkgParkingUsersRepository : PkgParkingUsersRepository,
     @repository(PkgParkingStatusRepository)
     public pkgParkingStatusRepository: PkgParkingStatusRepository,
   ) {}
@@ -133,6 +135,40 @@ export class ReservationController {
     filter = {where: {idCarDriver: idCarDriver} }
   ): Promise<PkgReservation[]> {
     return this.pkgReservationRepository.find(filter);
+  }
+
+  @get('/reservation/parking-user/{idParkingUser}')
+  @response(200, {
+    description: 'PkgReservation model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(PkgReservation, {includeRelations: true}),
+      },
+    },
+  })
+  async findByParkingUserId(
+    @param.path.number('idParkingUser') idParkingUser: number,
+    filter = {where: {idParkingUser: idParkingUser} }
+  ) {
+
+    let parkings = await this.pkgParkingUsersRepository.find(filter);
+    let parksIds: any[] = [];
+    let response : any[] = [];
+    parkings.forEach(element => parksIds.push(element.idParking) );  
+
+    for (const id of parksIds) {  
+      try {
+      
+      let filterParking = {where: {idParking: id} }
+      let reservations = await this.pkgReservationRepository.find(filterParking);
+      
+      response.push({'parkingId':id, 'reservations':reservations})
+      } catch (error) {
+        console.error("Parkingid",id," was deleted by user.");
+        
+      }
+    }
+    return response;
   }
 
   @post('/reservation/cancel/{id}')
