@@ -19,6 +19,7 @@ import { authenticate } from '@loopback/authentication';
 import { inject } from '@loopback/core';
 import {UserProfile, SecurityBindings} from '@loopback/security';
 import { coordinatesDistance, getCoordinates } from '../utils/geolocation';
+import { checkHourStatus } from '../utils/datetime'
 
 @authenticate('admin')
 export class ParkingController {
@@ -130,6 +131,8 @@ export class ParkingController {
       try {
       let parkingInfo   = await this.pkgParkingRepository.findById(Number(id));
       let parkingStatus = await this.pkgParkingStatusRepository.findById(Number(id));
+      let newStatus = checkHourStatus(await this.pkgParkingSettingsRepository.findById(id))
+      parkingStatus.status = newStatus
       data.push({'parkingInfo':parkingInfo, 'status':parkingStatus})
       } catch (error) {
         console.error("Parkingid",id," was deleted by user.");
