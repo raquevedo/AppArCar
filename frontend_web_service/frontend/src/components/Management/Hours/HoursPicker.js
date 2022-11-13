@@ -8,7 +8,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 export default function HoursPicker({ day, fromHour, setFromHour, toHour, setToHour }) {
   return(
     <tr>
-      <td>{day}</td>
+      <td>{day['day']}</td>
       <td>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <TimePicker
