@@ -43,7 +43,10 @@ function BookingHistory({ navigation }) {
   }
 
   function parseDate(date){
-    return date.slice(8,10)+'-'+date.slice(5,7)+'-'+date.slice(0,4)
+    return date.slice(8,10)+'-'+date.slice(5,7)+'-'+date.slice(0,4);
+  }
+  function parseDateTime(date){
+    return date.slice(11,16)+'hs / '+date.slice(8,10)+'-'+date.slice(5,7)+'-'+date.slice(0,4);
   }
 
   useEffect(() => {
@@ -80,7 +83,7 @@ function BookingHistory({ navigation }) {
                     <View style={styles.containTextFlatList}>
                     <Text style={styles.heading2}>{item.parkingInfo.businessName}</Text>
                     <Text style={styles.subheading}>{item.parkingInfo.streetName+' '+item.parkingInfo.streetNumber}</Text>
-                    <Text style={styles.subheading}>{parseDate(item.parkingInfo.sysCreatedAtDttm)}</Text>
+                    <Text style={styles.subheading}>{parseDate(item.createdAtDttm)}</Text>
                     </View>
                   </Text>
                 </View>
@@ -89,19 +92,24 @@ function BookingHistory({ navigation }) {
           />
         </View>
         <View style={styles.space}></View>
-        <TouchableOpacity
-          style={styles.containButtonStyleFlat}
-          onPress={() => Alert.alert('Excelent','Your reservation has been extended for 30 mins.')}
-        >
-          <LinearGradient
-            start={{ x: 1, y: 0 }}
-            end={{ x: 0, y: 1 }}
-            colors={["#df3ac4", "#3043ff"]}
-            style={styles.buttonStyleFlat}
+        {reservations.length != 0 && reservations[reservations.length-1].checkoutAtDttm == null ? <>
+          <Text style={styles.themeTextFlat2}>You have an active booking on:</Text>
+          <Text style={styles.subheading3}>sanpedrito24 - San pedrito 800 at {parseDateTime(reservations[reservations.length-1].expirationAtDttm)}</Text>
+          <TouchableOpacity
+            style={styles.containButtonStyleFlat}
+            onPress={() => Alert.alert('Excelent','Your reservation has been extended for 30 mins.')}
           >
-            <Text style={styles.buttonText}>Extend reservation</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+            <LinearGradient
+              start={{ x: 1, y: 0 }}
+              end={{ x: 0, y: 1 }}
+              colors={["#df3ac4", "#3043ff"]}
+              style={styles.buttonStyleFlat}
+            >
+              <Text style={styles.buttonText}>Extend reservation</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        </> : 
+        (<></>)}
         <View style={styles.space}></View>
       </SafeAreaView>
       <View style={styles.space}>
