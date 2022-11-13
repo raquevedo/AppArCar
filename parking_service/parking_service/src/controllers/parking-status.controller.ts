@@ -14,10 +14,11 @@ import {
   response,
 } from '@loopback/rest';
 import {PkgParkingStatus} from '../models';
-import {PkgParkingStatusRepository} from '../repositories';
+import {PkgParkingStatusRepository, PkgParkingSettingsRepository} from '../repositories';
 import { authenticate } from '@loopback/authentication';
 import { inject } from '@loopback/core';
 import {UserProfile, SecurityBindings} from '@loopback/security';
+import { checkHourStatus } from '../utils/datetime'
 
 @authenticate('admin')
 export class ParkingStatusController {
@@ -26,6 +27,8 @@ export class ParkingStatusController {
     public currentUserProfile: UserProfile,
     @repository(PkgParkingStatusRepository)
     public pkgParkingStatusRepository : PkgParkingStatusRepository,
+    @repository(PkgParkingSettingsRepository)
+    public pkgParkingSettingsRepository : PkgParkingSettingsRepository
   ) {}
 
   @get('/parking-status/{id}')
@@ -35,7 +38,12 @@ export class ParkingStatusController {
   async findById(
     @param.path.number('id') id: number
   ): Promise<PkgParkingStatus> {
-    return this.pkgParkingStatusRepository.findById(id);
+
+    let newStatus = checkHourStatus(await this.pkgParkingSettingsRepository.findById(id))
+    let parkingStatus = await this.pkgParkingStatusRepository.findById(id)
+    parkingStatus.status = newStatus
+    
+    return parkingStatus
   }
 
   @patch('/parking-status/block-slot/{id}')
