@@ -1,5 +1,4 @@
-import fetchToken from '../utils/fetchToken';
-import {buildHeaders} from './parkingController';
+import {buildHeaders} from './utils';
 
 export async function getPartnerUser() {
   
@@ -42,12 +41,10 @@ export async function getParkingUser() {
   
   const myHeaders = buildHeaders();
   
-  let response = await fetch('http://localhost:8000/user/parking-user/user-info', {
+  return await fetch('http://localhost:8000/user/parking-user/user-info', {
     method: 'GET',
     headers: myHeaders
   });
-  response = await response.json();
-  return response
 }
 
 export async function registerParkingUser(parkingData) {

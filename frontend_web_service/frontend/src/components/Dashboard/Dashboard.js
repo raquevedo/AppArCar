@@ -5,7 +5,7 @@ import Profile from '../Profile/Profile';
 import SideNav from '../Shared/SideNav';
 import ManagementBoard from '../Management/ManagementBoard';
 
-export default function Dashboard({ partnerData }) {
+export default function Dashboard() {
   return(
     <div className='grid-x  grid-margin-x grid-padding-x'>
       <div className='cell small-2 '>

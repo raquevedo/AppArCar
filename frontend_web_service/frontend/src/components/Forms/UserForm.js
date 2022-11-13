@@ -5,6 +5,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 
 export default function UserForm({ setIsRegistered, buttonText, newUser, valuesData }) {
+  const schema = yup.object({    
+    name: yup.string().required().min(3),
+    lastName: yup.string().required().min(3),
+    documentNumber: yup.number().required().min(0)
+  })
   
   if (buttonText === undefined) {
     buttonText = 'Submit';
@@ -13,22 +18,13 @@ export default function UserForm({ setIsRegistered, buttonText, newUser, valuesD
     newUser = false;
   }
   
-  const schema = yup.object({
-    
-    name: yup.string().required().min(3),
-    lastName: yup.string().required().min(3),
-    documentNumber: yup.number().required().min(0)
-  })
-  
-  const { register,handleSubmit,formState:{ errors } } = useForm({
+  const { register, handleSubmit, formState:{ errors } } = useForm({
     mode: 'onTouched',
     defaultValues: {
-
-      name: valuesData['name'],
-      lastName: valuesData['lastName'],
-      documentNumber:valuesData['documentNumber'] 
+      name: valuesData['data']['name'],
+      lastName: valuesData['data']['lastName'],
+      documentNumber: valuesData['data']['documentNumber'] 
     },
-
     resolver: yupResolver(schema)
   });
   
@@ -58,16 +54,18 @@ export default function UserForm({ setIsRegistered, buttonText, newUser, valuesD
   return(
     <form onSubmit={handleSubmit(onSubmit)}>
       
-      <div class="user-box">
+      <div className="user-box">
         <input type="text" placeholder='Name' {...register("name")}/>
       </div>
       { errors.name && <p>Name is invalid</p> }
-      <div class="user-box">
-        <input type="text" placeholder="Lastname" {...register("lastName")}/>
+
+      <div className="user-box">
+        <input type="text" placeholder="Last Name" {...register("lastName")}/>
       </div>
       { errors.lastName && <p>Lastname is invalid</p> }
-      <div class="user-box">
-        <input type="text" placeholder="Document Number" {...register("documentNumber")}/>
+
+      <div className="user-box">
+        <input type="text" placeholder="ID" {...register("documentNumber")}/>
       </div>
       { errors.documentNumber && <p>Document Number is invalid</p> }
       

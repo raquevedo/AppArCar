@@ -5,21 +5,21 @@ import { getParkingUser }  from '../../controllers/usersController';
 
 export default function DashboardWrapper() {
   const [isRegistered, setIsRegistered] = useState();
-  const [parkingData, setParkingData] = useState({});
 
   useEffect(() => {
-    
     async function assignParkingData() {
-      const partner = await getParkingUser();
-      setIsRegistered(partner['isRegister']);
-      setParkingData(partner['data'])
+      let response = await getParkingUser();
+      if (response.status === 200) {
+        let user = await response.json();
+        setIsRegistered(user['isRegister']);
+      }
     }
     assignParkingData();
   }, [])
 
   return(
     <div>
-      {isRegistered && <Dashboard partnerData={parkingData}/>}
+      {isRegistered && <Dashboard />}
       {isRegistered === false && <ProfileSetup setIsRegistered={setIsRegistered}/>}
     </div>
   );

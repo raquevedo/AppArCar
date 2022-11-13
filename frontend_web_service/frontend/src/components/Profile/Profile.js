@@ -4,24 +4,25 @@ import { getParkingUser } from '../../controllers/usersController';
 
 export default function Profile() {
   
-  const [userData,setUserData] = useState();
+  const [userData, setUserData] = useState();
+  console.log(userData)
   
   useEffect(() => {
-    async function assignParkingData() {
-    const parking = await getParkingUser();
-      setUserData(parking.data);
+    async function assignProfileData() {
+      let response = await getParkingUser();
+      if (response.status === 200) {
+        let userData = await response.json();
+        setUserData(userData);
+      }
     }
-    assignParkingData();
-    
+    assignProfileData();
   }, [])
   
   if (userData === undefined) {
-    
     return(
       <div>Loading</div>
     );
-  }
-  else{
+  } else {
       return(
         <div className='grid-container'>
           <div className='grid-y login-box'>
