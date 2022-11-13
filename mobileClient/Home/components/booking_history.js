@@ -8,6 +8,7 @@ import {
   Image,
   Alert
 } from "react-native";
+import { reservationExtend } from "../controllers/reservation_controller";
 import { getReservations } from "../controllers/booking_history_controller";
 import { getParkingInfo } from "../controllers/parking";
 import { useIsFocused } from "@react-navigation/native";
@@ -48,7 +49,14 @@ function BookingHistory({ navigation }) {
   function parseDateTime(date){
     return date.slice(11,16)+'hs / '+date.slice(8,10)+'-'+date.slice(5,7)+'-'+date.slice(0,4);
   }
-
+  function extendReservation(idReservation){
+    if(reservations[reservations.length-1].checkinAtDttm == null){
+      reservationExtend(idReservation);
+    }else{
+      Alert.alert('Sorry','Operation not allowed.')
+    }
+    
+  }
   useEffect(() => {
     console.log(focus);
     const getThisReservations = async () => {
@@ -97,7 +105,7 @@ function BookingHistory({ navigation }) {
           <Text style={styles.subheading3}>sanpedrito24 - San pedrito 800 at {parseDateTime(reservations[reservations.length-1].expirationAtDttm)}</Text>
           <TouchableOpacity
             style={styles.containButtonStyleFlat}
-            onPress={() => Alert.alert('Excelent','Your reservation has been extended for 30 mins.')}
+            onPress={() => extendReservation(reservations[reservations.length-1].id)}
           >
             <LinearGradient
               start={{ x: 1, y: 0 }}
