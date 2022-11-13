@@ -9,8 +9,6 @@ export default function PendingReservations({
   parkingId
 }) {
   function updateReservations(newReservation) {
-
-    console.log(newReservation['idParking']);
     if (newReservation['idParking'] === parseInt(parkingId)) {
       setReservations([...reservations, ...[newReservation]]);
     }
