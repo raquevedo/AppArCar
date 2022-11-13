@@ -72,6 +72,42 @@ export class ReservationController {
     return data
   }
 
+  @post('/reservation/manual-create')
+  @response(200, {
+    description: 'PkgReservation model instance',
+    content: {'application/json': {schema: getModelSchemaRef(PkgReservation)}},
+  })
+  async createManualReservation(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(PkgReservation, {
+            title: 'NewPkgReservation',
+            exclude: ['id','idCarDriver','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
+          }),
+        },
+      },
+    })
+    pkgReservation: Omit<PkgReservation, 'id'>,
+  ): Promise<PkgReservation> {
+
+    pkgReservation.idCarDriver = 0
+    pkgReservation.createdAtDttm = Date()    
+    pkgReservation.expirationAtDttm = null
+    pkgReservation.status = 'created'
+    pkgReservation.paymentStatus = 'pending'
+    pkgReservation.flgExtended = false 
+    pkgReservation.totalPrice = (await this.pkgParkingRepository.findById(pkgReservation.idParking)).priceHour
+    pkgReservation.sysCreatedAtDttm = Date()
+    pkgReservation.sysUpdatedAtDttm = Date()
+    
+    await reserveFreeSlot(this.pkgParkingStatusRepository,pkgReservation.idParking)
+    let data = await this.pkgReservationRepository.create(pkgReservation)
+    publishMessageIntoQueue(Buffer.from(JSON.stringify(data)), 'reservations')
+
+    return data
+  }
+
   @get('/reservation/{id}')
   @response(200, {
     description: 'PkgReservation model instance',
