@@ -10,6 +10,16 @@ export default function UserForm({ setIsRegistered, buttonText, newUser, valuesD
     lastName: yup.string().required().min(3),
     documentNumber: yup.number().required().min(0)
   })
+
+  
+  let defaultValues = {};
+  if (valuesData !== undefined) {
+    defaultValues = {
+      name: valuesData['data']['name'],
+      lastName: valuesData['data']['lastName'],
+      documentNumber: valuesData['data']['documentNumber'] 
+    };
+  }
   
   if (buttonText === undefined) {
     buttonText = 'Submit';
@@ -20,11 +30,7 @@ export default function UserForm({ setIsRegistered, buttonText, newUser, valuesD
   
   const { register, handleSubmit, formState:{ errors } } = useForm({
     mode: 'onTouched',
-    defaultValues: {
-      name: valuesData['data']['name'],
-      lastName: valuesData['data']['lastName'],
-      documentNumber: valuesData['data']['documentNumber'] 
-    },
+    defaultValues: defaultValues,
     resolver: yupResolver(schema)
   });
   

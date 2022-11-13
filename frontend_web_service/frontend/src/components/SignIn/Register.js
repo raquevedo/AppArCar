@@ -58,25 +58,25 @@ export default function Register() {
       <h1 className="text-form">Register</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
 
-      <div class="user-box">
+      <div className="user-box">
           
           <input type="text" placeholder="Email"{...register("email")} />
         </div>
         { errors.email && <p>Email is invalid</p> }
 
-        <div class="user-box">
+        <div className="user-box">
           
           <input type="text" placeholder="Username"{...register("username")} />
         </div>
         { errors.username && <p>Username is invalid</p> }
 
-        <div class="user-box">
+        <div className="user-box">
           
           <input type="password" placeholder="Password"{...register("password")} />
         </div>
         { errors.password && <p>Password is invalid</p> }
 
-        <div class="user-box">
+        <div className="user-box">
           
           <input type="password" placeholder="Confirm Password"{...register("confirmPassword")} />
         </div>

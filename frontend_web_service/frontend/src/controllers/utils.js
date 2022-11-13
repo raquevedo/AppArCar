@@ -1,4 +1,4 @@
-import fetchToken from '../utils/fetchToken';
+import { fetchToken } from '../utils/authToken';
 
 export function buildHeaders() {
   let myHeaders = new Headers();

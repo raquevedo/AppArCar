@@ -1,4 +1,4 @@
-import {buildHeaders} from './utils';
+import { buildHeaders } from './utils';
 
 export async function getPartnerUser() {
   const myHeaders = buildHeaders();

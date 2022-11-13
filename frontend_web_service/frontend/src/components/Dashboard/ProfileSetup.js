@@ -4,8 +4,8 @@ import UserForm from '../Forms/UserForm';
 export default function ProfileSetup({ setIsRegistered }) {
   return(
     <div className="setup-wrapper">
-      <div class='grid-container main'>
-        <div class='grid-y profile-box grid-margin-y grid-padding-y'>
+      <div className='grid-container main'>
+        <div className='grid-y profile-box grid-margin-y grid-padding-y'>
           <div className='cell shrink'>
             <div className='grid-x align-center'>
               <div className='cell shrink'>
@@ -16,7 +16,7 @@ export default function ProfileSetup({ setIsRegistered }) {
           <div className='cell'>
             <div className='grid-x align-center'>
               <div className='cell small-8'>
-                <UserForm setIsRegistered={setIsRegistered} newUser={true} valuesData={{}}/>
+                <UserForm setIsRegistered={setIsRegistered} newUser={true}/>
               </div>
             </div>
           </div>
