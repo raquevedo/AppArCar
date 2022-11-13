@@ -6,9 +6,14 @@ export default function PendingReservations({
   reservations,
   setReservations,
   AcceptReservation,
+  parkingId
 }) {
   function updateReservations(newReservation) {
-    setReservations([...reservations, ...[newReservation]]);
+
+    console.log(newReservation['idParking']);
+    if (newReservation['idParking'] === parseInt(parkingId)) {
+      setReservations([...reservations, ...[newReservation]]);
+    }
   }
 
   // Subscribe to event once connection is established

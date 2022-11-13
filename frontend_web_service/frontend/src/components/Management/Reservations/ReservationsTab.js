@@ -68,6 +68,7 @@ export default function ReservationsTab(props) {
             reservations={props.pendingReservations}
             setReservations={props.setPendingReservations}
             AcceptReservation={AcceptReservation}
+            parkingId={props.id}
           />
         </div>
         <div className="cell large-6 small-12">
