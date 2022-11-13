@@ -1,7 +1,7 @@
 import {
     HomeIcon,
     UserIcon,
-    
+    WizardIcon
   } from "./Icons.js";
   
   export const dummyData = [
@@ -14,10 +14,17 @@ import {
    
     
     {
-      id: 5,
+      id: 2,
       name: "Profile",
       path: "profile",
       icon: <UserIcon />,
+    },
+
+    {
+      id: 3,
+      name: "History",
+      path: "history",
+      icon: <WizardIcon />,
     },
    
   ];

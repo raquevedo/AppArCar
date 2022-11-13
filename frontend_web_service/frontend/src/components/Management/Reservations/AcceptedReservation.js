@@ -1,70 +1,21 @@
-import React, { useState } from "react";
-import { removeById } from "../../../utils/removeById";
-import {
-  postCheckIn,
-  postCheckOut,
-} from "../../../controllers/parkingController";
+import React from "react";
 
-export default function AcceptedReservation({
-  reservation,
-  reservations,
-  setReservations,
-}) {
-  const expirationDate = new Date(reservation.expirationAtDttm);
-  const [isCheckedIn, setIsCheckedIn] = useState(
-    reservation.status === "parked"
-  );
-
-  let checkButton = (
-    <button className="status-pending" disabled>
-      Loading
-    </button>
-  );
-  if (isCheckedIn) {
-    checkButton = (
-      <button
-        className="status-unpaid-out"
-        onClick={() => checkCustomerOut(reservation["id"])}
-      >
-        Check Out
-      </button>
-    );
-  } else if (!isCheckedIn) {
-    checkButton = (
-      <button
-        className="status-pending"
-        onClick={() => checkCustomerIn(reservation["id"])}
-      >
-        Check In
-      </button>
-    );
-  }
-
-  async function checkCustomerOut(reservationId) {
-    let res = await postCheckOut(reservationId);
-    if (res.status === 200 || res.status === 204) {
-      const newReservations = removeById(reservations, reservationId);
-      setReservations(newReservations);
-    } else {
-      // TODO: Handle error
-      console.log("Error checking out customer");
-    }
-  }
-
-  async function checkCustomerIn(reservationId) {
-    let res = await postCheckIn(reservationId);
-    if (res.status === 200 || res.status === 204) {
-      setIsCheckedIn(true);
-    }
-  }
-
+export default function AcceptedReservation(props) {
+  const expirationDate = new Date(props.reservation.expirationAtDttm);
   return (
     <tr>
-      <td>{reservation.idCarDriver}</td>
+      <td>{props.reservation['patentId']}</td>
       <td>
         {expirationDate.getHours()}:{expirationDate.getMinutes()}
       </td>
-      <td>{checkButton}</td>
+      <td>
+        <button
+          className="status-pending"
+          onClick={() => props.checkCustomerIn(props.reservation["id"])}
+        >
+          Check In
+        </button>
+      </td>
     </tr>
   );
 }

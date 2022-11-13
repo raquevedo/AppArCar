@@ -29,6 +29,13 @@ export class PkgReservation extends Entity {
     postgresql: {columnName: 'id_parking', dataType: 'integer', dataLength: null, dataPrecision: null, dataScale: 0, nullable: 'NO'},
   })
   idParking: number;
+  
+  @property({
+    type: 'string',
+    required: true,
+    postgresql: {columnName: 'patent_id', dataType: 'character varying', dataLength: 10, dataPrecision: null, dataScale: null, nullable: 'NO'},
+  })
+  patentId: string;
 
   @property({
     type: 'date',

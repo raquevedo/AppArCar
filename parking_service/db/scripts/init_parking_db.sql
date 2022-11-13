@@ -61,6 +61,7 @@ CREATE TABLE public.pkg_reservation (
 	id int4 NOT NULL GENERATED ALWAYS AS IDENTITY,
 	id_car_driver int4 NOT NULL,
 	id_parking int4 NOT NULL,
+  patent_id VARCHAR(10) NOT NULL ,
 	created_at_dttm timestamptz NOT NULL,
 	expiration_at_dttm timestamptz NULL,
 	cancelled_at_dttm timestamptz NULL,

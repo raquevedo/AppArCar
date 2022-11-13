@@ -44,6 +44,14 @@ export async function getReservations(id) {
   });
 }
 
+export async function getAllReservations() {
+  const myHeaders = buildHeaders();
+
+  return await fetch('http://localhost:8000/parking/reservation/parking-user', {
+    headers: myHeaders
+  });
+}
+
 export async function postCheckIn(id) {
   const myHeaders = buildHeaders();
 
@@ -95,5 +103,13 @@ export async function patchParkingSettings(id, settings) {
     method: 'PATCH',
     headers: myHeaders,
     body: JSON.stringify(settings)
+  });
+}
+
+export async function getParkingStatusById(parkingId) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/parking-status/${parkingId}`, {
+    headers: myHeaders
   });
 }

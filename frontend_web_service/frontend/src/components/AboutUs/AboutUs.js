@@ -1,4 +1,3 @@
-
 import MemberInformation from '../MemberInformation/MemberInformation';
 
 
@@ -10,42 +9,42 @@ function AboutUs(){
         <div className='cell'>
           <MemberInformation
             name="Ramiro"
-            image="icon"
+            image='ProfileImgRama'
             message="Mensaje Ramiro"
           />
         </div>
         <div className='cell'>
           <MemberInformation
             name="Federico"
-            image="icon"
+            image="ProfileImgFede"
             message="Mensaje Federico"
           />
         </div>
         <div className='cell'>
           <MemberInformation
             name="Maximiliano"
-            image="icon"
+            image="ProfileImgMaxi"
             message="Mensaje Maximiliano"
           />
         </div>
         <div className='cell'>
           <MemberInformation
             name="Juan"
-            image="icon"
+            image="ProfileImgJuan"
             message="Mensaje Juan"
           />
         </div>
         <div className='cell'>
           <MemberInformation
             name="Marcos"
-            image="icon"
+            image="ProfileImgMarcos"
             message="Mensaje Marcos"
           />
         </div>
         <div className='cell'>
           <MemberInformation
             name="Manuel"
-            image="icon"
+            image="ProfileImgManu"
             message="Mensaje Manuel"
           />
         </div>

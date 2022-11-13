@@ -1,7 +1,6 @@
 import {buildHeaders} from './utils';
 
 export async function getPartnerUser() {
-  
   const myHeaders = buildHeaders();
   
   let response = await fetch('http://localhost:8000/user/partners/user-info', {
@@ -13,7 +12,6 @@ export async function getPartnerUser() {
 }
 
 export async function registerPartnerUser(partnerData) {
-  
   const myHeaders = buildHeaders();
   
   return fetch('http://localhost:8000/user/partners/create-user', {
@@ -25,7 +23,6 @@ export async function registerPartnerUser(partnerData) {
 }
 
 export async function updatePartnerUser(partnerData) {
-  
   const myHeaders = buildHeaders();
   
   return fetch('http://localhost:8000/user/partners/update-user', {
@@ -36,9 +33,7 @@ export async function updatePartnerUser(partnerData) {
     .then(data => data.json())
 }
 
-//ParkingUser
 export async function getParkingUser() {
-  
   const myHeaders = buildHeaders();
   
   return await fetch('http://localhost:8000/user/parking-user/user-info', {
@@ -48,7 +43,6 @@ export async function getParkingUser() {
 }
 
 export async function registerParkingUser(parkingData) {
-  
   const myHeaders = buildHeaders();
   
   return fetch('http://localhost:8000/user/parking-user/create', {
@@ -60,7 +54,6 @@ export async function registerParkingUser(parkingData) {
 } 
 
 export async function updateParkingUser(parkingData) {
-  
   const myHeaders = buildHeaders();
   
   return fetch('http://localhost:8000/user/parking-user/update-profile', {
