@@ -1,70 +1,84 @@
-import React, { useState } from 'react';
-import { registerUser, updateUser } from '../../controllers/usersController';
-import { get } from '../../utils/dictGet';
+import React from 'react';
+import { registerParkingUser, updateParkingUser} from '../../controllers/usersController';
+import * as yup from 'yup';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
 
-export default function UserForm({ setIsRegistered, values, buttonText, newUser }) {
-  if (values === undefined) {
-    values = {};
+export default function UserForm({ setIsRegistered, buttonText, newUser, valuesData }) {
+  const schema = yup.object({    
+    name: yup.string().required().min(3),
+    lastName: yup.string().required().min(3),
+    documentNumber: yup.number().required().min(0)
+  })
+
+  
+  let defaultValues = {};
+  if (valuesData !== undefined) {
+    defaultValues = {
+      name: valuesData['data']['name'],
+      lastName: valuesData['data']['lastName'],
+      documentNumber: valuesData['data']['documentNumber'] 
+    };
   }
+  
   if (buttonText === undefined) {
     buttonText = 'Submit';
   }
   if (newUser === undefined) {
     newUser = false;
   }
-
-  const [businessName, setBusinessName] = useState(get(values, 'businessName', ''));
-  const [cuitNumber, setCuitNumber] = useState(values['cuitNumber'] ?? '');
-  const [streetName, setStreetName] = useState(values['streetName'] ?? '');
-  const [streetNumber, setStreetNumber] = useState(values['streetNumber'] ?? '');
-  const [contactNumber, setContactNumber] = useState(values['contactNumber'] ?? '');
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-    if (newUser) {
-      await registerUser({
-        businessName,
-        cuitNumber,
-        streetName,
-        streetNumber,
-        contactNumber
-      });
-    } else {
-      await updateUser({
-        businessName,
-        cuitNumber,
-        streetName,
-        streetNumber,
-        contactNumber
-      });
-    }
+  
+  const { register, handleSubmit, formState:{ errors } } = useForm({
+    mode: 'onTouched',
+    defaultValues: defaultValues,
+    resolver: yupResolver(schema)
+  });
+  
+  const onSubmit = async (data) => {
+    const name = data.name
+    const lastName = data.lastName
+    const documentNumber = data.documentNumber
     
-    if (!(setIsRegistered === undefined)) {
-      setIsRegistered(true);
+  if (newUser) {
+    await registerParkingUser({
+      name,
+      lastName,
+      documentNumber
+    });
+  } else {
+    await updateParkingUser({
+      name,
+      lastName,
+      documentNumber
+    });
+  }
+    
+  if (!(setIsRegistered === undefined)) {
+    setIsRegistered(true);
     }
   }
-
   return(
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      
       <div className="user-box">
-          <input type="text" value={businessName} placeholder="Business Name" onChange={e => setBusinessName(e.target.value)} />
-        </div>
-        <div className="user-box">
-          <input type="text" value={cuitNumber} placeholder="CUIT" onChange={e => setCuitNumber(e.target.value)} />
-        </div>
-        <div className="user-box">
-          <input type="text" value={streetName} placeholder="Street Name" onChange={e => setStreetName(e.target.value)} />
-        </div>
-        <div className="user-box">
-          <input type="text" value={streetNumber} placeholder="Street Number" onChange={e => setStreetNumber(parseInt(e.target.value))} />
-        </div>
-        <div className="user-box">
-          <input type="text" value={contactNumber} placeholder="Phone Number" onChange={e => setContactNumber(parseInt(e.target.value))} />
-        </div>
+        <input type="text" placeholder='Name' {...register("name")}/>
+      </div>
+      { errors.name && <p>Name is invalid</p> }
+
+      <div className="user-box">
+        <input type="text" placeholder="Last Name" {...register("lastName")}/>
+      </div>
+      { errors.lastName && <p>Lastname is invalid</p> }
+
+      <div className="user-box">
+        <input type="text" placeholder="ID" {...register("documentNumber")}/>
+      </div>
+      { errors.documentNumber && <p>Document Number is invalid</p> }
       
       <div>
-        <button type="submit" className="bn632-hover bn24">{buttonText}</button>
+        <button id="button-update-submit" type="submit" className="bn632-hover bn24">{buttonText}</button>
       </div>
+      
     </form>
   );
 }
