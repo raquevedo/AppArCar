@@ -59,9 +59,9 @@ export default function ReservationsTab(props) {
   }
 
   return (
-    <div className="reservations">
+    <div>
       <button type="button" className="button" onClick={acceptAll}>Accept All</button>
-      <div className="grid-x grid-padding-x grid-margin-x background-reservations">
+      <div className="grid-x grid-padding-x grid-margin-x">
         <div className="cell large-6 small-12">
           <PendingReservations
             socket={props.socket}

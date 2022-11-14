@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from "../../assets/img/logo solo.png";
-import "../../index.css";
 import { deleteToken } from '../../utils/authToken';
 
 function Navbar(props) {
@@ -15,20 +13,20 @@ function Navbar(props) {
 
   return (
     <div>
-      <div className='grid-x bar '>
+      <div className='grid-x'>
         <div>
-          <ul className="dropdown menu " data-dropdown-menu>
+          <ul data-dropdown-menu>
             <Link to='/'>
-            <img src={logo} alt="Logo" className="navbar-logo" ></img>
+              <li>AppArCar</li>
             </Link>
           </ul>
         </div>
-        <div className="top-bar-right center">
+        <div>
           <Link to='aboutus'>
-            <li className="text-nav ">About Us</li>
+            <li>About Us</li>
           </Link>
           { props.userLoggedIn && 
-            <button type='button' className='text-nav' onClick={logUserOut}>
+            <button type='button' onClick={logUserOut}>
               Log Out
             </button>
           }

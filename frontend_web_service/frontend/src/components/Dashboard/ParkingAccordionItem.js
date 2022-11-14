@@ -3,12 +3,12 @@ import { useState } from "react";
 import ParkingAccordionContent from "./ParkingAccordionContent";
 
 export default function ParkingAccordionItem(props) {
-  const [isActive, setIsActive] = useState(false)
+  const [isActive, setIsActive] = useState(false);
 
   return(
-    <div className='custom-accordion-item ' key={props.garage.parkingInfo.id}>
-      <div className='custom-accordion-title ' onClick={() => setIsActive(!isActive)}>
-        <div className='grid-x acordeon bn24 grid-margin-x grid-padding-x'>
+    <div key={props.garage.parkingInfo.id}>
+      <div onClick={() => setIsActive(!isActive)}>
+        <div className='grid-x grid-margin-x grid-padding-x'>
           <div className='cell small-6 '>
             <h2>{props.garage.parkingInfo.businessName}</h2>
           </div>
@@ -24,7 +24,8 @@ export default function ParkingAccordionItem(props) {
       {isActive && 
         <div className="custom-accordion-content">
           <ParkingAccordionContent garage={props.garage} />
-        </div>}
+        </div>
+      }
     </div>
   );
 }

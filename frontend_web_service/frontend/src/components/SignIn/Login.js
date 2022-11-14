@@ -48,16 +48,16 @@ export default function Login({ setToken, setUserLoggedIn }) {
   };
 
   return (
-    <div className="login-wrapper login-box">
-      <h1 className="text-form">Log In</h1>
+    <div className="login-wrapper">
+      <h1>Log In</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
 
-        <div class="user-box">
+        <div>
           <input type="text" placeholder="Email" {...register("email")} />
         </div>
         {errors.email && <p>Email is invalid</p>}
 
-        <div class="user-box">
+        <div>
           <input
             type="password"
             placeholder="Password"
@@ -67,7 +67,7 @@ export default function Login({ setToken, setUserLoggedIn }) {
         {errors.password && <p>Password is invalid</p>}
 
         <div>
-          <button className="bn632-hover bn24" type="submit">
+          <button className="button" type="submit">
             Login
           </button>
         </div>

@@ -63,7 +63,7 @@ export default function UserForm({ setIsRegistered, values, buttonText, newUser 
         </div>
       
       <div>
-        <button type="submit" className="bn632-hover bn24">{buttonText}</button>
+        <button type="submit" className="button">{buttonText}</button>
       </div>
     </form>
   );

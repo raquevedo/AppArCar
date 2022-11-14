@@ -97,9 +97,9 @@ export default function HoursTab(props) {
   }, [props.id]);
 
   return (
-    <div className="background-hours">
+    <div>
       <div>
-        <div className="table-body-hours">
+        <div>
           <table>
             <thead>
               <tr>
@@ -160,7 +160,7 @@ export default function HoursTab(props) {
               />
             </tbody>
           </table>
-          <button className="hours-button bn24" onClick={updateParkingSettings}>
+          <button className="button" onClick={updateParkingSettings}>
             Update
           </button>
         </div>

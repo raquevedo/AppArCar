@@ -18,19 +18,19 @@ export default function ParkingList() {
   }
   const [showModal, setShowModal] = useState(false);
   return(
-    <div className='grid-y grid-margin-x grid-padding-x conterneitorParking'>
-      <div className='cell '>
+    <div>
+      <div>
         <div className='grid-x align-center'>
           <div className='cell large-9 small-12'>
             <h1 className="text-form"> Your Parkings: </h1>
           </div>
           <div className='cell large-3 small-6'>
-          <button className='bn632-hover bn24' onClick={() => setShowModal(true)}>+ Add Parking</button>
+          <button className='button' onClick={() => setShowModal(true)}>+ Add Parking</button>
             { showModal && <AddParkingModal parkingData={parkingData} setShowModal={setShowModal} setParkingData={setParkingData}/> }
           </div>
         </div>
       </div>
-      <div className='cell large-3 small-6'>
+      <div>
         <ParkingAccordion parkingData={parkingData}/>
       </div>
     </div>

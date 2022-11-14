@@ -127,7 +127,7 @@ export default function ManagementBoard(props) {
   const baseUrl = `/dashboard/manage/${id}`;
   return (
     <div className="grid-y">
-      <div className="cell status-cards">
+      <div className="cell">
         <StatusCards
           socket={socket}
           availableSlots={availableSlots}
@@ -135,14 +135,10 @@ export default function ManagementBoard(props) {
           occupiedSlots={occupiedSlots}
         />
       </div>
-      <div className="cell tab-head grid-margin-y grid-padding-y">
-        <div className="grid-x grid-margin-x grid-padding-x grid-margin-y grid-padding-y">
+      <div className="cell">
+        <div className="grid-x">
           <div
-            className={
-              tab === "reservations"
-                ? "cell large-3 small-3 center cell-active-tabs"
-                : "cell cell-tabs bn24 center large-3 small-3"
-            }
+            className="cell small-3"
             onClick={() => navigate(`${baseUrl}/reservations`)}>
             <button
               className={tab === "reservations" ? "tab-active-tabs" : "tab"}
@@ -152,11 +148,7 @@ export default function ManagementBoard(props) {
             </button>
           </div>
           <div
-            className={
-              tab === "hours"
-                ? "cell large-3 small-3 center cell-active-tabs"
-                : "cell cell-tabs bn24 center large-3 small-3"
-            }
+            className="cell small-3"
             onClick={() => navigate(`${baseUrl}/hours`)}>
             <button
               className={tab === "hours" ? "tab-active-tabs" : "tab"}
@@ -166,11 +158,7 @@ export default function ManagementBoard(props) {
             </button>
           </div>
           <div
-            className={
-              tab === "status"
-                ? "cell large-3 small-3 center cell-active-tabs"
-                : "cell cell-tabs bn24 center large-3 small-3"
-            }
+            className="cell small-3"
             onClick={() => navigate(`${baseUrl}/status`)}>
             <button
               className={tab === "status" ? "tab-active-tabs" : "tab"}
@@ -180,11 +168,7 @@ export default function ManagementBoard(props) {
             </button>
           </div>
           <div
-            className={
-              tab === "settings"
-                ? "cell large-3 small-3 center cell-active-tabs"
-                : "cell cell-tabs bn24 center large-3 small-3"
-            }
+            className="cell small-3"
             onClick={() => navigate(`${baseUrl}/settings`)}>
             <button
               className={tab === "settings" ? "tab-active-tabs" : "tab"}

@@ -8,11 +8,11 @@ import HistoryView from '../PaymentHistory/HistoryView';
 
 export default function Dashboard({ partnerData }) {
   return(
-    <div className='grid-x  grid-margin-x grid-padding-x'>
+    <div className='grid-x grid-margin-x grid-padding-x'>
       <div className='cell small-2 '>
         <SideNav />
       </div>
-      <div className='grid-y grid-margin-x grid-padding-x main small-10 large-8 '>
+      <div className='grid-y grid-margin-x grid-padding-x main small-10 large-8'>
         <Routes>
           <Route
             path='/'
