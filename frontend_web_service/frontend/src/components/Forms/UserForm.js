@@ -71,7 +71,7 @@ export default function UserForm({ setIsRegistered, buttonText, newUser, valuesD
       { errors.lastName && <p>Lastname is invalid</p> }
 
       <div className="user-box">
-        <input type="text" placeholder="ID" {...register("documentNumber")}/>
+        <input type="text" placeholder="Document Number" {...register("documentNumber")}/>
       </div>
       { errors.documentNumber && <p>Document Number is invalid</p> }
       
