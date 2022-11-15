@@ -18,24 +18,34 @@ function CardsCarousel ({payMethod}){
     }
   }
 
+
   const ref = useRef(null);
   const renderItem = useCallback(
     ({ item, index }) => (
       <View
         style={{
-          backgroundColor: "#3043ff",
-          borderRadius: 5,
+          backgroundColor: "#011f44",
+          borderRadius: 20,
+          width:300,
           height: 250,
-          padding: 50,
-          marginLeft: 25,
-          marginRight: 25,
+          padding: 20,
+         
+          marginRight: 15,
           marginTop: 10,
           marginBottom: 50
         }}
       >
-        <Text style={{ fontSize: 17, color:"white" }}>{item.cardNumber}</Text>
-        {item.imageName=="visa" && <Image source={require("../../assets/visa.png")} style={styles.imageCard}/>}
-        {item.imageName=="master" && <Image source={require("../../assets/master.png")} style={styles.imageCard}/>}
+        {<Image resizeMode="contain" source={require("../../assets/fonts/chip.png")} style={styles.imageCardChip}/>}
+        {<Image resizeMode="contain" source={require("../../assets/fonts/hologram.png")} style={styles.imageCardChiph}/>}
+        {item.company === 'Amex' && <Image resizeMode="contain" source={require("../../assets/Amex.png")} style={styles.imageCard}/>}
+        {item.company === 'Master' && <Image resizeMode="contain" source={require("../../assets/Visa.png")} style={styles.imageCard}/>}
+        {item.company === 'Visa' && <Image resizeMode="contain" source={require("../../assets/Master.png")} style={styles.imageCard}/>}
+        
+        <Text style={{ top: -40,fontSize: 18, color:"white",fontFamily: "Credit" }}>{item.cardNumber}</Text>
+        <Text style={{ top: -40,fontSize: 20, color:"white",fontFamily: "TTNorms-Regular" }}>{item.cardName}</Text>
+        
+        <Text style={{ marginLeft: 200,top: -40,fontSize: 10, color:"white",fontFamily: "Credit" }}>{item.expireDate}</Text>
+        
       </View>
     ),
     []

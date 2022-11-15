@@ -225,9 +225,20 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   imageCard: {
-    flex: 1,
-    width: 200,
-    height: 100,
+    width: '30%', 
+    height: '30%',
+    marginLeft:180,
+    top: -110
+  },
+  imageCardChiph: {
+    width: '170%', 
+    height: '20%',
+    
+  },
+  imageCardChip: {
+    width: '30%', 
+    height: '30%',
+ 
   },
   
   imageGoogle: {

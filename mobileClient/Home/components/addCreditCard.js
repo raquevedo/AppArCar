@@ -13,6 +13,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { TextInput } from "react-native-paper";
 import DatePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
+import { Dropdown } from "react-native-element-dropdown";
 
 function AddCreditCard({ navigation }) {
   const [cardNumber, setCardNumber] = React.useState("");
@@ -34,6 +35,21 @@ function AddCreditCard({ navigation }) {
     setExpireDate(expiredDateDt);
     hideDatePicker();
   };
+
+  const [isFocus, setIsFocus] = React.useState(false);
+  const [isFocusc, setIsFocusc] = React.useState(false);
+  const data = [
+    { label: "Amex", value: "Amex" },
+    { label: "Visa", value: "Visa" },
+    { label: "Master", value: "Master" },
+  ];
+
+  const datac = [
+    { label: "Credit", value: "Credit" },
+    { label: "Debit", value: "Debit" },
+    
+  ];
+
   return (
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
@@ -56,17 +72,44 @@ function AddCreditCard({ navigation }) {
             style={styles.text}
             onChangeText={setCardName}
           />
-          <TextInput
-            placeholder="Company"
+         
+          <Dropdown
+            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            iconStyle={styles.iconStyle}
+            labelField="label"
+            valueField="value"
+            label="Company"
+            data={data}
+            placeholder="Seleccione Company"
             value={company}
-            style={styles.text}
-            onChangeText={setCompany}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={(item) => {
+              setCompany(item.value);
+              setIsFocus(false);
+            }}
           />
-          <TextInput
-            placeholder="Type"
+          <Dropdown
+            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            iconStyle={styles.iconStyle}
+            labelField="label"
+            valueField="value"
+            label="Tipo"
+            data={datac}
+            placeholder="Seleccione Tipo"
             value={type}
-            style={styles.text}
-            onChangeText={setType}
+            onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
+            onChange={(item) => {
+              setType(item.value);
+              setIsFocus(false);
+            }}
           />
           <DatePicker
             isVisible={isDatePickerVisible}
