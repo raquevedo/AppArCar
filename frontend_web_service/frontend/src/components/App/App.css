@@ -33,6 +33,7 @@ body{
 
 .navbar-item a:hover {
   background-color: var(--primary-hover);
+  color: white;
 }
 
 .float-right {
@@ -45,6 +46,56 @@ body{
 }
 
 #burger-icon {
-  height: 3.5rem;
+  height: 3.4rem;
   width: auto;
+}
+
+#navbar-icon {
+  height: 1.7rem;
+  width: auto;
+}
+
+#homepage-video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.cover-container {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  background: rgba(158, 51, 247, .5);
+}
+
+.subtitle {
+  color: white;
+}
+
+.homepage-button {
+  color: white;
+  background-color: #9e33f7;
+  font-size: 5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-top: 10rem;
+  text-align: center;
+  text-decoration: none;
+  font-family: roboto;
+}
+
+.homepage-button:hover {
+  background-color: #8f11f7;
 }

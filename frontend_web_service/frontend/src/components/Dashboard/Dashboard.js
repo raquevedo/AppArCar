@@ -8,7 +8,7 @@ import HistoryView from '../PaymentHistory/HistoryView';
 
 export default function Dashboard({ partnerData }) {
   return(
-    <div className='grid-x grid-margin-x grid-padding-x'>
+    <div className='grid-x'>
       <div className='cell small-2 '>
         <SideNav />
       </div>

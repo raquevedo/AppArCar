@@ -13,6 +13,7 @@ import DashboardWrapper from "../Dashboard/DashboardWrapper";
 import Navbar from "../Shared/Navbar";
 import AboutUs from '../AboutUs/AboutUs';
 import { isLoggedIn } from '../../utils/isLoggedIn';
+import Logout from "../Shared/Logout";
 
 function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(isLoggedIn())
@@ -21,12 +22,13 @@ function App() {
     <BrowserRouter>
       <div className="grid-y">
         <div className="cell small-12">
-          <Navbar userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn}/>
+          <Navbar userLoggedIn={userLoggedIn}/>
         </div>
         <div className="cell large-12">
           <Routes>
             <Route path='/' element={<Homepage />} />
-            <Route path='signin' element={<SignIn setUserLoggedIn={setUserLoggedIn}/>} />
+            <Route path='signin' element={<SignIn setUserLoggedIn={setUserLoggedIn}/>}/>
+            <Route path='logout' element={<Logout setUserLoggedIn={setUserLoggedIn}/>}/>
             <Route path='aboutus' element={<AboutUs/>} />
             <Route
               path="dashboard/*"
