@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { deleteToken } from '../../utils/authToken';
+import burger from '../../assets/img/burger.png';
+import github from '../../assets/img/GitHub-Mark-64px.png';
 
 function Navbar(props) {
   const navigate = useNavigate()
@@ -12,27 +14,27 @@ function Navbar(props) {
   }
 
   return (
-    <div>
-      <div className='grid-x'>
-        <div>
-          <ul data-dropdown-menu>
-            <Link to='/'>
-              <li>AppArCar</li>
-            </Link>
-          </ul>
-        </div>
-        <div>
-          <Link to='aboutus'>
-            <li>About Us</li>
-          </Link>
-          { props.userLoggedIn && 
-            <button type='button' onClick={logUserOut}>
-              Log Out
-            </button>
-          }
-        </div>
-      </div>
-    </div>
+    <ul className='navbar'>
+      <li className='navbar-item'>
+        <img src={burger} className='navbar-icon' id='burger-icon'></img>
+      </li>
+      <li className='navbar-item'>
+        <Link to='/' className='navbar-link'>
+          AppArCar
+        </Link>
+      </li>
+      <li className='navbar-item float-right'>
+        <a href='https://github.com/raquevedo/AppArCar' className='navbar-link'>
+          <img className='navbar-icon' src={github}></img>
+        </a>
+      </li>
+      <li className='navbar-item float-right'>
+        <Link to='/aboutus' className='navbar-link'>
+          About Us
+        </Link>
+      </li>
+    </ul>
   );
 }
+
 export default Navbar;

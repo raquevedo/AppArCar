@@ -1,6 +1,7 @@
 
 :root {
-    --primary-color: #47a4fa;
+    --primary-color: #9e33f7;
+    --primary-hover: #8f11f7;
     --grey: #c5c5c5;
 }
 
@@ -10,7 +11,40 @@ body{
     
 }
 
-.navbar-logo {
-  height: auto;
-  width: 80px;
+.navbar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--primary-color);
+}
+
+.navbar-item {
+  float: left;
+}
+
+.navbar-item a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar-item a:hover {
+  background-color: var(--primary-hover);
+}
+
+.float-right {
+  float: right;
+}
+
+.navbar-icon {
+  height: 1.5rem;
+  width: auto;
+}
+
+#burger-icon {
+  height: 3.5rem;
+  width: auto;
 }
