@@ -1,3 +1,4 @@
+/* General */
 
 :root {
     --primary-color: #9e33f7;
@@ -10,6 +11,12 @@ body{
     padding: 0px 30px 30px 30px;
     
 }
+
+.with-shadow {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* Navbar classes */
 
 .navbar {
   list-style-type: none;
@@ -55,6 +62,8 @@ body{
   width: auto;
 }
 
+/* Homepage classes */
+
 #homepage-video {
   width: 100vw;
   height: 100vh;
@@ -94,8 +103,58 @@ body{
   text-align: center;
   text-decoration: none;
   font-family: roboto;
+  cursor: pointer;
 }
 
 .homepage-button:hover {
+  background-color: #8f11f7;
+}
+
+/* Sign in classes */
+
+.login-wrapper {
+  min-height: 50vh;
+  border-width: 0.5rem;
+  border-radius: 2%;
+  padding: 2rem;
+  position: relative;
+  margin-top: 30%;
+  padding-bottom: 15%;
+}
+
+#register {
+  border-right-style: solid;
+  border-right-color: #9e33f7;
+  border-right-width: 1rem;
+}
+
+#login {
+  border-left-style: solid;
+  border-left-color: #9e33f7;
+  border-left-width: 1rem;
+}
+
+.signin-header {
+  color: #9e33f7;
+}
+
+.signin-button {
+  background-color: #9e33f7;
+  text-decoration: none;
+  cursor: pointer;
+  width: 70%;
+  position: absolute;
+  bottom: 1rem;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto;
+  padding: 0.8rem;
+  border-radius: 1rem;
+  font-size: 2rem;
+  color: white;
+}
+
+.signin-button:hover {
   background-color: #8f11f7;
 }

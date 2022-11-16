@@ -54,39 +54,36 @@ export default function Register() {
   }
 
   return(
-    <div className="login-wrapper">
-      <h1>Register</h1>
+    <div className="login-wrapper with-shadow" id='register'>
+      <h1 className="signin-header">Register</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
 
-      <div>
-          
-          <input type="text" placeholder="Email"{...register("email")} />
-        </div>
-        { errors.email && <p>Email is invalid</p> }
+        <div className="form-fields">
 
-        <div>
-          
-          <input type="text" placeholder="Username"{...register("username")} />
-        </div>
-        { errors.username && <p>Username is invalid</p> }
+          <div>  
+            <input type="text" placeholder="Email"{...register("email")} />
+          </div>
+          { errors.email && <p>Email is invalid</p> }
 
-        <div>
-          
-          <input type="password" placeholder="Password"{...register("password")} />
-        </div>
-        { errors.password && <p>Password is invalid</p> }
+          <div>
+            <input type="text" placeholder="Username"{...register("username")} />
+          </div>
+          { errors.username && <p>Username is invalid</p> }
 
-        <div>
-          
-          <input type="password" placeholder="Confirm Password"{...register("confirmPassword")} />
-        </div>
-        { errors.confirmPassword && <p>Password doesn't match</p>}
+          <div>
+            <input type="password" placeholder="Password"{...register("password")} />
+          </div>
+          { errors.password && <p>Password is invalid</p> }
 
-        <div>
-          <button className="button" type="submit">
-            Register
-          </button>
+          <div>
+            <input type="password" placeholder="Confirm Password"{...register("confirmPassword")} />
+          </div>
+          { errors.confirmPassword && <p>Password doesn't match</p>}
+
         </div>
+        <button className="signin-button" type="submit">
+          Register
+        </button>
       </form>
       { showModal && <NoticeModal header={modalHeader} body={modalBody} setShowModal={setShowModal} /> }
     </div>
