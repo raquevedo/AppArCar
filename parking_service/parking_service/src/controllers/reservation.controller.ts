@@ -94,7 +94,7 @@ export class ReservationController {
     pkgReservation.idCarDriver = 0
     pkgReservation.createdAtDttm = Date()    
     pkgReservation.expirationAtDttm = null
-    pkgReservation.status = 'created'
+    pkgReservation.status = 'parked'
     pkgReservation.paymentStatus = 'pending'
     pkgReservation.flgExtended = false 
     pkgReservation.totalPrice = (await this.pkgParkingRepository.findById(pkgReservation.idParking)).priceHour
@@ -102,6 +102,7 @@ export class ReservationController {
     pkgReservation.sysUpdatedAtDttm = Date()
     
     await reserveFreeSlot(this.pkgParkingStatusRepository,pkgReservation.idParking)
+    await reservedToBusySlot(this.pkgParkingStatusRepository, pkgReservation.idParking)
     let data = await this.pkgReservationRepository.create(pkgReservation)
     publishMessageIntoQueue(Buffer.from(JSON.stringify(data)), 'reservations')
 
