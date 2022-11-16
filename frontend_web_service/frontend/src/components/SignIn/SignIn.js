@@ -12,13 +12,15 @@ function SignIn(props) {
     return <Navigate to="/dashboard" state={{ from: location }} replace />;
   }
   return (
-    <div className='grid-container'>
-      <div className='grid-x grid-margin-x grid-padding-x grid-padding-y'>
-        <div className='cell large-6 medium-12'>
-          <Login setToken={setToken} setUserLoggedIn={props.setUserLoggedIn}/>
-        </div>
-        <div className='cell large-6 medium-12'>
-          <Register />
+    <div className='signin-background'>
+      <div className='grid-container'>
+        <div className='grid-x grid-margin-x grid-padding-x grid-padding-y'>
+          <div className='cell large-6 medium-12'>
+            <Login setToken={setToken} setUserLoggedIn={props.setUserLoggedIn}/>
+          </div>
+          <div className='cell large-6 medium-12'>
+            <Register />
+          </div>
         </div>
       </div>
     </div>

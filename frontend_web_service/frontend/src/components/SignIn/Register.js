@@ -64,22 +64,22 @@ export default function Register() {
           <div>
             <input type="text" placeholder="Email *"{...register("email")} />
           </div>
-          { errors.email && <p>Email is invalid</p> }
+          { errors.email && <p className="error-text">Email is invalid</p> }
 
           <div>
             <input type="text" placeholder="Username *"{...register("username")} />
           </div>
-          { errors.username && <p>Username is invalid</p> }
+          { errors.username && <p className="error-text">Username is invalid</p> }
 
           <div>
             <input type="password" placeholder="Password *"{...register("password")} />
           </div>
-          { errors.password && <p>Password is invalid</p> }
+          { errors.password && <p className="error-text">Password is invalid</p> }
 
           <div>
             <input type="password" placeholder="Confirm Password *"{...register("confirmPassword")} />
           </div>
-          { errors.confirmPassword && <p>Password doesn't match</p>}
+          { errors.confirmPassword && <p className="error-text">Password doesn't match</p>}
 
         </div>
         <button className="signin-button" type="submit">

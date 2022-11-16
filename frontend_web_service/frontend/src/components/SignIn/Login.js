@@ -57,7 +57,7 @@ export default function Login({ setToken, setUserLoggedIn }) {
           <div>
             <input type="text" placeholder="Email *" {...register("email")} />
           </div>
-          {errors.email && <p>Email is invalid</p>}
+          {errors.email && <p className="error-text">Email is invalid</p>}
 
           <div>
             <input
@@ -66,7 +66,7 @@ export default function Login({ setToken, setUserLoggedIn }) {
               {...register("password")}
             />
           </div>
-          {errors.password && <p>Password is invalid</p>}
+          {errors.password && <p className="error-text">Password is invalid</p>}
 
         </div>
         <button className="signin-button" type="submit">

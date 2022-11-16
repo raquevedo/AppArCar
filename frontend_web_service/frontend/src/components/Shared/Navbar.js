@@ -6,7 +6,7 @@ import apparcar from '../../assets/img/apparcar-simple.png';
 
 function Navbar(props) {
   return (
-    <ul className='navbar'>
+    <ul className='navbar with-shadow'>
       <li className='navbar-item'>
         <img 
           src={burger}

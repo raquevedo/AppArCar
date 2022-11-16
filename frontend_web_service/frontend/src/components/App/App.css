@@ -20,6 +20,10 @@ body{
   color:#9e33f7;
 }
 
+.error-text {
+  color: red;
+}
+
 /* Modals */
 
 .modal {
@@ -66,6 +70,7 @@ body{
 .modal-text {
   font-size: 1.4rem;
 }
+
 /* Navbar classes */
 
 .navbar {
@@ -162,6 +167,19 @@ body{
 
 /* Sign in classes */
 
+.signin-background {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  background: #9c9c9c;
+}
+
 .login-wrapper {
   min-height: 50vh;
   border-width: 0.5rem;
@@ -170,6 +188,7 @@ body{
   position: relative;
   margin-top: 30%;
   padding-bottom: 15%;
+  background-color: white;
 }
 
 #register {
@@ -208,4 +227,6 @@ body{
 .signin-button:hover {
   background-color: #8f11f7;
 }
+
+/* Dashboard */
 
