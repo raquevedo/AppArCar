@@ -56,27 +56,28 @@ export default function Register() {
   return(
     <div className="login-wrapper with-shadow" id='register'>
       <h1 className="signin-header">Register</h1>
+      <p id="is-required-text">* Required</p>
       <form onSubmit={handleSubmit(onSubmit)}>
 
         <div className="form-fields">
 
-          <div>  
-            <input type="text" placeholder="Email"{...register("email")} />
+          <div>
+            <input type="text" placeholder="Email *"{...register("email")} />
           </div>
           { errors.email && <p>Email is invalid</p> }
 
           <div>
-            <input type="text" placeholder="Username"{...register("username")} />
+            <input type="text" placeholder="Username *"{...register("username")} />
           </div>
           { errors.username && <p>Username is invalid</p> }
 
           <div>
-            <input type="password" placeholder="Password"{...register("password")} />
+            <input type="password" placeholder="Password *"{...register("password")} />
           </div>
           { errors.password && <p>Password is invalid</p> }
 
           <div>
-            <input type="password" placeholder="Confirm Password"{...register("confirmPassword")} />
+            <input type="password" placeholder="Confirm Password *"{...register("confirmPassword")} />
           </div>
           { errors.confirmPassword && <p>Password doesn't match</p>}
 
