@@ -112,6 +112,12 @@ body{
   width: auto;
 }
 
+#burger-icon-active {
+  height: 3.4rem;
+  width: auto;
+  background-color: #8f11f7;
+}
+
 #navbar-icon {
   height: 1.7rem;
   width: auto;
@@ -228,5 +234,9 @@ body{
   background-color: #8f11f7;
 }
 
-/* Dashboard */
+/* ParkingList */
 
+#parking-view-body {
+  width: 80%;
+  margin: auto;
+}

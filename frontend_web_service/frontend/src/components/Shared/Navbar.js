@@ -5,15 +5,26 @@ import github from '../../assets/img/GitHub-Mark-64px.png';
 import apparcar from '../../assets/img/apparcar-simple.png';
 
 function Navbar(props) {
+
+  const changeSideNavState = () => {
+    if (props.showSideNav) {
+      props.setShowSideNav(false);
+    } else {
+      props.setShowSideNav(true);
+    }
+  };
+
   return (
     <ul className='navbar with-shadow'>
       <li className='navbar-item'>
-        <img 
-          src={burger}
-          className='navbar-icon'
-          id='burger-icon'
-          alt='burger'
-        />
+        <button type='button' onClick={changeSideNavState}>
+          <img 
+            src={burger}
+            className='navbar-icon'
+            id='burger-icon'
+            alt='burger'
+          />
+        </button>
       </li>
       <li className='navbar-item'>
         <Link to='/'>

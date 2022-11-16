@@ -17,12 +17,17 @@ import Logout from "../Shared/Logout";
 
 function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(isLoggedIn())
+  const [showSideNav, setShowSideNav] = useState(false);
 
   return (
     <BrowserRouter>
       <div className="grid-y">
         <div className="cell small-12">
-          <Navbar userLoggedIn={userLoggedIn}/>
+          <Navbar
+            userLoggedIn={userLoggedIn}
+            showSideNav={showSideNav}
+            setShowSideNav={setShowSideNav}
+          />
         </div>
         <div className="cell large-12">
           <Routes>
@@ -34,7 +39,7 @@ function App() {
               path="dashboard/*"
               element={
                 <RequireAuth>
-                  <DashboardWrapper />
+                  <DashboardWrapper showSideNav={showSideNav} />
                 </RequireAuth>
               }
             />

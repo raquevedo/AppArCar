@@ -6,46 +6,44 @@ import SideNav from '../Shared/SideNav';
 import ManagementBoard from '../Management/ManagementBoard';
 import HistoryView from '../PaymentHistory/HistoryView';
 
-export default function Dashboard({ partnerData }) {
+export default function Dashboard(showSideNav) {
   return(
-    <div className='grid-x'>
-      <div className='cell small-2 '>
+    <div>
+      {showSideNav['showSideNav'] &&
         <SideNav />
-      </div>
-      <div className='grid-y grid-margin-x grid-padding-x main small-10 large-8'>
-        <Routes>
-          <Route
-            path='/'
-            element={
-              <ParkingList />
-            }
-          />
-          <Route
-            path='profile'
-            element={
-              <Profile />
-            }
-          />
-          <Route
-            path='manage/:id/:tab/*'
-            element={
-              <ManagementBoard />
-            }
-          />
-          <Route
-            path='manage/:id/*'
-            element={
-              <ManagementBoard />
-            }
-          />
-          <Route
-            path='history'
-            element={
-              <HistoryView />
-            }
-          />
-        </Routes>
-      </div>
+      }
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <ParkingList />
+          }
+        />
+        <Route
+          path='profile'
+          element={
+            <Profile />
+          }
+        />
+        <Route
+          path='manage/:id/:tab/*'
+          element={
+            <ManagementBoard />
+          }
+        />
+        <Route
+          path='manage/:id/*'
+          element={
+            <ManagementBoard />
+          }
+        />
+        <Route
+          path='history'
+          element={
+            <HistoryView />
+          }
+        />
+      </Routes>
     </div>
   );
 

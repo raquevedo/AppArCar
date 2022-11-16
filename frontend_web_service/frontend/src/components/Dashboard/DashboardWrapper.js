@@ -3,14 +3,12 @@ import Dashboard from './Dashboard';
 import ProfileSetup from './ProfileSetup';
 import { getPartnerData }  from '../../controllers/usersController';
 
-export default function DashboardWrapper() {
+export default function DashboardWrapper(showSideNav) {
   const [isRegistered, setIsRegistered] = useState();
-  const [partnerData, setPartnerData] = useState({});
 
   async function assignPartnerData() {
     const partner = await getPartnerData();
     setIsRegistered(partner['isRegister']);
-    setPartnerData(partner['data'])
   }
 
   useEffect(() => {
@@ -19,7 +17,7 @@ export default function DashboardWrapper() {
 
   return(
     <div>
-      {isRegistered && <Dashboard partnerData={partnerData}/>}
+      {isRegistered && <Dashboard showSideNav={showSideNav['showSideNav']}/>}
       {isRegistered === false && <ProfileSetup setIsRegistered={setIsRegistered}/>}
     </div>
   );
