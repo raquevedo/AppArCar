@@ -24,6 +24,12 @@ body{
   color: red;
 }
 
+.vertical-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 /* Modals */
 
 .modal {
@@ -71,6 +77,23 @@ body{
   font-size: 1.4rem;
 }
 
+.dark-background {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  background: #9c9c9c;
+}
+
+.white-background {
+  background: white;
+}
+
 /* Navbar classes */
 
 .navbar {
@@ -110,12 +133,6 @@ body{
 #burger-icon {
   height: 3.4rem;
   width: auto;
-}
-
-#burger-icon-active {
-  height: 3.4rem;
-  width: auto;
-  background-color: #8f11f7;
 }
 
 #navbar-icon {
@@ -163,7 +180,7 @@ body{
   margin-top: 10rem;
   text-align: center;
   text-decoration: none;
-  font-family: roboto;
+  font-family: Sans-Serif;
   cursor: pointer;
 }
 
@@ -172,19 +189,6 @@ body{
 }
 
 /* Sign in classes */
-
-.signin-background {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: -1;
-  background: #9c9c9c;
-}
 
 .login-wrapper {
   min-height: 50vh;
@@ -237,6 +241,63 @@ body{
 /* ParkingList */
 
 #parking-view-body {
+  position: relative;
   width: 80%;
+  min-height: 80%;
   margin: auto;
+  margin-top: 5%;
+  border-top-style: solid;
+  border-top-color: #9e33f7;
+  border-top-width: 1rem;
+  padding: 1rem;
+}
+
+.text-form {
+  max-width: 60%;
+}
+
+#add-parking-button {
+  background-color: rgb(22, 150, 22);
+  text-decoration: none;
+  cursor: pointer;
+  padding: 1.6rem;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  color: white;
+  float: right;
+}
+
+.accordion-item {
+  border-width: 1rem;
+  border-radius: 1rem;
+  border-style: solid;
+  background-color: #9e33f7;
+  border-color: #9e33f7;
+  margin: 1rem;
+  margin-bottom: 0;
+  color: white;
+}
+
+#status-text-enabled {
+  display: inline;
+  color: #4bc475;
+}
+
+#green-circle {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  background: #4bc475;
+}
+
+#status-text-disabled {
+  display: inline;
+  color: red;
+}
+
+#red-circle {
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: red;
 }
