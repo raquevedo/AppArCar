@@ -72,6 +72,43 @@ export class ReservationController {
     return data
   }
 
+  @post('/reservation/manual-create')
+  @response(200, {
+    description: 'PkgReservation model instance',
+    content: {'application/json': {schema: getModelSchemaRef(PkgReservation)}},
+  })
+  async createManualReservation(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(PkgReservation, {
+            title: 'NewPkgReservation',
+            exclude: ['id','idCarDriver','createdAtDttm','expirationAtDttm','cancelledAtDttm','checkinAtDttm','checkoutAtDttm','status','paymentStatus','flgExtended','totalPrice','sysCreatedAtDttm','sysUpdatedAtDttm'],
+          }),
+        },
+      },
+    })
+    pkgReservation: Omit<PkgReservation, 'id'>,
+  ): Promise<PkgReservation> {
+
+    pkgReservation.idCarDriver = 0
+    pkgReservation.createdAtDttm = Date()    
+    pkgReservation.expirationAtDttm = null
+    pkgReservation.status = 'parked'
+    pkgReservation.paymentStatus = 'pending'
+    pkgReservation.flgExtended = false 
+    pkgReservation.totalPrice = (await this.pkgParkingRepository.findById(pkgReservation.idParking)).priceHour
+    pkgReservation.sysCreatedAtDttm = Date()
+    pkgReservation.sysUpdatedAtDttm = Date()
+    
+    await reserveFreeSlot(this.pkgParkingStatusRepository,pkgReservation.idParking)
+    await reservedToBusySlot(this.pkgParkingStatusRepository, pkgReservation.idParking)
+    let data = await this.pkgReservationRepository.create(pkgReservation)
+    publishMessageIntoQueue(Buffer.from(JSON.stringify(data)), 'reservations')
+
+    return data
+  }
+
   @get('/reservation/{id}')
   @response(200, {
     description: 'PkgReservation model instance',
@@ -213,7 +250,7 @@ export class ReservationController {
   ): Promise<void> {
     pkgReservation = await this.pkgReservationRepository.findById(id)
 
-    if(pkgReservation.status != 'expired'){
+    if(pkgReservation.status != 'expired' && ( pkgReservation.status == 'accepted' || pkgReservation.status == 'extended')){
       
       let priceHour = (await this.pkgParkingRepository.findById(pkgReservation.idParking)).priceHour
       pkgReservation.status = 'extended'
@@ -222,6 +259,8 @@ export class ReservationController {
       pkgReservation.sysUpdatedAtDttm = Date()
       pkgReservation.expirationAtDttm = String(addHours(String(pkgReservation.expirationAtDttm),1))
 
+    }else {
+      throw new Error("We can only extends reservations with status <> expired and status = accepted or extended. Reservation: "+id+" has status: "+pkgReservation.status)
     }
     
     await this.pkgReservationRepository.updateById(id, pkgReservation);
@@ -247,13 +286,13 @@ export class ReservationController {
 
     pkgReservation = await this.pkgReservationRepository.findById(id)
     
-    if(pkgReservation.status == 'accepted'){
+    if(pkgReservation.status == 'accepted' || pkgReservation.status == 'extended' ){
       
       pkgReservation.status = 'parked'
       pkgReservation.checkinAtDttm = Date()
       pkgReservation.sysUpdatedAtDttm = Date()
     } else {
-      throw new Error("We can only check-in reservations with status = accepted. Reservation: "+id+" has status: "+pkgReservation.status)
+      throw new Error("We can only check-in reservations with status = accepted or extended. Reservation: "+id+" has status: "+pkgReservation.status)
     }
     
     await reservedToBusySlot(this.pkgParkingStatusRepository, pkgReservation.idParking)
@@ -279,18 +318,23 @@ export class ReservationController {
   ): Promise<void> {
     pkgReservation = await this.pkgReservationRepository.findById(id)
 
-    pkgReservation.checkoutAtDttm = Date()
-    pkgReservation.sysUpdatedAtDttm = Date()
-    pkgReservation.status = 'completed'
-    
-    let pkg = await this.pkgParkingRepository.findById(pkgReservation.idParking)
-    let hours = diffHours(pkgReservation.checkoutAtDttm, String(pkgReservation.expirationAtDttm))
-    let total = calculateTotalPrice(hours, Number(pkg.priceHour), Number(pkg.price_6Hours), Number(pkg.price_12Hours), Number(pkg.price_24Hours))
-    pkgReservation.totalPrice = total + Number(pkgReservation.totalPrice)
+    if(pkgReservation.status == 'accepted' || pkgReservation.status == 'extended' ){
+      pkgReservation.checkoutAtDttm = Date()
+      pkgReservation.sysUpdatedAtDttm = Date()
+      pkgReservation.status = 'completed'
+      
+      let pkg = await this.pkgParkingRepository.findById(pkgReservation.idParking)
+      let hours = diffHours(pkgReservation.checkoutAtDttm, String(pkgReservation.expirationAtDttm))
+      let total = calculateTotalPrice(hours, Number(pkg.priceHour), Number(pkg.price_6Hours), Number(pkg.price_12Hours), Number(pkg.price_24Hours))
+      pkgReservation.totalPrice = total + Number(pkgReservation.totalPrice)
 
-    await busyToFreeSlot(this.pkgParkingStatusRepository, pkgReservation.idParking)
-    await this.pkgReservationRepository.updateById(id, pkgReservation);
-    publishMessageIntoQueue(Buffer.from(JSON.stringify(pkgReservation)), 'payments')
+      await busyToFreeSlot(this.pkgParkingStatusRepository, pkgReservation.idParking)
+      await this.pkgReservationRepository.updateById(id, pkgReservation);
+      publishMessageIntoQueue(Buffer.from(JSON.stringify(pkgReservation)), 'payments')
+    } else {
+      throw new Error("We can only check-out reservations with status = parked. Reservation: "+id+" has status: "+pkgReservation.status)
+    }
+    
   }
 
   @post('/reservation/accept/{id}')

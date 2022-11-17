@@ -58,7 +58,6 @@ export default function Register() {
       <h1 className="signin-header">Register</h1>
       <p id="is-required-text">* Required</p>
       <form onSubmit={handleSubmit(onSubmit)}>
-
         <div className="form-fields">
 
           <div>

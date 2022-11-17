@@ -40,6 +40,7 @@ export default function ManagementBoard(props) {
             pendings.push(data[reservationKey]);
           } else if (
             data[reservationKey]["status"] === "accepted"
+            || data[reservationKey]["status"] === "extended"
           ) {
             accepteds.push(data[reservationKey]);
           } else if (
