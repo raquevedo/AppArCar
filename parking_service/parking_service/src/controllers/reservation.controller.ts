@@ -318,7 +318,7 @@ export class ReservationController {
   ): Promise<void> {
     pkgReservation = await this.pkgReservationRepository.findById(id)
 
-    if(pkgReservation.status == 'accepted' || pkgReservation.status == 'extended' ){
+    if(pkgReservation.status == 'parked'){
       pkgReservation.checkoutAtDttm = Date()
       pkgReservation.sysUpdatedAtDttm = Date()
       pkgReservation.status = 'completed'
