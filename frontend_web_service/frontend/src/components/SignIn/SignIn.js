@@ -12,7 +12,7 @@ function SignIn(props) {
     return <Navigate to="/dashboard" state={{ from: location }} replace />;
   }
   return (
-    <div className='dark-background'>
+    <div className='gradient-background'>
       <div className='grid-container'>
         <div className='grid-x grid-margin-x grid-padding-x grid-padding-y'>
           <div className='cell large-6 medium-12'>

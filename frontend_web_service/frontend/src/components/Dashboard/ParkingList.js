@@ -18,7 +18,7 @@ export default function ParkingList() {
   }
   const [showModal, setShowModal] = useState(false);
   return(
-    <div className='dark-background'>
+    <div className='gradient-background'>
       <div className='white-background with-shadow' id='parking-view-body'>
         <div className='grid-x'>
           <div className='cell small-10'>
