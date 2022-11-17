@@ -60,29 +60,48 @@ export default function ReservationsTab(props) {
 
   return (
     <div>
-      <button type="button" className="button" onClick={acceptAll}>Accept All</button>
-      <div className="grid-x grid-padding-x grid-margin-x">
-        <div className="cell large-6 small-12">
-          <PendingReservations
-            socket={props.socket}
-            reservations={props.pendingReservations}
-            setReservations={props.setPendingReservations}
-            AcceptReservation={AcceptReservation}
-            parkingId={props.id}
-          />
+      <div className="grid-y">
+        <div className="cell">
+          <div className="grid-x align-center-middle">
+            <div className="cell small-6">
+              <button className="reservation-button" onClick={acceptAll}>Accept All</button>
+            </div>
+            <div className="cell small-6">
+              <button className="reservation-button">Manual Reservation</button>
+            </div>
+          </div>
         </div>
-        <div className="cell large-6 small-12">
-          <AcceptedReservations
-            reservations={props.acceptedReservations}
-            setReservations={props.setAcceptedReservations}
-            checkCustomerIn={checkCustomerIn}
-          />
+        <div className="cell">
+          <div className="grid-x">
+            <div className="cell large-6 small-12">
+              <div className="reservation-window">
+                <PendingReservations
+                  socket={props.socket}
+                  reservations={props.pendingReservations}
+                  setReservations={props.setPendingReservations}
+                  AcceptReservation={AcceptReservation}
+                  parkingId={props.id}
+                />
+              </div>
+            </div>
+            <div className="cell large-6 small-12">
+              <div className="reservation-window">
+                <AcceptedReservations
+                  reservations={props.acceptedReservations}
+                  setReservations={props.setAcceptedReservations}
+                  checkCustomerIn={checkCustomerIn}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="reservation-window">
+            <ParkedCars
+              parkedCars={props.parkedCars}
+              setParkedCars={props.setParkedCars}
+            />
+          </div>
         </div>
       </div>
-      <ParkedCars
-        parkedCars={props.parkedCars}
-        setParkedCars={props.setParkedCars}
-      />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import ParkedCar from "./ParkedCar";
 
 export default function ParkedCars(props) {
   return (
-    <div>
+    <div id='parked-cars-list'>
       <h2>Parked Cars</h2>
       <table>
         <thead>

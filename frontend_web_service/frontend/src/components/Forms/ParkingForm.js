@@ -42,126 +42,129 @@ export default function ParkingForm(props) {
   }
 
   return (
-    <div className="grid-container">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid-x align-center grid-margin-x grid-padding-x grid-padding-y">
-          <div className="cell large-6 small-12">
-            <div>
-              <input
-                type="text"
-                placeholder="Business Name *"
-                {...register("businessName")}
-              />
+    <div className="grid-y">
+      <div className="cell">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid-x align-center grid-margin-x grid-padding-x grid-padding-y">
+            <div className="cell large-6 small-12">
+              <div>
+                <input
+                  type="text"
+                  placeholder="Business Name *"
+                  {...register("businessName")}
+                />
+              </div>
+              {errors.businessName && <p>Name is invalid</p>}
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="Cuit *"
+                  {...register("cuitNumber")}
+                />
+              </div>
+              {errors.cuitNumber && <p>Cuit is invalid</p>}
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="Street Name *"
+                  {...register("streetName")}
+                />
+              </div>            
+              {errors.streetName && <p>Street is invalid</p>}
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="Street Number *"
+                  {...register("streetNumber")}
+                />
+              </div>            
+              {errors.streetNumber && <p>Street number is invalid</p>}
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="Capacity *"
+                  {...register("qtyTotalSlots")}
+                />
+              </div>            
+              {errors.qtyTotalSlots && <p>Capacity is invalid</p>}
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="City"
+                  {...register("City")}
+                />
+              </div>            
+              {errors.City && <p>City is invalid</p>}
+
             </div>
-            {errors.businessName && <p>Name is invalid</p>}
+            <div className="cell large-6 small-12">
+              <div>
+                <input
+                  type="text"
+                  placeholder="Price per Hour *"
+                  {...register("priceHour")}
+                />
+              </div>            
+              {errors.priceHour && <p>Price is invalid</p>}
 
-            <div>
-              <input
-                type="text"
-                placeholder="Cuit *"
-                {...register("cuitNumber")}
-              />
+              <div>
+                <input
+                  type="text"
+                  placeholder="Price per 6 hours *"
+                  {...register("price_6Hours")}
+                />
+              </div>
+              {errors.price_6Hours && <p>Price is invalid</p>}
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="Price per 12 Hours *"
+                  {...register("price_12Hours")}
+                />
+              </div>            
+              {errors.price_12Hours && <p>Price is invalid</p>}
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="Price per 24 Hours *"
+                  {...register("price_24Hours")}
+                />
+              </div>            
+              {errors.price_24Hours && <p>Price is invalid</p>}
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="Price per Week *"
+                  {...register("priceWeek")}
+                />
+              </div>
+              {errors.priceWeek && <p>Price is invalid</p>}
+
+              <div>
+                <input
+                  type="text"
+                  placeholder="Price per Month *"
+                  {...register("priceMonth")}
+                />
+              </div>
+              {errors.priceMonth && <p>Price is invalid</p>}
+
             </div>
-            {errors.cuitNumber && <p>Cuit is invalid</p>}
-
-            <div>
-              <input
-                type="text"
-                placeholder="Street Name *"
-                {...register("streetName")}
-              />
-            </div>            
-            {errors.streetName && <p>Street is invalid</p>}
-
-            <div>
-              <input
-                type="text"
-                placeholder="Street Number *"
-                {...register("streetNumber")}
-              />
-            </div>            
-            {errors.streetNumber && <p>Street number is invalid</p>}
-
-            <div>
-              <input
-                type="text"
-                placeholder="Capacity *"
-                {...register("qtyTotalSlots")}
-              />
-            </div>            
-            {errors.qtyTotalSlots && <p>Capacity is invalid</p>}
-
-            <div>
-              <input
-                type="text"
-                placeholder="City"
-                {...register("City")}
-              />
-            </div>            
-            {errors.City && <p>City is invalid</p>}
-
           </div>
-          <div className="cell large-6 small-12">
-            <div>
-              <input
-                type="text"
-                placeholder="Price per Hour *"
-                {...register("priceHour")}
-              />
-            </div>            
-            {errors.priceHour && <p>Price is invalid</p>}
-
-            <div>
-              <input
-                type="text"
-                placeholder="Price per 6 hours *"
-                {...register("price_6Hours")}
-              />
-            </div>
-            {errors.price_6Hours && <p>Price is invalid</p>}
-
-            <div>
-              <input
-                type="text"
-                placeholder="Price per 12 Hours *"
-                {...register("price_12Hours")}
-              />
-            </div>            
-            {errors.price_12Hours && <p>Price is invalid</p>}
-
-            <div>
-              <input
-                type="text"
-                placeholder="Price per 24 Hours *"
-                {...register("price_24Hours")}
-              />
-            </div>            
-            {errors.price_24Hours && <p>Price is invalid</p>}
-
-            <div>
-              <input
-                type="text"
-                placeholder="Price per Week *"
-                {...register("priceWeek")}
-              />
-            </div>
-            {errors.priceWeek && <p>Price is invalid</p>}
-
-            <div>
-              <input
-                type="text"
-                placeholder="Price per Month *"
-                {...register("priceMonth")}
-              />
-            </div>
-            {errors.priceMonth && <p>Price is invalid</p>}
-
-          </div>
-          <div>
-            <button className="modal-button" disabled={props.buttonDisabled} type="submit">Submit</button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
+      <div className="cell">
+        <button className="modal-button" disabled={props.buttonDisabled} type="submit">Submit</button>
+      </div>
+      
     </div>
   );
 }

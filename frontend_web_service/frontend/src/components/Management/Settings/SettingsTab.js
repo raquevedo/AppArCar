@@ -55,7 +55,8 @@ export default function SettingsTab(props) {
     return <div>Loading</div>;
   } else {
     return (
-      <div>
+      <div id="settings-tab">
+        <h2>Update your settings</h2>
         <ParkingForm
           onSubmit={onSubmit}
           currentData={parkingData}

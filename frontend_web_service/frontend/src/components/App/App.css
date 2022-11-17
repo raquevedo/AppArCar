@@ -28,8 +28,16 @@ body{
 }
 
 .scroll-overflow {
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
+}
+
+th {
+  text-align: center !important;
+}
+
+td {
+  text-align: center !important;
 }
 
 /* Modals */
@@ -68,17 +76,22 @@ body{
   background-color: #9e33f7;
   text-decoration: none;
   cursor: pointer;
+  display: block;
   width: 70%;
-  position: absolute;
   bottom: 1rem;
   left: 0; 
   right: 0; 
   margin-left: auto; 
   margin-right: auto;
+  margin-bottom: 1rem;
   padding: 0.8rem;
   border-radius: 1rem;
   font-size: 2rem;
   color: white;
+}
+
+.modal-button:hover {
+  background-color: #b65dff;
 }
 
 .modal-text {
@@ -340,7 +353,6 @@ body{
   background: red;
 }
 
-
 .accordion-button {
   background-color: rgb(22, 150, 22);
   text-decoration: none;
@@ -359,4 +371,67 @@ body{
 
 .accordion-button:hover {
   background-color: rgb(6, 116, 6);
+}
+
+/* Management */
+
+.status-card {
+  color: white;
+  background-color: #9e33f7;
+  margin: 3rem;
+  border-style: solid;
+  border-radius: 1rem;
+  border-color: #9e33f7;
+  border-width: 0.5rem;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+#status-text {
+  margin: 1.5rem;
+  font-size: 2rem;
+}
+
+.management-tabs {
+  background-color: white;
+  margin: 3rem;
+  margin-top: 1rem;
+}
+
+.tab {
+  background-color: #9e33f7;
+  color: white;
+  padding: 1.5rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+.active-tab {
+  background-color: #b65dff;
+}
+
+.reservation-button {
+  background-color: rgb(22, 150, 22);
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  margin: 1rem auto;
+  left: 0;
+  right: 0;
+  width: 90%;
+  padding: 0.8rem;
+  border-style: solid;
+  border-color: rgb(22, 150, 22);
+  border-radius: 1rem;
+  font-size: 2rem;
+  color: white;
+}
+
+.reservation-window {
+  padding: 1rem;
+  margin: 1rem;
+}
+
+#settings-tab {
+  margin: 2rem;
 }

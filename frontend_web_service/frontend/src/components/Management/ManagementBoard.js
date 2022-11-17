@@ -126,60 +126,61 @@ export default function ManagementBoard(props) {
 
   const baseUrl = `/dashboard/manage/${id}`;
   return (
-    <div className="grid-y">
-      <div className="cell">
-        <StatusCards
-          socket={socket}
-          availableSlots={availableSlots}
-          reservedSlots={reservedSlots}
-          occupiedSlots={occupiedSlots}
-        />
-      </div>
-      <div className="cell">
-        <div className="grid-x">
-          <div
-            className="cell small-3"
-            onClick={() => navigate(`${baseUrl}/reservations`)}>
-            <button
-              className={tab === "reservations" ? "tab-active-tabs" : "tab"}
-              
-            >
-              Reservations
-            </button>
-          </div>
-          <div
-            className="cell small-3"
-            onClick={() => navigate(`${baseUrl}/hours`)}>
-            <button
-              className={tab === "hours" ? "tab-active-tabs" : "tab"}
-              
-            >
-              Hours
-            </button>
-          </div>
-          <div
-            className="cell small-3"
-            onClick={() => navigate(`${baseUrl}/status`)}>
-            <button
-              className={tab === "status" ? "tab-active-tabs" : "tab"}
-              
-            >
-              Status
-            </button>
-          </div>
-          <div
-            className="cell small-3"
-            onClick={() => navigate(`${baseUrl}/settings`)}>
-            <button
-              className={tab === "settings" ? "tab-active-tabs" : "tab"}
-              
-            >
-              Settings
-            </button>
+    <div class='scroll-overflow'>
+      <div className="gradient-background"></div>
+      <div className="grid-y">
+        <div className="cell">
+          <StatusCards
+            socket={socket}
+            availableSlots={availableSlots}
+            reservedSlots={reservedSlots}
+            occupiedSlots={occupiedSlots}
+          />
+        </div>
+        <div className="cell">
+          <div className="management-tabs with-shadow">
+            <div className="grid-y">
+              <div className="cell">
+                <div className="grid-x">
+                  <div
+                    className="cell small-4"
+                    onClick={() => navigate(`${baseUrl}/reservations`)}>
+                    <button
+                      className={tab === "reservations" ? "tab active-tab" : "tab"}
+                      
+                    >
+                      Reservations
+                    </button>
+                  </div>
+                  <div
+                    className="cell small-4"
+                    onClick={() => navigate(`${baseUrl}/hours`)}>
+                    <button
+                      className={tab === "hours" ? "tab active-tab" : "tab"}
+                      
+                    >
+                      Hours
+                    </button>
+                  </div>
+                  <div
+                    className="cell small-4"
+                    onClick={() => navigate(`${baseUrl}/settings`)}>
+                    <button
+                      className={tab === "settings" ? "tab active-tab" : "tab"}
+                      
+                    >
+                      Settings
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="cell">
+              <div className="content-tabs">{renderTab()}</div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="content-tabs">{renderTab()}</div>
     </div>
   );
 }
