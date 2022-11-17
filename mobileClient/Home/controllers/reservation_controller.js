@@ -27,4 +27,23 @@ async function reserve(idParking){
   }
   return response.json()
 }
-export { reserve }
+
+async function reservationExtend(idReservation){
+  const userToken = await SecureStore.getItemAsync('tk');
+  const fetchData = {}
+  fetchData.method = 'POST'
+  fetchData.headers={
+      'accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization':'Bearer '+userToken
+  }
+  const response = await fetch(host_instance.path+'/parking/reservation/extend/'+idReservation,fetchData)
+  console.log(response)
+  if(response.status === 204){
+    Alert.alert('Operation complete', 'Your stay was extended.');
+  }else{
+    Alert.alert("Reservation error.")
+  }
+  return response.json()
+}
+export { reserve, reservationExtend }
