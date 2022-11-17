@@ -14,7 +14,9 @@ export default function ParkingAccordionItem(props) {
               <h2>{props.garage.parkingInfo.businessName}</h2>
             </div>
             <div className='cell small-1 center'>
-              <div id='green-circle' className="vertical-center"></div>
+              <div className="container-flex">
+                <div id='green-circle' className="vertical-center"></div>
+              </div>
             </div>
             <div className='cell small-4 center'>
               <div id='status'>

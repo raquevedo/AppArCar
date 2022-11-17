@@ -24,15 +24,18 @@ body{
 }
 
 .vertical-center {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  align-self: center;
+}
+
+.scroll-overflow {
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 /* Modals */
 
 .modal {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width:100%;
@@ -48,11 +51,17 @@ body{
   padding: 1%;
   position: relative;
   background: white;
-  width: 40%;
+  min-width: 40%;
   min-height: 30%;
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
+  margin-bottom: 3rem;
+}
+
+.modal-large {
+  width: 50vw;
+  height: 60vh;
 }
 
 .modal-button {
@@ -91,6 +100,27 @@ body{
 
 .white-background {
   background: white;
+}
+
+.modal-header {
+  font-size: 3rem;
+  color: #9e33f7;
+}
+
+.close-modal {
+  font-size: 3rem;
+  float: right;
+  color: gray;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.close-modal:hover {
+  background-color: rgb(192, 192, 192);
+  border-radius: 20%;
+  border-style: solid;
+  border-color: rgb(192, 192, 192);
 }
 
 /* Navbar classes */
@@ -249,6 +279,8 @@ body{
   border-top-color: #9e33f7;
   border-top-width: 1rem;
   padding: 1rem;
+  margin-bottom: 5%;
+  padding-bottom: 2rem;
 }
 
 .text-form {
@@ -288,6 +320,7 @@ body{
 }
 
 #green-circle {
+  margin-top: 1rem;
   border-radius: 50%;
   width: 2rem;
   height: 2rem;
@@ -300,6 +333,7 @@ body{
 }
 
 #red-circle {
+  position: fixed;
   border-radius: 50%;
   width: 1.5rem;
   height: 1.5rem;

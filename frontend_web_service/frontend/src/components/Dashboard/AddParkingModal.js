@@ -47,30 +47,35 @@ function AddParkingModal(props) {
   };
 
   return (
-    <div className="modal center">
-      <div className="grid-container login-box-modal">
-        <div className="grid-y">
-          <div className="cell">
-            <div className="grid-x center">
-              <div className="cell small-10">
-                <h1 className="text-form" children="modal-title">
-                  New Parking Garage
-                </h1>
-              </div>
-              <div className="cell small-1">
-                <button className="button-pop bn24" onClick={handleClose}>
-                  X
-                </button>
+    <div className="modal">
+      <div className="modal-main modal-large">
+        <div className="grid-container">
+          <div className="grid-y">
+            <div className="cell">
+              <div className="grid-x center">
+                <div className="cell small-11">
+                  <h1 className="modal-header">
+                    New Parking Garage
+                  </h1>
+                </div>
+                <div className="cell small-1">
+                  <button className="close-modal" onClick={handleClose}>
+                    X
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="cell">
-            <ParkingForm
-              onSubmit={onSubmit}
-              currentData={defaultValues}
-              validationMode="onTouched"
-              buttonDisabled={buttonDisabled}
-            />
+            <div className="cell">
+              <p id="is-required-text">* Required</p>
+            </div>
+            <div className="cell">
+              <ParkingForm
+                onSubmit={onSubmit}
+                currentData={defaultValues}
+                validationMode="onTouched"
+                buttonDisabled={buttonDisabled}
+              />
+            </div>
           </div>
         </div>
       </div>

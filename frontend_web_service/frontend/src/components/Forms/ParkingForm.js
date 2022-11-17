@@ -10,6 +10,7 @@ export default function ParkingForm(props) {
     streetName: yup.string().required(),
     streetNumber: yup.number().required(),
     qtyTotalSlots: yup.number().required(),
+    city: yup.number(),
     priceHour: yup.number().required(),
     price_6Hours: yup.number().required(),
     price_12Hours: yup.number().required(),
@@ -48,7 +49,7 @@ export default function ParkingForm(props) {
             <div>
               <input
                 type="text"
-                placeholder="Business Name"
+                placeholder="Business Name *"
                 {...register("businessName")}
               />
             </div>
@@ -57,7 +58,7 @@ export default function ParkingForm(props) {
             <div>
               <input
                 type="text"
-                placeholder="Cuit"
+                placeholder="Cuit *"
                 {...register("cuitNumber")}
               />
             </div>
@@ -66,7 +67,7 @@ export default function ParkingForm(props) {
             <div>
               <input
                 type="text"
-                placeholder="Street Name"
+                placeholder="Street Name *"
                 {...register("streetName")}
               />
             </div>            
@@ -75,7 +76,7 @@ export default function ParkingForm(props) {
             <div>
               <input
                 type="text"
-                placeholder="Street Number"
+                placeholder="Street Number *"
                 {...register("streetNumber")}
               />
             </div>            
@@ -84,18 +85,27 @@ export default function ParkingForm(props) {
             <div>
               <input
                 type="text"
-                placeholder="Capacity"
+                placeholder="Capacity *"
                 {...register("qtyTotalSlots")}
               />
             </div>            
             {errors.qtyTotalSlots && <p>Capacity is invalid</p>}
+
+            <div>
+              <input
+                type="text"
+                placeholder="City"
+                {...register("City")}
+              />
+            </div>            
+            {errors.City && <p>City is invalid</p>}
 
           </div>
           <div className="cell large-6 small-12">
             <div>
               <input
                 type="text"
-                placeholder="Price per Hour"
+                placeholder="Price per Hour *"
                 {...register("priceHour")}
               />
             </div>            
@@ -104,7 +114,7 @@ export default function ParkingForm(props) {
             <div>
               <input
                 type="text"
-                placeholder="Price per 6 hours"
+                placeholder="Price per 6 hours *"
                 {...register("price_6Hours")}
               />
             </div>
@@ -113,7 +123,7 @@ export default function ParkingForm(props) {
             <div>
               <input
                 type="text"
-                placeholder="Price per 12 Hours"
+                placeholder="Price per 12 Hours *"
                 {...register("price_12Hours")}
               />
             </div>            
@@ -122,7 +132,7 @@ export default function ParkingForm(props) {
             <div>
               <input
                 type="text"
-                placeholder="Price per 24 Hours"
+                placeholder="Price per 24 Hours *"
                 {...register("price_24Hours")}
               />
             </div>            
@@ -131,7 +141,7 @@ export default function ParkingForm(props) {
             <div>
               <input
                 type="text"
-                placeholder="Price per Week"
+                placeholder="Price per Week *"
                 {...register("priceWeek")}
               />
             </div>
@@ -140,7 +150,7 @@ export default function ParkingForm(props) {
             <div>
               <input
                 type="text"
-                placeholder="Price per Month"
+                placeholder="Price per Month *"
                 {...register("priceMonth")}
               />
             </div>
@@ -148,7 +158,7 @@ export default function ParkingForm(props) {
 
           </div>
           <div>
-            <button className="button" disabled={props.buttonDisabled} type="submit">Submit</button>
+            <button className="modal-button" disabled={props.buttonDisabled} type="submit">Submit</button>
           </div>
         </div>
       </form>
