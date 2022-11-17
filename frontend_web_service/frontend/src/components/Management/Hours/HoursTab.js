@@ -161,7 +161,7 @@ export default function HoursTab(props) {
         </table>
       </div>
       <div className="cell">
-        <button className="modal-button" onClick={updateParkingSettings}>
+        <button className="form-button" onClick={updateParkingSettings}>
           Update
         </button>
       </div>

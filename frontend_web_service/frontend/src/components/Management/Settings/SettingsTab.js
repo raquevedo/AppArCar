@@ -61,6 +61,7 @@ export default function SettingsTab(props) {
           onSubmit={onSubmit}
           currentData={parkingData}
           validationMode="onTouched"
+          isModal={false}
         />
       </div>
     );

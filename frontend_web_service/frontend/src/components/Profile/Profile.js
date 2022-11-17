@@ -24,14 +24,10 @@ export default function Profile() {
     );
   } else {
       return(
-        <div className='grid-container'>
-          <div className='grid-y login-box'>
-            <div className='cell'>
-              <h1 className="text-form">Profile</h1>
-            </div>
-            <div className='cell'>
-              <UserForm buttonText={'Update'} valuesData={userData}/>
-            </div>
+        <div className="setup-wrapper gradient-background">
+          <div className='white-background with-shadow' id='profile-form'>
+            <h1 className="text-form">Profile</h1>
+            <UserForm buttonText={'Update'} valuesData={userData}/>
           </div>
         </div>
       );

@@ -74,6 +74,7 @@ function AddParkingModal(props) {
                 currentData={defaultValues}
                 validationMode="onTouched"
                 buttonDisabled={buttonDisabled}
+                isModal={true}
               />
             </div>
           </div>

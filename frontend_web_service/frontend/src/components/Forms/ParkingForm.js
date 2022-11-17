@@ -162,7 +162,7 @@ export default function ParkingForm(props) {
         </form>
       </div>
       <div className="cell">
-        <button className="modal-button" disabled={props.buttonDisabled} type="submit">Submit</button>
+        <button className={`${props.isModal ? 'modal-button' : 'form-button'}`} disabled={props.buttonDisabled} type="submit">Submit</button>
       </div>
       
     </div>

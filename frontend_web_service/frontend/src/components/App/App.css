@@ -40,14 +40,37 @@ td {
   text-align: center !important;
 }
 
+.form-button {
+  background-color: #9e33f7;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  width: 70%;
+  bottom: 1rem;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+  border-radius: 1rem;
+  font-size: 2rem;
+  color: white;
+}
+
 /* Modals */
 
 .modal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width:100%;
-  height: 100%;
+  position:fixed;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
   background: rgba(0, 0, 0, 0.6);
 }
 
@@ -60,7 +83,8 @@ td {
   position: relative;
   background: white;
   min-width: 40%;
-  min-height: 30%;
+  min-height: 50%;
+  max-width: 50%;
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
@@ -69,7 +93,7 @@ td {
 
 .modal-large {
   width: 50vw;
-  height: 60vh;
+  height: 70vh;
 }
 
 .modal-button {
@@ -83,11 +107,13 @@ td {
   right: 0; 
   margin-left: auto; 
   margin-right: auto;
+  margin-top: auto;
   margin-bottom: 1rem;
   padding: 0.8rem;
   border-radius: 1rem;
   font-size: 2rem;
   color: white;
+  position: absolute;
 }
 
 .modal-button:hover {
@@ -278,6 +304,19 @@ td {
 
 .signin-button:hover {
   background-color: #8f11f7;
+}
+
+#profile-form {
+  position: relative;
+  width: 60%;
+  margin: auto;
+  margin-top: 5%;
+  border-top-style: solid;
+  border-top-color: #9e33f7;
+  border-top-width: 1rem;
+  padding: 1rem;
+  margin-bottom: 5%;
+  padding-bottom: 2rem;
 }
 
 /* ParkingList */
