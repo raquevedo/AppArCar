@@ -26,6 +26,27 @@ function AboutUs(){
           message="Mensaje Maximiliano"
         />
       </div>
+      <div className='cell'>
+        <MemberInformation
+          name="Juan"
+          image="ProfileImgJuan"
+          message="Mensaje Juan"
+        />
+      </div>
+      <div className='cell'>
+        <MemberInformation
+          name="Marcos"
+          image="ProfileImgMarcos"
+          message="Mensaje Marcos"
+        />
+      </div>
+      <div className='cell'>
+        <MemberInformation
+          name="Manuel"
+          image="ProfileImgManu"
+          message="Mensaje Manuel"
+        />
+      </div>
     </div>
   );
 }

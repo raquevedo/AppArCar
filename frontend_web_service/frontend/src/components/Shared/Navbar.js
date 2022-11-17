@@ -16,16 +16,18 @@ function Navbar(props) {
 
   return (
     <ul className='navbar with-shadow'>
-      <li className='navbar-item'>
-        <button type='button' onClick={changeSideNavState}>
-          <img 
-            src={burger}
-            className='navbar-icon'
-            id='burger-icon'
-            alt='burger'
-          />
-        </button>
-      </li>
+      { props.userLoggedIn &&
+        <li className='navbar-item'>
+          <button type='button' onClick={changeSideNavState}>
+            <img 
+              src={burger}
+              className='navbar-icon'
+              id='burger-icon'
+              alt='burger'
+            />
+          </button>
+        </li>
+      }
       <li className='navbar-item'>
         <Link to='/'>
           <img 

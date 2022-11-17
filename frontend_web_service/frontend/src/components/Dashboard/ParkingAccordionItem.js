@@ -15,12 +15,18 @@ export default function ParkingAccordionItem(props) {
             </div>
             <div className='cell small-1 center'>
               <div className="container-flex">
-                <div id='green-circle' className="vertical-center"></div>
+                {props.garage.status.status === "active"
+                  ? <div id='green-circle' className="vertical-center"></div>
+                  : <div id='red-circle' className="vertical-center"></div>
+                }
               </div>
             </div>
             <div className='cell small-4 center'>
               <div id='status'>
-                <h2 id='status-text-enabled'>Enabled</h2>
+                {props.garage.status.status === "active"
+                  ? <h2 id='status-text-enabled'>Open</h2>
+                  : <h2 id='status-text-disabled'>Closed</h2>
+                }
               </div>
             </div>
             <div className='cell small-1 center'>

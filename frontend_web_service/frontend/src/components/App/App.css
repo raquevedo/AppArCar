@@ -342,15 +342,15 @@ td {
 
 #status-text-disabled {
   display: inline;
-  color: red;
+  color: rgb(255, 72, 0);
 }
 
 #red-circle {
-  position: fixed;
+  margin-top: 1rem;
   border-radius: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
-  background: red;
+  width: 2rem;
+  height: 2rem;
+  background: rgb(255, 72, 0);
 }
 
 .accordion-button {
