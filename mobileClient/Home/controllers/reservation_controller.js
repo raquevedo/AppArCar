@@ -44,6 +44,5 @@ async function reservationExtend(idReservation){
   }else{
     Alert.alert("Reservation error.")
   }
-  return response.json()
 }
 export { reserve, reservationExtend }
