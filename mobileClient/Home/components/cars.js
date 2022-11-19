@@ -51,7 +51,7 @@ function Cars({ navigation }) {
       <Image source={require("../../assets/logo.png")} style={styles.image} />
       <SafeAreaView style={styles.sectionLong}>
         <View style={styles.space}></View>
-        <Text style={styles.themeTextFlat}>Automoviles</Text>
+        <Text style={styles.themeTextFlat}>Your cars</Text>
         <View style={styles.containFlat}>
           <FlatList
             ListEmptyComponent={emptyListView}
@@ -67,9 +67,9 @@ function Cars({ navigation }) {
                     }
                   >
                     <View style={styles.containTextFlatList}>
-                    <Text style={styles.heading2}>{item.brand}</Text>
+                    <Text style={styles.heading2}>{item.patentId}</Text>
                     
-                    <Text style={styles.subheading}>{item.model}</Text>
+                    <Text style={styles.subheading}>{item.brand +' '+item.model +' '+ item.productionYear}</Text>
                     </View>
                   </Text>
                 </View>
@@ -88,7 +88,7 @@ function Cars({ navigation }) {
             colors={["#df3ac4", "#3043ff"]}
             style={styles.buttonStyleFlat}
           >
-            <Text style={styles.buttonText}>Registrar automovil</Text>
+            <Text style={styles.buttonText}>Add car</Text>
           </LinearGradient>
         </TouchableOpacity>
         <View style={styles.space}></View>

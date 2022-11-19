@@ -52,9 +52,9 @@ function Profile({ navigation }) {
 
   const [isFocus, setIsFocus] = React.useState(false);
   const data = [
-    { label: "Masculino", value: "Masculino" },
-    { label: "Femenino", value: "Femenino" },
-    { label: "Indefinido", value: "Indefinido" },
+    { label: "Male", value: "Male" },
+    { label: "Female", value: "Female" },
+    { label: "Other", value: "Other" },
   ];
   React.useEffect(() => {
     loadDataOnlyOnce();
@@ -67,23 +67,23 @@ function Profile({ navigation }) {
 
         <View style={styles.sectionLong}>
           <View style={styles.space}></View>
-          <Text style={styles.themeTextShort}>Perfil</Text>
+          <Text style={styles.themeTextShort}>Profile</Text>
           <TextInput
-            placeholder="Nombre"
+            placeholder="Name"
             value={name}
             onChangeText={setName}
             style={styles.text}
             left={<TextInput.Icon icon="eye" />}
           />
           <TextInput
-            placeholder="Apellido"
+            placeholder="Last Name"
             value={lastName}
             onChangeText={setLastName}
             style={styles.text}
             left={<TextInput.Icon icon="eye" />}
           />
           <TextInput
-            placeholder="Documento"
+            placeholder="Document Number"
             value={documentNumber}
             onChangeText={setDocument}
             style={styles.text}
@@ -98,7 +98,7 @@ function Profile({ navigation }) {
           />
 
           <TextInput
-            placeholder="Teléfono móvil"
+            placeholder="Mobile Phone"
             value={contactNumber}
             onChangeText={setContactNumber}
             style={styles.text}
@@ -112,9 +112,9 @@ function Profile({ navigation }) {
             iconStyle={styles.iconStyle}
             labelField="label"
             valueField="value"
-            label="Genero"
+            label="Gender"
             data={data}
-            placeholder="Seleccione Genero"
+            placeholder="Gender"
             value={gender}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
@@ -131,7 +131,7 @@ function Profile({ navigation }) {
             <Text style={styles.textDate}>{`${
               birthDateDt
                 ? moment(birthDateDt).format("MM/DD/YYYY")
-                : "Fecha de Nacimiento"
+                : "Born date"
             }`}</Text>
           </TouchableOpacity>
 
@@ -154,7 +154,7 @@ function Profile({ navigation }) {
               colors={["#df3ac4", "#3043ff"]}
               style={styles.buttonStylel}
             >
-              <Text style={styles.buttonText}>Cargar</Text>
+              <Text style={styles.buttonText}>Update</Text>
             </LinearGradient>
           </TouchableOpacity>
 

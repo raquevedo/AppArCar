@@ -80,8 +80,7 @@ function Payments({ navigation }) {
       <Image source={require("../../assets/logo.png")} style={styles.image} />
       <SafeAreaView style={styles.sectionLong}>
         <View style={styles.space}></View>
-        <Text style={styles.themeTextFlat}>Register credit</Text>
-        <Text style={styles.themeTextFlat}>card</Text>
+        <Text style={styles.themeTextFlat}>Your cards</Text>
         <View style={styles.containFlat}>
           <FlatList
             ListEmptyComponent={emptyListView}
@@ -98,6 +97,7 @@ function Payments({ navigation }) {
                     <Text style={styles.heading2}>{item.cardName}</Text>
                     
                     <Text style={styles.subheading}>{item.cardNumber}</Text>
+                    <Text style={styles.subheading}>{item.company +' '+ item.type}</Text>
                     <Text 
                       style={styles.subheading2}
                       onPress={() =>
@@ -122,7 +122,7 @@ function Payments({ navigation }) {
             colors={["#df3ac4", "#3043ff"]}
             style={styles.buttonStyleFlat}
           >
-            <Text style={styles.buttonText}>Register credit card</Text>
+            <Text style={styles.buttonText}>Add card</Text>
           </LinearGradient>
         </TouchableOpacity>
         <View style={styles.space}></View>
