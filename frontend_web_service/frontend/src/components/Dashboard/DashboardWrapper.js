@@ -3,7 +3,7 @@ import Dashboard from './Dashboard';
 import ProfileSetup from './ProfileSetup';
 import { getParkingUser }  from '../../controllers/usersController';
 
-export default function DashboardWrapper(showSideNav) {
+export default function DashboardWrapper() {
   const [isRegistered, setIsRegistered] = useState();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function DashboardWrapper(showSideNav) {
 
   return(
     <div>
-      {isRegistered && <Dashboard showSideNav={showSideNav['showSideNav']}/>}
+      {isRegistered && <Dashboard/>}
       {isRegistered === false && <ProfileSetup setIsRegistered={setIsRegistered}/>}
     </div>
   );

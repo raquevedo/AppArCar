@@ -44,7 +44,7 @@ export default function ParkingForm(props) {
   return (
     <div className="grid-y">
       <div className="cell">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} id="parking-form">
           <div className="grid-x align-center grid-margin-x grid-padding-x grid-padding-y">
             <div className="cell large-6 small-12">
               <div>
@@ -96,7 +96,7 @@ export default function ParkingForm(props) {
                 <input
                   type="text"
                   placeholder="City"
-                  {...register("City")}
+                  {...register("city")}
                 />
               </div>            
               {errors.City && <p>City is invalid</p>}

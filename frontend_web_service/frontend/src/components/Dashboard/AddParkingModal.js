@@ -48,7 +48,7 @@ function AddParkingModal(props) {
 
   return (
     <div className="modal">
-      <div className="modal-main modal-large scroll-overflow">
+      <div className="modal-main modal-large">
         <div className="grid-container">
           <div className="grid-y">
             <div className="cell">

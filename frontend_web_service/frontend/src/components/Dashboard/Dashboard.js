@@ -2,16 +2,12 @@ import React from 'react';
 import ParkingList from './ParkingList';
 import { Route, Routes } from 'react-router-dom';
 import Profile from '../Profile/Profile';
-import SideNav from '../Shared/SideNav';
 import ManagementBoard from '../Management/ManagementBoard';
 import HistoryView from '../PaymentHistory/HistoryView';
 
-export default function Dashboard(showSideNav) {
+export default function Dashboard() {
   return(
     <div>
-      {showSideNav['showSideNav'] &&
-        <SideNav />
-      }
       <Routes>
         <Route
           path='/'

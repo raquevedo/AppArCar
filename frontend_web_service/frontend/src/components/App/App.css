@@ -93,7 +93,7 @@ td {
 
 .modal-large {
   width: 50vw;
-  height: 70vh;
+  min-height: 70vh;
 }
 
 .modal-button {
@@ -170,6 +170,7 @@ td {
   padding: 0;
   overflow: hidden;
   background-color: var(--primary-color);
+  height: 4rem;
 }
 
 .navbar-item {
@@ -180,7 +181,10 @@ td {
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+}
+
+.navbar-link {
+  padding: 1.2rem;
   text-decoration: none;
 }
 
@@ -199,12 +203,17 @@ td {
 }
 
 #burger-icon {
-  height: 3.4rem;
+  height: 4rem;
   width: auto;
 }
 
+#burger-icon:hover {
+  background-color: var(--primary-hover);
+}
+
 #navbar-icon {
-  height: 1.7rem;
+  margin: 0.8rem;
+  height: 2.4rem;
   width: auto;
 }
 
@@ -237,6 +246,11 @@ td {
 
 .subtitle {
   color: white;
+}
+
+.home-logo {
+  height: 30vh;
+  width: auto;
 }
 
 .homepage-button {
@@ -412,6 +426,10 @@ td {
   background-color: rgb(6, 116, 6);
 }
 
+#parking-form {
+  margin-bottom: 10%;
+}
+
 /* Management */
 
 .status-card {
@@ -473,4 +491,30 @@ td {
 
 #settings-tab {
   margin: 2rem;
+}
+
+.reservations-list-button {
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  width: 6rem;
+}
+
+#reject-button {
+  background-color: red;
+  color: white;
+}
+
+#approve-button {
+  background-color: rgb(22, 150, 22);
+  color: white;
+}
+
+#check-button {
+  background-color: #9e33f7;
+  color: white;
+}
+
+#check-button:hover {
+  background-color: #b65dff;
 }

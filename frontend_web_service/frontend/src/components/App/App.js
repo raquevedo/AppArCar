@@ -14,6 +14,7 @@ import Navbar from "../Shared/Navbar";
 import AboutUs from '../AboutUs/AboutUs';
 import { isLoggedIn } from '../../utils/isLoggedIn';
 import Logout from "../Shared/Logout";
+import SideNav from '../Shared/SideNav';
 
 function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(isLoggedIn())
@@ -22,14 +23,17 @@ function App() {
   return (
     <BrowserRouter>
       <div className="grid-y">
-        <div className="cell small-12">
+        <div className="cell">
           <Navbar
             userLoggedIn={userLoggedIn}
             showSideNav={showSideNav}
             setShowSideNav={setShowSideNav}
           />
         </div>
-        <div className="cell large-12">
+        <div className="cell">
+          {showSideNav &&
+            <SideNav />
+          }
           <Routes>
             <Route path='/' element={<Homepage />} />
             <Route path='signin' element={<SignIn setUserLoggedIn={setUserLoggedIn}/>}/>
@@ -39,7 +43,7 @@ function App() {
               path="dashboard/*"
               element={
                 <RequireAuth>
-                  <DashboardWrapper showSideNav={showSideNav} />
+                  <DashboardWrapper />
                 </RequireAuth>
               }
             />

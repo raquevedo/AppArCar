@@ -27,6 +27,8 @@ export default function ParkedCar(props) {
       <td>
         <button
           onClick={() => checkCustomerOut(props.reservation["id"])}
+          class="reservations-list-button"
+          id="check-button"
         >
           Check Out
         </button>
