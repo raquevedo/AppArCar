@@ -44,7 +44,10 @@ export default function ParkingForm(props) {
   return (
     <div className="grid-y">
       <div className="cell">
-        <form onSubmit={handleSubmit(onSubmit)} id="parking-form">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          id={`${props.isModal ? 'parking-form-modal' : 'parking-form'}`}
+        >
           <div className="grid-x align-center grid-margin-x grid-padding-x grid-padding-y">
             <div className="cell large-6 small-12">
               <div>
@@ -162,7 +165,7 @@ export default function ParkingForm(props) {
         </form>
       </div>
       <div className="cell">
-        <button className={`${props.isModal ? 'modal-button' : 'form-button'}`} disabled={props.buttonDisabled} type="submit">Submit</button>
+        <button className="form-button" disabled={props.buttonDisabled} type="submit">Submit</button>
       </div>
       
     </div>
