@@ -171,6 +171,9 @@ td {
   overflow: hidden;
   background-color: var(--primary-color);
   height: 4rem;
+  position: fixed;
+  right: 0;
+  left: 0;
 }
 
 .navbar-item {
@@ -215,6 +218,53 @@ td {
   margin: 0.8rem;
   height: 2.4rem;
   width: auto;
+}
+
+/* Sidenav */
+
+#sidenav {
+  width: 18vw;
+  top: 4rem;
+  bottom: 0;
+  background-color: #7602d4;
+  position: fixed;
+}
+
+#sidenav-link {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  background-color: #6300b4;
+  border-style: solid;
+  border-radius: 0.5rem;
+  border-color: #6300b4;
+  border-width: 0;
+  position: relative;
+  height: 7%;
+  padding-left: 1rem;
+}
+
+#sidenav-link:hover {
+  background-color: #9e33f7;
+  border-color: #9e33f7;
+}
+
+.sidenav-text {
+  color: white;
+  font-size: 2rem;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#icon-container {
+  float: right;
+  margin-right: 0.5rem;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* Homepage classes */

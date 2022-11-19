@@ -1,52 +1,55 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
+import { grey } from '@mui/material/colors';
+import HomeIcon from "@mui/icons-material/HomeOutlined";
+import PersonIcon from "@mui/icons-material/PersonOutlineOutlined";
+import ListIcon from "@mui/icons-material/ListAltOutlined";
 
-import {
-  Children,
-  SidebarContainer,
-  SidebarWrapper,
-  SidebarLogoWrapper,
-  SidebarToggler,
-} from "./SideNarStyles";
-
-
-import SidebarItems  from "./SidebarItems";
-
-const MOBILE_VIEW = window.innerWidth < 468;
-
- function SideNav({ children }) {
-  const [displaySidebar, setDisplaySidebar] = useState(!MOBILE_VIEW);
-
-  const handleSidebarDisplay = (e) => {
-    e.preventDefault();
-    if (window.innerWidth > 468) {
-      setDisplaySidebar(!displaySidebar);
-    } else {
-      setDisplaySidebar(false);
-    }
-  };
-
-  return (
-    <React.Fragment>
-      <SidebarContainer displaySidebar={displaySidebar}>
-        <SidebarWrapper>
-          <SidebarLogoWrapper displaySidebar={displaySidebar}>
-            <SidebarToggler
-              displaySidebar={displaySidebar}
-              onClick={handleSidebarDisplay}
-            >
-              <div className="outer__circle">
-                <div className="inner__circle" />
+export default function Sidenav () {
+  return(
+    <div id="sidenav">
+      <div id="sidenav-link">
+        <Link to='/dashboard'>
+          <div className="grid-x">
+            <div className="cell small-2">
+              <div id="icon-container">
+                <HomeIcon fontSize="large" sx={{ color: grey[50] }}/>
               </div>
-            </SidebarToggler>
-          </SidebarLogoWrapper>
-            {/* Render the SidebarItems component */}
-          <SidebarItems displaySidebar={displaySidebar} />
-        </SidebarWrapper>
-      </SidebarContainer>
-            {/* Render the children */}
-      <Children displaySidebar={displaySidebar}>{children}</Children>
-    </React.Fragment>
+            </div>
+            <div className="cell small-10">
+              <p className="sidenav-text">Dashboard</p>
+            </div>
+          </div>
+        </Link>
+      </div>
+      <div id="sidenav-link">
+        <Link to='/dashboard/profile'>
+          <div className="grid-x">
+            <div className="cell small-2">
+              <div id="icon-container">
+                <PersonIcon fontSize="large" sx={{ color: grey[50] }}/>
+              </div>
+            </div>
+            <div className="cell small-10">
+              <p className="sidenav-text">Profile</p>
+            </div>
+          </div>
+        </Link>
+      </div>
+      <div id="sidenav-link">
+        <Link to='/dashboard/history'>
+          <div className="grid-x">
+            <div className="cell small-2">
+              <div id="icon-container">
+                <ListIcon fontSize="large" sx={{ color: grey[50] }}/>
+              </div>
+            </div>
+            <div className="cell small-10">
+              <p className="sidenav-text">Transactions</p>
+            </div>
+          </div>
+        </Link>
+      </div>
+    </div>
   );
 }
-
-export default SideNav;
