@@ -12,6 +12,7 @@ import SignUpScreen from "./SignUp/components/signup";
 import FormReg from "./Login/components/registry";
 import Profile from "./Home/components/profile";
 import Cars from "./Home/components/cars";
+import BookingHistory from "./Home/components/booking_history";
 import AddCar from "./Home/components/addCar";
 import Payments from "./Home/components/payments";
 import AddCreditCard from "./Home/components/addCreditCard";
@@ -262,6 +263,10 @@ export default function App({ navigation }) {
                         component={AddCar}
                       />
                       <Stack.Screen
+                        name="EditCar"
+                        component={EditCar}
+                      />
+                      <Stack.Screen
                         name="Payments"
                         component={Payments}
                       />
@@ -270,9 +275,10 @@ export default function App({ navigation }) {
                         component={AddCreditCard}
                       />
                       <Stack.Screen
-                        name="EditCar"
-                        component={EditCar}
+                        name="Booking History"
+                        component={BookingHistory}
                       />
+                      
                     </>
                   ) : (
                     <>
