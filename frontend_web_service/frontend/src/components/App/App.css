@@ -580,3 +580,42 @@ td {
 #check-button:hover {
   background-color: #b65dff;
 }
+
+/* History view */
+
+#history-title {
+  text-align: center;
+  color:#7602d4
+}
+
+#history-box {
+  width: 60%;
+  margin: auto;
+  margin-top: 7%;
+  border-top-style: solid;
+  border-top-color: #9e33f7;
+  border-top-width: 1rem;
+  padding: 1rem;
+  margin-bottom: 5%;
+  padding-bottom: 2rem;
+}
+
+.history-sub-box {
+  width: 90%;
+  margin: auto;
+  margin-top: 5%;
+  border-top-style: solid;
+  border-top-color: #9e33f7;
+  border-top-width: 1rem;
+  padding: 1rem;
+  margin-bottom: 5%;
+  padding-bottom: 2rem;
+}
+
+.history-parking-title {
+  color: #7602d4;
+}
+
+#history-expand-icon {
+  float: right;
+}

@@ -40,9 +40,9 @@ export default function HistoryView() {
   console.log(reservationsByParking)
 
   return (
-    <div>
-      <h1>Transaction History</h1>
-      <div>
+    <div className="gradient-background scroll-overflow">
+      <div className='white-background with-shadow' id='history-box'>
+        <h1 id="history-title">Transaction History</h1>
         {reservationsByParking.map((parkingReservations, index) => (
           <ParkingHistory key={index} parking={parkingReservations}/>
         ))}
