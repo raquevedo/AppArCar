@@ -222,8 +222,15 @@ td {
 
 /* Sidenav */
 
+#sidenav-container {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.24);
+}
+
 #sidenav {
-  width: 18vw;
+  min-width: 18rem;
   top: 4rem;
   bottom: 0;
   background-color: #7602d4;
@@ -240,7 +247,7 @@ td {
   border-color: #6300b4;
   border-width: 0;
   position: relative;
-  height: 7%;
+  min-height: 4rem;
   padding-left: 1rem;
 }
 
@@ -299,6 +306,7 @@ td {
 }
 
 .home-logo {
+  margin-top: 20vh;
   height: 30vh;
   width: auto;
 }
@@ -485,13 +493,16 @@ td {
 .status-card {
   color: white;
   background-color: #9e33f7;
-  margin: 3rem;
   border-style: solid;
   border-radius: 1rem;
   border-color: #9e33f7;
   border-width: 0.5rem;
+}
+
+.status-cards-container {
+  margin: 5rem;
+  margin-top: 10vh;
   margin-bottom: 1rem;
-  margin-top: 2rem;
 }
 
 #status-text {
@@ -501,8 +512,9 @@ td {
 
 .management-tabs {
   background-color: white;
-  margin: 3rem;
+  margin: 5rem;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .tab {

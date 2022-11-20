@@ -127,7 +127,7 @@ export default function ManagementBoard(props) {
 
   const baseUrl = `/dashboard/manage/${id}`;
   return (
-    <div class='scroll-overflow'>
+    <div className='scroll-overflow'>
       <div className="gradient-background"></div>
       <div className="grid-y">
         <div className="cell">

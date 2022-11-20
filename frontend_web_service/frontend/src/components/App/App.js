@@ -32,7 +32,7 @@ function App() {
         </div>
         <div className="cell">
           {showSideNav &&
-            <SideNav />
+            <SideNav setShowSideNav={setShowSideNav}/>
           }
           <Routes>
             <Route path='/' element={<Homepage />} />
