@@ -1,7 +1,6 @@
-import * as React from "react";
+import { useState, useContext } from "react";
 import {
   View,
-  Button,
   Text,
   Image,
   TouchableOpacity,
@@ -16,18 +15,13 @@ import moment from "moment";
 import { Dropdown } from "react-native-element-dropdown";
 
 function FormReg({ navigation }) {
-  const [name, setName] = React.useState("");
-  const [lastName, setlastName] = React.useState("");
-  //const [patent, setpatent] = React.useState('');
-  const [documentNumber, setDocument] = React.useState("");
-  const [birthDateDt, setBirthday] = React.useState("");
-  //const [residence, setResidence] = React.useState('');
-  const [contactNumber, setContactNumber] = React.useState("");
-  //const [brandCar, setBrandCar] = React.useState('');
-  //const [modelCar, setModelCar] = React.useState('');
-  const [gender, setGender] = React.useState("");
-  const [isDatePickerVisible, setIsDatePickerVisibility] =
-    React.useState(false);
+  const [name, setName] = useState("");
+  const [lastName, setlastName] = useState("");
+  const [documentNumber, setDocument] = useState("");
+  const [birthDateDt, setBirthday] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [gender, setGender] = useState("");
+  const [isDatePickerVisible, setIsDatePickerVisibility] = useState(false);
 
   const showDatePicker = () => {
     setIsDatePickerVisibility(true);
@@ -42,15 +36,27 @@ function FormReg({ navigation }) {
     hideDatePicker();
   };
 
-  const { register } = React.useContext(AuthContext);
-  const { signOut } = React.useContext(AuthContext);
+  const { register } = useContext(AuthContext);
+  const { signOut } = useContext(AuthContext);
 
-  const [isFocus, setIsFocus] = React.useState(false);
+  const [isFocus, setIsFocus] = useState(false);
   const data = [
     { label: "Male", value: "Male" },
     { label: "Female", value: "Female" },
     { label: "Other", value: "Other" },
   ];
+
+  function thisRegister(){
+    register({
+      name,
+      lastName,
+      documentNumber,
+      birthDateDt,
+      contactNumber,
+      gender,
+    })
+  }
+
   return (
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
@@ -127,14 +133,7 @@ function FormReg({ navigation }) {
           <TouchableOpacity
             style={styles.containButtonStylel}
             onPress={() =>
-              register({
-                name,
-                lastName,
-                documentNumber,
-                birthDateDt,
-                contactNumber,
-                gender,
-              })
+              thisRegister()
             }
           >
             <LinearGradient
