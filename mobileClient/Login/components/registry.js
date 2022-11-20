@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -14,15 +14,32 @@ import DatePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
 import { Dropdown } from "react-native-element-dropdown";
 
-function FormReg({ navigation }) {
-  const [name, setName] = useState("");
-  const [lastName, setlastName] = useState("");
-  const [documentNumber, setDocument] = useState("");
-  const [birthDateDt, setBirthday] = useState("");
-  const [contactNumber, setContactNumber] = useState("");
-  const [gender, setGender] = useState("");
-  const [isDatePickerVisible, setIsDatePickerVisibility] = useState(false);
 
+function FormReg({ navigation }) {
+ 
+  const [name, setName] = useState({type:"word",value:"",valid:false,isValidOn:false});
+  const setInput1Handl = useCallback(val => {setName(val)},[setName]);
+  const [lastName, setlastName] = useState({type:"word",value:"",valid:false,isValidOn:false});
+  const setInput2Handl = useCallback(val => {setlastName(val)},[setlastName]);
+  const [documentNumber, setDocument] = useState({type:"document",value:"",valid:false,isValidOn:false});
+  const setInput3Handl = useCallback(val => {setDocument(val)},[setDocument]);
+  const [contactNumber, setContactNumber] = useState({type:"phone",value:"",valid:false,isValidOn:false});
+  const setInput4Handl = useCallback(val => {setEmail(val)},[setEmail]);
+
+  const [birthDateDt, setBirthday] = useState("");
+  const [birthDateStyle, setBirthdayStyle] = useState(styles.containButtonStyleDate);
+  const [gender, setGender] = useState("");
+  const [genderStyle, setGenderStyle] = useState(styles.dropdown);
+  const [isDatePickerVisible, setIsDatePickerVisibility] = useState(false);
+  const [validActive, setValidActive] = useState(false);
+  
+  function inputsActivator(){
+    setName({...name,isValidOn:true});
+    setlastName({...lastName,isValidOn:true});
+    setDocument({...documentNumber,isValidOn:true});
+    setContactNumber({...contactNumber,isValidOn:true});
+  }
+  
   const showDatePicker = () => {
     setIsDatePickerVisibility(true);
   };
@@ -46,15 +63,37 @@ function FormReg({ navigation }) {
     { label: "Other", value: "Other" },
   ];
 
+  useEffect(()=>{
+    if(validActive){
+      if(birthDateDt===""){
+        setBirthdayStyle(styles.containButtonStyleDateError);
+      }else{
+        setBirthdayStyle(styles.containButtonStyleDate);
+      }
+      if(gender===""){
+        setGenderStyle(styles.dropdownError);
+      }else{
+        setGenderStyle(styles.dropdown);
+      }
+    }
+  },[birthDateDt,gender,validActive]);
+
   function thisRegister(){
-    register({
-      name,
-      lastName,
-      documentNumber,
-      birthDateDt,
-      contactNumber,
-      gender,
-    })
+    setValidActive(true);
+    inputsActivator();
+    if(birthDateDt!="" && gender!="" && name.valid && lastName.valid && documentNumber.valid && contactNumber.valid){
+      console.log("pasa");
+      /*
+        register({
+          name,
+          lastName,
+          documentNumber,
+          birthDateDt,
+          contactNumber,
+          gender,
+        })
+      */
+    }
   }
 
   return (
@@ -64,39 +103,12 @@ function FormReg({ navigation }) {
         <View style={styles.sectionLong}>
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>Complete sus datos:</Text>
-          <TextInput
-            placeholder="Name"
-            value={name}
-            onChangeText={setName}
-            style={styles.text}
-            left={<TextInput.Icon icon="eye" />}
-          />
-          <TextInput
-            placeholder="Surname"
-            value={lastName}
-            onChangeText={setlastName}
-            style={styles.text}
-            left={<TextInput.Icon icon="eye" />}
-          />
-
-          <TextInput
-            placeholder="Document Number"
-            value={documentNumber}
-            onChangeText={setDocument}
-            style={styles.text}
-            left={<TextInput.Icon icon="book" />}
-          />
-
-          <TextInput
-            placeholder="Mobile phone"
-            value={contactNumber}
-            onChangeText={setContactNumber}
-            style={styles.text}
-            left={<TextInput.Icon icon="phone" />}
-          />
-
+          <CustomInput styles={styles} data={name} setData={setInput1Handl}></CustomInput>
+          <CustomInput styles={styles} data={lastName} setData={setInput2Handl}></CustomInput>
+          <CustomInput styles={styles} data={documentNumber} setData={setInput3Handl}></CustomInput>
+          <CustomInput styles={styles} data={contactNumber} setData={setInput4Handl}></CustomInput>
           <Dropdown
-            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+            style={[genderStyle, isFocus && { borderColor: "blue" }]}
             placeholderStyle={styles.placeholderStyle}
             selectedTextStyle={styles.selectedTextStyle}
             inputSearchStyle={styles.inputSearchStyle}
@@ -115,7 +127,7 @@ function FormReg({ navigation }) {
             }}
           />
           <TouchableOpacity
-            style={styles.containButtonStyleDate}
+            style={birthDateStyle}
             onPress={showDatePicker}
           >
             <Text style={styles.textDate}>{`${
@@ -170,23 +182,37 @@ export default FormReg;
 
 /*
  <TextInput
-          placeholder="patente"
-          value={brandCar}
-          onChangeText={setBrandCar}
-        />
-        <TextInput
-          placeholder="modelCar"
-          value={modelCar}
-          onChangeText={setModelCar}
-        />
-        <TextInput
-          placeholder="residence"
-          value={residence}
-          onChangeText={setResidence}
-        />
-        <TextInput
-          placeholder="patent"
-          value={patent}
-          onChangeText={setpatent}
-        />
+    placeholder="Name"
+    value={name}
+    onChangeText={setName}
+    style={styles.text}
+    left={<TextInput.Icon icon="eye" />}
+  />
+  <TextInput
+    placeholder="Surname"
+    value={lastName}
+    onChangeText={setlastName}
+    style={styles.text}
+    left={<TextInput.Icon icon="eye" />}
+  />
+
+  <TextInput
+    placeholder="Document Number"
+    value={documentNumber}
+    onChangeText={setDocument}
+    style={styles.text}
+    left={<TextInput.Icon icon="book" />}
+  />
+
+  <TextInput
+    placeholder="Mobile phone"
+    value={contactNumber}
+    onChangeText={setContactNumber}
+    style={styles.text}
+    left={<TextInput.Icon icon="phone" />}
+  />
   */
+ /*const [name, setName] = useState("");
+  const [lastName, setlastName] = useState("");
+  const [documentNumber, setDocument] = useState("");
+  const [contactNumber, setContactNumber] = useState("");*/
