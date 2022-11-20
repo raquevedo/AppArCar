@@ -313,6 +313,12 @@ const styles = StyleSheet.create({
     
   },
   heading2: {
+
+    fontSize: 30,
+    fontFamily: "TTNorms-BoldItalic",
+  },
+  heading3: {
+    padding: 20,
     fontSize: 30,
     fontFamily: "TTNorms-BoldItalic",
   },
