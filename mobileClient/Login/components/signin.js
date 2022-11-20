@@ -1,23 +1,43 @@
-import * as React from "react";
+import { useState,useContext,useCallback, useEffect } from "react";
 import {
   View,
-  Button,
   Text,
-  StyleSheet,
   Image,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
 import { AuthContext } from "../../Services/context";
 import styles from "../../Services/styles";
-import { TextInput } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
+import CustomInput from '../../GenericComponents/customInput';
 
 function SignInScreen({ navigation }) {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  //const [email, setEmail] = useState("");
+  //const [password, setPassword] = useState("");
+  
+  const [email,setEmail] = useState({type:"email",value:"",valid:false,isValidOn:false});
+  const setInput1Handl = useCallback(val => {setEmail(val)},[setEmail]);
+  const [password,setPassword] = useState({type:"password",value:"",valid:false,isValidOn:false});
+  const setInput1Handl2 = useCallback(val => {setPassword(val)},[setPassword]);
 
-  const { signIn } = React.useContext(AuthContext);
+  function inputsActivator(){
+    setEmail({...email,isValidOn:true});
+    setPassword({...password,isValidOn:true});
+  }
+
+  function login(){
+    inputsActivator();
+    if(email.valid && password.valid){
+      signIn({ email:email.value,password:password.value })
+    }
+  }
+
+  useEffect(()=>{
+   console.log(email);
+   console.log(password);
+  },[email,password]);
+
+  const { signIn } = useContext(AuthContext);
 
   return (
     <ScrollView style={{ flex: 1 }}>
@@ -27,24 +47,11 @@ function SignInScreen({ navigation }) {
         <View style={styles.section}>
           <View style={styles.space}></View>
           <Text style={styles.themeText}>Hello!</Text>
-          <TextInput
-            placeholder="Email"
-            value={email}
-            style={styles.text}
-            onChangeText={setEmail}
-            left={<TextInput.Icon icon="email" />}
-          />
-          <TextInput
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            style={styles.text}
-            left={<TextInput.Icon icon="lock" />}
-          />
+          <CustomInput styles={styles} data={email} setData={setInput1Handl}></CustomInput>
+          <CustomInput styles={styles} data={password} setData={setInput1Handl2}></CustomInput>
           <TouchableOpacity
             style={styles.containButtonStylel}
-            onPress={() => signIn({ email, password })}
+            onPress={() => login()}
           >
             <LinearGradient
               start={{ x: 0, y: 0 }}
@@ -64,7 +71,6 @@ function SignInScreen({ navigation }) {
           >
             <Text style={styles.buttonTextSignUp}>Sign up</Text>
           </TouchableOpacity>
-
           <Image
             source={require("../../assets/anthem.png")}
             style={styles.imageAnthem}
@@ -75,3 +81,24 @@ function SignInScreen({ navigation }) {
   );
 }
 export default SignInScreen;
+
+/*
+  <TextInput
+    placeholder="Email"
+    value={email}
+    style={styles.text}
+    onChangeText={setEmail}
+    error={false}
+    left={<TextInput.Icon icon="email" />}
+  />
+  <TextInput
+    placeholder="Password"
+    value={password}
+    onChangeText={setPassword}
+    secureTextEntry
+    style={styles.text}
+    left={<TextInput.Icon icon="lock" />}
+  />    
+
+  onPress={() => signIn({ email, password })}
+*/
