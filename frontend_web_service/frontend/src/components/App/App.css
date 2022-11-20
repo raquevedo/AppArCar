@@ -182,7 +182,7 @@ td {
 
 .navbar-item a {
   display: block;
-  color: white;
+  color: white !important;
   text-align: center;
 }
 
@@ -618,4 +618,31 @@ td {
 
 #history-expand-icon {
   float: right;
+}
+
+/* About Us */
+
+#about-us-view {
+  padding-top: 5%;
+}
+
+#member-card-container {
+  margin: 5%;
+  width: 90%;
+  position: relative;
+  border-top-style: solid;
+  border-top-color: #9e33f7;
+  border-top-width: 1rem;
+  border-bottom-style: solid;
+  border-bottom-color: #9e33f7;
+  border-bottom-width: 1rem;
+  border-radius: 1rem;
+}
+
+#card-photo {
+  height: 12rem;
+}
+
+#card-name {
+  color:#9e33f7;
 }
