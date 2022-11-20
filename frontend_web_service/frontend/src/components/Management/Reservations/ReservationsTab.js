@@ -5,7 +5,6 @@ import ParkedCars from "./ParkedCars";
 import PendingReservations from "./PendingReservations";
 
 export default function ReservationsTab(props) {
-  console.log(props.pendingReservations)
 
   async function AcceptReservation(id) {
     const res = await acceptReservation(id);
@@ -51,8 +50,17 @@ export default function ReservationsTab(props) {
     }
   }
 
+  async function acceptAll () {
+    props.pendingReservations.forEach(function(reservation, index) {
+      acceptReservation(reservation.id);
+    })
+    props.setAcceptedReservations([...props.acceptedReservations, ...props.pendingReservations]);
+    props.setPendingReservations([]);
+  }
+
   return (
     <div className="reservations">
+      <button type="button" className="button" onClick={acceptAll}>Accept All</button>
       <div className="grid-x grid-padding-x grid-margin-x background-reservations">
         <div className="cell large-6 small-12">
           <PendingReservations
@@ -60,6 +68,7 @@ export default function ReservationsTab(props) {
             reservations={props.pendingReservations}
             setReservations={props.setPendingReservations}
             AcceptReservation={AcceptReservation}
+            parkingId={props.id}
           />
         </div>
         <div className="cell large-6 small-12">

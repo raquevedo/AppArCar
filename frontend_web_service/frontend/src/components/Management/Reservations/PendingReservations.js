@@ -6,9 +6,12 @@ export default function PendingReservations({
   reservations,
   setReservations,
   AcceptReservation,
+  parkingId
 }) {
   function updateReservations(newReservation) {
-    setReservations([...reservations, ...[newReservation]]);
+    if (newReservation['idParking'] === parseInt(parkingId)) {
+      setReservations([...reservations, ...[newReservation]]);
+    }
   }
 
   // Subscribe to event once connection is established
@@ -37,7 +40,7 @@ export default function PendingReservations({
         <table>
           <thead>
             <tr>
-              <th>Driver</th>
+              <th>License Plate</th>
               <th>Expiration Date</th>
               <th>Approve</th>
               <th>Reject</th>

@@ -47,9 +47,9 @@ function FormReg({ navigation }) {
 
   const [isFocus, setIsFocus] = React.useState(false);
   const data = [
-    { label: "Masculino", value: "Masculino" },
-    { label: "Femenino", value: "Femenino" },
-    { label: "Indefinido", value: "Indefinido" },
+    { label: "Male", value: "Male" },
+    { label: "Female", value: "Female" },
+    { label: "Other", value: "Other" },
   ];
   return (
     <ScrollView style={{ flex: 1 }}>
@@ -59,14 +59,14 @@ function FormReg({ navigation }) {
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>Complete sus datos:</Text>
           <TextInput
-            placeholder="Nombre"
+            placeholder="Name"
             value={name}
             onChangeText={setName}
             style={styles.text}
             left={<TextInput.Icon icon="eye" />}
           />
           <TextInput
-            placeholder="Apellido"
+            placeholder="Surname"
             value={lastName}
             onChangeText={setlastName}
             style={styles.text}
@@ -74,7 +74,7 @@ function FormReg({ navigation }) {
           />
 
           <TextInput
-            placeholder="Documento"
+            placeholder="Document Number"
             value={documentNumber}
             onChangeText={setDocument}
             style={styles.text}
@@ -82,7 +82,7 @@ function FormReg({ navigation }) {
           />
 
           <TextInput
-            placeholder="Teléfono móvil"
+            placeholder="Mobile phone"
             value={contactNumber}
             onChangeText={setContactNumber}
             style={styles.text}
@@ -97,9 +97,9 @@ function FormReg({ navigation }) {
             iconStyle={styles.iconStyle}
             labelField="label"
             valueField="value"
-            label="Genero"
+            label="Gender"
             data={data}
-            placeholder="Seleccione Genero"
+            placeholder="Gender"
             value={gender}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
@@ -115,7 +115,7 @@ function FormReg({ navigation }) {
             <Text style={styles.textDate}>{`${
               birthDateDt
                 ? moment(birthDateDt).format("MM/DD/YYYY")
-                : "Fecha de Nacimiento"
+                : "Born date"
             }`}</Text>
           </TouchableOpacity>
           <DatePicker

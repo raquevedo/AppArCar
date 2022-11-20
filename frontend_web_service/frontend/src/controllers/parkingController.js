@@ -1,12 +1,4 @@
-import fetchToken from '../utils/fetchToken';
-
-function buildHeaders() {
-  let myHeaders = new Headers();
-  myHeaders.append('Authorization', 'Bearer ' + fetchToken());
-  myHeaders.append('Content-Type', 'application/json');
-
-  return myHeaders;
-}
+import { buildHeaders } from './utils';
 
 export async function newParking(parkingData) {
   const myHeaders = buildHeaders();
@@ -48,6 +40,14 @@ export async function getReservations(id) {
   const myHeaders = buildHeaders();
 
   return await fetch(`http://localhost:8000/parking/reservation/parking/${id}`, {
+    headers: myHeaders
+  });
+}
+
+export async function getAllReservations() {
+  const myHeaders = buildHeaders();
+
+  return await fetch('http://localhost:8000/parking/reservation/parking-user', {
     headers: myHeaders
   });
 }

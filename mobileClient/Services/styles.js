@@ -21,6 +21,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  themeTextFlat2: {
+    flex: 1,
+    fontSize: 20,
+    fontFamily: "TTNorms-BoldItalic",
+    textAlign: "center",
+    color: "green",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: -25,
+  },
   themeTextShort: {
     flex: 4,
     fontSize: 30,
@@ -314,6 +324,12 @@ const styles = StyleSheet.create({
   subheading2: {
     fontSize: 18,
     color: 'red',
+    fontFamily: "TTNorms-Regular",
+  },
+  subheading3: {
+    marginBottom:10,
+    fontSize: 18,
+    color: 'grey',
     fontFamily: "TTNorms-Regular",
   },
   itemSeparator: {

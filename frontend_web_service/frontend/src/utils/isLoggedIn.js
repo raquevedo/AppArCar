@@ -1,4 +1,4 @@
-import fetchToken from "./fetchToken";
+import { fetchToken } from "./authToken";
 
 export function isLoggedIn() {
   const token = fetchToken();

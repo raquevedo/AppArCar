@@ -35,19 +35,17 @@ function AddCreditCard({ navigation }) {
     setExpireDate(expiredDateDt);
     hideDatePicker();
   };
-
   const [isFocus, setIsFocus] = React.useState(false);
-  const [isFocusc, setIsFocusc] = React.useState(false);
-  const data = [
-    { label: "Amex", value: "Amex" },
-    { label: "Visa", value: "Visa" },
-    { label: "Master", value: "Master" },
+
+  const cardType = [
+    { label: "Debit", value: "Debit" },
+    { label: "Credit", value: "Credit" }
   ];
 
-  const datac = [
-    { label: "Credit", value: "Credit" },
-    { label: "Debit", value: "Debit" },
-    
+  const cardCompany = [
+    { label: "Visa", value: "Visa" },
+    { label: "Amex", value: "Amex" },
+    { label: "Master", value: "Master" }
   ];
 
   return (
@@ -72,7 +70,6 @@ function AddCreditCard({ navigation }) {
             style={styles.text}
             onChangeText={setCardName}
           />
-         
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
             placeholderStyle={styles.placeholderStyle}
@@ -82,8 +79,8 @@ function AddCreditCard({ navigation }) {
             labelField="label"
             valueField="value"
             label="Company"
-            data={data}
-            placeholder="Seleccione Company"
+            data={cardCompany}
+            placeholder="Company"
             value={company}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
@@ -92,6 +89,7 @@ function AddCreditCard({ navigation }) {
               setIsFocus(false);
             }}
           />
+          
           <Dropdown
             style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
             placeholderStyle={styles.placeholderStyle}
@@ -100,9 +98,9 @@ function AddCreditCard({ navigation }) {
             iconStyle={styles.iconStyle}
             labelField="label"
             valueField="value"
-            label="Tipo"
-            data={datac}
-            placeholder="Seleccione Tipo"
+            label="Card Type"
+            data={cardType}
+            placeholder="Card Type"
             value={type}
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
@@ -110,7 +108,7 @@ function AddCreditCard({ navigation }) {
               setType(item.value);
               setIsFocus(false);
             }}
-          />
+          />                    
           <DatePicker
             isVisible={isDatePickerVisible}
             mode="date"

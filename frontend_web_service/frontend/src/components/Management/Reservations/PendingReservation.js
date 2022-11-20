@@ -23,7 +23,7 @@ export default function PendingReservation({
 
   return (
     <tr>
-      <td>{reservation.idCarDriver}</td>
+      <td>{reservation['patentId']}</td>
       <td>
         {expirationDate.getHours()}:{expirationDate.getMinutes()}
       </td>
