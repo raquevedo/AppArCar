@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -13,18 +13,19 @@ import { LinearGradient } from "expo-linear-gradient";
 import DatePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
 import { Dropdown } from "react-native-element-dropdown";
+import CustomInput from "../../GenericComponents/customInput";
 
 
 function FormReg({ navigation }) {
  
-  const [name, setName] = useState({type:"word",value:"",valid:false,isValidOn:false});
+  const [name, setName] = useState({type:"name",value:"",valid:false,isValidOn:false});
   const setInput1Handl = useCallback(val => {setName(val)},[setName]);
-  const [lastName, setlastName] = useState({type:"word",value:"",valid:false,isValidOn:false});
+  const [lastName, setlastName] = useState({type:"lastName",value:"",valid:false,isValidOn:false});
   const setInput2Handl = useCallback(val => {setlastName(val)},[setlastName]);
   const [documentNumber, setDocument] = useState({type:"document",value:"",valid:false,isValidOn:false});
   const setInput3Handl = useCallback(val => {setDocument(val)},[setDocument]);
   const [contactNumber, setContactNumber] = useState({type:"phone",value:"",valid:false,isValidOn:false});
-  const setInput4Handl = useCallback(val => {setEmail(val)},[setEmail]);
+  const setInput4Handl = useCallback(val => {setContactNumber(val)},[setContactNumber]);
 
   const [birthDateDt, setBirthday] = useState("");
   const [birthDateStyle, setBirthdayStyle] = useState(styles.containButtonStyleDate);
@@ -82,17 +83,13 @@ function FormReg({ navigation }) {
     setValidActive(true);
     inputsActivator();
     if(birthDateDt!="" && gender!="" && name.valid && lastName.valid && documentNumber.valid && contactNumber.valid){
-      console.log("pasa");
-      /*
-        register({
-          name,
-          lastName,
-          documentNumber,
-          birthDateDt,
-          contactNumber,
-          gender,
-        })
-      */
+      register({name:name.value,
+        lastName:lastName.value,
+        documentNumber:documentNumber.value,
+        birthDateDt,
+        contactNumber:contactNumber.value,
+        gender,
+      });  
     }
   }
 
