@@ -93,7 +93,7 @@ td {
 
 .modal-large {
   width: 50vw;
-  min-height: 70vh;
+  min-height: 50vh;
 }
 
 .modal-button {
@@ -482,10 +482,6 @@ td {
 
 .accordion-button:hover {
   background-color: rgb(6, 116, 6);
-}
-
-#parking-form-modal {
-  margin-bottom: 10%;
 }
 
 /* Management */

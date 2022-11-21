@@ -10,7 +10,7 @@ export default function ParkingForm(props) {
     streetName: yup.string().required(),
     streetNumber: yup.number().required(),
     qtyTotalSlots: yup.number().required(),
-    city: yup.number(),
+    city: yup.string(),
     priceHour: yup.number().required(),
     price_6Hours: yup.number().required(),
     price_12Hours: yup.number().required(),
@@ -42,12 +42,12 @@ export default function ParkingForm(props) {
   }
 
   return (
-    <div className="grid-y">
-      <div className="cell">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          id={`${props.isModal ? 'parking-form-modal' : 'parking-form'}`}
-        >
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      id='parking-form'
+    >
+      <div className="grid-y">
+        <div className="cell">
           <div className="grid-x align-center grid-margin-x grid-padding-x grid-padding-y">
             <div className="cell large-6 small-12">
               <div>
@@ -102,7 +102,7 @@ export default function ParkingForm(props) {
                   {...register("city")}
                 />
               </div>            
-              {errors.City && <p>City is invalid</p>}
+              {errors.city && <p>City is invalid</p>}
 
             </div>
             <div className="cell large-6 small-12">
@@ -162,12 +162,11 @@ export default function ParkingForm(props) {
 
             </div>
           </div>
-        </form>
+          <div className="cell">
+            <button className="form-button" disabled={props.buttonDisabled} type="submit">Submit</button>
+          </div>
+        </div>
       </div>
-      <div className="cell">
-        <button className="form-button" disabled={props.buttonDisabled} type="submit">Submit</button>
-      </div>
-      
-    </div>
+    </form>
   );
 }
