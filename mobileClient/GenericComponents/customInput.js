@@ -1,4 +1,3 @@
-import { View } from 'react-native';
 import { useEffect,useState } from 'react';
 import { TextInput, HelperText } from "react-native-paper";
 
@@ -13,6 +12,11 @@ function CustomInput({data,setData,styles}) {
     ,lastName:{icon:'eye',placeholder:'Last name',errorMessage:'Invalid last name'}
     ,document:{icon:'book',placeholder:'Document Number',errorMessage:'Document length must be 8 digits'}
     ,phone:{icon:'phone',placeholder:'Phone Number',errorMessage:'Phone length must be 10 digits and bigining witf 15'}
+    ,patent:{icon:'eye',placeholder:'Patent',errorMessage:'Please valid your patent. Eg cccddd or ccdddcc'}
+    ,brand:{icon:'eye',placeholder:'Brand',errorMessage:'Invalid data'}
+    ,model:{icon:'eye',placeholder:'Model',errorMessage:'Invalid data'}
+    ,color:{icon:'eye',placeholder:'Color',errorMessage:'Invalid data'}
+    ,prodYear:{icon:'eye',placeholder:'Production year',errorMessage:'Year invalid'}
   };
 
   function isValid(type,str){
@@ -23,12 +27,18 @@ function CustomInput({data,setData,styles}) {
     const lastName = new RegExp( /^[a-zA-Z]{3}[a-zA-Z]*$/ );
     const document = new RegExp( /^\d{8}$/ );
     const phone = new RegExp( /^15\d{8}$/ );
+    const patent = new RegExp( /^[a-zA-Z]{2}\d{3}[a-zA-Z]{2}$|^[a-zA-Z]{3}\d{3}$/ );
+    const genericWords = new RegExp( /\w/ );
+    const year = new RegExp( /^19\d{2}$|^20\d{2}$/ );
     if((type === 'email' && mailRegex.test(str)) ||
         (type === 'password' && password.test(str)) ||
           (type === 'name' && name.test(str)) ||
             (type === 'lastName' && lastName.test(str)) ||
               (type === 'document' && document.test(str)) ||
-                (type === 'phone' && phone.test(str))){
+                (type === 'phone' && phone.test(str)) ||
+                  (type === 'patent' && patent.test(str)) ||
+                   ((type === 'model' || type === 'brand' || type === 'color') && genericWords.test(str)) ||
+                     (type === 'prodYear' && year.test(str))){
       return true;
     }else{
       return false;
