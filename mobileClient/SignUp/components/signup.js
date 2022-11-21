@@ -33,10 +33,11 @@ function SignUpScreen({ navigation }) {
     setPassword({...password,isValidOn:true});
   }
   function thisSignUp(){
-    inputsActivator();
     if(email.valid && password.valid){
       signUp({ username:username.value, email:email.value, password:password.value });
       navigation.goBack();
+    }else{
+      inputsActivator();
     }
   }
 

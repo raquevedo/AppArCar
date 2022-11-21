@@ -80,8 +80,6 @@ function FormReg({ navigation }) {
   },[birthDateDt,gender,validActive]);
 
   function thisRegister(){
-    setValidActive(true);
-    inputsActivator();
     if(birthDateDt!="" && gender!="" && name.valid && lastName.valid && documentNumber.valid && contactNumber.valid){
       register({name:name.value,
         lastName:lastName.value,
@@ -90,6 +88,9 @@ function FormReg({ navigation }) {
         contactNumber:contactNumber.value,
         gender,
       });  
+    }else{
+      setValidActive(true);
+      inputsActivator();
     }
   }
 

@@ -14,21 +14,23 @@ import CustomInput from '../../GenericComponents/customInput';
 function SignInScreen({ navigation }) {
   //const [email, setEmail] = useState("");
   //const [password, setPassword] = useState("");
-  
+  const { signIn } = useContext(AuthContext);
+
   const [email,setEmail] = useState({type:"email",value:"",valid:false,isValidOn:false});
   const setInput1Handl = useCallback(val => {setEmail(val)},[setEmail]);
   const [password,setPassword] = useState({type:"password",value:"",valid:false,isValidOn:false});
   const setInput1Handl2 = useCallback(val => {setPassword(val)},[setPassword]);
 
   function inputsActivator(){
-    setEmail({...email,isValidOn:true});
-    setPassword({...password,isValidOn:true});
+    setEmail(()=>({...email,isValidOn:true}));
+    setPassword(()=>({...password,isValidOn:true}));
   }
 
   function login(){
-    inputsActivator();
     if(email.valid && password.valid){
       signIn({ email:email.value,password:password.value })
+    }else{
+      inputsActivator();
     }
   }
 
@@ -36,8 +38,6 @@ function SignInScreen({ navigation }) {
    console.log(email);
    console.log(password);
   },[email,password]);
-
-  const { signIn } = useContext(AuthContext);
 
   return (
     <ScrollView style={{ flex: 1 }}>

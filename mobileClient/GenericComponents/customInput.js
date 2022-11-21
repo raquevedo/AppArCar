@@ -8,12 +8,12 @@ function CustomInput({data,setData,styles}) {
   const[styleValid,setStyleValid]=useState(false)
 
   const inputTypes = { email:{icon:'email',placeholder:'Email',errorMessage:'Email address is invalid.'}
-  ,password:{icon:'lock',placeholder:'Password',errorMessage:'Password length must be 8 characters'}
-  ,name:{icon:'eye',placeholder:'Name',errorMessage:'Invalid name'}
-  ,lastName:{icon:'eye',placeholder:'Last name',errorMessage:'Invalid last name'}
-  ,document:{icon:'book',placeholder:'Document Number',errorMessage:'Document length must be 8 digits'}
-  ,phone:{icon:'phone',placeholder:'Phone Number',errorMessage:'Phone length must be 10 digits and bigining witf 15'}
- };
+    ,password:{icon:'lock',placeholder:'Password',errorMessage:'Password length must be 8 characters'}
+    ,name:{icon:'eye',placeholder:'Name',errorMessage:'Invalid name'}
+    ,lastName:{icon:'eye',placeholder:'Last name',errorMessage:'Invalid last name'}
+    ,document:{icon:'book',placeholder:'Document Number',errorMessage:'Document length must be 8 digits'}
+    ,phone:{icon:'phone',placeholder:'Phone Number',errorMessage:'Phone length must be 10 digits and bigining witf 15'}
+  };
 
   function isValid(type,str){
     const mailRegex = new RegExp( /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ );
@@ -36,12 +36,18 @@ function CustomInput({data,setData,styles}) {
   }
 
   useEffect(()=>{
+    if(isValid(data.type,value)){
+      setData({...data,'value':value,'valid':true});
+    }else{
+      setData({...data,'value':value,'valid':false});
+    }
+  },[value]);
+
+  useEffect(()=>{
     if(data.isValidOn){
       if(isValid(data.type,value)){
-        setData({...data,'value':value,'valid':true});
         setStyleValid(false);
       }else{
-        setData({...data,'value':value,'valid':false});
         setStyleValid(true);
       }
     }
