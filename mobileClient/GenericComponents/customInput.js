@@ -3,7 +3,7 @@ import { TextInput, HelperText } from "react-native-paper";
 
 function CustomInput({data,setData,styles}) {
 
-  const[value,setValue]=useState("");
+  const[value,setValue]=useState(data.value);
   const[styleValid,setStyleValid]=useState(false)
 
   const inputTypes = { email:{icon:'email',placeholder:'Email',errorMessage:'Email address is invalid.'}
@@ -12,11 +12,11 @@ function CustomInput({data,setData,styles}) {
     ,lastName:{icon:'eye',placeholder:'Last name',errorMessage:'Invalid last name'}
     ,document:{icon:'book',placeholder:'Document Number',errorMessage:'Document length must be 8 digits'}
     ,phone:{icon:'phone',placeholder:'Phone Number',errorMessage:'Phone length must be 10 digits and bigining witf 15'}
-    ,patent:{icon:'eye',placeholder:'Patent',errorMessage:'Please valid your patent. Eg cccddd or ccdddcc'}
-    ,brand:{icon:'eye',placeholder:'Brand',errorMessage:'Invalid data'}
-    ,model:{icon:'eye',placeholder:'Model',errorMessage:'Invalid data'}
-    ,color:{icon:'eye',placeholder:'Color',errorMessage:'Invalid data'}
-    ,prodYear:{icon:'eye',placeholder:'Production year',errorMessage:'Year invalid'}
+    ,patent:{icon:'card',placeholder:'Patent',errorMessage:'Please valid your patent. Eg cccddd or ccdddcc'}
+    ,brand:{icon:'car',placeholder:'Brand',errorMessage:'Invalid data'}
+    ,model:{icon:'car',placeholder:'Model',errorMessage:'Invalid data'}
+    ,color:{icon:'palette',placeholder:'Color',errorMessage:'Invalid data'}
+    ,prodYear:{icon:'calendar',placeholder:'Production year',errorMessage:'Year invalid'}
   };
 
   function isValid(type,str){
