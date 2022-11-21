@@ -8,7 +8,7 @@ function CustomInput({data,setData,styles}) {
   const[styleValid,setStyleValid]=useState(false)
 
   const inputTypes = { email:{icon:'email',placeholder:'Email',errorMessage:'Email address is invalid.'}
-  ,password:{icon:'eye',placeholder:'Password',errorMessage:'Password length must be 8 characters'}
+  ,password:{icon:'lock',placeholder:'Password',errorMessage:'Password length must be 8 characters'}
   ,name:{icon:'eye',placeholder:'Name',errorMessage:'Invalid name'}
   ,lastName:{icon:'eye',placeholder:'Last name',errorMessage:'Invalid last name'}
   ,document:{icon:'book',placeholder:'Document Number',errorMessage:'Document length must be 8 digits'}
