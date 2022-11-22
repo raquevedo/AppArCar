@@ -10,6 +10,7 @@ import { getCoordinates, getNearParkings } from "../controllers/map_controller";
 import {ModalReserve, ModalPatent} from "./mapModals";
 import ReservationsSocket from "./reservationsSocket";
 import styles from "../../Services/styles";
+import { getPaymentMethods } from "../controllers/payments_methods_controller";
 
 function HomeScreen({ navigation }) {
   //const { signOut } = useContext(AuthContext);
@@ -77,6 +78,21 @@ function HomeScreen({ navigation }) {
   function centerRegion(coordinates){
     setRegionMapLat(coordinates.latitude)
     setRegionMapLon(coordinates.longitude)
+  }
+  async function thisReserve(parking){
+    
+    const selectedCar= await SecureStore.getItemAsync("patent");
+    const response = await getPaymentMethods();
+    const cards = await response.json();
+    const response2 = await GetCars();
+    const cars = await response2.json();
+    cars.filter((x)=> x.patentId == selectedCar)!=0
+    if((cars.filter((x)=> x.patentId == selectedCar)).length!=0 && cards.length!=0){
+      navigation.navigate("Reservation",{parking:parking})  
+    }else{
+      Alert.alert('Important','To booking: charge and select any car and credit card.');
+    }
+    //reserve(route.params.parking.id) // salvar idParking
   }
   useEffect(() => {
     (async () => {
@@ -159,7 +175,7 @@ function HomeScreen({ navigation }) {
               title={"Parking:"+item.businessName}
               description={"cuit: "+item.cuitNumber}
               coordinate={{"latitude":item.latitude,"longitude":item.longitude}}
-              onPress={() => navigation.navigate("Reservation",{parking:item})}
+              onPress={() => thisReserve(item) }
               icon={require('../../assets/gasperavailaible.png')}
             />
             
@@ -201,3 +217,22 @@ function HomeScreen({ navigation }) {
 }
 
 export default HomeScreen;
+
+/*
+async function thisReserve(idParking){
+    console.log(route.params.parking);
+    console.log(getSelectedPayment());
+    const selectedCar= await SecureStore.getItemAsync("patent");
+    const cars = await response.json();
+    const response = await getPaymentMethods();
+    const cards = await response.json();
+    if(selectedCar!=='' && cars.length!=0 && cards.length!=0){
+      console.log('reservation ok');
+    }else{
+      Alert.alert('Important','To booking, select and charg any car and credit card.');
+    }
+    //reserve(route.params.parking.id) // salvar idParking
+
+  }
+
+*/
