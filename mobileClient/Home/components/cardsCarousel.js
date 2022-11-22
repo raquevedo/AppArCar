@@ -38,8 +38,8 @@ function CardsCarousel ({payMethod}){
         {<Image resizeMode="contain" source={require("../../assets/chip.png")} style={styles.imageCardChip}/>}
         {<Image resizeMode="contain" source={require("../../assets/hologram.png")} style={styles.imageCardChiph}/>}
         {item.company === 'Amex' && <Image resizeMode="contain" source={require("../../assets/amex.png")} style={styles.imageCard}/>}
-        {item.company === 'Master' && <Image resizeMode="contain" source={require("../../assets/visa.png")} style={styles.imageCard}/>}
-        {item.company === 'Visa' && <Image resizeMode="contain" source={require("../../assets/master.png")} style={styles.imageCard}/>}
+        {item.company === 'Master' && <Image resizeMode="contain" source={require("../../assets/master.png")} style={styles.imageCard}/>}
+        {item.company === 'Visa' && <Image resizeMode="contain" source={require("../../assets/visa.png")} style={styles.imageCard}/>}
         
         <Text style={{ top: -40,fontSize: 18, color:"white",fontFamily: "Credit" }}>{item.cardNumber}</Text>
         <Text style={{ top: -40,fontSize: 20, color:"white",fontFamily: "TTNorms-Regular" }}>{item.cardName}</Text>
