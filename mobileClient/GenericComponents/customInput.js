@@ -17,11 +17,13 @@ function CustomInput({data,setData,styles}) {
     ,model:{icon:'car',placeholder:'Model',errorMessage:'Invalid data'}
     ,color:{icon:'palette',placeholder:'Color',errorMessage:'Invalid data'}
     ,prodYear:{icon:'calendar',placeholder:'Production year',errorMessage:'Year invalid'}
+    ,ccard:{icon:'card',placeholder:'Credit Card Number',errorMessage:'Card number length must be 16 digits'}
+    ,ccname:{icon:'eye',placeholder:'Credit Card Holder',errorMessage:'Invalid name'}
   };
 
   function isValid(type,str){
     const mailRegex = new RegExp( /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ );
-    const creditCardRegex = new RegExp( /^\d{15}$/ );
+    const ccard = new RegExp( /^\d{16}$/ );
     const password = new RegExp( /\w{8}\w*/ );
     const name = new RegExp( /^[a-zA-Z]{3}[a-zA-Z]*$/ );
     const lastName = new RegExp( /^[a-zA-Z]{3}[a-zA-Z]*$/ );
@@ -30,6 +32,7 @@ function CustomInput({data,setData,styles}) {
     const patent = new RegExp( /^[a-zA-Z]{2}\d{3}[a-zA-Z]{2}$|^[a-zA-Z]{3}\d{3}$/ );
     const genericWords = new RegExp( /\w/ );
     const year = new RegExp( /^19\d{2}$|^20\d{2}$/ );
+    const ccname = new RegExp( /[a-zA-Z]{4}[a-zA-Z]*/ );
     if((type === 'email' && mailRegex.test(str)) ||
         (type === 'password' && password.test(str)) ||
           (type === 'name' && name.test(str)) ||
@@ -38,7 +41,9 @@ function CustomInput({data,setData,styles}) {
                 (type === 'phone' && phone.test(str)) ||
                   (type === 'patent' && patent.test(str)) ||
                    ((type === 'model' || type === 'brand' || type === 'color') && genericWords.test(str)) ||
-                     (type === 'prodYear' && year.test(str))){
+                     (type === 'prodYear' && year.test(str)) ||
+                      (type === 'ccard' && ccard.test(str)) ||
+                        (type === 'ccname' && ccname.test(str))){
       return true;
     }else{
       return false;

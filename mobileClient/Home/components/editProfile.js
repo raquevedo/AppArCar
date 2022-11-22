@@ -1,33 +1,23 @@
 import { useState,useCallback, } from "react";
 import {
   View,
-  Button,
   ScrollView,
   Text,
   TouchableOpacity,
   Image,
 } from "react-native";
-import { GetUserInfo } from "../../Services/requests";
 import { PersistProfile } from "../controllers/profile_controller";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "../../Services/styles";
-import { TextInput } from "react-native-paper";
 import { Dropdown } from "react-native-element-dropdown";
 import DatePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
 import CustomInput from "../../GenericComponents/customInput";
+
 function EditProfile({ navigation, route }) {
   const { user } = route.params;
   const translate = {Masculino:"Male",Femenino:"Female",Otro:"Other"}
-  //const [user,setUser] = React.useState("");
-  /*const [name, setName] = React.useState("");
-  const [lastName, setLastName] = React.useState("");
-  const [documentNumber, setDocument] = React.useState("");
-  const [birthDateDt, setBirthday] = React.useState("");
-  const [contactNumber, setContactNumber] = React.useState("");
-  const [gender, setGender] = React.useState("Male");
-  const [isDatePickerVisible, setIsDatePickerVisibility] = React.useState(false);*/
-
+ 
   const [name, setName] = useState({type:"name",value:user.name,valid:false,isValidOn:true});
   const setInput1Handl = useCallback(val => {setName(val)},[setName]);
   const [lastName, setlastName] = useState({type:"lastName",value:user.lastName,valid:false,isValidOn:true});
@@ -39,7 +29,7 @@ function EditProfile({ navigation, route }) {
 
   const [birthDateDt, setBirthday] = useState(user.birthDateDt.toString());
   const [birthDateStyle, setBirthdayStyle] = useState(styles.containButtonStyleDate);
-  const [gender, setGender] = useState(translate[user.gender]);
+  const [gender, setGender] = useState(user.gender);
   const [genderStyle, setGenderStyle] = useState(styles.dropdown);
   const [isDatePickerVisible, setIsDatePickerVisibility] = useState(false);
   const [validActive, setValidActive] = useState(false);
@@ -56,20 +46,6 @@ function EditProfile({ navigation, route }) {
     setBirthday(birthDateDt);
     hideDatePicker();
   };
-  /*const loadDataOnlyOnce = async function () {
-    const response = await GetUserInfo();
-    let respData = await response.json();
-    respData = respData.data;
-    setName(respData.name);
-    setLastName(respData.lastName);
-    setDocument(respData.documentNumber.toString());
-    setBirthday(respData.birthDateDt);
-    setContactNumber(respData.contactNumber.toString());
-    setGender(respData.gender);
-    setUser(respData);
-    console.log(respData);
-  };*/
-
   
   const [isFocus, setIsFocus] = useState(false);
   const data = [
@@ -77,9 +53,7 @@ function EditProfile({ navigation, route }) {
     { label: "Female", value: "Female" },
     { label: "Other", value: "Other" },
   ];
-  /*React.useEffect(() => {
-    loadDataOnlyOnce();
-  }, []);*/
+
   function thisPersistProfile(){
     if(birthDateDt!="" && gender!="" && name.valid && lastName.valid && documentNumber.valid && contactNumber.valid){
       PersistProfile({name:name.value,

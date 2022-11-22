@@ -1,30 +1,25 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import {
   View,
-  Button,
   ScrollView,
   Text,
   TouchableOpacity,
   Image,
 } from "react-native";
 import { GetUserInfo } from "../../Services/requests";
-import { PersistProfile } from "../controllers/profile_controller";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "../../Services/styles";
-import { TextInput } from "react-native-paper";
-import { Dropdown } from "react-native-element-dropdown";
-import DatePicker from "react-native-modal-datetime-picker";
-import moment from "moment";
 import { useIsFocused } from "@react-navigation/native";
+
 function Profile({ navigation }) {
-  const [user,setUser] = React.useState("");
-  const [name, setName] = React.useState("");
-  const [lastName, setLastName] = React.useState("");
-  const [documentNumber, setDocument] = React.useState("");
-  const [birthDateDt, setBirthday] = React.useState("");
-  const [contactNumber, setContactNumber] = React.useState("");
-  const [gender, setGender] = React.useState("Male");
-  const [isDatePickerVisible, setIsDatePickerVisibility] = React.useState(false);
+  const [user,setUser] = useState("");
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [documentNumber, setDocument] = useState("");
+  const [birthDateDt, setBirthday] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [gender, setGender] = useState("Male");
+  const [isDatePickerVisible, setIsDatePickerVisibility] = useState(false);
   const focus = useIsFocused();
 
   const showDatePicker = () => {
@@ -53,13 +48,13 @@ function Profile({ navigation }) {
     console.log(respData);
   };
 
-  const [isFocus, setIsFocus] = React.useState(false);
+  const [isFocus, setIsFocus] = useState(false);
   const data = [
     { label: "Male", value: "Male" },
     { label: "Female", value: "Female" },
     { label: "Other", value: "Other" },
   ];
-  React.useEffect(() => {
+  useEffect(() => {
     loadDataOnlyOnce();
   }, [focus]);
 

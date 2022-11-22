@@ -1,7 +1,6 @@
-import * as React from "react";
+import { useState,useEffect,useCallback } from "react";
 import {
   View,
-  Button,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -14,14 +13,28 @@ import { TextInput } from "react-native-paper";
 import DatePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
 import { Dropdown } from "react-native-element-dropdown";
+import CustomInput from "../../GenericComponents/customInput";
 
 function AddCreditCard({ navigation }) {
-  const [cardNumber, setCardNumber] = React.useState("");
-  const [cardName, setCardName] = React.useState("");
-  const [expireDate, setExpireDate] = React.useState("");
-  const [company, setCompany] = React.useState("");
-  const [type, setType] = React.useState("");
-  const [isDatePickerVisible, setIsDatePickerVisibility] = React.useState(false);
+
+  const [expireDate, setExpireDate] = useState("");
+  const [expireDateStyle, setExpireDateyStyle] = useState(styles.containButtonStyleDate);
+  const [company, setCompany] = useState("");
+  const [companyStyle, setCompanyStyle] = useState(styles.dropdown);
+  const [type, setType] = useState("");
+  const [typeStyle, setTypeStyle] = useState(styles.dropdown);
+  const [isDatePickerVisible, setIsDatePickerVisibility] = useState(false);
+  const [validActive, setValidActive] = useState(false);
+
+  const [cardNumber, setCardNumber] = useState({type:"ccard",value:"",valid:false,isValidOn:false});
+  const setInput1Handl = useCallback(val => {setCardNumber(val)},[setCardNumber]);
+  const [cardName, setCardName] = useState({type:"ccname",value:"",valid:false,isValidOn:false});
+  const setInput2Handl = useCallback(val => {setCardName(val)},[setCardName]);
+ 
+  function inputsActivator(){
+    setCardNumber({...cardNumber,isValidOn:true});
+    setCardName({...cardName,isValidOn:true});
+  }
 
   const showDatePicker = () => {
     setIsDatePickerVisibility(true);
@@ -35,7 +48,7 @@ function AddCreditCard({ navigation }) {
     setExpireDate(expiredDateDt);
     hideDatePicker();
   };
-  const [isFocus, setIsFocus] = React.useState(false);
+  const [isFocus, setIsFocus] = useState(false);
 
   const cardType = [
     { label: "Debit", value: "Debit" },
@@ -48,6 +61,42 @@ function AddCreditCard({ navigation }) {
     { label: "Master", value: "Master" }
   ];
 
+  useEffect(()=>{
+    if(validActive){
+      if(expireDate===""){
+        setExpireDateyStyle(styles.containButtonStyleDateError);
+      }else{
+        setExpireDateyStyle(styles.containButtonStyleDate);
+      }
+      if(company===""){
+        setCompanyStyle(styles.dropdownError);
+      }else{
+        setCompanyStyle(styles.dropdown);
+      }
+      if(type===""){
+        setTypeStyle(styles.dropdownError);
+      }else{
+        setTypeStyle(styles.dropdown);
+      }
+    }
+  },[expireDate,company,type,validActive]);
+
+  async function thisPersistCreditCard(){
+    if(expireDate !="" && company!="" && type!="" && cardName.valid && cardNumber.valid ){
+      await persistCreditCard({
+        cardNumber:cardNumber.value,
+        cardName:cardName.value,
+        company,
+        type,
+        expireDate
+      });  
+      navigation.goBack();
+    }else{
+      setValidActive(true);
+      inputsActivator();
+    }
+  }
+
   return (
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
@@ -56,23 +105,12 @@ function AddCreditCard({ navigation }) {
         <View style={styles.sectionLong}>
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>
-            Complete payment method data:
+            Payment method data:
           </Text>
-          <TextInput
-            placeholder="Card number"
-            value={cardNumber}
-            style={styles.text}
-            onChangeText={setCardNumber}
-          />
-          <TextInput
-            placeholder="Card Name"
-            value={cardName}
-            style={styles.text}
-            onChangeText={setCardName}
-          />
-
+          <CustomInput styles={styles} data={cardNumber} setData={setInput1Handl}></CustomInput>
+          <CustomInput styles={styles} data={cardName} setData={setInput2Handl}></CustomInput>
           <Dropdown
-            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+            style={[companyStyle, isFocus && { borderColor: "blue" }]}
             placeholderStyle={styles.placeholderStyle}
             selectedTextStyle={styles.selectedTextStyle}
             inputSearchStyle={styles.inputSearchStyle}
@@ -92,7 +130,7 @@ function AddCreditCard({ navigation }) {
           />
           
           <Dropdown
-            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+            style={[typeStyle, isFocus && { borderColor: "blue" }]}
             placeholderStyle={styles.placeholderStyle}
             selectedTextStyle={styles.selectedTextStyle}
             inputSearchStyle={styles.inputSearchStyle}
@@ -117,7 +155,7 @@ function AddCreditCard({ navigation }) {
             onCancel={hideDatePicker}
           />
           <TouchableOpacity
-            style={styles.containButtonStyleDate}
+            style={expireDateStyle}
             onPress={showDatePicker}
           >
             <Text style={styles.textDate}>{`${
@@ -128,14 +166,8 @@ function AddCreditCard({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.containButtonStylel}
-            onPress={async () =>
-              (await persistCreditCard({
-                cardNumber,
-                cardName,
-                company,
-                type,
-                expireDate,
-              })) & navigation.goBack()
+            onPress={() =>
+              thisPersistCreditCard()
             }
           >
             <LinearGradient
@@ -144,7 +176,7 @@ function AddCreditCard({ navigation }) {
               colors={["#df3ac4", "#3043ff"]}
               style={styles.buttonStylel}
             >
-              <Text style={styles.buttonText}>Guardar</Text>
+              <Text style={styles.buttonText}>Save</Text>
             </LinearGradient>
           </TouchableOpacity>
           <View style={styles.space}></View>
@@ -156,3 +188,13 @@ function AddCreditCard({ navigation }) {
 }
 
 export default AddCreditCard;
+
+/*
+  /*const [birthDateDt, setBirthday] = useState("");
+  const [birthDateStyle, setBirthdayStyle] = useState(styles.containButtonStyleDate);
+  const [gender, setGender] = useState("");
+  const [genderStyle, setGenderStyle] = useState(styles.dropdown);
+  const [isDatePickerVisible, setIsDatePickerVisibility] = useState(false);
+  const [validActive, setValidActive] = useState(false);
+  
+  */
