@@ -5,11 +5,11 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import { persistCreditCard } from "../controllers/payments_methods_controller";
 import styles from "../../Services/styles";
 import { LinearGradient } from "expo-linear-gradient";
-import { TextInput } from "react-native-paper";
 import DatePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
 import { Dropdown } from "react-native-element-dropdown";
@@ -61,6 +61,17 @@ function AddCreditCard({ navigation }) {
     { label: "Master", value: "Master" }
   ];
 
+  function expireDateValidation(){
+    const variable=1;
+    if(expireDate !== "" && (expireDate > Date.now()) ){
+      return true;
+    }else{
+      if(expireDate !== ""){
+        Alert.alert('I so sorry!!','Your credit card is expired. Please retry with other credit card.');
+      }
+    }
+  }
+
   useEffect(()=>{
     if(validActive){
       if(expireDate===""){
@@ -82,7 +93,7 @@ function AddCreditCard({ navigation }) {
   },[expireDate,company,type,validActive]);
 
   async function thisPersistCreditCard(){
-    if(expireDate !="" && company!="" && type!="" && cardName.valid && cardNumber.valid ){
+    if(expireDate !=="" && expireDateValidation() && company!=="" && type!=="" && cardName.valid && cardNumber.valid ){
       await persistCreditCard({
         cardNumber:cardNumber.value,
         cardName:cardName.value,
@@ -101,7 +112,6 @@ function AddCreditCard({ navigation }) {
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
         <Image source={require("../../assets/logo.png")} style={styles.image} />
-
         <View style={styles.sectionLong}>
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>
@@ -128,7 +138,6 @@ function AddCreditCard({ navigation }) {
               setIsFocus(false);
             }}
           />
-          
           <Dropdown
             style={[typeStyle, isFocus && { borderColor: "blue" }]}
             placeholderStyle={styles.placeholderStyle}
@@ -188,13 +197,3 @@ function AddCreditCard({ navigation }) {
 }
 
 export default AddCreditCard;
-
-/*
-  /*const [birthDateDt, setBirthday] = useState("");
-  const [birthDateStyle, setBirthdayStyle] = useState(styles.containButtonStyleDate);
-  const [gender, setGender] = useState("");
-  const [genderStyle, setGenderStyle] = useState(styles.dropdown);
-  const [isDatePickerVisible, setIsDatePickerVisibility] = useState(false);
-  const [validActive, setValidActive] = useState(false);
-  
-  */

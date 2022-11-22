@@ -8,13 +8,11 @@ import {
 } from "react-native";
 import { AuthContext } from "../../Services/context";
 import styles from "../../Services/styles";
-import { TextInput } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
 import DatePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
 import { Dropdown } from "react-native-element-dropdown";
 import CustomInput from "../../GenericComponents/customInput";
-
 
 function FormReg({ navigation }) {
  
@@ -80,7 +78,7 @@ function FormReg({ navigation }) {
   },[birthDateDt,gender,validActive]);
 
   function thisRegister(){
-    if(birthDateDt!="" && gender!="" && name.valid && lastName.valid && documentNumber.valid && contactNumber.valid){
+    if(birthDateDt!=="" && gender!=="" && name.valid && lastName.valid && documentNumber.valid && contactNumber.valid){
       register({name:name.value,
         lastName:lastName.value,
         documentNumber:documentNumber.value,
@@ -177,40 +175,3 @@ function FormReg({ navigation }) {
   );
 }
 export default FormReg;
-
-/*
- <TextInput
-    placeholder="Name"
-    value={name}
-    onChangeText={setName}
-    style={styles.text}
-    left={<TextInput.Icon icon="eye" />}
-  />
-  <TextInput
-    placeholder="Surname"
-    value={lastName}
-    onChangeText={setlastName}
-    style={styles.text}
-    left={<TextInput.Icon icon="eye" />}
-  />
-
-  <TextInput
-    placeholder="Document Number"
-    value={documentNumber}
-    onChangeText={setDocument}
-    style={styles.text}
-    left={<TextInput.Icon icon="book" />}
-  />
-
-  <TextInput
-    placeholder="Mobile phone"
-    value={contactNumber}
-    onChangeText={setContactNumber}
-    style={styles.text}
-    left={<TextInput.Icon icon="phone" />}
-  />
-  */
- /*const [name, setName] = useState("");
-  const [lastName, setlastName] = useState("");
-  const [documentNumber, setDocument] = useState("");
-  const [contactNumber, setContactNumber] = useState("");*/

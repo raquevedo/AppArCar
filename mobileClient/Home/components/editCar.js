@@ -1,7 +1,7 @@
 import { useEffect,useState,useCallback } from "react";
 import { View, ScrollView, Text, TouchableOpacity,Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { DeleteCar, GetCars, UpdateCar } from "../controllers/car_controller";
+import { DeleteCar, UpdateCar } from "../controllers/car_controller";
 import styles from "../../Services/styles";
 import CustomInput from "../../GenericComponents/customInput";
 
@@ -25,6 +25,17 @@ function EditCar({ route, navigation }) {
     setIdCar(car.id.toString());
   },[]);
 
+  function thisUpdateCar(){
+    if(patentId.valid && brand.valid && model.valid && color.valid && productionYear.valid){
+      UpdateCar({ id, 
+        patentId:patentId.value, 
+        brand:brand.value, 
+        model:model.value, 
+        color:color.value, 
+        productionYear:productionYear.value 
+      });
+    }
+  }
 
   return (
     <ScrollView style={{ flex: 1 }}>
@@ -43,7 +54,7 @@ function EditCar({ route, navigation }) {
           <TouchableOpacity
             style={styles.containButtonStylel}
             onPress={() =>
-              UpdateCar({ id, patentId:patentId.value, brand:brand.value, model:model.value, color:color.value, productionYear:productionYear.value })
+              thisUpdateCar()
             }
           >
             <LinearGradient
@@ -76,53 +87,3 @@ function EditCar({ route, navigation }) {
 }
 
 export default EditCar;
-/*
-<TextInput
-            placeholder="Patente"
-            value={patentId}
-            onChangeText={setPatentId}
-            style={styles.text}
-          />
-          <TextInput
-            placeholder="Marca"
-            value={brand}
-            onChangeText={setBrand}
-            style={styles.text}
-          />
-          <TextInput
-            placeholder="Modelo"
-            value={model}
-            onChangeText={setModel}
-            style={styles.text}
-          />
-          <TextInput
-            placeholder="Color"
-            value={color}
-            onChangeText={setColor}
-            style={styles.text}
-          />
-          <TextInput
-            placeholder="Año"
-            value={productionYear}
-            onChangeText={setProductionYear}
-            style={styles.text}
-          />*/
-
-          /*const loadDataOnlyOnce = async function () {
-    const response = await GetCars();
-    const respData = await response.json();
-    
-    const car = respData.find((x) => x.id === idCar);
-   
-    setIdCar(car.id.toString());
-    setPatentId(()=>({...patentId,value:car.patentId}));
-    setBrand(()=>({...brand,value:car.brand}));
-    setModel(()=>({...model,value:car.model}));
-    setColor(()=>({...color,value:car.color}));
-    setProductionYear(()=>({...productionYear,value:car.productionYear.toString()}));
-    console.log(respData);
-  };
-  /*
-  useEffect(() => {
-    loadDataOnlyOnce();
-  }, []);*/

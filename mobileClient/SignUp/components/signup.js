@@ -1,7 +1,6 @@
 import {useState, useContext, useCallback} from "react";
 import {
   View,
-  Button,
   Image,
   Text,
   TouchableOpacity,
@@ -9,14 +8,10 @@ import {
 } from "react-native";
 import { AuthContext } from "../../Services/context";
 import { LinearGradient } from "expo-linear-gradient";
-import { TextInput } from "react-native-paper";
 import styles from "../../Services/styles";
 import CustomInput from '../../GenericComponents/customInput';
 
 function SignUpScreen({ navigation }) {
-  /*const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");*/
 
   const [username, setUsername] = useState({type:"name",value:"",valid:false,isValidOn:false});
   const setInput1Handl = useCallback(val => {setUsername(val)},[setUsername]);
@@ -74,28 +69,3 @@ function SignUpScreen({ navigation }) {
   );
 }
 export default SignUpScreen;
-
-/**
- <TextInput
-    placeholder="Username"
-    value={username}
-    onChangeText={setUsername}
-    style={styles.text}
-    left={<TextInput.Icon icon="eye" />}
-  />
-  <TextInput
-    placeholder="Email"
-    value={email}
-    onChangeText={setEmail}
-    style={styles.text}
-    left={<TextInput.Icon icon="email" />}
-  />
-  <TextInput
-    placeholder="Password"
-    value={password}
-    onChangeText={setPassword}
-    secureTextEntry
-    style={styles.text}
-    left={<TextInput.Icon icon="lock" />}
-  />
- */

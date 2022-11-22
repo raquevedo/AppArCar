@@ -52,7 +52,6 @@ function AddCar({ navigation }) {
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
         <Image source={require("../../assets/logo.png")} style={styles.image} />
-
         <View style={styles.sectionLong}>
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>
@@ -87,42 +86,3 @@ function AddCar({ navigation }) {
 }
 
 export default AddCar;
-/*
-<TextInput
-    placeholder="Patente"
-    value={patentId}
-    style={styles.text}
-    onChangeText={setPatentId}
-  />
-  <TextInput
-    placeholder="Marca"
-    value={brand}
-    style={styles.text}
-    onChangeText={setBrand}
-  />
-  <TextInput
-    placeholder="Modelo"
-    value={model}
-    style={styles.text}
-    onChangeText={setModel}
-  />
-  <TextInput
-    placeholder="Color"
-    value={color}
-    style={styles.text}
-    onChangeText={setColor}
-  />
-  <TextInput
-    placeholder="Año"
-    value={productionYear}
-    style={styles.text}
-    onChangeText={setProductionYear}
-  />
-
-  const [patentId, setPatentId] = useState("");
-  const [brand, setBrand] = useState("");
-  const [model, setModel] = useState("");
-  const [color, setColor] = useState("");
-  const [productionYear, setProductionYear] = useState("");
-
-*/

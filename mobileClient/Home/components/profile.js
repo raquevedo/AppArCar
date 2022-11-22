@@ -62,9 +62,7 @@ function Profile({ navigation }) {
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
         <Image source={require("../../assets/logo.png")} style={styles.image} />
-
         <View style={styles.sectionLong}>
-
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>Profile</Text>
           <Text style={styles.subheading}>{name}</Text>
@@ -73,7 +71,6 @@ function Profile({ navigation }) {
           <Text style={styles.subheading}>{contactNumber}</Text>
           <Text style={styles.subheading}>{gender}</Text>
           <Text style={styles.subheading}>{birthDateDt}</Text>
-        
           <View style={styles.space}></View>
           <View style={styles.space}></View>
           <View style={styles.space}></View>
@@ -97,7 +94,6 @@ function Profile({ navigation }) {
               <Text style={styles.buttonText}>Update</Text>
             </LinearGradient>
           </TouchableOpacity>
-
           <View style={styles.space}></View>
         </View>
         <View style={styles.space}></View>
@@ -108,80 +104,3 @@ function Profile({ navigation }) {
 }
 
 export default Profile;
-/*
-<TextInput
-            placeholder="Name"
-            value={name}
-            onChangeText={setName}
-            style={styles.text}
-            left={<TextInput.Icon icon="eye" />}
-          />
-          <TextInput
-            placeholder="Last Name"
-            value={lastName}
-            onChangeText={setLastName}
-            style={styles.text}
-            left={<TextInput.Icon icon="eye" />}
-          />
-          <TextInput
-            placeholder="Document Number"
-            value={documentNumber}
-            onChangeText={setDocument}
-            style={styles.text}
-            left={<TextInput.Icon icon="book" />}
-          />
-
-          <DatePicker
-            isVisible={isDatePickerVisible}
-            mode="date"
-            onConfirm={handleConfirm}
-            onCancel={hideDatePicker}
-          />
-
-          <TextInput
-            placeholder="Mobile Phone"
-            value={contactNumber}
-            onChangeText={setContactNumber}
-            style={styles.text}
-            left={<TextInput.Icon icon="phone" />}
-          />
-          <Dropdown
-            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
-            labelField="label"
-            valueField="value"
-            label="Gender"
-            data={data}
-            placeholder="Gender"
-            value={gender}
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
-            onChange={(item) => {
-              setGender(item.value);
-              setIsFocus(false);
-            }}
-          />
-          <TouchableOpacity
-            style={styles.containButtonStyleDate}
-            onPress={showDatePicker}
-          >
-            <Text style={styles.textDate}>{`${
-              birthDateDt
-                ? moment(birthDateDt).format("MM/DD/YYYY")
-                : "Born date"
-            }`}</Text>
-          </TouchableOpacity>
-          onPress={() =>
-              PersistProfile({
-                name,
-                lastName,
-                documentNumber,
-                birthDateDt,
-                contactNumber,
-                gender,
-              })
-            }
-*/

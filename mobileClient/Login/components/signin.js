@@ -12,8 +12,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import CustomInput from '../../GenericComponents/customInput';
 
 function SignInScreen({ navigation }) {
-  //const [email, setEmail] = useState("");
-  //const [password, setPassword] = useState("");
+  
   const { signIn } = useContext(AuthContext);
 
   const [email,setEmail] = useState({type:"email",value:"",valid:false,isValidOn:false});
@@ -43,7 +42,6 @@ function SignInScreen({ navigation }) {
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
         <Image source={require("../../assets/logo.png")} style={styles.image} />
-
         <View style={styles.section}>
           <View style={styles.space}></View>
           <Text style={styles.themeText}>Hello!</Text>
@@ -81,24 +79,3 @@ function SignInScreen({ navigation }) {
   );
 }
 export default SignInScreen;
-
-/*
-  <TextInput
-    placeholder="Email"
-    value={email}
-    style={styles.text}
-    onChangeText={setEmail}
-    error={false}
-    left={<TextInput.Icon icon="email" />}
-  />
-  <TextInput
-    placeholder="Password"
-    value={password}
-    onChangeText={setPassword}
-    secureTextEntry
-    style={styles.text}
-    left={<TextInput.Icon icon="lock" />}
-  />    
-
-  onPress={() => signIn({ email, password })}
-*/
