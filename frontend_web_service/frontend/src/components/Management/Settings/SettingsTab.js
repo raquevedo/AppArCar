@@ -55,11 +55,13 @@ export default function SettingsTab(props) {
     return <div>Loading</div>;
   } else {
     return (
-      <div className="background-settings">
+      <div id="settings-tab">
+        <h2>Update your settings</h2>
         <ParkingForm
           onSubmit={onSubmit}
           currentData={parkingData}
           validationMode="onTouched"
+          isModal={false}
         />
       </div>
     );

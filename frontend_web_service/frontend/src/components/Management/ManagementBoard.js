@@ -127,76 +127,61 @@ export default function ManagementBoard(props) {
 
   const baseUrl = `/dashboard/manage/${id}`;
   return (
-    <div className="grid-y">
-      <div className="cell status-cards">
-        <StatusCards
-          socket={socket}
-          availableSlots={availableSlots}
-          reservedSlots={reservedSlots}
-          occupiedSlots={occupiedSlots}
-        />
-      </div>
-      <div className="cell tab-head grid-margin-y grid-padding-y">
-        <div className="grid-x grid-margin-x grid-padding-x grid-margin-y grid-padding-y">
-          <div
-            className={
-              tab === "reservations"
-                ? "cell large-3 small-3 center cell-active-tabs"
-                : "cell cell-tabs bn24 center large-3 small-3"
-            }
-            onClick={() => navigate(`${baseUrl}/reservations`)}>
-            <button
-              className={tab === "reservations" ? "tab-active-tabs" : "tab"}
-              
-            >
-              Reservations
-            </button>
-          </div>
-          <div
-            className={
-              tab === "hours"
-                ? "cell large-3 small-3 center cell-active-tabs"
-                : "cell cell-tabs bn24 center large-3 small-3"
-            }
-            onClick={() => navigate(`${baseUrl}/hours`)}>
-            <button
-              className={tab === "hours" ? "tab-active-tabs" : "tab"}
-              
-            >
-              Hours
-            </button>
-          </div>
-          <div
-            className={
-              tab === "status"
-                ? "cell large-3 small-3 center cell-active-tabs"
-                : "cell cell-tabs bn24 center large-3 small-3"
-            }
-            onClick={() => navigate(`${baseUrl}/status`)}>
-            <button
-              className={tab === "status" ? "tab-active-tabs" : "tab"}
-              
-            >
-              Status
-            </button>
-          </div>
-          <div
-            className={
-              tab === "settings"
-                ? "cell large-3 small-3 center cell-active-tabs"
-                : "cell cell-tabs bn24 center large-3 small-3"
-            }
-            onClick={() => navigate(`${baseUrl}/settings`)}>
-            <button
-              className={tab === "settings" ? "tab-active-tabs" : "tab"}
-              
-            >
-              Settings
-            </button>
+    <div className='scroll-overflow'>
+      <div className="gradient-background"></div>
+      <div className="grid-y">
+        <div className="cell">
+          <StatusCards
+            socket={socket}
+            availableSlots={availableSlots}
+            reservedSlots={reservedSlots}
+            occupiedSlots={occupiedSlots}
+          />
+        </div>
+        <div className="cell">
+          <div className="management-tabs with-shadow">
+            <div className="grid-y">
+              <div className="cell">
+                <div className="grid-x">
+                  <div
+                    className="cell small-4"
+                    onClick={() => navigate(`${baseUrl}/reservations`)}>
+                    <button
+                      className={tab === "reservations" ? "tab active-tab" : "tab"}
+                      
+                    >
+                      Reservations
+                    </button>
+                  </div>
+                  <div
+                    className="cell small-4"
+                    onClick={() => navigate(`${baseUrl}/hours`)}>
+                    <button
+                      className={tab === "hours" ? "tab active-tab" : "tab"}
+                      
+                    >
+                      Hours
+                    </button>
+                  </div>
+                  <div
+                    className="cell small-4"
+                    onClick={() => navigate(`${baseUrl}/settings`)}>
+                    <button
+                      className={tab === "settings" ? "tab active-tab" : "tab"}
+                      
+                    >
+                      Settings
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="cell">
+              <div className="content-tabs">{renderTab()}</div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="content-tabs">{renderTab()}</div>
     </div>
   );
 }

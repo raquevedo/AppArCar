@@ -34,9 +34,9 @@ export default function PendingReservations({
   }
 
   return (
-    <div className="table-main">
-      <div className="table-body">
-        <h2 className="text-reservations">Pending Reservations</h2>
+    <div>
+      <div>
+        <h2>Pending Reservations</h2>
         <table>
           <thead>
             <tr>

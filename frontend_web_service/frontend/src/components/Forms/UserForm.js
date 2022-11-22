@@ -76,7 +76,7 @@ export default function UserForm({ setIsRegistered, buttonText, newUser, valuesD
       { errors.documentNumber && <p>Document Number is invalid</p> }
       
       <div>
-        <button id="button-update-submit" type="submit" className="bn632-hover bn24">{buttonText}</button>
+        <button type="submit" className="form-button">{buttonText}</button>
       </div>
       
     </form>

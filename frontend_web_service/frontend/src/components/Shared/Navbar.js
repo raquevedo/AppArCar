@@ -1,40 +1,62 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import logo from "../../assets/img/logo solo.png";
-import "../../index.css";
-import { deleteToken } from '../../utils/authToken';
+import { Link } from 'react-router-dom';
+import burger from '../../assets/img/burger.png';
+import github from '../../assets/img/GitHub-Mark-64px.png';
+import apparcar from '../../assets/img/apparcar-simple.png';
 
 function Navbar(props) {
-  const navigate = useNavigate()
-  
-  const logUserOut = () => {
-    deleteToken();
-    props.setUserLoggedIn(false);
-    navigate('/');
-  }
+
+  const changeSideNavState = () => {
+    if (props.showSideNav) {
+      props.setShowSideNav(false);
+    } else {
+      props.setShowSideNav(true);
+    }
+  };
 
   return (
-    <div>
-      <div className='grid-x bar '>
-        <div>
-          <ul className="dropdown menu " data-dropdown-menu>
-            <Link to='/'>
-            <img src={logo} alt="Logo" className="navbar-logo" ></img>
-            </Link>
-          </ul>
-        </div>
-        <div className="top-bar-right center">
-          <Link to='aboutus'>
-            <li className="text-nav ">About Us</li>
+    <ul className='navbar with-shadow'>
+      { props.userLoggedIn &&
+        <li className='navbar-item'>
+          <button type='button' onClick={changeSideNavState}>
+            <img 
+              src={burger}
+              className='navbar-icon'
+              id='burger-icon'
+              alt='burger'
+            />
+          </button>
+        </li>
+      }
+      <li className='navbar-item'>
+        <Link to='/'>
+          <img 
+            src={apparcar} 
+            className='navbar-icon' 
+            id='navbar-icon' 
+            alt='apparcar'
+          />
+        </Link>
+      </li>
+      <li className='navbar-item float-right'>
+        <a href='https://github.com/raquevedo/AppArCar' className='navbar-link'>
+          <img className='navbar-icon' src={github} alt='github'></img>
+        </a>
+      </li>
+      { props.userLoggedIn &&
+        <li className='navbar-item float-right'>
+          <Link to='/logout' className='navbar-link'>
+            Log Out
           </Link>
-          { props.userLoggedIn && 
-            <button type='button' className='text-nav' onClick={logUserOut}>
-              Log Out
-            </button>
-          }
-        </div>
-      </div>
-    </div>
+        </li>
+      }
+      <li className='navbar-item float-right'>
+        <Link to='/aboutus' className='navbar-link'>
+          About Us
+        </Link>
+      </li>
+    </ul>
   );
 }
+
 export default Navbar;
