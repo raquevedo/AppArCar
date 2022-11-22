@@ -15,15 +15,17 @@ import { TextInput } from "react-native-paper";
 import { Dropdown } from "react-native-element-dropdown";
 import DatePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
+import { useIsFocused } from "@react-navigation/native";
 function Profile({ navigation }) {
+  const [user,setUser] = React.useState("");
   const [name, setName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [documentNumber, setDocument] = React.useState("");
   const [birthDateDt, setBirthday] = React.useState("");
   const [contactNumber, setContactNumber] = React.useState("");
-  const [gender, setGender] = React.useState("");
-  const [isDatePickerVisible, setIsDatePickerVisibility] =
-    React.useState(false);
+  const [gender, setGender] = React.useState("Male");
+  const [isDatePickerVisible, setIsDatePickerVisibility] = React.useState(false);
+  const focus = useIsFocused();
 
   const showDatePicker = () => {
     setIsDatePickerVisibility(true);
@@ -47,6 +49,7 @@ function Profile({ navigation }) {
     setBirthday(respData.birthDateDt);
     setContactNumber(respData.contactNumber.toString());
     setGender(respData.gender);
+    setUser(respData);
     console.log(respData);
   };
 
@@ -58,7 +61,7 @@ function Profile({ navigation }) {
   ];
   React.useEffect(() => {
     loadDataOnlyOnce();
-  }, []);
+  }, [focus]);
 
   return (
     <ScrollView style={{ flex: 1 }}>
@@ -66,9 +69,52 @@ function Profile({ navigation }) {
         <Image source={require("../../assets/logo.png")} style={styles.image} />
 
         <View style={styles.sectionLong}>
+
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>Profile</Text>
-          <TextInput
+          <Text style={styles.subheading}>{name}</Text>
+          <Text style={styles.subheading}>{lastName}</Text>
+          <Text style={styles.subheading}>{documentNumber}</Text>
+          <Text style={styles.subheading}>{contactNumber}</Text>
+          <Text style={styles.subheading}>{gender}</Text>
+          <Text style={styles.subheading}>{birthDateDt}</Text>
+        
+          <View style={styles.space}></View>
+          <View style={styles.space}></View>
+          <View style={styles.space}></View>
+          <View style={styles.space}></View>
+          <View style={styles.space}></View>
+          <View style={styles.space}></View>
+          <View style={styles.space}></View>
+          <View style={styles.space}></View>
+          <TouchableOpacity
+            style={styles.containButtonStylel}
+            onPress={() =>
+              navigation.navigate('EditProfile2',{user:user})
+            }
+          >
+            <LinearGradient
+              start={{ x: 1, y: 0 }}
+              end={{ x: 0, y: 1 }}
+              colors={["#df3ac4", "#3043ff"]}
+              style={styles.buttonStylel}
+            >
+              <Text style={styles.buttonText}>Update</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+
+          <View style={styles.space}></View>
+        </View>
+        <View style={styles.space}></View>
+        <View style={styles.space}></View>
+      </LinearGradient>
+    </ScrollView>
+  );
+}
+
+export default Profile;
+/*
+<TextInput
             placeholder="Name"
             value={name}
             onChangeText={setName}
@@ -123,7 +169,6 @@ function Profile({ navigation }) {
               setIsFocus(false);
             }}
           />
-
           <TouchableOpacity
             style={styles.containButtonStyleDate}
             onPress={showDatePicker}
@@ -134,10 +179,7 @@ function Profile({ navigation }) {
                 : "Born date"
             }`}</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.containButtonStylel}
-            onPress={() =>
+          onPress={() =>
               PersistProfile({
                 name,
                 lastName,
@@ -147,37 +189,4 @@ function Profile({ navigation }) {
                 gender,
               })
             }
-          >
-            <LinearGradient
-              start={{ x: 1, y: 0 }}
-              end={{ x: 0, y: 1 }}
-              colors={["#df3ac4", "#3043ff"]}
-              style={styles.buttonStylel}
-            >
-              <Text style={styles.buttonText}>Update</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-
-          <View style={styles.space}></View>
-        </View>
-        <View style={styles.space}>
-          <TouchableOpacity
-            style={styles.containButtonStyle}
-            onPress={() => navigation.navigate("Home")}
-          >
-            <LinearGradient
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 0 }}
-              colors={["#3043ff", "#df3ac4"]}
-              style={styles.buttonStyle}
-            >
-              <Text style={styles.buttonText}>Back</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-        </View>
-      </LinearGradient>
-    </ScrollView>
-  );
-}
-
-export default Profile;
+*/

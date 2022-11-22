@@ -11,6 +11,7 @@ import SignInScreen from "./Login/components/signin";
 import SignUpScreen from "./SignUp/components/signup";
 import FormReg from "./Login/components/registry";
 import Profile from "./Home/components/profile";
+import EditProfile from "./Home/components/editProfile";
 import Cars from "./Home/components/cars";
 import BookingHistory from "./Home/components/booking_history";
 import AddCar from "./Home/components/addCar";
@@ -252,6 +253,11 @@ export default function App({ navigation }) {
                       <Stack.Screen
                         name="EditProfile"
                         component={Profile}
+                        options={{ headerShown: false }}
+                      />
+                      <Stack.Screen
+                        name="EditProfile2"
+                        component={EditProfile}
                         options={{ headerShown: false }}
                       />
                       <Stack.Screen
