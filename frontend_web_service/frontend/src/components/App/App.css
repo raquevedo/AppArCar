@@ -54,7 +54,8 @@ td {
   margin-top: auto;
   margin-bottom: 1rem;
   padding: 0.8rem;
-  border-radius: 1rem;
+  border-style: solid;
+  border-radius: 1rem !important;
   font-size: 2rem;
   color: white;
 }
@@ -575,6 +576,33 @@ td {
 
 #check-button:hover {
   background-color: #b65dff;
+}
+
+.settings-text {
+  text-align: center;
+  color: #9e33f7;
+  font-weight: bold;
+}
+
+#delete-parking-button {
+  width: 60%;
+  background-color: red;
+  color: white;
+  border-style: solid;
+  border-radius: 1rem;
+  border-color: red;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 1rem;
+  font-size: 2rem;
+  display: block;
+  margin-left: auto; 
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+
+#delete-parking-button:hover {
+  background-color: rgb(255, 57, 57);
 }
 
 /* History view */
