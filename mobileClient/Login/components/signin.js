@@ -69,10 +69,6 @@ function SignInScreen({ navigation }) {
           >
             <Text style={styles.buttonTextSignUp}>Sign up</Text>
           </TouchableOpacity>
-          <Image
-            source={require("../../assets/anthem.png")}
-            style={styles.imageAnthem}
-          />
         </View>
       </LinearGradient>
     </ScrollView>
