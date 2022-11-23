@@ -177,7 +177,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "white",
     borderWidth: 1,
-    borderColor: "grey",
+    borderColor: "gray",
+    width: 200,
+    height: 50,
+    borderRadius: 50,
+    margin: 20,
+  },
+  containButtonStyleDateError: {
+    flex: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "red",
     width: 200,
     height: 50,
     borderRadius: 50,
@@ -274,10 +286,15 @@ const styles = StyleSheet.create({
     alignItems: "center", 
   },
   dropdown: {
-    
     width: 210,
     height: 50,
     borderBottomColor: 'gray',
+    borderBottomWidth: 0.5,
+  },
+  dropdownError: {
+    width: 210,
+    height: 50,
+    borderBottomColor: 'red',
     borderBottomWidth: 0.5,
   },
   placeholderStyle: {

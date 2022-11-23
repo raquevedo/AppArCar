@@ -3,8 +3,8 @@ import ParkedCar from "./ParkedCar";
 
 export default function ParkedCars(props) {
   return (
-    <div className="table-body">
-      <h2 className="text-reservations">Parked Cars</h2>
+    <div id='parked-cars-list'>
+      <h2>Parked Cars</h2>
       <table>
         <thead>
           <tr>

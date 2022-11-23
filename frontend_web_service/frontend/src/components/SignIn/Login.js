@@ -48,29 +48,30 @@ export default function Login({ setToken, setUserLoggedIn }) {
   };
 
   return (
-    <div className="login-wrapper login-box">
-      <h1 className="text-form">Log In</h1>
+    <div className="login-wrapper with-shadow" id='login'>
+      <h1 className="signin-header">Log In</h1>
+      <p id="is-required-text">* Required</p>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-fields">
 
-        <div class="user-box">
-          <input type="text" placeholder="Email" {...register("email")} />
-        </div>
-        {errors.email && <p>Email is invalid</p>}
+          <div>
+            <input type="text" placeholder="Email *" {...register("email")} />
+          </div>
+          {errors.email && <p className="error-text">Email is invalid</p>}
 
-        <div class="user-box">
-          <input
-            type="password"
-            placeholder="Password"
-            {...register("password")}
-          />
-        </div>
-        {errors.password && <p>Password is invalid</p>}
+          <div>
+            <input
+              type="password"
+              placeholder="Password *"
+              {...register("password")}
+            />
+          </div>
+          {errors.password && <p className="error-text">Password is invalid</p>}
 
-        <div>
-          <button className="bn632-hover bn24" type="submit">
-            Login
-          </button>
         </div>
+        <button className="signin-button" type="submit">
+          Login
+        </button>
       </form>
     </div>
   );

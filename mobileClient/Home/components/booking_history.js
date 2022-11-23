@@ -100,9 +100,17 @@ function BookingHistory({ navigation }) {
           />
         </View>
         <View style={styles.space}></View>
-        {reservations.length != 0 && reservations[reservations.length-1].checkoutAtDttm == null ? <>
+        {reservations.length != 0 && reservations[reservations.length-1].status == 'accepted' ? <>
           <Text style={styles.themeTextFlat2}>You have an active booking on:</Text>
-          <Text style={styles.subheading3}>sanpedrito24 - San pedrito 800 at {parseDateTime(reservations[reservations.length-1].expirationAtDttm)}</Text>
+          <Text style={styles.subheading3}>
+            {reservations[reservations.length-1].parkingInfo.businessName
+            +' - '
+            +reservations[reservations.length-1].parkingInfo.streetName
+            +' '
+            +reservations[reservations.length-1].parkingInfo.streetNumber 
+            +' at '}
+            {parseDateTime(reservations[reservations.length-1].expirationAtDttm)}
+          </Text>
           <TouchableOpacity
             style={styles.containButtonStyleFlat}
             onPress={() => extendReservation(reservations[reservations.length-1].id)}
