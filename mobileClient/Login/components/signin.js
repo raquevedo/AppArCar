@@ -69,6 +69,13 @@ function SignInScreen({ navigation }) {
           >
             <Text style={styles.buttonTextSignUp}>Sign up</Text>
           </TouchableOpacity>
+<<<<<<< HEAD
+=======
+
+
+          
+
+>>>>>>> 35638800491c63cc8ed0ab8cab635b428bbe8493
         </View>
       </LinearGradient>
     </ScrollView>
