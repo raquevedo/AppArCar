@@ -76,7 +76,7 @@ td {
 }
 
 .modal-main {
-  border-style: solid;
+  border-top-style: solid;
   border-color: #9e33f7;
   border-width: 0.5rem;
   border-radius: 0.5;
@@ -84,7 +84,7 @@ td {
   position: relative;
   background: white;
   min-width: 40%;
-  min-height: 50%;
+  min-height: 20%;
   max-width: 50%;
   top:50%;
   left:50%;
@@ -161,6 +161,10 @@ td {
   border-radius: 20%;
   border-style: solid;
   border-color: rgb(192, 192, 192);
+}
+
+#manual-reservation-modal {
+  width: 20vw;
 }
 
 /* Navbar classes */

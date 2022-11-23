@@ -9,7 +9,7 @@ export default function ParkedCars(props) {
         <thead>
           <tr>
             <th>License Plate</th>
-            <th>Expiration Date</th>
+            <th>Current Tab</th>
             <th>Check Out</th>
           </tr>
         </thead>
