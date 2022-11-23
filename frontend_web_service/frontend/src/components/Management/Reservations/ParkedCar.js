@@ -18,12 +18,12 @@ export default function ParkedCar(props) {
     }
   }
 
+  console.log(props.reservation)
+
   return (
     <tr>
       <td>{props.reservation['patentId']}</td>
-      <td>
-        {expirationDate.getHours()}:{expirationDate.getMinutes()}
-      </td>
+      <td>{props.reservation['totalPrice']}</td>
       <td>
         <button
           onClick={() => checkCustomerOut(props.reservation["id"])}

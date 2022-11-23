@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { acceptReservation, postCheckIn } from "../../../controllers/parkingController";
 import AcceptedReservations from "./AcceptedReservations";
+import ManualReservationsModal from "./ManualReservationsModal";
 import ParkedCars from "./ParkedCars";
 import PendingReservations from "./PendingReservations";
 
 export default function ReservationsTab(props) {
+  const [showManualReservationsModal, setShowManualReservationsModal] = useState(false);
 
   async function AcceptReservation(id) {
     const res = await acceptReservation(id);
@@ -58,8 +60,12 @@ export default function ReservationsTab(props) {
     props.setPendingReservations([]);
   }
 
+  const showManualReservations = () => {
+    setShowManualReservationsModal(true);
+  }
+
   return (
-    <div>
+    <div className="reservations-tab">
       <div className="grid-y">
         <div className="cell">
           <div className="grid-x align-center-middle">
@@ -67,7 +73,7 @@ export default function ReservationsTab(props) {
               <button className="reservation-button" onClick={acceptAll}>Accept All</button>
             </div>
             <div className="cell small-6">
-              <button className="reservation-button">Manual Reservation</button>
+              <button className="reservation-button" onClick={showManualReservations}>Manual Reservation</button>
             </div>
           </div>
         </div>
@@ -102,6 +108,14 @@ export default function ReservationsTab(props) {
           </div>
         </div>
       </div>
+      {showManualReservationsModal &&
+        <ManualReservationsModal
+          parkingId={props.id}
+          setShowModal={setShowManualReservationsModal}
+          parkedCars={props.parkedCars}
+          setParkedCars={props.setParkedCars}
+        />
+      }
     </div>
   );
 }

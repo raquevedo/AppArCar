@@ -88,6 +88,21 @@ export async function rejectReservation(id) {
   });
 }
 
+export async function createManualReservation(idParking, patentId) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/reservation/manual-create`, {
+    method: 'POST',
+    headers: myHeaders,
+    body: JSON.stringify(
+      {
+        idParking: idParking,
+        patentId: patentId
+      }
+    )
+  });
+}
+
 export async function getParkingSettings(id) {
   const myHeaders = buildHeaders();
 
