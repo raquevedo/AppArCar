@@ -65,16 +65,19 @@ function Profile({ navigation }) {
         <View style={styles.sectionLong}>
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>Profile</Text>
-          <Text style={styles.subheading}>{name}</Text>
-          <Text style={styles.subheading}>{lastName}</Text>
+          
+          <Text style={styles.subheadingTitle}>Name:</Text>
+          <Text style={styles.nameSurname}>{name}</Text>
+          <Text style={styles.subheadingTitle}>Last Name:</Text>
+          <Text style={styles.nameSurname}>{lastName}</Text>
+          <Text style={styles.subheadingTitle}>Document Number:</Text>
           <Text style={styles.subheading}>{documentNumber}</Text>
+          <Text style={styles.subheadingTitle}>Contact Number:</Text>
           <Text style={styles.subheading}>{contactNumber}</Text>
+          <Text style={styles.subheadingTitle}>Gender:</Text>
           <Text style={styles.subheading}>{gender}</Text>
+          <Text style={styles.subheadingTitle}>Birth Date:</Text>
           <Text style={styles.subheading}>{birthDateDt}</Text>
-          <View style={styles.space}></View>
-          <View style={styles.space}></View>
-          <View style={styles.space}></View>
-          <View style={styles.space}></View>
           <View style={styles.space}></View>
           <View style={styles.space}></View>
           <View style={styles.space}></View>
@@ -82,7 +85,7 @@ function Profile({ navigation }) {
           <TouchableOpacity
             style={styles.containButtonStylel}
             onPress={() =>
-              navigation.navigate('EditProfile2',{user:user})
+              navigation.navigate('Edit Profile',{user:user})
             }
           >
             <LinearGradient
@@ -91,7 +94,7 @@ function Profile({ navigation }) {
               colors={["#df3ac4", "#3043ff"]}
               style={styles.buttonStylel}
             >
-              <Text style={styles.buttonText}>Update</Text>
+              <Text style={styles.buttonText}>Edit</Text>
             </LinearGradient>
           </TouchableOpacity>
           <View style={styles.space}></View>
