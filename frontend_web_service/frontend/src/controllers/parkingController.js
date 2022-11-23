@@ -36,6 +36,15 @@ export async function getParkingById(parkingId) {
   });
 }
 
+export async function deleteParking(parkingId) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/parking/${parkingId}`, {
+    method: 'DELETE',
+    headers: myHeaders
+  });
+}
+
 export async function getReservations(id) {
   const myHeaders = buildHeaders();
 
