@@ -19,7 +19,7 @@ export default function DashboardWrapper() {
 
   return(
     <div>
-      {isRegistered && <Dashboard />}
+      {isRegistered && <Dashboard/>}
       {isRegistered === false && <ProfileSetup setIsRegistered={setIsRegistered}/>}
     </div>
   );

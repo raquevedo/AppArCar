@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import ParkingForm from "../../Forms/ParkingForm";
 import {
+  deleteParking,
   getParkingById,
   updateParking,
 } from "../../../controllers/parkingController";
+import { useNavigate } from "react-router-dom";
 
 export default function SettingsTab(props) {
+  const navigate = useNavigate();
   const [parkingData, setParkingData] = useState();
 
   useEffect(() => {
@@ -51,15 +54,27 @@ export default function SettingsTab(props) {
     }
   };
 
+  const deleteCurrentParking = () => {
+    deleteParking(props.id);
+    navigate('/dashboard')
+  };
+
   if (parkingData === undefined) {
     return <div>Loading</div>;
   } else {
     return (
-      <div className="background-settings">
+      <div id="settings-tab">
+        <button type="button" id="delete-parking-button" onClick={deleteCurrentParking}>
+          Delete Parking
+        </button>
+
+        <h2 className="settings-text">Update your settings</h2>
+        
         <ParkingForm
           onSubmit={onSubmit}
           currentData={parkingData}
           validationMode="onTouched"
+          isModal={false}
         />
       </div>
     );

@@ -10,6 +10,7 @@ import {
 import HomeScreen from './Home/components/home'
 import Cars from './Home/components/cars'
 import Profile from './Home/components/profile'
+import EditProfile from './Home/components/editProfile'
 import Payments from './Home/components/payments'
 import BookingHistory from './Home/components/booking_history'
 

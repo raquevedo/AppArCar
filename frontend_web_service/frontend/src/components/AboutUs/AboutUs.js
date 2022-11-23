@@ -1,52 +1,84 @@
-import MemberInformation from '../MemberInformation/MemberInformation';
+import MemberInformation from './MemberInformation';
 
 
 function AboutUs(){
 
+  const membersData = [
+    {
+      name: "Ramiro Quevedo",
+      image: "ProfileImgRama",
+      roles: [
+        "System Arquitect",
+        "FullStack Developer",
+        "Devops Engineer"
+      ]
+    },
+    {
+      name: "Federico Aballay",
+      image: "ProfileImgFede",
+      roles: [
+        "Project Manager",
+        "Backend Developer"
+      ]
+    },
+    {
+      name: "Maximiliano Lopez",
+      image: "ProfileImgMaxi",
+      roles: [
+        "Frontend Developer",
+        "React Native Specialist"
+      ]
+    },
+    {
+      name: "Juan Jose Passo",
+      image: "ProfileImgJuan",
+      roles: [
+        "UI Designer"
+      ]
+    },
+    {
+      name: "Marcos Mollerach",
+      image: "ProfileImgMarcos",
+      roles: [
+        "Frontend Developer"
+      ]
+    },
+    {
+      name: "Manuel Arzuaga",
+      image: "ProfileImgManu",
+      roles: [
+        "Frontend Developer",
+        "QA Tester"
+      ]
+    }
+  ];
+
+  let halfway = Math.floor(membersData.length / 2);
+  let firstHalf = membersData.slice(0, halfway);
+  let secondHalf = membersData.slice(halfway, membersData.length);
+
   return(
-    <div className='grid-container'>
-      <div className='grid-y'>
-        <div className='cell'>
-          <MemberInformation
-            name="Ramiro"
-            image='ProfileImgRama'
-            message="Mensaje Ramiro"
-          />
+    <div id='about-us-view' className='gradient-background'>
+      <div className='grid-x'>
+        <div className='cell large-6 small-12'>
+          {firstHalf.map((memberData, index) => (
+            <MemberInformation
+              key={index}
+              name={memberData.name}
+              image={memberData.image}
+              roles={memberData.roles}
+            />
+          ))}
         </div>
-        <div className='cell'>
-          <MemberInformation
-            name="Federico"
-            image="ProfileImgFede"
-            message="Mensaje Federico"
-          />
-        </div>
-        <div className='cell'>
-          <MemberInformation
-            name="Maximiliano"
-            image="ProfileImgMaxi"
-            message="Mensaje Maximiliano"
-          />
-        </div>
-        <div className='cell'>
-          <MemberInformation
-            name="Juan"
-            image="ProfileImgJuan"
-            message="Mensaje Juan"
-          />
-        </div>
-        <div className='cell'>
-          <MemberInformation
-            name="Marcos"
-            image="ProfileImgMarcos"
-            message="Mensaje Marcos"
-          />
-        </div>
-        <div className='cell'>
-          <MemberInformation
-            name="Manuel"
-            image="ProfileImgManu"
-            message="Mensaje Manuel"
-          />
+        <div className='cell large-6 small-12'>
+          {secondHalf.map((memberData, index) => (
+            <MemberInformation
+              key={index}
+              name={memberData.name}
+              image={memberData.image}
+              roles={memberData.roles}
+            />
+          ))}
         </div>
       </div>
     </div>

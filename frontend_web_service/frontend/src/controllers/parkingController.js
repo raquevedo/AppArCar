@@ -36,6 +36,15 @@ export async function getParkingById(parkingId) {
   });
 }
 
+export async function deleteParking(parkingId) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/parking/${parkingId}`, {
+    method: 'DELETE',
+    headers: myHeaders
+  });
+}
+
 export async function getReservations(id) {
   const myHeaders = buildHeaders();
 
@@ -85,6 +94,21 @@ export async function rejectReservation(id) {
   return await fetch(`http://localhost:8000/parking/reservation/reject/${id}`, {
     method: 'POST',
     headers: myHeaders
+  });
+}
+
+export async function createManualReservation(idParking, patentId) {
+  const myHeaders = buildHeaders();
+
+  return await fetch(`http://localhost:8000/parking/reservation/manual-create`, {
+    method: 'POST',
+    headers: myHeaders,
+    body: JSON.stringify(
+      {
+        idParking: idParking,
+        patentId: patentId
+      }
+    )
   });
 }
 

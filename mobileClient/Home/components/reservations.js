@@ -49,12 +49,12 @@ function ReservationsScreen({ navigation, route }){
       <Image source={require("../../assets/logo.png")} style={styles.image} />
       <SafeAreaView style={styles.sectionLong}>
         <View style={styles.space}></View>
-        <Text style={styles.themeTextFlat}>Reservation</Text>
+      
         <Text style={styles.heading2}>{route.params.parking.businessName}</Text>
         <Text style={styles.subheading}>{route.params.parking.streetName+" "+route.params.parking.streetNumber}</Text>
         <Text style={styles.subheading}>{"Cuit:"+route.params.parking.cuitNumber}</Text>
         <CardsCarousel payMethod={paymentsMethods}/>
-        <Text style={styles.heading2}>{"Booking amount: $"+route.params.parking.priceHour}</Text>
+        <Text style={styles.heading3}>{"Booking amount: $"+route.params.parking.priceHour}</Text>
         <TouchableOpacity
           style={styles.containButtonStyleFlat}
           onPress={() => console.log(route.params.parking) & 

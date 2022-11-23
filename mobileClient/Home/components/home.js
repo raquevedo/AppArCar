@@ -10,9 +10,10 @@ import { getCoordinates, getNearParkings } from "../controllers/map_controller";
 import {ModalReserve, ModalPatent} from "./mapModals";
 import ReservationsSocket from "./reservationsSocket";
 import styles from "../../Services/styles";
+import { getPaymentMethods } from "../controllers/payments_methods_controller";
 
 function HomeScreen({ navigation }) {
-  //const { signOut } = useContext(AuthContext);
+  
   const [location, setLocation] = useState(null);
   const [regionMapLat, setRegionMapLat] = useState("");
   const [regionMapLon, setRegionMapLon] = useState("");
@@ -77,6 +78,20 @@ function HomeScreen({ navigation }) {
   function centerRegion(coordinates){
     setRegionMapLat(coordinates.latitude)
     setRegionMapLon(coordinates.longitude)
+  }
+  async function thisReserve(parking){
+    
+    const selectedCar= await SecureStore.getItemAsync("patent");
+    const response = await getPaymentMethods();
+    const cards = await response.json();
+    const response2 = await GetCars();
+    const cars = await response2.json();
+    cars.filter((x)=> x.patentId == selectedCar)!=0
+    if((cars.filter((x)=> x.patentId == selectedCar)).length!=0 && cards.length!=0){
+      navigation.navigate("Reservation",{parking:parking})  
+    }else{
+      Alert.alert('Important','To booking: you must add and select some car and credit card.');
+    }
   }
   useEffect(() => {
     (async () => {
@@ -159,7 +174,7 @@ function HomeScreen({ navigation }) {
               title={"Parking:"+item.businessName}
               description={"cuit: "+item.cuitNumber}
               coordinate={{"latitude":item.latitude,"longitude":item.longitude}}
-              onPress={() => navigation.navigate("Reservation",{parking:item})}
+              onPress={() => thisReserve(item) }
               icon={require('../../assets/gasperavailaible.png')}
             />
             

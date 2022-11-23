@@ -1,7 +1,6 @@
-import * as React from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import {
   View,
-  Button,
   Text,
   Image,
   TouchableOpacity,
@@ -9,26 +8,37 @@ import {
 } from "react-native";
 import { AuthContext } from "../../Services/context";
 import styles from "../../Services/styles";
-import { TextInput } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
 import DatePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
 import { Dropdown } from "react-native-element-dropdown";
+import CustomInput from "../../GenericComponents/customInput";
 
 function FormReg({ navigation }) {
-  const [name, setName] = React.useState("");
-  const [lastName, setlastName] = React.useState("");
-  //const [patent, setpatent] = React.useState('');
-  const [documentNumber, setDocument] = React.useState("");
-  const [birthDateDt, setBirthday] = React.useState("");
-  //const [residence, setResidence] = React.useState('');
-  const [contactNumber, setContactNumber] = React.useState("");
-  //const [brandCar, setBrandCar] = React.useState('');
-  //const [modelCar, setModelCar] = React.useState('');
-  const [gender, setGender] = React.useState("");
-  const [isDatePickerVisible, setIsDatePickerVisibility] =
-    React.useState(false);
+ 
+  const [name, setName] = useState({type:"name",value:"",valid:false,isValidOn:false});
+  const setInput1Handl = useCallback(val => {setName(val)},[setName]);
+  const [lastName, setlastName] = useState({type:"lastName",value:"",valid:false,isValidOn:false});
+  const setInput2Handl = useCallback(val => {setlastName(val)},[setlastName]);
+  const [documentNumber, setDocument] = useState({type:"document",value:"",valid:false,isValidOn:false});
+  const setInput3Handl = useCallback(val => {setDocument(val)},[setDocument]);
+  const [contactNumber, setContactNumber] = useState({type:"phone",value:"",valid:false,isValidOn:false});
+  const setInput4Handl = useCallback(val => {setContactNumber(val)},[setContactNumber]);
 
+  const [birthDateDt, setBirthday] = useState("");
+  const [birthDateStyle, setBirthdayStyle] = useState(styles.containButtonStyleDate);
+  const [gender, setGender] = useState("");
+  const [genderStyle, setGenderStyle] = useState(styles.dropdown);
+  const [isDatePickerVisible, setIsDatePickerVisibility] = useState(false);
+  const [validActive, setValidActive] = useState(false);
+  
+  function inputsActivator(){
+    setName({...name,isValidOn:true});
+    setlastName({...lastName,isValidOn:true});
+    setDocument({...documentNumber,isValidOn:true});
+    setContactNumber({...contactNumber,isValidOn:true});
+  }
+  
   const showDatePicker = () => {
     setIsDatePickerVisibility(true);
   };
@@ -42,15 +52,46 @@ function FormReg({ navigation }) {
     hideDatePicker();
   };
 
-  const { register } = React.useContext(AuthContext);
-  const { signOut } = React.useContext(AuthContext);
+  const { register } = useContext(AuthContext);
+  const { signOut } = useContext(AuthContext);
 
-  const [isFocus, setIsFocus] = React.useState(false);
+  const [isFocus, setIsFocus] = useState(false);
   const data = [
     { label: "Male", value: "Male" },
     { label: "Female", value: "Female" },
     { label: "Other", value: "Other" },
   ];
+
+  useEffect(()=>{
+    if(validActive){
+      if(birthDateDt===""){
+        setBirthdayStyle(styles.containButtonStyleDateError);
+      }else{
+        setBirthdayStyle(styles.containButtonStyleDate);
+      }
+      if(gender===""){
+        setGenderStyle(styles.dropdownError);
+      }else{
+        setGenderStyle(styles.dropdown);
+      }
+    }
+  },[birthDateDt,gender,validActive]);
+
+  function thisRegister(){
+    if(birthDateDt!=="" && gender!=="" && name.valid && lastName.valid && documentNumber.valid && contactNumber.valid){
+      register({name:name.value,
+        lastName:lastName.value,
+        documentNumber:documentNumber.value,
+        birthDateDt,
+        contactNumber:contactNumber.value,
+        gender,
+      });  
+    }else{
+      setValidActive(true);
+      inputsActivator();
+    }
+  }
+
   return (
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient colors={["#3043ff", "#df3ac4"]} style={styles.gradient}>
@@ -58,39 +99,12 @@ function FormReg({ navigation }) {
         <View style={styles.sectionLong}>
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>Complete sus datos:</Text>
-          <TextInput
-            placeholder="Name"
-            value={name}
-            onChangeText={setName}
-            style={styles.text}
-            left={<TextInput.Icon icon="eye" />}
-          />
-          <TextInput
-            placeholder="Surname"
-            value={lastName}
-            onChangeText={setlastName}
-            style={styles.text}
-            left={<TextInput.Icon icon="eye" />}
-          />
-
-          <TextInput
-            placeholder="Document Number"
-            value={documentNumber}
-            onChangeText={setDocument}
-            style={styles.text}
-            left={<TextInput.Icon icon="book" />}
-          />
-
-          <TextInput
-            placeholder="Mobile phone"
-            value={contactNumber}
-            onChangeText={setContactNumber}
-            style={styles.text}
-            left={<TextInput.Icon icon="phone" />}
-          />
-
+          <CustomInput styles={styles} data={name} setData={setInput1Handl}></CustomInput>
+          <CustomInput styles={styles} data={lastName} setData={setInput2Handl}></CustomInput>
+          <CustomInput styles={styles} data={documentNumber} setData={setInput3Handl}></CustomInput>
+          <CustomInput styles={styles} data={contactNumber} setData={setInput4Handl}></CustomInput>
           <Dropdown
-            style={[styles.dropdown, isFocus && { borderColor: "blue" }]}
+            style={[genderStyle, isFocus && { borderColor: "blue" }]}
             placeholderStyle={styles.placeholderStyle}
             selectedTextStyle={styles.selectedTextStyle}
             inputSearchStyle={styles.inputSearchStyle}
@@ -109,7 +123,7 @@ function FormReg({ navigation }) {
             }}
           />
           <TouchableOpacity
-            style={styles.containButtonStyleDate}
+            style={birthDateStyle}
             onPress={showDatePicker}
           >
             <Text style={styles.textDate}>{`${
@@ -127,14 +141,7 @@ function FormReg({ navigation }) {
           <TouchableOpacity
             style={styles.containButtonStylel}
             onPress={() =>
-              register({
-                name,
-                lastName,
-                documentNumber,
-                birthDateDt,
-                contactNumber,
-                gender,
-              })
+              thisRegister()
             }
           >
             <LinearGradient
@@ -168,26 +175,3 @@ function FormReg({ navigation }) {
   );
 }
 export default FormReg;
-
-/*
- <TextInput
-          placeholder="patente"
-          value={brandCar}
-          onChangeText={setBrandCar}
-        />
-        <TextInput
-          placeholder="modelCar"
-          value={modelCar}
-          onChangeText={setModelCar}
-        />
-        <TextInput
-          placeholder="residence"
-          value={residence}
-          onChangeText={setResidence}
-        />
-        <TextInput
-          placeholder="patent"
-          value={patent}
-          onChangeText={setpatent}
-        />
-  */
