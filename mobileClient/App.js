@@ -150,6 +150,7 @@ export default function App({ navigation }) {
               await SecureStore.setItemAsync("tk", dataRes.token);
               if (!isReg) {
                 console.log("Completar registro");
+                setIsRegistered(false);
               } else {
                 console.log("Go to home");
                 setIsRegistered(true);
