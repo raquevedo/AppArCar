@@ -13,7 +13,7 @@ import styles from "../../Services/styles";
 import { getPaymentMethods } from "../controllers/payments_methods_controller";
 
 function HomeScreen({ navigation }) {
-  //const { signOut } = useContext(AuthContext);
+  
   const [location, setLocation] = useState(null);
   const [regionMapLat, setRegionMapLat] = useState("");
   const [regionMapLon, setRegionMapLon] = useState("");
@@ -92,7 +92,6 @@ function HomeScreen({ navigation }) {
     }else{
       Alert.alert('Important','To booking: charge and select any car and credit card.');
     }
-    //reserve(route.params.parking.id) // salvar idParking
   }
   useEffect(() => {
     (async () => {
@@ -217,22 +216,3 @@ function HomeScreen({ navigation }) {
 }
 
 export default HomeScreen;
-
-/*
-async function thisReserve(idParking){
-    console.log(route.params.parking);
-    console.log(getSelectedPayment());
-    const selectedCar= await SecureStore.getItemAsync("patent");
-    const cars = await response.json();
-    const response = await getPaymentMethods();
-    const cards = await response.json();
-    if(selectedCar!=='' && cars.length!=0 && cards.length!=0){
-      console.log('reservation ok');
-    }else{
-      Alert.alert('Important','To booking, select and charg any car and credit card.');
-    }
-    //reserve(route.params.parking.id) // salvar idParking
-
-  }
-
-*/
