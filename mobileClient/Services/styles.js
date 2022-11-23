@@ -247,9 +247,20 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   imageCard: {
-    flex: 1,
-    width: 200,
-    height: 100,
+    width: '30%', 
+    height: '30%',
+    marginLeft:180,
+    top: -110
+  },
+  imageCardChiph: {
+    width: '170%', 
+    height: '20%',
+    
+  },
+  imageCardChip: {
+    width: '30%', 
+    height: '30%',
+ 
   },
   
   imageGoogle: {
@@ -319,6 +330,12 @@ const styles = StyleSheet.create({
     
   },
   heading2: {
+
+    fontSize: 30,
+    fontFamily: "TTNorms-BoldItalic",
+  },
+  heading3: {
+    padding: 20,
     fontSize: 30,
     fontFamily: "TTNorms-BoldItalic",
   },
