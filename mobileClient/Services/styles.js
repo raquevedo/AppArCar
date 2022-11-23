@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "TTNorms-Light",
     width: "70%",
-    margin: 10,
+    margin: 0,
     color: "#5741f2",
     backgroundColor: "transparent",
   },
@@ -341,6 +341,16 @@ const styles = StyleSheet.create({
   },
   subheading: {
     fontSize: 18,
+    color: 'grey',
+    fontFamily: "TTNorms-Regular",
+  },
+  subheadingTitle: {
+    fontSize: 20,
+    color: 'black',
+    fontFamily: "TTNorms-Regular",
+  },
+  nameSurname: {
+    fontSize: 15,
     color: 'grey',
     fontFamily: "TTNorms-Regular",
   },

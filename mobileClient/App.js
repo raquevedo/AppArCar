@@ -258,9 +258,9 @@ export default function App({ navigation }) {
                         options={{ headerShown: false }}
                       />
                       <Stack.Screen
-                        name="EditProfile2"
+                        name="Edit Profile"
                         component={EditProfile}
-                        options={{ headerShown: false }}
+                     
                       />
                       <Stack.Screen
                         name="Cars"
