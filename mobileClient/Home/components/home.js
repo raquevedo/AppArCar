@@ -90,7 +90,7 @@ function HomeScreen({ navigation }) {
     if((cars.filter((x)=> x.patentId == selectedCar)).length!=0 && cards.length!=0){
       navigation.navigate("Reservation",{parking:parking})  
     }else{
-      Alert.alert('Important','To booking: charge and select any car and credit card.');
+      Alert.alert('Important','To booking: you must add and select some car and credit card.');
     }
   }
   useEffect(() => {
