@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { acceptReservation, postCheckIn } from "../../../controllers/parkingController";
 import AcceptedReservations from "./AcceptedReservations";
+import ManualReservationsModal from "./ManualReservationsModal";
 import ParkedCars from "./ParkedCars";
 import PendingReservations from "./PendingReservations";
 
 export default function ReservationsTab(props) {
+  const [showManualReservationsModal, setShowManualReservationsModal] = useState(false);
 
   async function AcceptReservation(id) {
     const res = await acceptReservation(id);
@@ -58,31 +60,62 @@ export default function ReservationsTab(props) {
     props.setPendingReservations([]);
   }
 
+  const showManualReservations = () => {
+    setShowManualReservationsModal(true);
+  }
+
   return (
-    <div className="reservations">
-      <button type="button" className="button" onClick={acceptAll}>Accept All</button>
-      <div className="grid-x grid-padding-x grid-margin-x background-reservations">
-        <div className="cell large-6 small-12">
-          <PendingReservations
-            socket={props.socket}
-            reservations={props.pendingReservations}
-            setReservations={props.setPendingReservations}
-            AcceptReservation={AcceptReservation}
-            parkingId={props.id}
-          />
+    <div className="reservations-tab">
+      <div className="grid-y">
+        <div className="cell">
+          <div className="grid-x align-center-middle">
+            <div className="cell small-6">
+              <button className="reservation-button" onClick={acceptAll}>Accept All</button>
+            </div>
+            <div className="cell small-6">
+              <button className="reservation-button" onClick={showManualReservations}>Manual Reservation</button>
+            </div>
+          </div>
         </div>
-        <div className="cell large-6 small-12">
-          <AcceptedReservations
-            reservations={props.acceptedReservations}
-            setReservations={props.setAcceptedReservations}
-            checkCustomerIn={checkCustomerIn}
-          />
+        <div className="cell">
+          <div className="grid-x">
+            <div className="cell large-6 small-12">
+              <div className="reservation-window">
+                <PendingReservations
+                  socket={props.socket}
+                  reservations={props.pendingReservations}
+                  setReservations={props.setPendingReservations}
+                  AcceptReservation={AcceptReservation}
+                  parkingId={props.id}
+                />
+              </div>
+            </div>
+            <div className="cell large-6 small-12">
+              <div className="reservation-window">
+                <AcceptedReservations
+                  reservations={props.acceptedReservations}
+                  setReservations={props.setAcceptedReservations}
+                  checkCustomerIn={checkCustomerIn}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="reservation-window">
+            <ParkedCars
+              parkedCars={props.parkedCars}
+              setParkedCars={props.setParkedCars}
+            />
+          </div>
         </div>
       </div>
-      <ParkedCars
-        parkedCars={props.parkedCars}
-        setParkedCars={props.setParkedCars}
-      />
+      {showManualReservationsModal &&
+        <ManualReservationsModal
+          parkingId={props.id}
+          setShowModal={setShowManualReservationsModal}
+          parkedCars={props.parkedCars}
+          setParkedCars={props.setParkedCars}
+        />
+      }
     </div>
   );
 }

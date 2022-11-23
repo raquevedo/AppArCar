@@ -10,8 +10,10 @@ export default function AcceptedReservation(props) {
       </td>
       <td>
         <button
-          className="status-pending"
+          type="button"
           onClick={() => props.checkCustomerIn(props.reservation["id"])}
+          class="reservations-list-button"
+          id="check-button"
         >
           Check In
         </button>

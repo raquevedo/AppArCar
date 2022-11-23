@@ -29,16 +29,18 @@ export default function PendingReservation({
       </td>
       <td>
         <button
-          className="status-paid"
           onClick={() => AcceptReservation(reservation.id)}
+          class="reservations-list-button"
+          id="approve-button"
         >
           Approve
         </button>
       </td>
       <td>
         <button
-          className="status-unpaid"
           onClick={() => RejectReservation(reservations, reservation.id)}
+          class="reservations-list-button"
+          id="reject-button"
         >
           Reject
         </button>

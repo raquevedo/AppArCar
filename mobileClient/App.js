@@ -11,6 +11,7 @@ import SignInScreen from "./Login/components/signin";
 import SignUpScreen from "./SignUp/components/signup";
 import FormReg from "./Login/components/registry";
 import Profile from "./Home/components/profile";
+import EditProfile from "./Home/components/editProfile";
 import Cars from "./Home/components/cars";
 import BookingHistory from "./Home/components/booking_history";
 import AddCar from "./Home/components/addCar";
@@ -38,6 +39,7 @@ export default function App({ navigation }) {
     "TTNorms-Regular": require("./assets/fonts/TTNorms-Regular.otf"),
     "TTNorms-BoldItalic": require("./assets/fonts/TTNorms-BoldItalic.otf"),
     "LicensePlate": require("./assets/fonts/LicensePlate.ttf"),
+    "Credit": require("./assets/fonts/credit.ttf"),
   });
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
@@ -149,6 +151,7 @@ export default function App({ navigation }) {
               await SecureStore.setItemAsync("tk", dataRes.token);
               if (!isReg) {
                 console.log("Completar registro");
+                setIsRegistered(false);
               } else {
                 console.log("Go to home");
                 setIsRegistered(true);
@@ -252,6 +255,11 @@ export default function App({ navigation }) {
                       <Stack.Screen
                         name="EditProfile"
                         component={Profile}
+                        options={{ headerShown: false }}
+                      />
+                      <Stack.Screen
+                        name="EditProfile2"
+                        component={EditProfile}
                         options={{ headerShown: false }}
                       />
                       <Stack.Screen

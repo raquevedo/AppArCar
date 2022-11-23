@@ -177,7 +177,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "white",
     borderWidth: 1,
-    borderColor: "grey",
+    borderColor: "gray",
+    width: 200,
+    height: 50,
+    borderRadius: 50,
+    margin: 20,
+  },
+  containButtonStyleDateError: {
+    flex: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "red",
     width: 200,
     height: 50,
     borderRadius: 50,
@@ -235,9 +247,20 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   imageCard: {
-    flex: 1,
-    width: 200,
-    height: 100,
+    width: '30%', 
+    height: '30%',
+    marginLeft:180,
+    top: -110
+  },
+  imageCardChiph: {
+    width: '170%', 
+    height: '20%',
+    
+  },
+  imageCardChip: {
+    width: '30%', 
+    height: '30%',
+ 
   },
   
   imageGoogle: {
@@ -263,10 +286,15 @@ const styles = StyleSheet.create({
     alignItems: "center", 
   },
   dropdown: {
-    
     width: 210,
     height: 50,
     borderBottomColor: 'gray',
+    borderBottomWidth: 0.5,
+  },
+  dropdownError: {
+    width: 210,
+    height: 50,
+    borderBottomColor: 'red',
     borderBottomWidth: 0.5,
   },
   placeholderStyle: {
@@ -302,6 +330,12 @@ const styles = StyleSheet.create({
     
   },
   heading2: {
+
+    fontSize: 30,
+    fontFamily: "TTNorms-BoldItalic",
+  },
+  heading3: {
+    padding: 20,
     fontSize: 30,
     fontFamily: "TTNorms-BoldItalic",
   },

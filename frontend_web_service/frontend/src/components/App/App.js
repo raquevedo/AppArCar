@@ -11,23 +11,33 @@ import Homepage from "../Homepage/Homepage";
 import SignIn from "../SignIn/SignIn";
 import DashboardWrapper from "../Dashboard/DashboardWrapper";
 import Navbar from "../Shared/Navbar";
-import "../../index.css";
 import AboutUs from '../AboutUs/AboutUs';
 import { isLoggedIn } from '../../utils/isLoggedIn';
+import Logout from "../Shared/Logout";
+import SideNav from '../Shared/SideNav';
 
 function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(isLoggedIn())
+  const [showSideNav, setShowSideNav] = useState(false);
 
   return (
     <BrowserRouter>
       <div className="grid-y">
-        <div className="cell small-12">
-          <Navbar userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn}/>
+        <div className="cell">
+          <Navbar
+            userLoggedIn={userLoggedIn}
+            showSideNav={showSideNav}
+            setShowSideNav={setShowSideNav}
+          />
         </div>
-        <div className="cell large-12">
+        <div className="cell">
+          {showSideNav &&
+            <SideNav setShowSideNav={setShowSideNav}/>
+          }
           <Routes>
             <Route path='/' element={<Homepage />} />
-            <Route path='signin' element={<SignIn setUserLoggedIn={setUserLoggedIn}/>} />
+            <Route path='signin' element={<SignIn setUserLoggedIn={setUserLoggedIn}/>}/>
+            <Route path='logout' element={<Logout setUserLoggedIn={setUserLoggedIn}/>}/>
             <Route path='aboutus' element={<AboutUs/>} />
             <Route
               path="dashboard/*"

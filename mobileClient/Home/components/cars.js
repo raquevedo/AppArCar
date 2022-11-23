@@ -63,7 +63,7 @@ function Cars({ navigation }) {
                   <Text
                     style={styles.textFlatList}
                     onPress={() =>
-                      navigation.navigate("EditCar", { idCar: item.id })
+                      navigation.navigate("EditCar", { car: item })
                     }
                   >
                     <View style={styles.containTextFlatList}>

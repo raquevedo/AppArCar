@@ -18,16 +18,17 @@ export default function ParkedCar(props) {
     }
   }
 
+  console.log(props.reservation)
+
   return (
     <tr>
       <td>{props.reservation['patentId']}</td>
-      <td>
-        {expirationDate.getHours()}:{expirationDate.getMinutes()}
-      </td>
+      <td>{props.reservation['totalPrice']}</td>
       <td>
         <button
-          className="status-pending"
           onClick={() => checkCustomerOut(props.reservation["id"])}
+          class="reservations-list-button"
+          id="check-button"
         >
           Check Out
         </button>
