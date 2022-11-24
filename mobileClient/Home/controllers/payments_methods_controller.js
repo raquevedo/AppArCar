@@ -1,4 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
+import { Alert } from 'react-native';
 import host_instance from '../../host_instance.json';
 
 async function getPaymentMethods(){
@@ -11,7 +12,14 @@ async function getPaymentMethods(){
         'Authorization':'Bearer '+userToken
         }
     console.log(fetchData)
-    return fetch(host_instance.path+'/payments/card',fetchData)
+    
+    return fetch(host_instance.path+'/payments/card',fetchData).then(function(response){
+        if(response.status!=200){
+            Alert.alert('Ups','Unestable connection. Please try again on a few seconds.');
+        }else{
+            return response;
+        }
+    });
 }
 async function persistCreditCard(data){
     const userToken = await SecureStore.getItemAsync('tk');

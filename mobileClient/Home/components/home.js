@@ -80,17 +80,20 @@ function HomeScreen({ navigation }) {
     setRegionMapLon(coordinates.longitude)
   }
   async function thisReserve(parking){
-    
-    const selectedCar= await SecureStore.getItemAsync("patent");
-    const response = await getPaymentMethods();
-    const cards = await response.json();
-    const response2 = await GetCars();
-    const cars = await response2.json();
-    cars.filter((x)=> x.patentId == selectedCar)!=0
-    if((cars.filter((x)=> x.patentId == selectedCar)).length!=0 && cards.length!=0){
-      navigation.navigate("Reservation",{parking:parking})  
-    }else{
-      Alert.alert('Important','To booking: you must add and select some car and credit card.');
+    try{
+      const selectedCar= await SecureStore.getItemAsync("patent");
+      const response = await getPaymentMethods();
+      const cards = await response.json();
+      const response2 = await GetCars();
+      const cars = await response2.json();
+      cars.filter((x)=> x.patentId == selectedCar)!=0
+      if((cars.filter((x)=> x.patentId == selectedCar)).length!=0 && cards.length!=0){
+        navigation.navigate("Reservation",{parking:parking})  
+      }else{
+        Alert.alert('Important','To booking: you must add and select some car and credit card.');
+      }
+    }catch(err){
+      console.log(err,'- Posible falta de json -')
     }
   }
   useEffect(() => {
