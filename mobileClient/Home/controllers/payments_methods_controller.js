@@ -3,23 +3,24 @@ import { Alert } from 'react-native';
 import host_instance from '../../host_instance.json';
 
 async function getPaymentMethods(){
-    const userToken = await SecureStore.getItemAsync('tk');
-    const fetchData={}
-    fetchData.method= 'GET'
-    fetchData.headers={
-        'accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization':'Bearer '+userToken
-        }
-    console.log(fetchData)
     
-    return fetch(host_instance.path+'/payments/card',fetchData).then(function(response){
-        if(response.status!=200){
-            Alert.alert('Ups','Unestable connection. Please try again on a few seconds.');
-        }else{
-            return response;
-        }
-    });
+        const userToken = await SecureStore.getItemAsync('tk');
+        const fetchData={}
+        fetchData.method= 'GET'
+        fetchData.headers={
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization':'Bearer '+userToken
+            }
+        console.log(fetchData)
+        
+        return fetch(host_instance.path+'/payments/card',fetchData).then(function(response){
+            if(response.status!=200){
+                Alert.alert('Sorry','Internal error');
+            }else{
+                return response;
+            }
+        });
 }
 async function persistCreditCard(data){
     const userToken = await SecureStore.getItemAsync('tk');
@@ -35,12 +36,9 @@ async function persistCreditCard(data){
     return fetch(host_instance.path+'/payments/card',fetchData)
     .then(async function(response){
         if(response.status != 200){
-        console.log("Error")
-        alert("Error, please check data inputs")
+            Alert.alert('Sorry','Internal error')
         }else{
-        console.log('Create car is success')
-        alert('Your credit card was registered.')
-        
+            Alert.alert('Greate!','Your credit card was registered.');
         }
     })
 }

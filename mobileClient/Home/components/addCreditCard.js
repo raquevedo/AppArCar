@@ -100,7 +100,7 @@ function AddCreditCard({ navigation }) {
         company,
         type,
         expireDate
-      });  
+      }).catch((err)=>(Alert.alert('Ups!','Problem connection')));  
       navigation.goBack();
     }else{
       setValidActive(true);

@@ -15,10 +15,9 @@ async function payOut(data){
     return fetch(host_instance.path+'/payments/payments',fetchData)
     .then(async function(response){
         if(response.status != 200){
-        console.log("Error")
-        alert("Transaction error. Please contact with AppArCar call center.")
+            Alert.alert('Sorry', 'Internal error')
         }else{
-        console.log('Payment success')
+            console.log('Payment success')
         }
     })
 }
