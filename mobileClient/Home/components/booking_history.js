@@ -33,18 +33,9 @@ function BookingHistory({ navigation }) {
     return <View style={styles.itemSeparator}></View>;
   };
 
-  async function reservationsCompleterInfo(reservations){
-    let reservationsAux = reservations;
-    for await(reservation of reservations){
-      const response = await getParkingInfo(reservation.idParking);
-      const resData = await response.json();
-      reservation.parkingInfo = resData;
-    }
-    return reservations;
-  }
-
-  function parseDate(date){
-    return date.slice(8,10)+'-'+date.slice(5,7)+'-'+date.slice(0,4);
+  function formatEnglishDate(date){
+    const dateObj=new Date(date);
+    return (dateObj.getMonth()+1)+'/'+dateObj.getDate()+'/'+dateObj.getFullYear();
   }
   function parseDateTime(date){
     return date.slice(11,16)+'hs / '+date.slice(8,10)+'-'+date.slice(5,7)+'-'+date.slice(0,4);
@@ -60,11 +51,14 @@ function BookingHistory({ navigation }) {
   useEffect(() => {
     console.log(focus);
     const getThisReservations = async () => {
-      const response = await getReservations();
-      const resData = await response.json();
-      console.log(resData);
-      const reservationsUpdated = await reservationsCompleterInfo(resData);
-      setReservations(reservationsUpdated);
+      try{
+        const response = await getReservations();
+        const resData = await response.json();
+        console.log(resData);
+        setReservations(resData);
+      }catch(err){
+        console.log(err);
+      }
     };
     if (focus) {
       getThisReservations();
@@ -89,9 +83,13 @@ function BookingHistory({ navigation }) {
                     style={styles.textFlatList}
                   >
                     <View style={styles.containTextFlatList}>
-                    <Text style={styles.heading2}>{item.parkingInfo.businessName}</Text>
-                    <Text style={styles.subheading}>{item.parkingInfo.streetName+' '+item.parkingInfo.streetNumber}</Text>
-                    <Text style={styles.subheading}>{parseDate(item.createdAtDttm)}</Text>
+                        <Text style={styles.heading2}>Patente: {item.patentId}</Text>
+                        <Text style={styles.subheading}>Tomada:{formatEnglishDate(item.createdAtDttm)}</Text>
+                        {item.checkoutAtDttm!=null?<>
+                        <Text style={styles.subheading}>Cerrada:{formatEnglishDate(item.checkoutAtDttm)}</Text>
+                        </>:
+                        <></>}
+                        <Text style={styles.subheading}>Monto:{item.totalPrice}</Text>    
                     </View>
                   </Text>
                 </View>
@@ -101,14 +99,8 @@ function BookingHistory({ navigation }) {
         </View>
         <View style={styles.space}></View>
         {reservations.length != 0 && reservations[reservations.length-1].status == 'accepted' ? <>
-          <Text style={styles.themeTextFlat2}>You have an active booking on:</Text>
+          <Text style={styles.themeTextFlat2}>You have an active booking at:</Text>
           <Text style={styles.subheading3}>
-            {reservations[reservations.length-1].parkingInfo.businessName
-            +' - '
-            +reservations[reservations.length-1].parkingInfo.streetName
-            +' '
-            +reservations[reservations.length-1].parkingInfo.streetNumber 
-            +' at '}
             {parseDateTime(reservations[reservations.length-1].expirationAtDttm)}
           </Text>
           <TouchableOpacity
