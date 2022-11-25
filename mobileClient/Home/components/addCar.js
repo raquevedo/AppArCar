@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import styles from "../../Services/styles";
 import { PersistCar } from "../controllers/car_controller";
