@@ -15,11 +15,11 @@ async function PersistProfile(data){
         }
     data.documentNumber=parseInt(data.documentNumber)
     data.contactNumber=parseInt(data.contactNumber)
-    fetch(host_instance.path+'/user/car-drivers/update-profile',fetchData)
+    return fetch(host_instance.path+'/user/car-drivers/update-profile',fetchData)
     .then(async function(response){
         if(response.status != 204){
             console.log("Error")
-            Alert.alert('Data errors', 'Please check your data')
+            Alert.alert('Sorry', 'Internal error')
         }else{
             console.log('Update profile is success')
             Alert.alert('Yes','Your data was updated')

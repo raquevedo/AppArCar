@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import { GetUserInfo } from "../../Services/requests";
 import { LinearGradient } from "expo-linear-gradient";
@@ -35,7 +36,7 @@ function Profile({ navigation }) {
     hideDatePicker();
   };
   const loadDataOnlyOnce = async function () {
-    const response = await GetUserInfo();
+    const response = await GetUserInfo().catch(()=>Alert.alert('Ups','Connection error'));
     let respData = await response.json();
     respData = respData.data;
     setName(respData.name);
