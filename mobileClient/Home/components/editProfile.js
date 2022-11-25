@@ -62,7 +62,7 @@ function EditProfile({ navigation, route }) {
         birthDateDt,
         contactNumber:contactNumber.value,
         gender,
-      }).catch(()=>Alert.alert('Ups','Connection error'));  
+      });  
     }
   }
 

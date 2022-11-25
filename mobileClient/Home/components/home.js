@@ -51,7 +51,8 @@ function HomeScreen({ navigation }) {
     }
   }
   async function getThisNearParkings(coordinates){
-    const nearParkings = await getNearParkings(coordinates)
+    const response = await getNearParkings(coordinates);
+    const nearParkings = await response.json();
     setNearParkings(nearParkings)
     console.log(nearParkings)
   }
@@ -82,7 +83,7 @@ function HomeScreen({ navigation }) {
   async function thisReserve(parking){
     try{
       const selectedCar= await SecureStore.getItemAsync("patent");
-      const response = await getPaymentMethods();
+      const response = await getPaymentMethods().catch(()=>Alert.alert('Ups','Connection error on reserve'));
       const cards = await response.json();
       const response2 = await GetCars();
       const cars = await response2.json();

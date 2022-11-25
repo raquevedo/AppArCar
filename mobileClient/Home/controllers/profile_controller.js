@@ -1,5 +1,6 @@
 import * as SecureStore from 'expo-secure-store';
 import host_instance from '../../host_instance.json';
+import { Alert } from 'react-native';
 
 async function PersistProfile(data){
     const userToken = await SecureStore.getItemAsync('tk');
@@ -24,7 +25,7 @@ async function PersistProfile(data){
             console.log('Update profile is success')
             Alert.alert('Yes','Your data was updated')
         }
-    })
+    }).catch(()=>Alert.alert('Ups','Connection error on profile edition'));
 }
 
 export { PersistProfile }
