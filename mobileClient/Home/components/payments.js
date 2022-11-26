@@ -65,7 +65,7 @@ function Payments({ navigation }) {
     console.log(focus);
     try{
       const thisGetPaymentMethods = async () => {
-        const response = await getPaymentMethods().catch((err)=>console.log(Alert.alert('Ups!','Connection error')));
+        const response = await getPaymentMethods().catch((err)=>console.log(Alert.alert('Ups!','Connection error on payment methods')));
         const resData = await response.json();
         console.log(resData);
         console.log('maximiliano');

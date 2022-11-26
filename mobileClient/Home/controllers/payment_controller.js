@@ -1,4 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
+import { Alert } from 'react-native';
 import host_instance from '../../host_instance.json';
 
 async function payOut(data){
@@ -19,7 +20,7 @@ async function payOut(data){
         }else{
             console.log('Payment success')
         }
-    })
+    }).catch(()=>Alert.alert('Ups','Connection error on payment'));
 }
 
 export { payOut }

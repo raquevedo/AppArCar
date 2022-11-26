@@ -90,7 +90,7 @@ function ReservationsSocket(){
         upPaymentSocket();
         break;
       case "payment_pending":
-        Alert.alert('Many thanks','Now your payment will be make with your credit card. See you later.')
+        Alert.alert('Many thanks','Now your payment will be made with your credit card. See you later.')
         setReserveState("unreserved");
         socketPayment.close();
         const paymentObj = {

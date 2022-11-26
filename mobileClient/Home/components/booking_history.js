@@ -52,7 +52,7 @@ function BookingHistory({ navigation }) {
     console.log(focus);
     const getThisReservations = async () => {
       try{
-        const response = await getReservations();
+        const response = await getReservations().catch(()=>Alert.alert('Ups','Connection errors on booking history'));;
         const resData = await response.json();
         console.log(resData);
         setReservations(resData);

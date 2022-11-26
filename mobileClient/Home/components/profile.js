@@ -13,7 +13,7 @@ import styles from "../../Services/styles";
 import { useIsFocused } from "@react-navigation/native";
 
 function Profile({ navigation }) {
-  const [user,setUser] = useState("");
+  const [user,setUser] = useState(null);
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [documentNumber, setDocument] = useState("");
@@ -50,11 +50,21 @@ function Profile({ navigation }) {
   };
 
   const [isFocus, setIsFocus] = useState(false);
+
   const data = [
     { label: "Male", value: "Male" },
     { label: "Female", value: "Female" },
     { label: "Other", value: "Other" },
   ];
+
+  function navigateToEditProfile(){
+    if(user!=null){
+      navigation.navigate('Edit Profile',{user:user});
+    }else{
+      Alert.alert('Ups!','Connection error');
+    }
+  }
+
   useEffect(() => {
     loadDataOnlyOnce();
   }, [focus]);
@@ -86,7 +96,7 @@ function Profile({ navigation }) {
           <TouchableOpacity
             style={styles.containButtonStylel}
             onPress={() =>
-              navigation.navigate('Edit Profile',{user:user})
+              navigateToEditProfile()
             }
           >
             <LinearGradient
