@@ -36,7 +36,7 @@ export default function App({ navigation }) {
   const getFonts = () =>
   Font.loadAsync({
     "TTNorms-Light": require("./assets/fonts/TTNorms-Light.otf"),
-    "TTNorms-Regular": require("./assets/fonts/TTNorms-Regular.otf"),
+    "TTNorms-Regular": require("./assets/fonts/Montserrat-Regular.ttf"),
     "TTNorms-BoldItalic": require("./assets/fonts/TTNorms-BoldItalic.otf"),
     "LicensePlate": require("./assets/fonts/LicensePlate.ttf"),
     "Credit": require("./assets/fonts/credit.ttf"),
