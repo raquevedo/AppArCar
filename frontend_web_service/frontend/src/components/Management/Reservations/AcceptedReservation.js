@@ -1,4 +1,5 @@
 import React from "react";
+import { padTime } from "../../../utils/hoursPadding";
 
 export default function AcceptedReservation(props) {
   const expirationDate = new Date(props.reservation.expirationAtDttm);
@@ -6,7 +7,7 @@ export default function AcceptedReservation(props) {
     <tr>
       <td>{props.reservation['patentId']}</td>
       <td>
-        {expirationDate.getHours()}:{expirationDate.getMinutes()}
+        {padTime(expirationDate.getHours())}:{padTime(expirationDate.getMinutes())}
       </td>
       <td>
         <button
