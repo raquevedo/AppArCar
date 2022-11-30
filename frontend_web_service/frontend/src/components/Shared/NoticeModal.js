@@ -17,7 +17,7 @@ function NoticeModal(props) {
               <p className="modal-text">{props.body}</p>
             </div>
             <div className="cell">
-              <button type="button" className="modal-button" onClick={handleClose}>Continue</button>
+              <button type="button" className="form-button" onClick={handleClose}>Continue</button>
             </div>
           </div>
         </div>

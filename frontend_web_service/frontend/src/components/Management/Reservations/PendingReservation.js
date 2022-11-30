@@ -1,6 +1,7 @@
 import React from "react";
 import { removeById } from "../../../utils/removeById";
 import { rejectReservation } from "../../../controllers/parkingController";
+import { padTime } from "../../../utils/hoursPadding";
 
 export default function PendingReservation({
   reservation,
@@ -25,7 +26,7 @@ export default function PendingReservation({
     <tr>
       <td>{reservation['patentId']}</td>
       <td>
-        {expirationDate.getHours()}:{expirationDate.getMinutes()}
+        {padTime(expirationDate.getHours())}:{padTime(expirationDate.getMinutes())}
       </td>
       <td>
         <button
