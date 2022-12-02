@@ -1,10 +1,20 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, View, Text, Modal, Pressable, Alert,ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Modal,
+  Pressable,
+  Alert,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { reserve } from "../controllers/reservation_controller";
 import { GetCars } from "../controllers/car_controller";
 import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
-
+import styles from "../../Services/styles";
+import { LinearGradient } from "expo-linear-gradient";
 
 function ModalPatent({ navigation, parentStates, parentSetters }) {
   /*const [modalVisible, setModalVisible] = useState(false);
@@ -40,6 +50,7 @@ function ModalPatent({ navigation, parentStates, parentSetters }) {
           >
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
+                <Text style={styles.themeTextFlat}>Your cars</Text>
                 {cars.map((item) => (
                   <Text
                     style={styles.modalText}
@@ -58,16 +69,24 @@ function ModalPatent({ navigation, parentStates, parentSetters }) {
                     {item.patentId}
                   </Text>
                 ))}
-                <Pressable
-                  style={styles.button}
+
+                <TouchableOpacity
+                  style={styles.containButtonStylel}
                   onPress={() =>
                     parentSetters.wrapperSetModalState(
                       !parentStates.modalVisible
                     )
                   }
                 >
-                  <Text style={styles.textStyle}>Close</Text>
-                </Pressable>
+                  <LinearGradient
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    colors={["#3043ff", "#df3ac4"]}
+                    style={styles.buttonStylel}
+                  >
+                    <Text style={styles.buttonTextl}>Close</Text>
+                  </LinearGradient>
+                </TouchableOpacity>
               </View>
             </View>
           </Modal>
@@ -128,45 +147,3 @@ function ModalReserve({ parentStates, parentSetters }) {
 }
 
 export { ModalPatent, ModalReserve };
-
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-
-    position: "absolute",
-  },
-  modalView: {
-    margin: 60,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 60,
-    alignItems: "center",
-    elevation: 5,
-    borderColor: "rgba(0,0,0,0.2)",
-  },
-  button: {
-    width: 150,
-    height: 30,
-    borderRadius: 20,
-    marginTop: 20,
-    marginBotton: 200, //posición boton en y
-    padding: 5,
-    elevation: 1,
-    backgroundColor: "#5741f2",
-  },
-  textStyle: {
-    marginBottom: 1,
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginTop: 10,
-    padding: 5,
-    textAlign: "center",
-    fontSize: 25,
-    fontFamily: "TTNorms-BoldItalic",
-  },
-});
