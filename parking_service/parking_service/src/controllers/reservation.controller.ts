@@ -93,6 +93,7 @@ export class ReservationController {
 
     pkgReservation.idCarDriver = 0
     pkgReservation.createdAtDttm = Date()    
+    pkgReservation.checkinAtDttm = Date()    
     pkgReservation.expirationAtDttm = null
     pkgReservation.status = 'parked'
     pkgReservation.paymentStatus = 'pending'
