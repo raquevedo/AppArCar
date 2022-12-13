@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   themeTextFlat: {
     flex: 1,
     fontSize: 40,
-    fontFamily: "TTNorms-BoldItalic",
+    fontFamily: "TTNorms-Regular",
     textAlign: "center",
     color: "#5741f2",
     justifyContent: "center",
@@ -424,7 +424,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#F194FF",
     },
     buttonClose: {
-        backgroundColor: "#2196F3",
+        backgroundColor: "#5741f2",
     },
     textStyle: {
         color: "white",
@@ -442,6 +442,54 @@ const styles = StyleSheet.create({
       marginHorizontal: 10,
       width: "50%",
       marginBottom: 15,
+    },
+    centeredView: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+  
+      position: "absolute",
+    },
+    modalView: {
+      margin: 60,
+      backgroundColor: "white",
+      borderRadius: 20,
+      padding: 60,
+      alignItems: "center",
+      elevation: 5,
+      borderColor: "rgba(0,0,0,0.2)",
+    },
+    button: {
+      width: 150,
+      height: 30,
+      borderRadius: 20,
+      marginTop: 20,
+      marginBotton: 200, //posición boton en y
+      padding: 5,
+      elevation: 1,
+      backgroundColor: "#5741f2",
+    },
+    textStyle: {
+      marginBottom: 1,
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+    modalText: {
+      marginTop: 10,
+      padding: 5,
+      textAlign: "center",
+      fontSize: 25,
+      fontFamily: "TTNorms-BoldItalic",
+    },
+    themeTextFlat: {
+      flex: 1,
+      fontSize: 40,
+      fontFamily: "TTNorms-Regular",
+      textAlign: "center",
+      color: "#5741f2",
+      justifyContent: "center",
+      alignItems: "center",
     },
 });
 export default styles;

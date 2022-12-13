@@ -1,17 +1,27 @@
-import {useState, useEffect} from "react";
-import { StyleSheet, View, Text, Modal, Pressable, Alert } from "react-native";
+import { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Modal,
+  Pressable,
+  Alert,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { reserve } from "../controllers/reservation_controller";
 import { GetCars } from "../controllers/car_controller";
 import { useIsFocused } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
+import styles from "../../Services/styles";
+import { LinearGradient } from "expo-linear-gradient";
 
-function ModalPatent({ navigation,parentStates,parentSetters }) {
-  
+function ModalPatent({ navigation, parentStates, parentSetters }) {
   /*const [modalVisible, setModalVisible] = useState(false);
   const [modalResVisible, setModalResVisible] = useState(false); */
   const [cars, setCars] = useState([]);
   const focus = useIsFocused();
-  
+
   useEffect(() => {
     console.log(focus);
     const getCars = async () => {
@@ -26,44 +36,66 @@ function ModalPatent({ navigation,parentStates,parentSetters }) {
   }, [focus]);
 
   return (
-    <View style={{ flex: 1 }}>
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={parentStates.modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            parentSetters.wrapperSetModalState(!parentStates.modalVisible);
-          }}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              {cars.map((item) => 
-                <Text style={styles.modalText} 
-                  key={item.patentId} 
-                  onPress={async ()=> {
-                  parentSetters.wrapperSetPatent(item.patentId) & 
-                  await SecureStore.setItemAsync("patent", item.patentId) & 
-                  parentSetters.wrapperSetModalState(!parentStates.modalVisible)}}>
+    <ScrollView>
+      <View style={{ flex: 1 }}>
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={parentStates.modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              parentSetters.wrapperSetModalState(!parentStates.modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.themeTextFlat}>Your cars</Text>
+                {cars.map((item) => (
+                  <Text
+                    style={styles.modalText}
+                    key={item.patentId}
+                    onPress={async () => {
+                      parentSetters.wrapperSetPatent(item.patentId) &
+                        (await SecureStore.setItemAsync(
+                          "patent",
+                          item.patentId
+                        )) &
+                        parentSetters.wrapperSetModalState(
+                          !parentStates.modalVisible
+                        );
+                    }}
+                  >
                     {item.patentId}
-                </Text> 
-              )}
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => parentSetters.wrapperSetModalState(!parentStates.modalVisible)}
-              >
-                <Text style={styles.textStyle}>Close</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
-      </View>
-    </View>
+                  </Text>
+                ))}
 
+                <TouchableOpacity
+                  style={styles.containButtonStylel}
+                  onPress={() =>
+                    parentSetters.wrapperSetModalState(
+                      !parentStates.modalVisible
+                    )
+                  }
+                >
+                  <LinearGradient
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    colors={["#3043ff", "#df3ac4"]}
+                    style={styles.buttonStylel}
+                  >
+                    <Text style={styles.buttonTextl}>Close</Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
-function ModalReserve({parentStates,parentSetters}){
-  
+function ModalReserve({ parentStates, parentSetters }) {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.centeredView}>
@@ -73,24 +105,36 @@ function ModalReserve({parentStates,parentSetters}){
           visible={parentStates.modalResVisible}
           onRequestClose={() => {
             //Alert.alert("Modal has been closed.");
-            parentSetters.wrapperSetResModalState(!parentStates.modalResVisible);
+            parentSetters.wrapperSetResModalState(
+              !parentStates.modalResVisible
+            );
           }}
-          >
+        >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text >You will be reserving at {parentStates.parking.businessName}. Location: {parentStates.parking.streetName}{parentStates.parking.streetNumber}</Text>
+              <Text>
+                You will be reserving at {parentStates.parking.businessName}.
+                Location: {parentStates.parking.streetName}
+                {parentStates.parking.streetNumber}
+              </Text>
               <Pressable
                 style={styles.button}
-                onPress={() => 
+                onPress={() =>
                   reserve(parentStates.parking.id) &
-                  parentSetters.wrapperSetResModalState(!parentStates.modalResVisible)
+                  parentSetters.wrapperSetResModalState(
+                    !parentStates.modalResVisible
+                  )
                 }
               >
                 <Text style={styles.textStyle}>Reserve</Text>
               </Pressable>
               <Pressable
                 style={styles.button}
-                onPress={() => parentSetters.wrapperSetResModalState(!parentStates.modalResVisible)}
+                onPress={() =>
+                  parentSetters.wrapperSetResModalState(
+                    !parentStates.modalResVisible
+                  )
+                }
               >
                 <Text style={styles.textStyle}>Close</Text>
               </Pressable>
@@ -102,50 +146,4 @@ function ModalReserve({parentStates,parentSetters}){
   );
 }
 
-export {ModalPatent, ModalReserve};
-
-const styles = StyleSheet.create({
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 120,
-        position: 'absolute', 
-    },
-    modalView: {
-        margin: 60,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 60,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-        
-    },
-    button: {
-      width: 150,
-      height: 30,
-      borderRadius: 20,
-      marginTop: 20,
-      marginBotton: 200,//posición boton en y
-      padding: 5,
-      elevation: 1,
-      color:"green"
-    },
-    textStyle: {
-        marginBottom: 1,
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginTop: 10,
-        textAlign: "center"
-    }
-});
+export { ModalPatent, ModalReserve };

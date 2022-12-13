@@ -77,7 +77,7 @@ function Profile({ navigation }) {
           <Text style={styles.subheadingTitle}>Gender:</Text>
           <Text style={styles.subheading}>{gender}</Text>
           <Text style={styles.subheadingTitle}>Birth Date:</Text>
-          <Text style={styles.subheading}>{birthDateDt}</Text>
+          <Text style={styles.subheading}>{birthDateDt.substring(5,7) +"/"+ (birthDateDt.substring(8,10)) +"/"+ birthDateDt.substring(0,4)}</Text>
           <View style={styles.space}></View>
           <View style={styles.space}></View>
           <View style={styles.space}></View>
