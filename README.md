@@ -54,8 +54,6 @@ Creates a Web Sockets server to send live updates to the frontend, uses event-dr
 Tools used: NestJS, Rabbitmq, Socket.io
 Author: Ramiro Quevedo
 
-> [Release notes](notification_service/README.md)
-
 ## Geolocation_service
 
 Uses the Google API to find an address' coordinates
@@ -64,7 +62,6 @@ Tools used: NestJS, Python, url scraping
 Authors: Maximiliano Gilberto, Ramiro Quevedo
 
 Path: /geo
-> [Release notes](geolocation_service/README.md)
 
 ## User_service
 
@@ -84,7 +81,6 @@ Tools used: Loopback, PostgreSQL
 Author: Federico Aballay
 
 Path: /parking
-> [Release notes](parking_service/README.md)
 
 ## Payments_service
 
@@ -94,7 +90,6 @@ Tools used: Loopback, PostgreSQL
 Author: Federico Aballay
 
 Path: /payment
-> [Release notes](payments_service/README.md)
 
 # Frontend
 
