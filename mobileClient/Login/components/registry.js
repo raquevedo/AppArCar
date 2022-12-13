@@ -135,6 +135,7 @@ function FormReg({ navigation }) {
           <DatePicker
             isVisible={isDatePickerVisible}
             mode="date"
+            locale="en_GB"
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
           />

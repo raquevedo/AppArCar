@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   themeText: {
     flex: 4,
     fontSize: 40,
-    fontFamily: "TTNorms-BoldItalic",
+    fontFamily: "TTNorms-Regular",
     textAlign: "center",
     color: "#5741f2",
     justifyContent: "center",
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   themeTextFlat2: {
     flex: 1,
     fontSize: 20,
-    fontFamily: "TTNorms-BoldItalic",
+    fontFamily: "TTNorms-Regular",
     textAlign: "center",
     color: "green",
     justifyContent: "center",
