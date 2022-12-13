@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import { PersistProfile } from "../controllers/profile_controller";
 import { LinearGradient } from "expo-linear-gradient";

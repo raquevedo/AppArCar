@@ -1,4 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
+import { Alert } from 'react-native';
 import host_instance from '../../host_instance.json';
 
 async function payOut(data){
@@ -15,12 +16,11 @@ async function payOut(data){
     return fetch(host_instance.path+'/payments/payments',fetchData)
     .then(async function(response){
         if(response.status != 200){
-        console.log("Error")
-        alert("Transaction error. Please contact with AppArCar call center.")
+            Alert.alert('Sorry', 'Internal error')
         }else{
-        console.log('Payment success')
+            console.log('Payment success')
         }
-    })
+    }).catch(()=>Alert.alert('Ups','Connection error on payment'));
 }
 
 export { payOut }

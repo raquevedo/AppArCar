@@ -6,7 +6,8 @@ import {
   FlatList,
   SafeAreaView,
   TouchableOpacity,
-  Image
+  Image,
+  Alert
 } from "react-native";
 import { GetUserInfo } from "../../Services/requests";
 import { GetCars } from "../controllers/car_controller";
@@ -36,7 +37,7 @@ function Cars({ navigation }) {
   React.useEffect(() => {
     console.log(focus);
     const getCars = async () => {
-      const response = await GetCars();
+      const response = await GetCars().catch(()=>Alert.alert('Ups','Problem Connection'));
       const resData = await response.json();
       console.log(resData);
       setCars(resData);

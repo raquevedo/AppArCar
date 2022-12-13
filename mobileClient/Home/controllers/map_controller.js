@@ -1,4 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
+import { Alert } from 'react-native';
 import host_instance from '../../host_instance.json';
 
 async function getCoordinates(address){
@@ -7,7 +8,7 @@ async function getCoordinates(address){
     fetchData.headers={
         'Content-Type': 'application/json'
         }
-    const response = await fetch(host_instance.path+'/geo/coordinates/'+address,fetchData)
+    const response = await fetch(host_instance.path+'/geo/coordinates/'+address,fetchData).catch(()=>Alert.alert('Ups','Connection error'));
     if(response.status === 200){
       return response.json();
     }else{
@@ -22,8 +23,13 @@ async function getCoordinates(address){
         'Content-Type': 'application/json',
         'Authorization':'Bearer '+userToken
     }
-    const response = await fetch(host_instance.path+`/parking/parking/nearest/latitude=${coordinates.latitude}/longitude=${coordinates.longitude}/kilometers=2`,fetchData)
-    //const response = await fetch(host_instance.path+'/parking/parking/nearest/latitude='+parseFloat(coordinates.latitude)+'/longitude='+parseFloat(coordinates.longitude)+'/kilometers=1',fetchData)
-    return response.json()
+    return fetch(host_instance.path+`/parking/parking/nearest/latitude=${coordinates.latitude}/longitude=${coordinates.longitude}/kilometers=2`,fetchData).then((response)=>{
+      if(response.status!=200){
+        Alert.alert('Sorry','Internal error');
+      }else{
+        return response;
+      }
+    }).catch(()=>{Alert.alert('Ups','Connection error on map')});
+    
   }
 export {getCoordinates, getNearParkings}

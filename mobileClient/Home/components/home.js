@@ -51,7 +51,8 @@ function HomeScreen({ navigation }) {
     }
   }
   async function getThisNearParkings(coordinates){
-    const nearParkings = await getNearParkings(coordinates)
+    const response = await getNearParkings(coordinates);
+    const nearParkings = await response.json();
     setNearParkings(nearParkings)
     console.log(nearParkings)
   }
@@ -80,17 +81,20 @@ function HomeScreen({ navigation }) {
     setRegionMapLon(coordinates.longitude)
   }
   async function thisReserve(parking){
-    
-    const selectedCar= await SecureStore.getItemAsync("patent");
-    const response = await getPaymentMethods();
-    const cards = await response.json();
-    const response2 = await GetCars();
-    const cars = await response2.json();
-    cars.filter((x)=> x.patentId == selectedCar)!=0
-    if((cars.filter((x)=> x.patentId == selectedCar)).length!=0 && cards.length!=0){
-      navigation.navigate("Reservation",{parking:parking})  
-    }else{
-      Alert.alert('Important','To booking: you must add and select some car and credit card.');
+    try{
+      const selectedCar= await SecureStore.getItemAsync("patent");
+      const response = await getPaymentMethods().catch(()=>Alert.alert('Ups','Connection error on reserve'));
+      const cards = await response.json();
+      const response2 = await GetCars();
+      const cars = await response2.json();
+      cars.filter((x)=> x.patentId == selectedCar)!=0
+      if((cars.filter((x)=> x.patentId == selectedCar)).length!=0 && cards.length!=0){
+        navigation.navigate("Reservation",{parking:parking})  
+      }else{
+        Alert.alert('Important','To booking: you must add and select some car and credit card.');
+      }
+    }catch(err){
+      console.log(err,'- Posible falta de json -')
     }
   }
   useEffect(() => {
@@ -98,12 +102,14 @@ function HomeScreen({ navigation }) {
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
           setErrorMsg('Permission to access location was denied');
-        }
+        }else{
         let location = await Location.getCurrentPositionAsync({});
         setRegionMapLat(location.coords.latitude)
         setRegionMapLon(location.coords.longitude)
         setLocation(location);
         getThisNearParkings(location.coords)
+      }
+        
     })();
   }, []);
 

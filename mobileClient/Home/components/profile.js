@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import { GetUserInfo } from "../../Services/requests";
 import { LinearGradient } from "expo-linear-gradient";
@@ -12,7 +13,7 @@ import styles from "../../Services/styles";
 import { useIsFocused } from "@react-navigation/native";
 
 function Profile({ navigation }) {
-  const [user,setUser] = useState("");
+  const [user,setUser] = useState(null);
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [documentNumber, setDocument] = useState("");
@@ -35,7 +36,7 @@ function Profile({ navigation }) {
     hideDatePicker();
   };
   const loadDataOnlyOnce = async function () {
-    const response = await GetUserInfo();
+    const response = await GetUserInfo().catch(()=>Alert.alert('Ups','Connection error'));
     let respData = await response.json();
     respData = respData.data;
     setName(respData.name);
@@ -49,11 +50,21 @@ function Profile({ navigation }) {
   };
 
   const [isFocus, setIsFocus] = useState(false);
+
   const data = [
     { label: "Male", value: "Male" },
     { label: "Female", value: "Female" },
     { label: "Other", value: "Other" },
   ];
+
+  function navigateToEditProfile(){
+    if(user!=null){
+      navigation.navigate('Edit Profile',{user:user});
+    }else{
+      Alert.alert('Ups!','Connection error');
+    }
+  }
+
   useEffect(() => {
     loadDataOnlyOnce();
   }, [focus]);
@@ -85,7 +96,7 @@ function Profile({ navigation }) {
           <TouchableOpacity
             style={styles.containButtonStylel}
             onPress={() =>
-              navigation.navigate('Edit Profile',{user:user})
+              navigateToEditProfile()
             }
           >
             <LinearGradient

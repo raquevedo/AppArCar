@@ -57,9 +57,8 @@ function ReservationsScreen({ navigation, route }){
         <Text style={styles.heading3}>{"Booking amount: $"+route.params.parking.priceHour}</Text>
         <TouchableOpacity
           style={styles.containButtonStyleFlat}
-          onPress={() => console.log(route.params.parking) & 
-            console.log(getSelectedPayment()) &
-            reserve(route.params.parking.id) // salvar idParking
+          onPress={async () => 
+            await reserve(route.params.parking.id)
           }
         >
           <LinearGradient
