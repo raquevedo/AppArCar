@@ -1,4 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
+import { Alert } from 'react-native';
 import host_instance from '../../host_instance.json';
 
 async function GetCars(){
@@ -11,7 +12,13 @@ async function GetCars(){
         'Authorization':'Bearer '+userToken
         }
     console.log(fetchData)
-    return fetch(host_instance.path+'/user/cars',fetchData)
+    return fetch(host_instance.path+'/user/cars',fetchData).then(function(response){
+        if(response.status != 200){
+            Alert.alert('Sorry', 'Internal error')
+        }else{
+            return response;
+        }
+    });
 }
 async function PersistCar(data){
     const userToken = await SecureStore.getItemAsync('tk');
@@ -27,14 +34,12 @@ async function PersistCar(data){
     return fetch(host_instance.path+'/user/cars/create',fetchData)
     .then(async function(response){
         if(response.status != 200){
-        console.log("Error")
-        alert("Error, please check data inputs")
+            Alert.alert('Sorry', 'Internal error')
         }else{
-        console.log('Create car is success')
-        alert('Your car was registered.')
-        
+            Alert.alert('Greate','Your car was registered.')
+            return response;
         }
-    })
+    }).catch(()=>Alert.alert('Problem connetion'))
 }
 async function UpdateCar(data){
     const userToken = await SecureStore.getItemAsync('tk');
@@ -50,15 +55,12 @@ async function UpdateCar(data){
         'Authorization':'Bearer '+userToken
         }
     console.log(fetchData)
-    fetch(host_instance.path+'/user/cars/update-car/'+id,fetchData)
+    return fetch(host_instance.path+'/user/cars/update-car/'+id,fetchData)
     .then(async function(response){
         if(response.status != 204){
-        console.log("Error")
-        alert("Error, por favor verifique los datos ingresados")
+            Alert.alert('Sorry', 'Internal error')
         }else{
-        console.log('Create car is success')
-        alert('Your car was updated.')
-        
+            Alert.alert('Greate','Your car was updated')
         }
     })
 }
@@ -73,6 +75,12 @@ async function DeleteCar(id){
         'Authorization':'Bearer '+userToken
         }
     console.log(fetchData)
-    await fetch(host_instance.path+'/user/cars/remove/'+id,fetchData)
+    return fetch(host_instance.path+'/user/cars/remove/'+id,fetchData).then(function(response){
+        if(response.status != 204){
+            Alert.alert('Sorry', 'Internal error')
+        }else{
+            Alert.alert('Success','Your car was deleted')
+        }
+    }).catch(()=>Alert.alert('Problem connetion'));
 }
 export { GetCars, PersistCar, DeleteCar, UpdateCar}

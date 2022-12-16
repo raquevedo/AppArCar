@@ -1,5 +1,5 @@
 import { useEffect,useState,useCallback } from "react";
-import { View, ScrollView, Text, TouchableOpacity,Image } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity,Image, Alert } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { DeleteCar, UpdateCar } from "../controllers/car_controller";
 import styles from "../../Services/styles";
@@ -33,7 +33,7 @@ function EditCar({ route, navigation }) {
         model:model.value, 
         color:color.value, 
         productionYear:productionYear.value 
-      });
+      }).catch(()=>Alert.alert('Ups','Connection error'));
     }
   }
 

@@ -1,19 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
-async function loginUser(credentials) {
-  return fetch("http://localhost:8000/auth/users/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-}
+import { logUserIn } from "../../controllers/authController";
 
 const schema = yup.object({
   email: yup
@@ -24,11 +15,9 @@ const schema = yup.object({
 });
 
 export default function Login({ setToken, setUserLoggedIn }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const { register, handleSubmit, formState: { errors } } = useForm({
     mode: "onTouched",
     resolver: yupResolver(schema),
   });
@@ -38,13 +27,21 @@ export default function Login({ setToken, setUserLoggedIn }) {
   const onSubmit = async (data) => {
     const email = data.email;
     const password = data.password;
-    const token = await loginUser({
+    let resp = await logUserIn({
       email,
       password,
     });
-    setToken(token);
-    setUserLoggedIn(true);
-    navigate("/dashboard");
+    if (resp.status === 200) {
+      let data = await resp.json();
+      setToken(data);
+      setUserLoggedIn(true);
+      navigate("/dashboard");
+    } else if (resp.status === 401) {
+      setErrorMessage('Invalid username/password');
+    } else {
+      console.log('Error contacting auth service');
+      setErrorMessage('Unexpected error');
+    }
   };
 
   return (
@@ -72,6 +69,7 @@ export default function Login({ setToken, setUserLoggedIn }) {
         <button className="signin-button" type="submit">
           Login
         </button>
+        <p className="error-text">{ errorMessage }</p>
       </form>
     </div>
   );

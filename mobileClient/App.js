@@ -21,11 +21,10 @@ import EditCar from "./Home/components/editCar";
 import { AuthContext } from "./Services/context";
 import { PaymentContext } from "./Services/paymentContext";
 import host_instance from "./host_instance.json";
-import { IsRegisteredFunc } from "./Services/requests";
+import { IsRegisteredFunc, login, sign_up, register_ctl } from "./Services/requests";
 import * as Font  from "expo-font";
 import AppLoading from "expo-app-loading";
 const Stack = createNativeStackNavigator();
-
 
 export default function App({ navigation }) {
   const [fontsLoaded, setFontsLoaded] = React.useState(false);
@@ -36,7 +35,7 @@ export default function App({ navigation }) {
   const getFonts = () =>
   Font.loadAsync({
     "TTNorms-Light": require("./assets/fonts/TTNorms-Light.otf"),
-    "TTNorms-Regular": require("./assets/fonts/TTNorms-Regular.otf"),
+    "TTNorms-Regular": require("./assets/fonts/Montserrat-Regular.ttf"),
     "TTNorms-BoldItalic": require("./assets/fonts/TTNorms-BoldItalic.otf"),
     "LicensePlate": require("./assets/fonts/LicensePlate.ttf"),
     "Credit": require("./assets/fonts/credit.ttf"),
@@ -70,12 +69,12 @@ export default function App({ navigation }) {
       userToken: null,
     }
   );
-
+/**
+ * Fetch the token from storage then navigate to our appropriate place
+ */
   React.useEffect(() => {
-    // Fetch the token from storage then navigate to our appropriate place
     const bootstrapAsync = async () => {
       let userToken;
-
       try {
         userToken = await SecureStore.getItemAsync("tk");
         const registro_boolean = await IsRegisteredFunc(userToken);
@@ -90,82 +89,38 @@ export default function App({ navigation }) {
       } catch (e) {
         // Restoring token failed
       }
-
       dispatch({ type: "RESTORE_TOKEN", token: userToken });
-      //Habilitar ambas para resetear localstorge
-      //dispatch({ type: 'SIGN_OUT' })
-      //await SecureStore.deleteItemAsync('tk')
     };
-
     bootstrapAsync();
   }, []);
 
   const authContext = React.useMemo(() => ({
     signUp: async (data) => {
-      //Armo los datos que serán enviados en la request
-      const fetchData = {};
-      fetchData.method = "POST";
-      fetchData.body = JSON.stringify(data);
-      fetchData.headers = {
-        accept: "application/json",
-        "Content-Type": "application/json",
-      };
-      //Hago el request a signup
-      console.log(fetchData);
-      fetch(host_instance.path + "/auth/signup", fetchData).then(
-        async function (response) {
-          if (response.status != 200) {
-            alert("Internal error");
-          } else {
-            const dataRes = await response.json();
-            console.log("SignaUp OK");
-            //console.log('Response header:',response)
-            alert("Credentials successfully set, please log in");
-          }
-        }
-      );
+      try{
+        const response=await sign_up(data);
+        const respData = await response.json();
+        console.log("SignaUp OK");
+        Alert.alert('Succes credentials','Credentials successfully set, please log in');
+      }catch(err){
+        console.log(err);
+      }
     },
     signIn: async (data) => {
       try {
-        //Armo los datos que serán enviados en la request
-        const fetchData = {};
-        fetchData.method = "POST";
-        fetchData.body = JSON.stringify(data);
-        fetchData.headers = {
-          accept: "application/json",
-          "Content-Type": "application/json",
-        };
-        //Hago el request a login
-        fetch(host_instance.path + "/auth/users/login", fetchData).then(
-          async function (response) {
-            const dataRes = await response.json();
-            if (response.status == 422) {
-              console.log("Status response:", response.status);
-              alert("Invalid credentials");
-            } else if (response.status == 401) {
-              console.log("Status response:", response.status);
-              alert("Invalid credentials");
-            } else if (response.status == 200) {
-              const isReg = await IsRegisteredFunc(dataRes.token);
-              dispatch({ type: "SIGN_IN", token: dataRes.token });
-              await SecureStore.setItemAsync("tk", dataRes.token);
-              if (!isReg) {
-                console.log("Completar registro");
-                setIsRegistered(false);
-              } else {
-                console.log("Go to home");
-                setIsRegistered(true);
-                //guardar datos para perfil ??
-              }
-            } else {
-              //const dataRes = await response.json();
-              console.log(dataRes);
-              alert("Internal error");
-            }
-          }
-        );
+        const response = await login(data);
+        const resData = await response.json();
+        const isReg = await IsRegisteredFunc(resData.token);
+        dispatch({ type: "SIGN_IN", token: resData.token });
+        await SecureStore.setItemAsync("tk", resData.token);
+        if (!isReg) {
+          console.log("Completar registro");
+          setIsRegistered(false);
+        } else {
+          console.log("Go to home");
+          setIsRegistered(true);
+        }
       } catch (error) {
-        console.error("error error:", error);
+        console.error(error, 'Posible caida del server');
       }
     },
     signOut: async () => {
@@ -173,36 +128,15 @@ export default function App({ navigation }) {
       await SecureStore.deleteItemAsync("tk");
     },
     register: async (data) => {
-      const userToken = await SecureStore.getItemAsync("tk");
-
-      //data.birthDateDt="2022-09-14T18:03:44.163Z"
-      data.documentNumber = parseInt(data.documentNumber);
-      data.contactNumber = parseInt(data.contactNumber);
-      const fetchData = {};
-      fetchData.method = "POST";
-      fetchData.body = JSON.stringify(data);
-      fetchData.headers = {
-        accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + userToken,
-      };
-
-      //fetchData.headers.Authorization='Bearer '+userToken
-      console.log("Data to register:", fetchData);
-      //Hago el request a signup
-      fetch(
-        host_instance.path + "/user/car-drivers/create-user",
-        fetchData
-      ).then(async function (response) {
-        if (response.status != 200) {
-          console.log("not 200");
-        } else {
-          const dataRes = await response.json();
-          console.log("Registry is success");
-          setIsRegistered(true);
-          alert("Welcome to AppArCar");
-        }
-      });
+      try{
+        const response = await register_ctl(data);
+        const dataRes = await response.json();
+        setIsRegistered(true);
+        alert("Welcome to AppArCar");
+      }
+      catch(err){
+        console.log(err - 'posible perdida de datos')
+      }
     },
   }));
   const paymentContext = React.useMemo(() => ({

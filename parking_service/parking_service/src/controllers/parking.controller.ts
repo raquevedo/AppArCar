@@ -188,16 +188,6 @@ export class ParkingController {
     await this.pkgParkingRepository.updateById(id, pkgParking);
   }
 
-
-
-  @del('/parking/{id}')
-  @response(204, {
-    description: 'PkgParking DELETE success',
-  })
-  async deleteById(@param.path.number('id') id: number): Promise<void> {
-    await this.pkgParkingRepository.deleteById(id);
-  }
-
   @get('/parking/nearest/latitude={latitude}/longitude={longitude}/kilometers={kilometers}')
   @response(200, {
     description: 'Array of PkgParking model instances',

@@ -22,11 +22,11 @@ function AboutUs(){
       ]
     },
     {
-      name: "Maximiliano Lopez",
+      name: "Maximiliano Gilberto",
       image: "ProfileImgMaxi",
       roles: [
-        "Frontend Developer",
-        "React Native Specialist"
+        "FullStack Developer",
+        "Lead React Native Developer"
       ]
     },
     {

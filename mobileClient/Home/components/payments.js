@@ -35,9 +35,8 @@ function Payments({ navigation }) {
   };
 
   async function eraseCreditCard (itemId){
-    
     const erase = async (itemId) => {
-      const response = await deleteCreditCard(itemId)
+      const response = await deleteCreditCard(itemId).catch(()=>Alert.alert('Ups','Connection error'));
       setDeleteFlag(Date.now()+response.status);
     }
 
@@ -64,15 +63,22 @@ function Payments({ navigation }) {
 
   React.useEffect(() => {
     console.log(focus);
-    const thisGetPaymentMethods = async () => {
-      const response = await getPaymentMethods();
-      const resData = await response.json();
-      console.log(resData);
-      setPaymentsMethods(resData);
-    };
-    if (focus) {
-      thisGetPaymentMethods();
+    try{
+      const thisGetPaymentMethods = async () => {
+        const response = await getPaymentMethods().catch((err)=>console.log(Alert.alert('Ups!','Connection error on payment methods')));
+        const resData = await response.json();
+        console.log(resData);
+        console.log('maximiliano');
+        setPaymentsMethods(resData);
+      }
+      if (focus) {
+        thisGetPaymentMethods();
+      }
+    }catch(err){
+      console.log(err);
     }
+   
+    
   }, [focus,deleteFlag]);
 
   return (
