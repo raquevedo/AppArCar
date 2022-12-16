@@ -98,7 +98,7 @@ function FormReg({ navigation }) {
         <Image source={require("../../assets/logo.png")} style={styles.image} />
         <View style={styles.sectionLong}>
           <View style={styles.space}></View>
-          <Text style={styles.themeTextShort}>Complete sus datos:</Text>
+          <Text style={styles.themeTextShort}>Tell us about you</Text>
           <CustomInput styles={styles} data={name} setData={setInput1Handl}></CustomInput>
           <CustomInput styles={styles} data={lastName} setData={setInput2Handl}></CustomInput>
           <CustomInput styles={styles} data={documentNumber} setData={setInput3Handl}></CustomInput>
@@ -129,7 +129,7 @@ function FormReg({ navigation }) {
             <Text style={styles.textDate}>{`${
               birthDateDt
                 ? moment(birthDateDt).format("MM/DD/YYYY")
-                : "Born date"
+                : "Date of birth"
             }`}</Text>
           </TouchableOpacity>
           <DatePicker

@@ -90,7 +90,7 @@ function HomeScreen({ navigation }) {
     if((cars.filter((x)=> x.patentId == selectedCar)).length!=0 && cards.length!=0){
       navigation.navigate("Reservation",{parking:parking})  
     }else{
-      Alert.alert('Important','To booking: you must add and select some car and credit card.');
+      Alert.alert('Important','To book: you must set up and select a car and credit card.');
     }
   }
   useEffect(() => {
@@ -196,7 +196,7 @@ function HomeScreen({ navigation }) {
           </TouchableOpacity>
           { reserveData.visible ? (
           <TouchableOpacity style={styles.buttonPatent} onPress={() => setModalResVisible(!modalResVisible) }>
-            <Text style={styles.textPatent}>Reservar</Text>
+            <Text style={styles.textPatent}>Book</Text>
           </TouchableOpacity>):<></>
           }
         </View>

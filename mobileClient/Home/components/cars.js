@@ -23,7 +23,7 @@ function Cars({ navigation }) {
     return (
       <View>
         <Text style={{ fontFamily: "TTNorms-Regular",fontSize: 30 }}>
-          No hay vehiculos registrados.
+          No cars set up
         </Text>
       </View>
     );

@@ -24,7 +24,7 @@ function Payments({ navigation }) {
     return (
       <View>
         <Text style={{ fontFamily: "TTNorms-Regular",fontSize: 30 }}>
-          You have not payment methods regitered.
+          No payment methods regitered.
         </Text>
       </View>
     );
@@ -103,7 +103,7 @@ function Payments({ navigation }) {
                       onPress={() =>
                         eraseCreditCard(item.id)
                       }
-                    >Borrar</Text>
+                    >Delete</Text>
                     </View>
                   </Text>
                 </View>

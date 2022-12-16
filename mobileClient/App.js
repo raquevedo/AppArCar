@@ -120,7 +120,7 @@ export default function App({ navigation }) {
             const dataRes = await response.json();
             console.log("SignaUp OK");
             //console.log('Response header:',response)
-            alert("Succes credentials. Please loged-on.");
+            alert("Credentials successfully set, please log in");
           }
         }
       );
@@ -290,7 +290,7 @@ export default function App({ navigation }) {
                     </>
                   ) : (
                     <>
-                      <Stack.Screen name="Registrar" component={FormReg} options={{ headerShown: false }}/>
+                      <Stack.Screen name="Register" component={FormReg} options={{ headerShown: false }}/>
                     </>
                   )}
                 </>
