@@ -100,7 +100,7 @@ export default function App({ navigation }) {
         const response=await sign_up(data);
         const respData = await response.json();
         console.log("SignaUp OK");
-        Alert.alert('Succes credentials','Please loged-on.');
+        Alert.alert('Succes credentials','Credentials successfully set, please log in');
       }catch(err){
         console.log(err);
       }
@@ -224,7 +224,7 @@ export default function App({ navigation }) {
                     </>
                   ) : (
                     <>
-                      <Stack.Screen name="Registrar" component={FormReg} options={{ headerShown: false }}/>
+                      <Stack.Screen name="Register" component={FormReg} options={{ headerShown: false }}/>
                     </>
                   )}
                 </>

@@ -83,13 +83,13 @@ function BookingHistory({ navigation }) {
                     style={styles.textFlatList}
                   >
                     <View style={styles.containTextFlatList}>
-                        <Text style={styles.heading2}>Patente: {item.patentId}</Text>
-                        <Text style={styles.subheading}>Tomada:{formatEnglishDate(item.createdAtDttm)}</Text>
+                        <Text style={styles.heading2}>Patent: {item.patentId}</Text>
+                        <Text style={styles.subheading}>Application:{formatEnglishDate(item.createdAtDttm)}</Text>
                         {item.checkoutAtDttm!=null?<>
-                        <Text style={styles.subheading}>Cerrada:{formatEnglishDate(item.checkoutAtDttm)}</Text>
+                        <Text style={styles.subheading}>Closed:{formatEnglishDate(item.checkoutAtDttm)}</Text>
                         </>:
                         <></>}
-                        <Text style={styles.subheading}>Monto:{item.totalPrice}</Text>    
+                        <Text style={styles.subheading}>Amount:{item.totalPrice}</Text>    
                     </View>
                   </Text>
                 </View>

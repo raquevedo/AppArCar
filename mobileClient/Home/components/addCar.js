@@ -56,7 +56,7 @@ function AddCar({ navigation }) {
         <View style={styles.sectionLong}>
           <View style={styles.space}></View>
           <Text style={styles.themeTextShort}>
-            Please enter data car:
+            A few questions
           </Text>
           <CustomInput styles={styles} data={patentId} setData={setInput1Handl}></CustomInput>
           <CustomInput styles={styles} data={brand} setData={setInput2Handl}></CustomInput>

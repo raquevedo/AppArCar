@@ -81,7 +81,7 @@ function Profile({ navigation }) {
           <Text style={styles.nameSurname}>{name}</Text>
           <Text style={styles.subheadingTitle}>Last Name:</Text>
           <Text style={styles.nameSurname}>{lastName}</Text>
-          <Text style={styles.subheadingTitle}>Document Number:</Text>
+          <Text style={styles.subheadingTitle}>ID Number:</Text>
           <Text style={styles.subheading}>{documentNumber}</Text>
           <Text style={styles.subheadingTitle}>Contact Number:</Text>
           <Text style={styles.subheading}>{contactNumber}</Text>
